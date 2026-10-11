@@ -1,0 +1,10 @@
+CREATE TABLE category(
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(255) NOT NULL,
+    slug VARCHAR(255) Unique NOT NULL,
+    description TEXT,
+    icon VARCHAR(255),
+    "isDeleted" BOOLEAN DEFAULT FALSE,
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
