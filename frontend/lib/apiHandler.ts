@@ -116,13 +116,4 @@ export const apiHandler = async <
     }
 };
 
-export const getMe = async () => {
-    const res = await apiHandler({
-        baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT,
-        path: `auth/me`,
-        method: apiMethods.GET as keyof typeof apiMethods,
-        formData: false,
-        params: {},
-    });
-    return res;
-};
+
