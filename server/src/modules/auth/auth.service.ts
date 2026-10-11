@@ -2,10 +2,10 @@ import bcrypt from "bcrypt";
 import config from "../../config/index.js";
 import { ILoginUser, RegisterPayload } from "./auth.interface.js";
 import { pool } from "../../utils/pg";
-import { jwtUtils } from '../../utils/jwt';
+import { jwtUtils } from "../../utils/jwt";
 
 const registerUserIntoDB = async (payload: RegisterPayload) => {
-  const { name, email, password, phone, address, role } = payload;
+  const { name, email, role, authProviderId } = payload;
 
   // 1. Check existing user
   const existingUser = await pool.query(
@@ -17,33 +17,22 @@ const registerUserIntoDB = async (payload: RegisterPayload) => {
     throw new Error("User with this email already exists");
   }
 
-  const hashedPassword = await bcrypt.hash(
-    password,
-    Number(config.bcrypt_salt_rounds),
-  );
-
   const insertQuery = `
     INSERT INTO users (
       name,
       email,
-      password,
-      phone,
-      address,
       role,
-      status
+      "authProviderId"
     )
-    VALUES ($1, $2, $3, $4, $5, $6, $7)
-    RETURNING id, name, email, phone, address, role, status
+    VALUES ($1, $2, $3, $4)
+    RETURNING *;
   `;
 
   const result = await pool.query(insertQuery, [
     name,
     email,
-    hashedPassword,
-    phone,
-    address,
     role,
-    "ACTIVE",
+    authProviderId,
   ]);
 
   const createdUser = result.rows[0];
@@ -69,9 +58,7 @@ const loginUser = async (payload: ILoginUser) => {
   }
 
   if (user.status === "SUSPENDED") {
-    throw new Error(
-      "Your account has been suspended. Please contact support.",
-    );
+    throw new Error("Your account has been suspended. Please contact support.");
   }
 
   if (!user.password) {
@@ -80,10 +67,7 @@ const loginUser = async (payload: ILoginUser) => {
     );
   }
 
-  const isPasswordMatched = await bcrypt.compare(
-    password,
-    user.password,
-  );
+  const isPasswordMatched = await bcrypt.compare(password, user.password);
 
   if (!isPasswordMatched) {
     throw new Error("Invalid email or password.");
@@ -113,8 +97,6 @@ const loginUser = async (payload: ILoginUser) => {
     refreshToken,
   };
 };
-
-
 
 export const AuthServices = {
   registerUserIntoDB,
