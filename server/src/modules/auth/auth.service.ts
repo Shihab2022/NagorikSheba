@@ -51,72 +51,72 @@ const registerUserIntoDB = async (payload: RegisterPayload) => {
   return createdUser;
 };
 
-// const loginUser = async (payload: ILoginUser) => {
-//   const { email, password } = payload;
+const loginUser = async (payload: ILoginUser) => {
+  const { email, password } = payload;
 
-//   const result = await pool.query(
-//     `SELECT id, name, email, password, role, status
-//      FROM users
-//      WHERE email = $1
-//      LIMIT 1`,
-//     [email],
-//   );
+  const result = await pool.query(
+    `SELECT id, name, email, password, role, status
+     FROM users
+     WHERE email = $1
+     LIMIT 1`,
+    [email],
+  );
 
-//   const user = result.rows[0];
+  const user = result.rows[0];
 
-//   if (!user) {
-//     throw new Error("Invalid email or password.");
-//   }
+  if (!user) {
+    throw new Error("Invalid email or password.");
+  }
 
-//   if (user.status === "SUSPENDED") {
-//     throw new Error(
-//       "Your account has been suspended. Please contact support.",
-//     );
-//   }
+  if (user.status === "SUSPENDED") {
+    throw new Error(
+      "Your account has been suspended. Please contact support.",
+    );
+  }
 
-//   if (!user.password) {
-//     throw new Error(
-//       "Your account has been password problem. Please contact support.",
-//     );
-//   }
+  if (!user.password) {
+    throw new Error(
+      "Your account has been password problem. Please contact support.",
+    );
+  }
 
-//   const isPasswordMatched = await bcrypt.compare(
-//     password,
-//     user.password,
-//   );
+  const isPasswordMatched = await bcrypt.compare(
+    password,
+    user.password,
+  );
 
-//   if (!isPasswordMatched) {
-//     throw new Error("Invalid email or password.");
-//   }
+  if (!isPasswordMatched) {
+    throw new Error("Invalid email or password.");
+  }
 
-//   const jwtPayload = {
-//     id: user.id,
-//     name: user.name,
-//     email: user.email,
-//     role: user.role,
-//   };
+  const jwtPayload = {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  };
 
-//   const accessToken = jwtUtils.createToken(
-//     jwtPayload,
-//     config.jwt_access_secret,
-//     config.jwt_access_expire_in,
-//   );
+  const accessToken = jwtUtils.createToken(
+    jwtPayload,
+    config.jwt_access_secret,
+    config.jwt_access_expire_in,
+  );
 
-//   const refreshToken = jwtUtils.createToken(
-//     jwtPayload,
-//     config.jwt_refresh_secret,
-//     config.jwt_refresh_expirres_in,
-//   );
+  const refreshToken = jwtUtils.createToken(
+    jwtPayload,
+    config.jwt_refresh_secret,
+    config.jwt_refresh_expirres_in,
+  );
 
-//   return {
-//     accessToken,
-//     refreshToken,
-//   };
-// };
+  return {
+    accessToken,
+    refreshToken,
+  };
+};
 
 
 
 export const AuthServices = {
   registerUserIntoDB,
-//   loginUser,
+  loginUser,
 };
