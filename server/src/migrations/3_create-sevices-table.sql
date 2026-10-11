@@ -5,7 +5,7 @@ CREATE TYPE verify_status AS ENUM (
 );
 
 CREATE TABLE services (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     "categoryId" UUID NOT NULL REFERENCES category(id),
     name VARCHAR(100) NOT NULL,
     slug VARCHAR(255) UNIQUE NOT NULL,
@@ -17,6 +17,7 @@ CREATE TABLE services (
     "verificationStatus" verify_status NOT NULL DEFAULT 'UNVERIFIED',
     "lastVerifiedAt" TIMESTAMP,
     "isPublished" BOOLEAN NOT NULL DEFAULT FALSE,
+    "isDeleted" BOOLEAN DEFAULT FALSE,
     "createdAt" TIMESTAMP NOT NULL,
     "updatedAt" TIMESTAMP NOT NULL
 );
