@@ -5,9 +5,9 @@ CREATE TABLE serviceFee(
     amount DECIMAL(12,2) NULL,
     currency VARCHAR(3) NOT NULL Default 'BDT',
     description TEXT,
-    "effectiveFrom" DATE,
-    "effectiveUntil" DATE,
+    "effectiveFrom" DATE NULL,
+    "effectiveUntil" DATE NULL,
     "isDeleted" BOOLEAN DEFAULT FALSE,
-    "createdAt" TIMESTAMP NOT NULL,
-    "updatedAt" TIMESTAMP NOT NULL
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

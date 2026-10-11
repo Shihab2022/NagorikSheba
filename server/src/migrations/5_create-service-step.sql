@@ -13,11 +13,11 @@ CREATE TABLE serviceStep (
     "stepNumber" INTEGER NOT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    "actionType" action_enum NOT NULL,
+    "actionType" action_enum NOT NULL DEFAULT 'READ_GUIDE',
     "officialUrl" TEXT,
     "isDeleted" BOOLEAN DEFAULT FALSE,
-    "createdAt" TIMESTAMP NOT NULL,
-    "updatedAt" TIMESTAMP NOT NULL,
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     UNIQUE ("serviceId", "stepNumber")
 );

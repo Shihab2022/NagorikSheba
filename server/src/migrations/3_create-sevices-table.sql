@@ -15,9 +15,9 @@ CREATE TABLE services (
     "processingTime" VARCHAR(255),
     "officialUrl" TEXT,
     "verificationStatus" verify_status NOT NULL DEFAULT 'UNVERIFIED',
-    "lastVerifiedAt" TIMESTAMP,
+    "lastVerifiedAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "isPublished" BOOLEAN NOT NULL DEFAULT FALSE,
     "isDeleted" BOOLEAN DEFAULT FALSE,
-    "createdAt" TIMESTAMP NOT NULL,
-    "updatedAt" TIMESTAMP NOT NULL
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

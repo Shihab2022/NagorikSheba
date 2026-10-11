@@ -8,8 +8,8 @@ CREATE TABLE serviceSource(
     title VARCHAR(255) NOT NULL,
     url TEXT NOT NULL,
     "sourceType" source_enum NOT NULL,
-    "lastCheckedAt" TIMESTAMP,
+    "lastCheckedAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "isDeleted" BOOLEAN DEFAULT FALSE,
-    "createdAt" TIMESTAMP NOT NULL,
-    "updatedAt" TIMESTAMP NOT NULL
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
