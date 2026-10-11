@@ -1,27 +1,12 @@
+CREATE TYPE user_role AS ENUM ('USER', 'ADMIN');
+
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-
-    name VARCHAR(255),
-
-    img TEXT DEFAULT '',
-
-    email VARCHAR(255) NOT NULL UNIQUE,
-
-    password TEXT NOT NULL,
-
-    status VARCHAR(50) DEFAULT 'ACTIVE',
-
-    role VARCHAR(50) DEFAULT 'USER',
-
-    verified_code INTEGER DEFAULT NULL,
-
-    bio TEXT DEFAULT '',
-
-    is_account_verified BOOLEAN DEFAULT FALSE,
-
-    is_google_login BOOLEAN DEFAULT FALSE,
-
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    "authProviderId" VARCHAR(255) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE,
+    role user_role NOT NULL DEFAULT 'USER',
+    "isDeleted" BOOLEAN DEFAULT FALSE,
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
