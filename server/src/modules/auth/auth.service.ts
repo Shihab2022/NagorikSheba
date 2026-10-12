@@ -61,16 +61,14 @@ const createUserIntoDB = async (payload: {
 const LoginUserIntoDB = async (payload: { email: string; password: string }) => {
   const { email, password } = payload;
 
-  const result = await pool.query(`${selectUser} WHERE email = $1 LIMIT 1`, [
-    email.toLowerCase(),
-  ]);
+  const result = await pool.query(
+    `${selectUser} WHERE email = $1 AND "isDeleted" = false LIMIT 1`,
+    [email.toLowerCase()],
+  );
   const user = result.rows[0];
 
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, "User does not exist.");
-  }
-  if (user.isDeleted) {
-    throw new ApiError(httpStatus.FORBIDDEN, "This account has been deactivated.");
   }
 
   const identity = await pool.query(

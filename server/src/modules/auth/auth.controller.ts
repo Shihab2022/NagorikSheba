@@ -2,18 +2,8 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 import catchAsync from "../../helpars/catchAsync";
 import sendResponse from "../../helpars/sendResponse";
-import config from "../../config";
+import { setAuthCookie } from "../../utils/setAuthCookie";
 import { AuthServices } from "./auth.service";
-
-const setAuthCookie = (res: Response, token: string) => {
-  const isProduction = config.NODE_ENV === "production";
-  res.cookie("accessToken", token, {
-    httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? "none" : "lax",
-    maxAge: 90 * 24 * 60 * 60 * 1000, // 90 days
-  });
-};
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthServices.createUserIntoDB(req.body);
