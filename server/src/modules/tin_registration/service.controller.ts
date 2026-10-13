@@ -35,31 +35,31 @@ const getAllServices = async (
   });
 };
 
-// const getServiceBySlug = async (
-//   req: Request,
-//   res: Response,
-// ): Promise<void> => {
-//   const { slug } = req.params;
+const getServiceBySlug = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const { slug } = req.params;
 
-//   const service = await ServiceService.getServiceBySlug(slug as string);
+  const service = await ServiceService.getServiceBySlug(slug as string);
 
-//   if (!service) {
-//     sendResponse(res, {
-//       statusCode: httpStatus.NOT_FOUND,
-//       success: false,
-//       message: "Service not found",
-//       data: null,
-//     });
-//     return;
-//   }
+  if (!service) {
+    sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: "Service not found",
+      data: null,
+    });
+    return;
+  }
 
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: "Service retrieved successfully",
-//     data: service,
-//   });
-// };
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Service retrieved successfully",
+    data: service,
+  });
+};
 
 // const getServicesByCategory = async (
 //   req: Request,
