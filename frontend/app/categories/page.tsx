@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CATEGORIES } from "@/lib/data/categories";
-import { PageHeader } from "@/components/ui/PageHeader";
+import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Reveal";
+import { T } from "@/components/ui/T";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -16,10 +17,13 @@ export const metadata: Metadata = {
 export default function CategoriesPage() {
   return (
     <>
-      <PageHeader
-        title="Service Categories"
-        description="সব সেবা category অনুযায়ী সাজানো — explore every category to find the service you need."
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Categories" }]}
+      <TranslatedPageHeader
+        title={{ bn: "সেবার ক্যাটাগরি", en: "Service Categories" }}
+        description={{
+          bn: "সব সেবা ক্যাটাগরি অনুযায়ী সাজানো — প্রয়োজনীয় সেবা খুঁজুন।",
+          en: "Browse all Bangladesh government service categories — identity, passport, transport, tax, land, education, health and more.",
+        }}
+        breadcrumbs={[{ label: { bn: "হোম", en: "Home" }, href: "/" }, { label: { bn: "ক্যাটাগরি", en: "Categories" } }]}
       />
 
       <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -43,7 +47,7 @@ export default function CategoriesPage() {
                       <Icon name={cat.icon} className="h-6 w-6" />
                     </span>
                     <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-bold text-slate-500">
-                      {cat.serviceCount}+ services
+                      {cat.serviceCount}+ <T bn="সেবা" en="services" />
                     </span>
                   </div>
                   <h2 className="mt-4 text-base font-bold text-slate-900 transition-colors group-hover:text-brand-700">
@@ -53,7 +57,7 @@ export default function CategoriesPage() {
                     {cat.description}
                   </p>
                   <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700">
-                    Explore
+                    <T bn="দেখুন" en="Explore" />
                     <ArrowRight
                       className="h-4 w-4 transition-transform group-hover:translate-x-1"
                       aria-hidden="true"
