@@ -107,8 +107,9 @@ export type GovernmentNotice = {
 
 export type FaqItem = {
   id: string;
-  question: string;
-  answer: string;
+  /** Bilingual copy — bn is the default language, en is the alternative. */
+  question: { bn: string; en: string };
+  answer: { bn: string; en: string };
   category: "general" | "services" | "account" | "data";
 };
 

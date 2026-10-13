@@ -1,15 +1,61 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Check, Clock, FileText, Search, ShieldCheck } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { useTranslation, type Dict } from "@/lib/i18n";
+import { COMMON } from "@/lib/i18n/common";
 
 const CHECKLIST = [
-  { icon: FileText, label: "Required Documents", bn: "প্রয়োজনীয় কাগজপত্র" },
-  { icon: ShieldCheck, label: "Eligibility", bn: "যোগ্যতা" },
-  { icon: Check, label: "Government Fee", bn: "সরকারি ফি" },
-  { icon: Clock, label: "Application Process", bn: "আবেদন প্রক্রিয়া" },
-];
+  { icon: FileText, label: { bn: "প্রয়োজনীয় কাগজপত্র", en: "Required Documents" } },
+  { icon: ShieldCheck, label: { bn: "যোগ্যতা", en: "Eligibility" } },
+  { icon: Check, label: { bn: "সরকারি ফি", en: "Government Fee" } },
+  { icon: Clock, label: { bn: "আবেদন প্রক্রিয়া", en: "Application Process" } },
+] satisfies { icon: typeof FileText; label: Dict<string> }[];
+
+const STATS = [
+  { value: "120+", label: { bn: "সেবা", en: "Services" } },
+  { value: "64", label: { bn: "জেলা", en: "Districts" } },
+  { value: "10", label: { bn: "অফিসের ধরন", en: "Office types" } },
+] satisfies { value: string; label: Dict<string> }[];
+
+const STRINGS = {
+  bn: {
+    badge: "নাগরিক সেবার সহজ পথ",
+    titleTop: "সরকারি সেবা খুঁজুন,",
+    titleMid: "সহজেই বুঝুন,",
+    titleEnd: "দ্রুত করুন।",
+    subtitle:
+      "প্রয়োজনীয় সরকারি সেবা খুঁজুন, প্রক্রিয়া বুঝুন এবং অফিসিয়াল সেবায় পৌঁছে যান।",
+    howItWorks: "কীভাবে কাজ করে?",
+    cardTitle: "আপনি কোন সেবা খুঁজছেন?",
+    example: "পাসপোর্ট নবায়ন",
+    guidance:
+      "শুধুমাত্র নির্দেশনা — আবেদন জমা দেওয়া হয় সরকারি সরকারি পোর্টালে।",
+    officialLinks: "অফিসিয়াল লিংক",
+    lastVerified: "সর্বশেষ যাচাই: অক্টোবর ২০২৬",
+  },
+  en: {
+    badge: "The easy path to citizen services",
+    titleTop: "Find government services,",
+    titleMid: "understand easily,",
+    titleEnd: "act fast.",
+    subtitle:
+      "Find the government service you need, understand the process, and access the official service.",
+    howItWorks: "How does it work?",
+    cardTitle: "What service are you looking for?",
+    example: "Passport Renewal",
+    guidance:
+      "Guidance only — applications are submitted on official government portals.",
+    officialLinks: "Official links",
+    lastVerified: "Last verified Oct 2026",
+  },
+};
 
 export function Hero() {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
+  const c = t(COMMON);
   return (
     <section
       aria-labelledby="hero-heading"
@@ -36,7 +82,7 @@ export function Hero() {
           <Reveal>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-brand-50 backdrop-blur">
               <span aria-hidden="true">🇧🇩</span>
-              নাগরিক সেবার সহজ পথ
+              {s.badge}
             </span>
           </Reveal>
 
@@ -45,11 +91,11 @@ export function Hero() {
               id="hero-heading"
               className="mt-6 text-3xl font-extrabold leading-[1.2] tracking-tight sm:text-4xl lg:text-5xl xl:text-[3.4rem]"
             >
-              সরকারি সেবা খুঁজুন,
+              {s.titleTop}
               <br />
-              <span className="text-brand-100">সহজেই বুঝুন,</span>{" "}
+              <span className="text-brand-100">{s.titleMid}</span>{" "}
               <span className="relative inline-block">
-                দ্রুত করুন।
+                {s.titleEnd}
                 <span
                   className="absolute -bottom-1.5 left-0 h-1.5 w-full rounded-full bg-flag-500/80"
                   aria-hidden="true"
@@ -60,8 +106,7 @@ export function Hero() {
 
           <Reveal delay={140}>
             <p className="mt-6 max-w-xl text-base leading-7 text-brand-50/85 sm:text-lg">
-              Find the government service you need, understand the process, and access the
-              official service.
+              {s.subtitle}
             </p>
           </Reveal>
 
@@ -71,30 +116,26 @@ export function Hero() {
                 href="/services"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-6 text-base font-bold text-brand-800 shadow-lg transition-all hover:-translate-y-0.5 hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                সেবা খুঁজুন
+                {c.searchServices}
                 <ArrowRight className="h-[18px] w-[18px]" aria-hidden="true" />
               </Link>
               <Link
                 href="/how-it-works"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-6 text-base font-semibold text-white backdrop-blur transition-all hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                কীভাবে কাজ করে?
+                {s.howItWorks}
               </Link>
             </div>
           </Reveal>
 
           <Reveal delay={260}>
             <dl className="mt-10 grid max-w-md grid-cols-3 gap-4 border-t border-white/10 pt-6">
-              {[
-                { value: "120+", label: "Services" },
-                { value: "64", label: "Districts" },
-                { value: "10", label: "Office types" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <dt className="sr-only">{stat.label}</dt>
+              {STATS.map((stat) => (
+                <div key={stat.value}>
+                  <dt className="sr-only">{t(stat.label)}</dt>
                   <dd className="text-2xl font-extrabold text-white">{stat.value}</dd>
                   <dd className="mt-0.5 text-xs font-medium uppercase tracking-wider text-brand-200">
-                    {stat.label}
+                    {t(stat.label)}
                   </dd>
                 </div>
               ))}
@@ -115,14 +156,13 @@ export function Hero() {
               </span>
               <div>
                 <p className="text-sm font-bold text-slate-900 sm:text-base">
-                  আপনি কোন সেবা খুঁজছেন?
+                  {s.cardTitle}
                 </p>
-                <p className="text-xs text-slate-500">What service are you looking for?</p>
               </div>
             </div>
 
             <div className="mt-5 rounded-xl border border-line bg-canvas px-4 py-3.5">
-              <span className="text-[15px] font-semibold text-slate-800">Passport Renewal</span>
+              <span className="text-[15px] font-semibold text-slate-800">{s.example}</span>
               <span
                 className="ms-1 inline-block h-4 w-[2px] translate-y-0.5 animate-pulse bg-brand-600"
                 aria-hidden="true"
@@ -131,12 +171,11 @@ export function Hero() {
 
             <ul className="mt-5 space-y-3">
               {CHECKLIST.map((item) => (
-                <li key={item.label} className="flex items-center gap-3">
+                <li key={item.label.en} className="flex items-center gap-3">
                   <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-brand-50 text-brand-600">
                     <Check className="h-4 w-4" strokeWidth={3} aria-hidden="true" />
                   </span>
-                  <span className="text-sm font-semibold text-slate-700">{item.label}</span>
-                  <span className="ms-auto text-xs text-slate-400">{item.bn}</span>
+                  <span className="text-sm font-semibold text-slate-700">{t(item.label)}</span>
                 </li>
               ))}
             </ul>
@@ -145,7 +184,7 @@ export function Hero() {
               href="/services/passport-renewal"
               className="group mt-6 flex h-12 items-center justify-center gap-2 rounded-xl bg-brand-600 text-sm font-bold text-white shadow-md transition-all hover:bg-brand-700 hover:shadow-lg"
             >
-              View Service
+              {c.viewService}
               <ArrowRight
                 className="h-4 w-4 transition-transform group-hover:translate-x-1"
                 aria-hidden="true"
@@ -153,7 +192,7 @@ export function Hero() {
             </Link>
 
             <p className="mt-3 text-center text-[11px] leading-4 text-slate-400">
-              Guidance only — applications are submitted on official government portals.
+              {s.guidance}
             </p>
           </div>
 
@@ -162,8 +201,8 @@ export function Hero() {
               <ShieldCheck className="h-4 w-4" aria-hidden="true" />
             </span>
             <span className="text-xs font-bold text-slate-700">
-              Official links
-              <span className="block font-medium text-slate-400">Last verified Oct 2026</span>
+              {s.officialLinks}
+              <span className="block font-medium text-slate-400">{s.lastVerified}</span>
             </span>
           </div>
         </Reveal>

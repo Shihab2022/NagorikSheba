@@ -1,4 +1,5 @@
 import type { FaqItem, GovernmentNotice } from "@/lib/types";
+import type { Dict, Lang } from "@/lib/i18n";
 
 /**
  * MOCK DATA — government notices (demo content for the prototype).
@@ -133,36 +134,49 @@ export const NOTICES: GovernmentNotice[] = [
   },
 ];
 
-export const NOTICE_CATEGORIES: { value: "all" | GovernmentNotice["category"]; label: string }[] = [
-  { value: "all", label: "All" },
-  { value: "nid", label: "NID" },
-  { value: "passport", label: "Passport" },
-  { value: "tax", label: "Tax" },
-  { value: "education", label: "Education" },
-  { value: "land", label: "Land" },
-  { value: "transport", label: "Transport" },
-  { value: "health", label: "Health" },
+export const NOTICE_CATEGORIES: {
+  value: "all" | GovernmentNotice["category"];
+  label: Dict<string>;
+}[] = [
+  { value: "all", label: { bn: "সব", en: "All" } },
+  { value: "nid", label: { bn: "এনআইডি", en: "NID" } },
+  { value: "passport", label: { bn: "পাসপোর্ট", en: "Passport" } },
+  { value: "tax", label: { bn: "কর", en: "Tax" } },
+  { value: "education", label: { bn: "শিক্ষা", en: "Education" } },
+  { value: "land", label: { bn: "ভূমি", en: "Land" } },
+  { value: "transport", label: { bn: "যোগাযোগ", en: "Transport" } },
+  { value: "health", label: { bn: "স্বাস্থ্য", en: "Health" } },
 ];
 
 export function getNoticeById(id: string): GovernmentNotice | undefined {
   return NOTICES.find((n) => n.id === id);
 }
 
-/** Relative-time-free formatted date, e.g. "8 Oct 2026". */
-export function formatNoticeDate(iso: string): string {
+/** Relative-time-free formatted date, e.g. "8 Oct 2026" — localized for bn/en. */
+export function formatNoticeDate(iso: string, lang: Lang = "en"): string {
   const d = new Date(`${iso}T00:00:00`);
-  return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  return d.toLocaleDateString(lang === "bn" ? "bn-BD" : "en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 }
 
 /** "Published X ago" helper based on a fixed reference date for demo data. */
-export function publishedLabel(iso: string): string {
+export function publishedLabel(iso: string, lang: Lang = "en"): string {
   const now = new Date("2026-10-08T00:00:00");
   const then = new Date(`${iso}T00:00:00`);
   const hours = Math.round((now.getTime() - then.getTime()) / 3_600_000);
+  if (lang === "bn") {
+    if (hours < 24) return `${Math.max(hours, 1)} ঘণ্টা আগে প্রকাশিত`;
+    const daysBn = Math.round(hours / 24);
+    if (daysBn < 7) return `${daysBn} দিন আগে প্রকাশিত`;
+    return `${formatNoticeDate(iso, lang)} প্রকাশিত`;
+  }
   if (hours < 24) return `Published ${Math.max(hours, 1)} hours ago`;
   const days = Math.round(hours / 24);
   if (days < 7) return `Published ${days} day${days === 1 ? "" : "s"} ago`;
-  return `Published ${formatNoticeDate(iso)}`;
+  return `Published ${formatNoticeDate(iso, lang)}`;
 }
 
 /**
@@ -172,72 +186,122 @@ export const FAQS: FaqItem[] = [
   {
     id: "faq-1",
     category: "general",
-    question: "What is একসেবা (NagorikSheba)?",
-    answer:
-      "NagorikSheba is an independent civic-tech platform that helps citizens discover government services, understand eligibility, required documents, fees and step-by-step procedures — and then reach the official government portal.",
+    question: {
+      bn: "একসেবা (NagorikSheba) কী?",
+      en: "What is একসেবা (NagorikSheba)?",
+    },
+    answer: {
+      bn: "নাগরিকসেবা একটি স্বাধীন সিভিক-টেক প্ল্যাটফর্ম যা নাগরিকদের সরকারি সেবা আবিষ্কার করতে, যোগ্যতা, প্রয়োজনীয় ডকুমেন্ট, ফি ও ধাপে ধাপে প্রক্রিয়া বুঝতে সাহায্য করে — এবং তারপর অফিসিয়াল সরকারি পোর্টালে পৌঁছে যেতে সহায়তা করে।",
+      en: "NagorikSheba is an independent civic-tech platform that helps citizens discover government services, understand eligibility, required documents, fees and step-by-step procedures — and then reach the official government portal.",
+    },
   },
   {
     id: "faq-2",
     category: "general",
-    question: "Is একসেবা a government website?",
-    answer:
-      "No. NagorikSheba is an independent information and service-discovery platform. We do not replace official government websites — government services are provided through official portals and authorities. Always verify critical information on the official source.",
+    question: {
+      bn: "কি একসেবা একটি সরকারি ওয়েবসাইট?",
+      en: "Is একসেবা a government website?",
+    },
+    answer: {
+      bn: "না। নাগরিকসেবা একটি স্বাধীন তথ্য ও সেবা-আবিষ্কার প্ল্যাটফর্ম। আমরা সরকারি ওয়েবসাইটের বিকল্প নই — সরকারি সেবা প্রদান করা হয় অফিসিয়াল পোর্টাল ও কর্তৃপক্ষের মাধ্যমে। গুরুত্বপূর্ণ তথ্য সর্বদা অফিসিয়াল উৎসে যাচাই করুন।",
+      en: "No. NagorikSheba is an independent information and service-discovery platform. We do not replace official government websites — government services are provided through official portals and authorities. Always verify critical information on the official source.",
+    },
   },
   {
     id: "faq-3",
     category: "services",
-    question: "Do you submit applications on my behalf?",
-    answer:
-      "No. We guide you through the process and link you to the official portal or office where the application is actually submitted. We never collect application documents or fees.",
+    question: {
+      bn: "আপনারা কি আমার পক্ষে আবেদন জমা দেন?",
+      en: "Do you submit applications on my behalf?",
+    },
+    answer: {
+      bn: "না। আমরা প্রক্রিয়াটি বুঝতে সাহায্য করি এবং আসলে আবেদন জমা হয় এমন অফিসিয়াল পোর্টাল বা অফিসের লিংক দিই। আমরা কখনো আবেদনের ডকুমেন্ট বা ফি সংগ্রহ করি না।",
+      en: "No. We guide you through the process and link you to the official portal or office where the application is actually submitted. We never collect application documents or fees.",
+    },
   },
   {
     id: "faq-4",
     category: "services",
-    question: "How accurate are the fees shown?",
-    answer:
-      "Fees shown in this prototype are indicative demo values. Fees and requirements change frequently — always confirm the latest fee from the official government source before paying.",
+    question: {
+      bn: "প্রদর্শিত ফি কতটা নির্ভুল?",
+      en: "How accurate are the fees shown?",
+    },
+    answer: {
+      bn: "এই প্রোটোটাইপে প্রদর্শিত ফি আনুমানিক ডেমো মান। ফি ও প্রয়োজনীয়তা প্রায়ই বদলায় — পরিশোধের আগে সর্বদা সরকারি উৎস থেকে সর্বশেষ ফি নিশ্চিত করুন।",
+      en: "Fees shown in this prototype are indicative demo values. Fees and requirements change frequently — always confirm the latest fee from the official government source before paying.",
+    },
   },
   {
     id: "faq-5",
     category: "services",
-    question: "Where can I find the list of required documents?",
-    answer:
-      "Open any service page and check the Required Documents section, or use the Document Checklist page for a printable-style overview of what to prepare.",
+    question: {
+      bn: "প্রয়োজনীয় ডকুমেন্টের তালিকা কোথায় পাব?",
+      en: "Where can I find the list of required documents?",
+    },
+    answer: {
+      bn: "যেকোনো সেবার পাতা খুলে প্রয়োজনীয় ডকুমেন্ট বিভাগ দেখুন, অথবা কী কী প্রস্তুত করবেন তা দেখার জন্য ডকুমেন্ট চেকলিস্ট পাতাটি ব্যবহার করুন।",
+      en: "Open any service page and check the Required Documents section, or use the Document Checklist page for a printable-style overview of what to prepare.",
+    },
   },
   {
     id: "faq-6",
     category: "data",
-    question: "How do you verify information?",
-    answer:
-      "Every service entry carries an Official Source link and a Last Verified date. Our editors review entries regularly and update them when official portals change requirements.",
+    question: {
+      bn: "আপনারা তথ্য কীভাবে যাচাই করেন?",
+      en: "How do you verify information?",
+    },
+    answer: {
+      bn: "প্রতিটি সেবায় অফিসিয়াল উৎসের লিংক ও সর্বশেষ যাচাইয়ের তারিখ থাকে। আমাদের সম্পাদকরা নিয়মিত এন্ট্রি পর্যালোচনা করেন এবং অফিসিয়াল পোর্টালে প্রয়োজনীয়তা বদলালে হালনাগাদ করেন।",
+      en: "Every service entry carries an Official Source link and a Last Verified date. Our editors review entries regularly and update them when official portals change requirements.",
+    },
   },
   {
     id: "faq-7",
     category: "data",
-    question: "I found wrong information. How do I report it?",
-    answer:
-      "Use the Contact page and choose 'Report incorrect information'. Corrections from citizens help everyone — thank you for helping keep the information accurate.",
+    question: {
+      bn: "ভুল তথ্য পেয়েছি। কীভাবে জানাব?",
+      en: "I found wrong information. How do I report it?",
+    },
+    answer: {
+      bn: "যোগাযোগ পাতায় যান এবং ‘ভুল তথ্য জানান’ বেছে নিন। নাগরিকদের দেওয়া সংশোধনী সবার কাজে লাগে — তথ্য সঠিক রাখতে সাহায্যের জন্য ধন্যবাদ।",
+      en: "Use the Contact page and choose 'Report incorrect information'. Corrections from citizens help everyone — thank you for helping keep the information accurate.",
+    },
   },
   {
     id: "faq-8",
     category: "account",
-    question: "Do I need an account to use NagorikSheba?",
-    answer:
-      "No. Browsing services, offices and notices is completely free and does not require an account. An account (demo only in this prototype) would let you save services and track applications.",
+    question: {
+      bn: "নাগরিকসেবা ব্যবহারের জন্য কি অ্যাকাউন্ট লাগবে?",
+      en: "Do I need an account to use NagorikSheba?",
+    },
+    answer: {
+      bn: "না। সেবা, অফিস ও নোটিশ দেখা সম্পূর্ণ বিনামূল্যে এবং অ্যাকাউন্ট লাগে না। অ্যাকাউন্ট (এই প্রোটোটাইপে শুধু ডেমো) দিয়ে আপনি সেবা সংরক্ষণ ও আবেদন ট্র্যাক করতে পারতেন।",
+      en: "No. Browsing services, offices and notices is completely free and does not require an account. An account (demo only in this prototype) would let you save services and track applications.",
+    },
   },
   {
     id: "faq-9",
     category: "account",
-    question: "Can I track my application here?",
-    answer:
-      "The Application Tracker page is a UI demonstration. Live tracking requires integration with each authority's system, which is not connected in this prototype.",
+    question: {
+      bn: "আমি কি এখানে আমার আবেদন ট্র্যাক করতে পারি?",
+      en: "Can I track my application here?",
+    },
+    answer: {
+      bn: "আবেদন ট্র্যাকার পাতাটি একটি ইউআই ডেমো। লাইভ ট্র্যাকিংয়ের জন্য প্রতিটি কর্তৃপক্ষের সিস্টেমের সাথে সংযোগ প্রয়োজন, যা এই প্রোটোটাইপে সংযুক্ত নেই।",
+      en: "The Application Tracker page is a UI demonstration. Live tracking requires integration with each authority's system, which is not connected in this prototype.",
+    },
   },
   {
     id: "faq-10",
     category: "general",
-    question: "Is there any charge to use this platform?",
-    answer:
-      "No. NagorikSheba is free for citizens. We never charge for guidance, and government fees must only be paid through the official channels described on each service page.",
+    question: {
+      bn: "এই প্ল্যাটফর্ম ব্যবহারে কি কোনো চার্জ আছে?",
+      en: "Is there any charge to use this platform?",
+    },
+    answer: {
+      bn: "না। নাগরিকসেবা নাগরিকদের জন্য বিনামূল্যে। আমরা নির্দেশনার জন্য কখনো টাকা নিই না, এবং সরকারি ফি শুধু প্রতিটি সেবার পাতায় বর্ণিত অফিসিয়াল চ্যানেলের মাধ্যমে পরিশোধ করা উচিত।",
+      en: "No. NagorikSheba is free for citizens. We never charge for guidance, and government fees must only be paid through the official channels described on each service page.",
+    },
   },
 ];
 

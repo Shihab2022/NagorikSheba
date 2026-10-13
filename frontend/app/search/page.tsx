@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { PageHeader } from "@/components/ui/PageHeader";
+import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
 import { SearchExplorer } from "@/components/search/SearchExplorer";
 import { Skeleton } from "@/components/ui/States";
 
@@ -14,10 +14,16 @@ export default async function SearchPage(props: PageProps<"/search">) {
   const q = typeof sp?.q === "string" ? sp.q : "";
   return (
     <>
-      <PageHeader
-        title="Search everything"
-        description="One search across government services, documents, offices and notices."
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Search" }]}
+      <TranslatedPageHeader
+        title={{ bn: "সবকিছু অনুসন্ধান করুন", en: "Search everything" }}
+        description={{
+          bn: "সরকারি সেবা, ডকুমেন্ট, অফিস ও নোটিশ — এক জায়গায় একটি অনুসন্ধান।",
+          en: "One search across government services, documents, offices and notices.",
+        }}
+        breadcrumbs={[
+          { label: { bn: "হোম", en: "Home" }, href: "/" },
+          { label: { bn: "অনুসন্ধান", en: "Search" } },
+        ]}
       />
       <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <Suspense fallback={<Skeleton className="h-40 w-full rounded-2xl" />}>
