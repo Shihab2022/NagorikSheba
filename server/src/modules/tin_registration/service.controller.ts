@@ -21,19 +21,19 @@ const createService = async (
   });
 };
 
-// const getAllServices = async (
-//   _req: Request,
-//   res: Response,
-// ): Promise<void> => {
-//   const services = await ServiceService.getAllServices();
+const getAllServices = async (
+  _req: Request,
+  res: Response,
+): Promise<void> => {
+  const services = await ServiceService.getAllServices();
 
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: "Services retrieved successfully",
-//     data: services,
-//   });
-// };
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Services retrieved successfully",
+    data: services,
+  });
+};
 
 // const getServiceBySlug = async (
 //   req: Request,
