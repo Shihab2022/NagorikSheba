@@ -8,14 +8,62 @@ import { ServiceCard } from "@/components/services/ServiceCard";
 import { EmptyState, SkeletonCard } from "@/components/ui/States";
 import { Select } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n";
+import { COMMON } from "@/lib/i18n/common";
 
 type SortKey = "popular" | "az" | "za";
+
+const STRINGS = {
+  bn: {
+    filters: "ফিল্টার",
+    clearAll: "সব মুছুন",
+    searchLabel: "সেবা অনুসন্ধান করুন",
+    searchPlaceholder: "সেবা অনুসন্ধান করুন…",
+    department: "বিভাগ",
+    allDepartments: "সব বিভাগ",
+    availability: "প্রাপ্যতা",
+    allServices: "সব সেবা",
+    onlineAvailable: "অনলাইনে পাওয়া যায়",
+    officeVisitRequired: "অফিসে যেতে হবে",
+    sortBy: "সাজান",
+    mostPopular: "সর্বাধিক জনপ্রিয়",
+    nameAz: "নাম: A – Z",
+    nameZa: "নাম: Z – A",
+    categoryFilter: "বিভাগ অনুযায়ী ফিল্টার",
+    allCategories: "সব ক্যাটাগরি",
+    showing: "{shown} টি দেখানো হচ্ছে, মোট {total} টি সেবার মধ্যে",
+    resetFilters: "ফিল্টার রিসেট",
+  },
+  en: {
+    filters: "Filters",
+    clearAll: "Clear all",
+    searchLabel: "Search services",
+    searchPlaceholder: "Search services…",
+    department: "Department",
+    allDepartments: "All departments",
+    availability: "Availability",
+    allServices: "All services",
+    onlineAvailable: "Online available",
+    officeVisitRequired: "Office visit required",
+    sortBy: "Sort by",
+    mostPopular: "Most popular",
+    nameAz: "Name: A – Z",
+    nameZa: "Name: Z – A",
+    categoryFilter: "Filter by category",
+    allCategories: "All Categories",
+    showing: "Showing {shown} of {total} services",
+    resetFilters: "Reset filters",
+  },
+};
 
 /**
  * Client-side services explorer: search, category chips, department,
  * online filter and sorting with a short simulated loading state.
  */
 export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string }) {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
+  const c = t(COMMON);
   const [query, setQuery] = useState(initialQuery);
   const [category, setCategory] = useState("all");
   const [department, setDepartment] = useState("all");
@@ -84,7 +132,7 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
         >
           <span className="flex items-center gap-2">
             <SlidersHorizontal className="h-4 w-4 text-brand-600" aria-hidden="true" />
-            Filters
+            {s.filters}
             {activeFilterCount > 0 ? (
               <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-600 px-1.5 text-xs font-bold text-white">
                 {activeFilterCount}
@@ -102,7 +150,7 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
 
         <aside
           id="service-filters"
-          aria-label="Service filters"
+          aria-label={s.filters}
           className={cn(
             "mt-3 rounded-2xl border border-line bg-white p-5 shadow-card lg:mt-0 lg:block",
             filtersOpen ? "block" : "hidden",
@@ -111,7 +159,7 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
           <div className="flex items-center justify-between gap-2">
             <h2 className="hidden items-center gap-2 text-sm font-bold text-slate-900 lg:flex">
               <SlidersHorizontal className="h-4 w-4 text-brand-600" aria-hidden="true" />
-              Filters
+              {s.filters}
             </h2>
             {hasFilters ? (
               <button
@@ -119,7 +167,7 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
                 onClick={clearAll}
                 className="text-xs font-bold text-flag-600 hover:text-flag-700 lg:ml-auto"
               >
-                Clear all
+                {s.clearAll}
               </button>
             ) : null}
           </div>
@@ -130,14 +178,14 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
             aria-hidden="true"
           />
           <label htmlFor="svc-search" className="sr-only">
-            Search services
+            {s.searchLabel}
           </label>
           <input
             id="svc-search"
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search services…"
+            placeholder={s.searchPlaceholder}
             className="h-11 w-full rounded-xl border border-line bg-white pl-9 pr-3 text-sm transition-all placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-100"
           />
         </div>
@@ -147,14 +195,14 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
             htmlFor="svc-dept"
             className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-500"
           >
-            Department
+            {s.department}
           </label>
           <Select
             id="svc-dept"
             value={department}
             onChange={(e) => update(setDepartment, e.target.value)}
           >
-            <option value="all">All departments</option>
+            <option value="all">{s.allDepartments}</option>
             {departments.map((d) => (
               <option key={d} value={d}>
                 {d}
@@ -168,16 +216,16 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
             htmlFor="svc-avail"
             className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-500"
           >
-            Availability
+            {s.availability}
           </label>
           <Select
             id="svc-avail"
             value={availability}
             onChange={(e) => update(setAvailability, e.target.value)}
           >
-            <option value="all">All services</option>
-            <option value="online">Online available</option>
-            <option value="office">Office visit required</option>
+            <option value="all">{s.allServices}</option>
+            <option value="online">{s.onlineAvailable}</option>
+            <option value="office">{s.officeVisitRequired}</option>
           </Select>
         </div>
 
@@ -186,16 +234,16 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
             htmlFor="svc-sort"
             className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-500"
           >
-            Sort by
+            {s.sortBy}
           </label>
           <Select
             id="svc-sort"
             value={sort}
             onChange={(e) => update(setSort, e.target.value as SortKey)}
           >
-            <option value="popular">Most popular</option>
-            <option value="az">Name: A – Z</option>
-            <option value="za">Name: Z – A</option>
+            <option value="popular">{s.mostPopular}</option>
+            <option value="az">{s.nameAz}</option>
+            <option value="za">{s.nameZa}</option>
           </Select>
         </div>
       </aside>
@@ -206,7 +254,7 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
         <div
           className="scrollbar-none -mx-1 flex gap-2 overflow-x-auto px-1 pb-2"
           role="group"
-          aria-label="Filter by category"
+          aria-label={s.categoryFilter}
         >
           <button
             type="button"
@@ -219,7 +267,7 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
                 : "border border-line bg-white text-slate-600 hover:border-brand-300 hover:text-brand-700",
             )}
           >
-            All Categories
+            {s.allCategories}
           </button>
           {CATEGORIES.map((cat) => (
             <button
@@ -240,8 +288,9 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
         </div>
 
         <p className="mt-3 text-sm text-slate-500" role="status" aria-live="polite">
-          Showing <strong className="text-slate-800">{results.length}</strong> of{" "}
-          {SERVICES.length} services
+          {s.showing
+            .replace("{shown}", String(results.length))
+            .replace("{total}", String(SERVICES.length))}
         </p>
 
         <div className="mt-4">
@@ -253,8 +302,8 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
             </div>
           ) : results.length === 0 ? (
             <EmptyState
-              title="No services found."
-              description="Try changing your search or filters."
+              title={c.noServices}
+              description={c.tryFilters}
               icon={<SearchX className="h-7 w-7" aria-hidden="true" />}
               action={
                 <button
@@ -262,7 +311,7 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
                   onClick={clearAll}
                   className="inline-flex h-10 items-center rounded-xl bg-brand-600 px-4 text-sm font-bold text-white transition-colors hover:bg-brand-700"
                 >
-                  Reset filters
+                  {s.resetFilters}
                 </button>
               }
             />

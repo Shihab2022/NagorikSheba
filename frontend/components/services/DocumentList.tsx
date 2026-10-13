@@ -1,12 +1,27 @@
+"use client";
+
 import { Check, FileText } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
+
+const STRINGS = {
+  bn: {
+    noDocs:
+      "এই সেবার জন্য কোনো নির্দিষ্ট ডকুমেন্ট তালিকাভুক্ত নেই — প্রয়োজনীয়তা নিশ্চিত করতে দায়িত্বপ্রাপ্ত অফিসে যোগাযোগ করুন।",
+  },
+  en: {
+    noDocs:
+      "No specific documents listed for this service — contact the responsible office to confirm requirements.",
+  },
+};
 
 /** Checklist of required documents (visual checkboxes, non-interactive). */
 export function DocumentList({ documents }: { documents: string[] }) {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
   if (documents.length === 0) {
     return (
       <p className="rounded-xl border border-dashed border-line bg-canvas px-4 py-4 text-sm text-slate-500">
-        No specific documents listed for this service — contact the responsible office to
-        confirm requirements.
+        {s.noDocs}
       </p>
     );
   }

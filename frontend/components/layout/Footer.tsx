@@ -1,40 +1,73 @@
+"use client";
+
 import Link from "next/link";
 import { AlertCircle, HeartHandshake } from "lucide-react";
 import { LogoMark } from "@/components/ui/Logo";
+import { useTranslation, type Dict } from "@/lib/i18n";
 
-const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
+const COLUMNS: {
+  title: Dict<string>;
+  links: { label: Dict<string>; href: string }[];
+}[] = [
   {
-    title: "Services",
+    title: { bn: "সেবা", en: "Services" },
     links: [
-      { label: "Categories", href: "/categories" },
-      { label: "Government Offices", href: "/government-offices" },
-      { label: "Notices", href: "/notices" },
-      { label: "Application Tracking", href: "/application-tracker" },
-      { label: "AI Assistant", href: "/ai-assistant" },
+      { href: "/categories", label: { bn: "ক্যাটাগরি", en: "Categories" } },
+      { href: "/government-offices", label: { bn: "সরকারি অফিস", en: "Government Offices" } },
+      { href: "/notices", label: { bn: "নোটিশ", en: "Notices" } },
+      { href: "/application-tracker", label: { bn: "আবেদন ট্র্যাকিং", en: "Application Tracking" } },
+      { href: "/ai-assistant", label: { bn: "এআই সহকারী", en: "AI Assistant" } },
     ],
   },
   {
-    title: "Resources",
+    title: { bn: "রিসোর্স", en: "Resources" },
     links: [
-      { label: "How It Works", href: "/how-it-works" },
-      { label: "FAQ", href: "/faq" },
-      { label: "Documents", href: "/documents" },
-      { label: "Fees", href: "/fees" },
-      { label: "Help", href: "/contact" },
+      { href: "/how-it-works", label: { bn: "কীভাবে কাজ করে", en: "How It Works" } },
+      { href: "/faq", label: { bn: "সাধারণ জিজ্ঞাসা", en: "FAQ" } },
+      { href: "/documents", label: { bn: "ডকুমেন্ট", en: "Documents" } },
+      { href: "/fees", label: { bn: "ফি", en: "Fees" } },
+      { href: "/contact", label: { bn: "সাহায্য", en: "Help" } },
     ],
   },
   {
-    title: "Company",
+    title: { bn: "প্রতিষ্ঠান", en: "Company" },
     links: [
-      { label: "About", href: "/about" },
-      { label: "Contact", href: "/contact" },
-      { label: "Privacy Policy", href: "/about" },
-      { label: "Terms", href: "/about" },
+      { href: "/about", label: { bn: "আমাদের কথা", en: "About" } },
+      { href: "/contact", label: { bn: "যোগাযোগ", en: "Contact" } },
+      { href: "/about", label: { bn: "প্রাইভেসি পলিসি", en: "Privacy Policy" } },
+      { href: "/about", label: { bn: "শর্তাবলি", en: "Terms" } },
     ],
   },
 ];
 
+const STRINGS = {
+  bn: {
+    tagline: "বাংলাদেশের সরকারি সেবার এক ঠিকানা",
+    about:
+      "সরকারি সেবা আবিষ্কার করুন, যোগ্যতা, ডকুমেন্ট, ফি ও ধাপে ধাপে প্রক্রিয়া বুঝুন — তারপর অফিসিয়াল পোর্টালে পৌঁছে যান।",
+    important: "গুরুত্বপূর্ণ",
+    disclaimer:
+      "একসেবা একটি স্বাধীন তথ্য ও সেবা-আবিষ্কার প্ল্যাটফর্ম। সরকারি সেবা প্রদান করা হয় সরকারি পোর্টাল ও কর্তৃপক্ষের মাধ্যমে। এই প্রোটোটাইপে ডেমো ডেটা ব্যবহৃত হয়েছে — কাজ করার আগে সর্বদা অফিসিয়াল উৎস থেকে তথ্য যাচাই করুন।",
+    rights: "© ২০২৬ EkSheba। সর্বস্বত্ব সংরক্ষিত।",
+    madeWith: "তৈরি করা হয়েছে",
+    madeFor: "বাংলাদেশের নাগরিকদের জন্য",
+  },
+  en: {
+    tagline: "Bangladesh Government Services, One Place",
+    about:
+      "Discover government services, understand eligibility, documents, fees and step-by-step procedures — then reach the official portal.",
+    important: "Important",
+    disclaimer:
+      "EkSheba is an independent information and service-discovery platform. Government services are provided through official government portals and authorities. This prototype uses mock data — always verify information with the official source before acting.",
+    rights: "© 2026 EkSheba. All rights reserved.",
+    madeWith: "Made with",
+    madeFor: "for the citizens of Bangladesh",
+  },
+};
+
 export function Footer() {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
   return (
     <footer className="relative overflow-hidden bg-brand-800 text-brand-50">
       {/* subtle dot grid + red disc accent */}
@@ -55,29 +88,28 @@ export function Footer() {
               </span>
             </div>
             <p className="mt-4 text-sm leading-6 text-brand-100/85">
-              বাংলাদেশের সরকারি সেবার এক ঠিকানা — Bangladesh Government Services, One Place.
+              {s.tagline}
             </p>
             <p className="mt-3 text-sm leading-6 text-brand-100/70">
-              Discover government services, understand eligibility, documents, fees and
-              step-by-step procedures — then reach the official portal.
+              {s.about}
             </p>
           </div>
 
           {/* Link columns */}
           {COLUMNS.map((col) => (
-            <nav key={col.title} aria-label={col.title}>
+            <nav key={col.title.en} aria-label={t(col.title)}>
               <h2 className="text-sm font-bold uppercase tracking-widest text-white">
-                {col.title}
+                {t(col.title)}
               </h2>
               <ul className="mt-4 space-y-2.5">
                 {col.links.map((link) => (
-                  <li key={link.label}>
+                  <li key={link.label.en}>
                     <Link
                       href={link.href}
                       className="group inline-flex items-center gap-1.5 rounded text-sm text-brand-100/80 transition-colors hover:text-white"
                     >
                       <span className="h-1 w-1 rounded-full bg-flag-500 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
-                      {link.label}
+                      {t(link.label)}
                     </Link>
                   </li>
                 ))}
@@ -93,23 +125,20 @@ export function Footer() {
               <AlertCircle className="h-[18px] w-[18px]" aria-hidden="true" />
             </span>
             <div>
-              <h2 className="text-sm font-bold text-white">Important</h2>
+              <h2 className="text-sm font-bold text-white">{s.important}</h2>
               <p className="mt-1.5 text-sm leading-6 text-brand-100/80">
-                EkSheba is an independent information and service-discovery platform.
-                Government services are provided through official government portals and
-                authorities. This prototype uses mock data — always verify information with
-                the official source before acting.
+                {s.disclaimer}
               </p>
             </div>
           </div>
         </div>
 
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-brand-100/70 sm:flex-row">
-          <p>© 2026 EkSheba. All rights reserved.</p>
+          <p>{s.rights}</p>
           <p className="flex items-center gap-1.5">
-            Made with
+            {s.madeWith}
             <HeartHandshake className="h-4 w-4 text-flag-500" aria-hidden="true" />
-            for the citizens of Bangladesh
+            {s.madeFor}
           </p>
         </div>
       </div>

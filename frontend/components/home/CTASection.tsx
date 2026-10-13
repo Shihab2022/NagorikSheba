@@ -1,9 +1,33 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { useTranslation } from "@/lib/i18n";
+import { COMMON } from "@/lib/i18n/common";
+
+const STRINGS = {
+  bn: {
+    titleTop: "আপনার প্রয়োজনীয় সরকারি সেবা",
+    titleBottom: "আজই খুঁজে নিন।",
+    subtitle:
+      "একসেবার মাধ্যমে সঠিক তথ্য থেকে সঠিক সরকারি সেবায় পৌঁছে যান।",
+    note: "নাগরিকদের জন্য বিনামূল্যে · শুধুমাত্র নির্দেশনা · অফিসিয়াল লিংক",
+  },
+  en: {
+    titleTop: "Find the government service you need",
+    titleBottom: "today.",
+    subtitle:
+      "Reach the right government service from the right information — with EkSheba.",
+    note: "Free for citizens · Guidance only · Official links",
+  },
+};
 
 /** Strong closing CTA band with the flag-red circular accent. */
 export function CTASection() {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
+  const c = t(COMMON);
   return (
     <section aria-labelledby="cta-heading" className="bg-brand-600">
       <div className="relative overflow-hidden">
@@ -28,24 +52,24 @@ export function CTASection() {
               id="cta-heading"
               className="text-2xl font-extrabold leading-snug text-white sm:text-3xl lg:text-4xl"
             >
-              আপনার প্রয়োজনীয় সরকারি সেবা
+              {s.titleTop}
               <br />
-              আজই খুঁজে নিন।
+              {s.titleBottom}
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-brand-50/90 sm:text-base">
-              একসেবার মাধ্যমে সঠিক তথ্য থেকে সঠিক সরকারি সেবায় পৌঁছে যান।
+              {s.subtitle}
             </p>
             <div className="mt-8">
               <Link
                 href="/services"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-7 text-base font-bold text-brand-800 shadow-lg transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                সেবা খুঁজুন
+                {c.searchServices}
                 <ArrowRight className="h-[18px] w-[18px]" aria-hidden="true" />
               </Link>
             </div>
             <p className="mt-5 text-xs text-brand-100/70">
-              Free for citizens · Guidance only · Official links
+              {s.note}
             </p>
           </Reveal>
         </div>
