@@ -61,22 +61,22 @@ const getServiceBySlug = async (
   });
 };
 
-// const getServicesByCategory = async (
-//   req: Request,
-//   res: Response,
-// ): Promise<void> => {
-//   const { categorySlug } = req.params;
+const getServicesByCategory = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const { categorySlug } = req.params;
 
-//   const services =
-//     await ServiceService.getServicesByCategory(categorySlug as string);
+  const services =
+    await ServiceService.getServicesByCategory(categorySlug as string);
 
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: "Services retrieved successfully",
-//     data: services,
-//   });
-// };
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Services retrieved successfully",
+    data: services,
+  });
+};
 
 export const ServiceController = {
   createService,
