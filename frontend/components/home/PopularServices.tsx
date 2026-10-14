@@ -1,12 +1,34 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getPopularServices } from "@/lib/data/services";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { useTranslation } from "@/lib/i18n";
+
+const STRINGS = {
+  bn: {
+    eyebrow: "জনপ্রিয় সেবা",
+    title: "জনপ্রিয় সরকারি সেবা",
+    description:
+      "নাগরিকরা যে সেবাগুলো সবচেয়ে বেশি খোঁজেন — ডকুমেন্ট, ফি ও অফিসিয়াল লিংকসহ।",
+    viewAllServices: "সব সেবা দেখুন",
+  },
+  en: {
+    eyebrow: "Popular services",
+    title: "Popular Government Services",
+    description:
+      "The services citizens look up most often — with documents, fees and official links.",
+    viewAllServices: "View all services",
+  },
+};
 
 /** "জনপ্রিয় সরকারি সেবা" — top 9 services by popularity. */
 export function PopularServices() {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
   const services = getPopularServices(9);
 
   return (
@@ -15,9 +37,9 @@ export function PopularServices() {
         <Reveal>
           <SectionHeading
             id="popular-heading"
-            eyebrow="Popular services"
-            title="জনপ্রিয় সরকারি সেবা"
-            description="The services citizens look up most often — with documents, fees and official links."
+            eyebrow={s.eyebrow}
+            title={s.title}
+            description={s.description}
           />
         </Reveal>
 
@@ -35,7 +57,7 @@ export function PopularServices() {
               href="/services"
               className="inline-flex h-11 items-center gap-2 rounded-xl bg-brand-600 px-5 text-sm font-bold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-md"
             >
-              View all services
+              {s.viewAllServices}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>

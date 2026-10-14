@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/ui/PageHeader";
+import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
 import { OfficesExplorer } from "@/components/offices/OfficesExplorer";
 import { DemoNote } from "@/components/ui/States";
 
@@ -12,10 +12,16 @@ export const metadata: Metadata = {
 export default function GovernmentOfficesPage() {
   return (
     <>
-      <PageHeader
-        title="Find Government Offices"
-        description="সরকারি অফিস খুঁজুন — filter by division, district, upazila and office type."
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Government Offices" }]}
+      <TranslatedPageHeader
+        title={{ bn: "সরকারি অফিস খুঁজুন", en: "Find Government Offices" }}
+        description={{
+          bn: "সরকারি অফিস খুঁজুন — বিভাগ, জেলা, উপজেলা ও অফিসের ধরন অনুযায়ী ফিল্টার করুন।",
+          en: "Filter by division, district, upazila and office type.",
+        }}
+        breadcrumbs={[
+          { label: { bn: "হোম", en: "Home" }, href: "/" },
+          { label: { bn: "সরকারি অফিস", en: "Government Offices" } },
+        ]}
       />
       <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <div className="mb-6">

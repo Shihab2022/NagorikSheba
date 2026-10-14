@@ -7,19 +7,28 @@ import { Menu, Search, UserRound } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { cn } from "@/lib/utils";
+import { useTranslation, type Dict } from "@/lib/i18n";
+import { COMMON } from "@/lib/i18n/common";
 
-const NAV_LINKS = [
-  { label: "Services", href: "/services", bn: "সেবা" },
-  { label: "How It Works", href: "/how-it-works", bn: "কীভাবে কাজ করে" },
-  { label: "Government Offices", href: "/government-offices", bn: "সরকারি অফিস" },
-  { label: "Notices", href: "/notices", bn: "নোটিশ" },
-  { label: "Help", href: "/faq", bn: "সাহায্য" },
+const NAV_LINKS: { label: Dict<string>; href: string }[] = [
+  { href: "/services", label: { bn: "সেবা", en: "Services" } },
+  { href: "/how-it-works", label: { bn: "কীভাবে কাজ করে", en: "How It Works" } },
+  { href: "/government-offices", label: { bn: "সরকারি অফিস", en: "Government Offices" } },
+  { href: "/notices", label: { bn: "নোটিশ", en: "Notices" } },
+  { href: "/faq", label: { bn: "সাহায্য", en: "Help" } },
 ];
+
+const STRINGS = {
+  bn: { openMenu: "মেনু খুলুন", closeMenu: "মেনু বন্ধ করুন" },
+  en: { openMenu: "Open menu", closeMenu: "Close menu" },
+};
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState<"bn" | "en">("bn");
+  const { lang, setLang, t } = useTranslation();
+  const c = t(COMMON);
+  const s = t(STRINGS);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -74,7 +83,7 @@ export function Navbar() {
                     active ? "text-white" : "text-brand-50/80 hover:text-white",
                   )}
                 >
-                  {link.label}
+                  {t(link.label)}
                   <span
                     aria-hidden="true"
                     className={cn(
@@ -91,17 +100,17 @@ export function Navbar() {
         <div className="flex items-center gap-1.5 sm:gap-2">
           <Link
             href="/search"
-            aria-label="Search services"
+            aria-label={c.searchServices}
             className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-brand-50/90 transition-colors hover:bg-white/10 hover:text-white"
           >
             <Search className="h-5 w-5" aria-hidden="true" />
           </Link>
 
-          {/* Language toggle (visual preference — full i18n is a future step) */}
+          {/* Language toggle — Bangla (default) ⇄ English, persisted via LanguageProvider */}
           <div
             className="hidden items-center rounded-lg bg-white/10 p-0.5 text-xs font-bold sm:flex"
             role="group"
-            aria-label="Language"
+            aria-label={c.language}
           >
             <button
               type="button"
@@ -132,7 +141,7 @@ export function Navbar() {
             className="hidden h-10 items-center gap-1.5 rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all hover:bg-brand-50 hover:shadow md:inline-flex"
           >
             <UserRound className="h-4 w-4" aria-hidden="true" />
-            Login
+            {c.login}
           </Link>
 
           <button
@@ -140,7 +149,7 @@ export function Navbar() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? s.closeMenu : s.openMenu}
             className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-brand-50 transition-colors hover:bg-white/10 xl:hidden"
           >
             <Menu className="h-6 w-6" aria-hidden="true" />
@@ -148,7 +157,7 @@ export function Navbar() {
         </div>
       </nav>
 
-      <MobileMenu open={open} onClose={() => setOpen(false)} links={NAV_LINKS} lang={lang} />
+      <MobileMenu open={open} onClose={() => setOpen(false)} links={NAV_LINKS} />
     </header>
   );
 }

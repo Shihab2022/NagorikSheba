@@ -3,9 +3,27 @@
 import { useEffect, useRef, useState } from "react";
 import { googleAuth } from "@/service/auth";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n";
 
 const GSI_SRC = "https://accounts.google.com/gsi/client";
 const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+
+type ErrKey = "notConfigured" | "failed" | "loadFailed";
+
+const ERRORS = {
+  bn: {
+    notConfigured: "গুগল সাইন-ইন কনফিগার করা নেই।",
+    failed: "গুগল সাইন-ইন ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।",
+    loadFailed: "গুগল সাইন-ইন লোড করা যায়নি।",
+    unavailable: "গুগল সাইন-ইন অনুপলব্ধ",
+  },
+  en: {
+    notConfigured: "Google sign-in is not configured.",
+    failed: "Google sign-in failed. Please try again.",
+    loadFailed: "Could not load Google sign-in.",
+    unavailable: "Google sign-in unavailable",
+  },
+};
 
 type GoogleCredentialResponse = { credential?: string };
 
@@ -55,12 +73,15 @@ export function GoogleSignInButton({
   className?: string;
 }) {
   const buttonRef = useRef<HTMLDivElement>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { t } = useTranslation();
+  const s = t(ERRORS);
+  const [errorKey, setErrorKey] = useState<ErrKey | null>(null);
+  const [serverError, setServerError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!CLIENT_ID) {
-      setError("Google sign-in is not configured.");
+      setErrorKey("notConfigured");
       return;
     }
 
@@ -73,17 +94,20 @@ export function GoogleSignInButton({
           client_id: CLIENT_ID,
           callback: async (response) => {
             if (!response.credential) {
-              setError("Google sign-in failed. Please try again.");
+              setErrorKey("failed");
               return;
             }
             setLoading(true);
-            setError(null);
+            setErrorKey(null);
+            setServerError(null);
             const result = await googleAuth(response.credential);
             setLoading(false);
             if (result.success) {
               onSuccess?.();
+            } else if (result.message) {
+              setServerError(result.message);
             } else {
-              setError(result.message || "Google sign-in failed. Please try again.");
+              setErrorKey("failed");
             }
           },
         });
@@ -95,7 +119,7 @@ export function GoogleSignInButton({
           shape: "pill",
         });
       })
-      .catch(() => setError("Could not load Google sign-in."));
+      .catch(() => setErrorKey("loadFailed"));
 
     return () => {
       cancelled = true;
@@ -112,7 +136,7 @@ export function GoogleSignInButton({
           className,
         )}
       >
-        Google sign-in unavailable
+        {s.unavailable}
       </button>
     );
   }
@@ -124,9 +148,9 @@ export function GoogleSignInButton({
         className={cn("flex min-h-12 w-full items-center justify-center", loading && "opacity-60")}
         aria-busy={loading}
       />
-      {error && (
+      {(serverError ?? (errorKey ? s[errorKey] : null)) && (
         <p role="alert" className="mt-2 text-center text-xs font-semibold text-flag-600">
-          {error}
+          {serverError ?? (errorKey ? s[errorKey] : null)}
         </p>
       )}
     </div>
