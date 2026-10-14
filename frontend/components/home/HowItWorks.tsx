@@ -17,7 +17,10 @@ const STEPS = [
   },
   {
     no: "02",
-    title: { bn: "যোগ্যতা ও প্রয়োজনীয় কাগজপত্র দেখুন", en: "Check eligibility & documents" },
+    title: {
+      bn: "যোগ্যতা ও প্রয়োজনীয় কাগজপত্র দেখুন",
+      en: "Check eligibility & documents",
+    },
     note: {
       bn: "কী কী ডকুমেন্ট ও যোগ্যতা লাগবে তা জেনে নিন",
       en: "See what documents and criteria are required",
@@ -26,7 +29,10 @@ const STEPS = [
   },
   {
     no: "03",
-    title: { bn: "ধাপে ধাপে প্রক্রিয়া অনুসরণ করুন", en: "Follow the step-by-step process" },
+    title: {
+      bn: "ধাপে ধাপে প্রক্রিয়া অনুসরণ করুন",
+      en: "Follow the step-by-step process",
+    },
     note: {
       bn: "প্রতিটি ধাপ অনুসরণ করে আবেদন সম্পন্ন করুন",
       en: "Complete the application one step at a time",
@@ -35,7 +41,10 @@ const STEPS = [
   },
   {
     no: "04",
-    title: { bn: "অফিসিয়াল সেবায় আবেদন করুন", en: "Apply on the official portal" },
+    title: {
+      bn: "অফিসিয়াল সেবায় আবেদন করুন",
+      en: "Apply on the official portal",
+    },
     note: {
       bn: "সরকারি পোর্টালে গিয়ে আবেদন জমা দিন",
       en: "Submit your application on the official portal",
@@ -46,13 +55,13 @@ const STEPS = [
 
 const STRINGS = {
   bn: {
-    eyebrow: "একসেবা কীভাবে কাজ করে",
-    title: "একসেবা কীভাবে কাজ করে",
+    eyebrow: "নাগরিক সেবা কীভাবে কাজ করে",
+    title: "নাগরিক সেবা কীভাবে কাজ করে",
     description: "বিভ্রান্তি থেকে আবেদন সম্পন্ন — চারটি সহজ ধাপ।",
   },
   en: {
-    eyebrow: "How EkSheba works",
-    title: "How EkSheba Works",
+    eyebrow: "How NagorikSheba works",
+    title: "How NagorikSheba Works",
     description: "Four simple steps from confusion to a completed application.",
   },
 };
@@ -98,7 +107,9 @@ export function HowItWorks() {
                   <h3 className="mt-5 text-base font-bold leading-6 text-slate-900">
                     {t(step.title)}
                   </h3>
-                  <p className="mt-1.5 text-sm text-slate-500">{t(step.note)}</p>
+                  <p className="mt-1.5 text-sm text-slate-500">
+                    {t(step.note)}
+                  </p>
 
                   {/* vertical connector on mobile */}
                   {i < STEPS.length - 1 ? (

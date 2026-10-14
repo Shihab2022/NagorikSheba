@@ -1,5 +1,5 @@
 /**
- * Shared domain types for NagorikSheba / একসেবা.
+ * Shared domain types for NagorikSheba / নাগরিক সেবা.
  *
  * All data consumed by the UI is MOCK/DEMO data until a backend is
  * connected. The shapes below mirror what a real API would return so

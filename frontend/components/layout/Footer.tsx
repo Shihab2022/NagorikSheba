@@ -13,16 +13,28 @@ const COLUMNS: {
     title: { bn: "সেবা", en: "Services" },
     links: [
       { href: "/categories", label: { bn: "ক্যাটাগরি", en: "Categories" } },
-      { href: "/government-offices", label: { bn: "সরকারি অফিস", en: "Government Offices" } },
+      {
+        href: "/government-offices",
+        label: { bn: "সরকারি অফিস", en: "Government Offices" },
+      },
       { href: "/notices", label: { bn: "নোটিশ", en: "Notices" } },
-      { href: "/application-tracker", label: { bn: "আবেদন ট্র্যাকিং", en: "Application Tracking" } },
-      { href: "/ai-assistant", label: { bn: "এআই সহকারী", en: "AI Assistant" } },
+      {
+        href: "/application-tracker",
+        label: { bn: "আবেদন ট্র্যাকিং", en: "Application Tracking" },
+      },
+      {
+        href: "/ai-assistant",
+        label: { bn: "এআই সহকারী", en: "AI Assistant" },
+      },
     ],
   },
   {
     title: { bn: "রিসোর্স", en: "Resources" },
     links: [
-      { href: "/how-it-works", label: { bn: "কীভাবে কাজ করে", en: "How It Works" } },
+      {
+        href: "/how-it-works",
+        label: { bn: "কীভাবে কাজ করে", en: "How It Works" },
+      },
       { href: "/faq", label: { bn: "সাধারণ জিজ্ঞাসা", en: "FAQ" } },
       { href: "/documents", label: { bn: "ডকুমেন্ট", en: "Documents" } },
       { href: "/fees", label: { bn: "ফি", en: "Fees" } },
@@ -34,7 +46,10 @@ const COLUMNS: {
     links: [
       { href: "/about", label: { bn: "আমাদের কথা", en: "About" } },
       { href: "/contact", label: { bn: "যোগাযোগ", en: "Contact" } },
-      { href: "/about", label: { bn: "প্রাইভেসি পলিসি", en: "Privacy Policy" } },
+      {
+        href: "/about",
+        label: { bn: "প্রাইভেসি পলিসি", en: "Privacy Policy" },
+      },
       { href: "/about", label: { bn: "শর্তাবলি", en: "Terms" } },
     ],
   },
@@ -47,8 +62,8 @@ const STRINGS = {
       "সরকারি সেবা আবিষ্কার করুন, যোগ্যতা, ডকুমেন্ট, ফি ও ধাপে ধাপে প্রক্রিয়া বুঝুন — তারপর অফিসিয়াল পোর্টালে পৌঁছে যান।",
     important: "গুরুত্বপূর্ণ",
     disclaimer:
-      "একসেবা একটি স্বাধীন তথ্য ও সেবা-আবিষ্কার প্ল্যাটফর্ম। সরকারি সেবা প্রদান করা হয় সরকারি পোর্টাল ও কর্তৃপক্ষের মাধ্যমে। এই প্রোটোটাইপে ডেমো ডেটা ব্যবহৃত হয়েছে — কাজ করার আগে সর্বদা অফিসিয়াল উৎস থেকে তথ্য যাচাই করুন।",
-    rights: "© ২০২৬ EkSheba। সর্বস্বত্ব সংরক্ষিত।",
+      "নাগরিক সেবা একটি স্বাধীন তথ্য ও সেবা-আবিষ্কার প্ল্যাটফর্ম। সরকারি সেবা প্রদান করা হয় সরকারি পোর্টাল ও কর্তৃপক্ষের মাধ্যমে। এই প্রোটোটাইপে ডেমো ডেটা ব্যবহৃত হয়েছে — কাজ করার আগে সর্বদা অফিসিয়াল উৎস থেকে তথ্য যাচাই করুন।",
+    rights: "© ২০২৬ NagorikSheba। সর্বস্বত্ব সংরক্ষিত।",
     madeWith: "তৈরি করা হয়েছে",
     madeFor: "বাংলাদেশের নাগরিকদের জন্য",
   },
@@ -58,8 +73,8 @@ const STRINGS = {
       "Discover government services, understand eligibility, documents, fees and step-by-step procedures — then reach the official portal.",
     important: "Important",
     disclaimer:
-      "EkSheba is an independent information and service-discovery platform. Government services are provided through official government portals and authorities. This prototype uses mock data — always verify information with the official source before acting.",
-    rights: "© 2026 EkSheba. All rights reserved.",
+      "NagorikSheba is an independent information and service-discovery platform. Government services are provided through official government portals and authorities. This prototype uses mock data — always verify information with the official source before acting.",
+    rights: "© 2026 NagorikSheba. All rights reserved.",
     madeWith: "Made with",
     madeFor: "for the citizens of Bangladesh",
   },
@@ -71,7 +86,10 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-brand-800 text-brand-50">
       {/* subtle dot grid + red disc accent */}
-      <div className="pattern-dots absolute inset-0 opacity-40" aria-hidden="true" />
+      <div
+        className="pattern-dots absolute inset-0 opacity-40"
+        aria-hidden="true"
+      />
       <div
         className="absolute -left-20 -top-20 h-56 w-56 rounded-full bg-flag-500/10 blur-2xl"
         aria-hidden="true"
@@ -82,9 +100,10 @@ export function Footer() {
           {/* Brand */}
           <div className="max-w-sm">
             <div className="flex items-center gap-3">
-              <LogoMark className="bg-white" />
+              <LogoMark className="" />
               <span className="text-lg font-extrabold tracking-tight text-white">
-                EkSheba <span className="text-brand-200">/ একসেবা</span>
+                NagorikSheba{" "}
+                <span className="text-brand-200">/ নাগরিক সেবা</span>
               </span>
             </div>
             <p className="mt-4 text-sm leading-6 text-brand-100/85">
@@ -108,7 +127,10 @@ export function Footer() {
                       href={link.href}
                       className="group inline-flex items-center gap-1.5 rounded text-sm text-brand-100/80 transition-colors hover:text-white"
                     >
-                      <span className="h-1 w-1 rounded-full bg-flag-500 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
+                      <span
+                        className="h-1 w-1 rounded-full bg-flag-500 opacity-0 transition-opacity group-hover:opacity-100"
+                        aria-hidden="true"
+                      />
                       {t(link.label)}
                     </Link>
                   </li>
@@ -137,7 +159,10 @@ export function Footer() {
           <p>{s.rights}</p>
           <p className="flex items-center gap-1.5">
             {s.madeWith}
-            <HeartHandshake className="h-4 w-4 text-flag-500" aria-hidden="true" />
+            <HeartHandshake
+              className="h-4 w-4 text-flag-500"
+              aria-hidden="true"
+            />
             {s.madeFor}
           </p>
         </div>

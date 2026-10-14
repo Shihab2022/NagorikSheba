@@ -1,6 +1,12 @@
 "use client";
 
-import { Accessibility, Layers, Lock, ShieldCheck, Sparkles } from "lucide-react";
+import {
+  Accessibility,
+  Layers,
+  Lock,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
@@ -56,28 +62,37 @@ const REASONS = [
 
 const STRINGS = {
   bn: {
-    eyebrow: "কেন একসেবা",
-    title: "কেন একসেবা?",
-    description: "যে প্রতিটি নাগরিক এটি ব্যবহার করেন তাঁর বিশ্বাস অর্জনের জন্য তৈরি।",
-    quote: "“সরকারি বিশ্বাস + আধুনিক প্রযুক্তি + বাংলাদেশের পরিচয় + চমৎকার ইউএক্স।”",
-    quoteBy: "একসেবা-এর পেছনের ডিজাইন নীতি।",
+    eyebrow: "কেন নাগরিক সেবা",
+    title: "কেন নাগরিক সেবা?",
+    description:
+      "যে প্রতিটি নাগরিক এটি ব্যবহার করেন তাঁর বিশ্বাস অর্জনের জন্য তৈরি।",
+    quote:
+      "“সরকারি বিশ্বাস + আধুনিক প্রযুক্তি + বাংলাদেশের পরিচয় + চমৎকার ইউএক্স।”",
+    quoteBy: "নাগরিক সেবা-এর পেছনের ডিজাইন নীতি।",
   },
   en: {
-    eyebrow: "Why EkSheba",
-    title: "Why EkSheba?",
+    eyebrow: "Why NagorikSheba",
+    title: "Why NagorikSheba?",
     description: "Built to earn the trust of every citizen who uses it.",
-    quote: "“Government Trust + Modern Technology + Bangladesh Identity + Excellent UX.”",
-    quoteBy: "The design principle behind EkSheba.",
+    quote:
+      "“Government Trust + Modern Technology + Bangladesh Identity + Excellent UX.”",
+    quoteBy: "The design principle behind NagorikSheba.",
   },
 };
 
-/** "কেন একসেবা?" value-proposition grid. */
+/** "কেন নাগরিক সেবা?" value-proposition grid. */
 export function WhyEkSheba() {
   const { t } = useTranslation();
   const s = t(STRINGS);
   return (
-    <section aria-labelledby="why-heading" className="relative overflow-hidden bg-brand-700">
-      <div className="pattern-grid absolute inset-0 opacity-25" aria-hidden="true" />
+    <section
+      aria-labelledby="why-heading"
+      className="relative overflow-hidden bg-brand-700"
+    >
+      <div
+        className="pattern-grid absolute inset-0 opacity-25"
+        aria-hidden="true"
+      />
       <div
         className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-flag-500/10 blur-3xl"
         aria-hidden="true"
@@ -107,13 +122,17 @@ export function WhyEkSheba() {
                   <span
                     className={cn(
                       "inline-flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:-translate-y-1 group-hover:-rotate-6",
-                      reason.accent === "green" ? "bg-white/10 text-white" : "bg-flag-500 text-white",
+                      reason.accent === "green"
+                        ? "bg-white/10 text-white"
+                        : "bg-flag-500 text-white",
                     )}
                   >
                     <reason.icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <div className="mt-4 flex items-baseline gap-2">
-                    <h3 className="text-lg font-extrabold text-white">{t(reason.title)}</h3>
+                    <h3 className="text-lg font-extrabold text-white">
+                      {t(reason.title)}
+                    </h3>
                   </div>
                   <p className="mt-2 text-sm font-medium leading-6 text-white/90">
                     {t(reason.text)}
@@ -127,8 +146,12 @@ export function WhyEkSheba() {
           <li>
             <Reveal delay={140} className="h-full">
               <div className="flex h-full flex-col justify-center rounded-2xl border border-white/15 bg-white/10 p-6">
-                <p className="text-sm font-bold leading-6 text-white">{s.quote}</p>
-                <p className="mt-3 text-xs leading-5 text-brand-100/75">{s.quoteBy}</p>
+                <p className="text-sm font-bold leading-6 text-white">
+                  {s.quote}
+                </p>
+                <p className="mt-3 text-xs leading-5 text-brand-100/75">
+                  {s.quoteBy}
+                </p>
               </div>
             </Reveal>
           </li>

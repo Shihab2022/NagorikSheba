@@ -11,14 +11,14 @@ const STRINGS = {
     titleTop: "আপনার প্রয়োজনীয় সরকারি সেবা",
     titleBottom: "আজই খুঁজে নিন।",
     subtitle:
-      "একসেবার মাধ্যমে সঠিক তথ্য থেকে সঠিক সরকারি সেবায় পৌঁছে যান।",
+      "নাগরিক সেবার মাধ্যমে সঠিক তথ্য থেকে সঠিক সরকারি সেবায় পৌঁছে যান।",
     note: "নাগরিকদের জন্য বিনামূল্যে · শুধুমাত্র নির্দেশনা · অফিসিয়াল লিংক",
   },
   en: {
     titleTop: "Find the government service you need",
     titleBottom: "today.",
     subtitle:
-      "Reach the right government service from the right information — with EkSheba.",
+      "Reach the right government service from the right information — with NagorikSheba.",
     note: "Free for citizens · Guidance only · Official links",
   },
 };
@@ -44,7 +44,10 @@ export function CTASection() {
           className="absolute left-[6%] bottom-8 h-5 w-5 rounded-full bg-white/30"
           aria-hidden="true"
         />
-        <div className="pattern-dots absolute inset-0 opacity-25" aria-hidden="true" />
+        <div
+          className="pattern-dots absolute inset-0 opacity-25"
+          aria-hidden="true"
+        />
 
         <div className="relative mx-auto w-full max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8">
           <Reveal>
@@ -68,9 +71,7 @@ export function CTASection() {
                 <ArrowRight className="h-[18px] w-[18px]" aria-hidden="true" />
               </Link>
             </div>
-            <p className="mt-5 text-xs text-brand-100/70">
-              {s.note}
-            </p>
+            <p className="mt-5 text-xs text-brand-100/70">{s.note}</p>
           </Reveal>
         </div>
       </div>
