@@ -1,4 +1,5 @@
 import {
+  AlertTriangle,
   Baby,
   Bell,
   BookOpen,
@@ -15,6 +16,9 @@ import {
   IdCard,
   LandPlot,
   Landmark,
+  Lightbulb,
+  Link2Off,
+  MessageSquare,
   Plane,
   Receipt,
   Scale,
@@ -60,6 +64,10 @@ const ICONS: Record<string, LucideIcon> = {
   Truck,
   Wallet,
   LayoutGrid,
+  AlertTriangle,
+  Lightbulb,
+  Link2Off,
+  MessageSquare,
 };
 
 const FALLBACK = LayoutGrid;
