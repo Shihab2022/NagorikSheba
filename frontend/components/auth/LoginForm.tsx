@@ -43,7 +43,7 @@ export function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleRedirectByRole = async (user?: any) => {
+  const handleRedirectByRole = async (user?: { role?: string }) => {
     let role = user?.role;
     if (!role) {
       const meRes = await getMe();

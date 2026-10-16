@@ -8,7 +8,6 @@ import {
   Building2,
   Database,
   ExternalLink,
-  FileCheck,
   FolderPlus,
   Layers,
   LayoutDashboard,
@@ -20,6 +19,7 @@ import {
   Shield,
   UserRound,
   X,
+  type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation, type Dict } from "@/lib/i18n";
@@ -28,7 +28,7 @@ import { logout } from "@/service/auth";
 type NavItem = {
   href: string;
   label: Dict<string>;
-  icon: any;
+  icon: LucideIcon;
   badge?: string;
   createHref?: string;
   createLabel?: Dict<string>;

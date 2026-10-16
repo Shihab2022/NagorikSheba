@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -9,13 +9,11 @@ import {
   Search,
   Pencil,
   Trash2,
-  ExternalLink,
   Layers,
   AlertCircle,
   CheckCircle2,
   Loader2,
   FolderOpen,
-  ArrowUpDown,
 } from "lucide-react";
 import { CategoryItem, createCategory, updateCategory, deleteCategory } from "@/service/category";
 import { Modal } from "@/components/ui/Modal";
@@ -161,22 +159,25 @@ export function CategoryManager({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
-  // Auto-open modal if URL has ?action=create
-  useEffect(() => {
-    if (searchParams.get("action") === "create") {
-      resetForm();
-      setIsCreateOpen(true);
-    }
-  }, [searchParams]);
-
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setFormName("");
     setFormSlug("");
     setIsSlugTouched(false);
     setFormIcon("IdCard");
     setFormDesc("");
     setFeedback(null);
-  };
+  }, []);
+
+  // Auto-open modal if URL has ?action=create
+  useEffect(() => {
+    if (searchParams.get("action") === "create") {
+      const timer = setTimeout(() => {
+        resetForm();
+        setIsCreateOpen(true);
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams, resetForm]);
 
   const handleOpenCreate = () => {
     resetForm();
@@ -695,7 +696,7 @@ export function CategoryManager({
                 <p className="mt-1 text-xs text-red-700">{s.deleteWarning}</p>
                 {deletingCategory && (
                   <p className="mt-2 text-xs font-bold text-slate-800">
-                    "{deletingCategory.name}" ({deletingCategory.slug})
+                    &ldquo;{deletingCategory.name}&rdquo; ({deletingCategory.slug})
                   </p>
                 )}
               </div>

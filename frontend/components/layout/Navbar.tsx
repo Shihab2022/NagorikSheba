@@ -72,7 +72,8 @@ export function Navbar() {
 
   // Close the drawer on navigation.
   useEffect(() => {
-    setOpen(false);
+    const timer = setTimeout(() => setOpen(false), 0);
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   return (

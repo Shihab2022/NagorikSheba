@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -23,7 +23,6 @@ import {
   Link2,
   X,
   Info,
-  ChevronRight,
 } from "lucide-react";
 import {
   ServiceItem,
@@ -251,15 +250,7 @@ export function ServiceManager({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
-  // Auto-open modal if URL has ?action=create
-  useEffect(() => {
-    if (searchParams.get("action") === "create") {
-      resetForm();
-      setIsCreateOpen(true);
-    }
-  }, [searchParams]);
-
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setActiveTab("basic");
     setFormCategoryId(categories[0]?.id || "");
     setFormName("");
@@ -277,7 +268,18 @@ export function ServiceManager({
     setFormFees([]);
     setFormSources([]);
     setFeedback(null);
-  };
+  }, [categories]);
+
+  // Auto-open modal if URL has ?action=create
+  useEffect(() => {
+    if (searchParams.get("action") === "create") {
+      const timer = setTimeout(() => {
+        resetForm();
+        setIsCreateOpen(true);
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams, resetForm]);
 
   const handleOpenCreate = () => {
     resetForm();
@@ -1646,7 +1648,7 @@ export function ServiceManager({
                 <p className="mt-1 text-xs text-red-700">{s.deleteWarning}</p>
                 {deletingService && (
                   <p className="mt-2 text-xs font-bold text-slate-800">
-                    "{deletingService.name}" ({deletingService.slug})
+                    &ldquo;{deletingService.name}&rdquo; ({deletingService.slug})
                   </p>
                 )}
               </div>

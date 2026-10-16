@@ -69,19 +69,18 @@ export function GoogleSignInButton({
   onSuccess,
   className,
 }: {
-  onSuccess?: (user?: any) => void;
+  onSuccess?: (user?: { role?: string }) => void;
   className?: string;
 }) {
   const buttonRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
   const s = t(ERRORS);
-  const [errorKey, setErrorKey] = useState<ErrKey | null>(null);
+  const [errorKey, setErrorKey] = useState<ErrKey | null>(!CLIENT_ID ? "notConfigured" : null);
   const [serverError, setServerError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!CLIENT_ID) {
-      setErrorKey("notConfigured");
       return;
     }
 
