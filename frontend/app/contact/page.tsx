@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AlertTriangle, Lightbulb, Link2Off, MessageSquare } from "lucide-react";
 import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactCard } from "./ContactCard";
@@ -11,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 const CARDS = [
-  { icon: AlertTriangle, title: { bn: "ভুল তথ্য জানান", en: "Report incorrect information" }, text: { bn: "ভুল ফি বা ডকুমেন্ট? পাতা ও সংশোধন জানান।", en: "Wrong fee, document or step on a service page? Tell us the page and the correction." } },
-  { icon: Lightbulb, title: { bn: "সেবার প্রস্তাব দিন", en: "Suggest a service" }, text: { bn: "কোনো সেবা বাদ পড়েছে? প্রস্তাব দিন, আমরা গবেষণা করব।", en: "Missing a service citizens need? Suggest it and we will research the official process." } },
-  { icon: Link2Off, title: { bn: "ভাঙা লিংক জানান", en: "Report broken official link" }, text: { bn: "অফিসিয়াল পোর্টাল প্রায়ই বদলায় — জানালে ঠিক করে দেব।", en: "Official portals move often — report a dead link and we will fix it." } },
-  { icon: MessageSquare, title: { bn: "সাধারণ মতামত", en: "General feedback" }, text: { bn: "নাগরিকসেবা আরও সহজ করার পরামর্শ দিন।", en: "Ideas to make NagorikSheba clearer, simpler or more accessible for everyone." } },
+  { icon: "AlertTriangle", title: { bn: "ভুল তথ্য জানান", en: "Report incorrect information" }, text: { bn: "ভুল ফি বা ডকুমেন্ট? পাতা ও সংশোধন জানান।", en: "Wrong fee, document or step on a service page? Tell us the page and the correction." } },
+  { icon: "Lightbulb", title: { bn: "সেবার প্রস্তাব দিন", en: "Suggest a service" }, text: { bn: "কোনো সেবা বাদ পড়েছে? প্রস্তাব দিন, আমরা গবেষণা করব।", en: "Missing a service citizens need? Suggest it and we will research the official process." } },
+  { icon: "Link2Off", title: { bn: "ভাঙা লিংক জানান", en: "Report broken official link" }, text: { bn: "অফিসিয়াল পোর্টাল প্রায়ই বদলায় — জানালে ঠিক করে দেব।", en: "Official portals move often — report a dead link and we will fix it." } },
+  { icon: "MessageSquare", title: { bn: "সাধারণ মতামত", en: "General feedback" }, text: { bn: "নাগরিকসেবা আরও সহজ করার পরামর্শ দিন।", en: "Ideas to make NagorikSheba clearer, simpler or more accessible for everyone." } },
 ];
 
 export default function ContactPage() {

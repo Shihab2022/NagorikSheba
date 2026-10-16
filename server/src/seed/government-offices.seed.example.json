@@ -1,0 +1,33 @@
+{
+  "_readme": [
+    'This is a TEMPLATE for seeding verified government office data.',
+    "Do NOT ship invented offices. Collect each record from an official",
+    "Bangladesh government source, e.g.:",
+    "  - NID / voter registration: Election Commission (ecs.gov.bd / services.nidw.gov.bd)",
+    "  - Passport: Department of Immigration & Passports (epassport.gov.bd)",
+    "  - Birth registration: BDRIS (bdris.gov.bd) / Office of the Registrar General",
+    "  - Driving licence: BRTA (brta.gov.bd)",
+    "For every record record the address, coordinates (from the official",
+    "map/office locator), a phone number ONLY if published by the office,",
+    "the source URL and the date you verified it (lastVerifiedAt).",
+    "Then run: npm run seed:offices -- path/to/this-file.json",
+    "Delete every field starting with '_' before using, and replace the",
+    "PLACEHOLDER values below (or delete the sample entry entirely)."
+  ],
+  "offices": [
+    {
+      "name": "PLACEHOLDER — replace with the verified office name",
+      "officeType": "ELECTION_COMMISSION",
+      "address": "PLACEHOLDER — replace with the verified address",
+      "district": "PLACEHOLDER",
+      "upazila": "PLACEHOLDER",
+      "latitude": 23.75,
+      "longitude": 90.38,
+      "phone": "+8801XXXXXXXXX",
+      "officialUrl": "https://services.nidw.gov.bd/",
+      "lastVerifiedAt": "2026-01-01",
+      "services": ["NID"],
+      "isActive": true
+    }
+  ]
+}

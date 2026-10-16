@@ -3,6 +3,8 @@
 import { BadgeCheck, Clock, ExternalLink, Landmark, MonitorSmartphone } from "lucide-react";
 import type { GovernmentService } from "@/lib/types";
 import { Badge } from "@/components/ui/Badge";
+import { FindNearbyOffices } from "@/components/nearby/FindNearbyOffices";
+import { getOfficeServiceKey } from "@/lib/nearby";
 import { useTranslation } from "@/lib/i18n";
 
 const STRINGS = {
@@ -119,6 +121,10 @@ export function ServiceSidebar({ service }: { service: GovernmentService }) {
               </p>
             ) : null}
           </div>
+
+          {getOfficeServiceKey(service.slug) ? (
+            <FindNearbyOffices slug={service.slug} />
+          ) : null}
 
           <p className="text-[11px] leading-4 text-slate-400">
             {s.guidanceOnly}
