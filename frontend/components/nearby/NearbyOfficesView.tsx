@@ -118,6 +118,9 @@ export function NearbyOfficesView({
   }, [origin, service, radiusKm]);
 
   useEffect(() => {
+    // Fetching offices from the backend on mount/prop change is a valid
+    // effect use (syncing with an external system).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     load();
   }, [load]);
 

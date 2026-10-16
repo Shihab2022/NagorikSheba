@@ -81,17 +81,18 @@ export function AreaPickerModal({
 
   useEffect(() => {
     if (open && areas === null && !loading && !error) {
+      // Data fetch on modal open is a valid effect use (external system sync).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       loadAreas();
     }
   }, [open, areas, loading, error, loadAreas]);
 
-  useEffect(() => {
-    if (!open) {
-      // Reset so a reopening reflects a fresh fetch.
-      setDistrict("");
-      setUpazila("");
-    }
-  }, [open]);
+  const handleClose = useCallback(() => {
+    // Reset in the close event handler instead of an effect.
+    setDistrict("");
+    setUpazila("");
+    onClose();
+  }, [onClose]);
 
   const districts = useMemo(
     () => Array.from(new Set((areas ?? []).map((a) => a.district))).sort(),
@@ -107,7 +108,7 @@ export function AreaPickerModal({
   );
 
   return (
-    <Modal open={open} onClose={onClose} title={s.title}>
+    <Modal open={open} onClose={handleClose} title={s.title}>
       <p className="text-sm leading-6 text-slate-600">{s.intro}</p>
       <div className="mt-4 space-y-4">
         {loading ? (

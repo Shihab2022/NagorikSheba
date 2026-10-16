@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { apiMethods } from "@/constant";
 import { apiHandler } from "@/lib/apiHandler";
