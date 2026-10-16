@@ -107,6 +107,7 @@
    Base
    ------------------------------------------------------------------ */
 :root {
+  color-scheme: light;
   --background: #ffffff;
   --foreground: #0f172a;
 }
@@ -140,12 +141,17 @@
     border-radius: 4px;
   }
 
-  /* Minimum 44px touch targets for interactive controls */
-  button,
-  a,
+  /* Ensure inputs have solid readable text and clean light theme rendering */
   input,
   select,
   textarea {
+    color: #0f172a;
+    background-color: #ffffff;
+    min-height: 0;
+  }
+
+  button,
+  a {
     min-height: 0;
   }
 }

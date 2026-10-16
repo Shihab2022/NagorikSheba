@@ -1,7 +1,16 @@
 "use client";
-import type { LucideIcon } from "lucide-react";
+import { AlertTriangle, Lightbulb, Link2Off, MessageSquare, type LucideIcon } from "lucide-react";
 import { useTranslation, type Dict } from "@/lib/i18n";
-export function ContactCard({ icon: Icon, title, text }: { icon: LucideIcon; title: Dict<string>; text: Dict<string> }) {
+
+const ICONS: Record<string, LucideIcon> = {
+  AlertTriangle,
+  Lightbulb,
+  Link2Off,
+  MessageSquare,
+};
+
+export function ContactCard({ icon: iconName, title, text }: { icon: string; title: Dict<string>; text: Dict<string> }) {
+  const Icon = ICONS[iconName];
   const { t } = useTranslation();
   return (
     <div className="rounded-2xl border border-line bg-white p-5 shadow-card">

@@ -69,7 +69,7 @@ export function GoogleSignInButton({
   onSuccess,
   className,
 }: {
-  onSuccess?: () => void;
+  onSuccess?: (user?: any) => void;
   className?: string;
 }) {
   const buttonRef = useRef<HTMLDivElement>(null);
@@ -103,7 +103,7 @@ export function GoogleSignInButton({
             const result = await googleAuth(response.credential);
             setLoading(false);
             if (result.success) {
-              onSuccess?.();
+              onSuccess?.(result.data?.user);
             } else if (result.message) {
               setServerError(result.message);
             } else {

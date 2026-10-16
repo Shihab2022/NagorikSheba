@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, Search, UserRound } from "lucide-react";
+import { LogOut, Menu, Search, Shield, UserRound } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { cn } from "@/lib/utils";
 import { useTranslation, type Dict } from "@/lib/i18n";
 import { COMMON } from "@/lib/i18n/common";
+import { getMe, logout } from "@/service/auth";
 
 const NAV_LINKS: { label: Dict<string>; href: string }[] = [
   { href: "/services", label: { bn: "সেবা", en: "Services" } },
@@ -24,12 +25,33 @@ const STRINGS = {
 };
 
 export function Navbar() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState<{ name?: string; role?: string } | null>(null);
   const { lang, setLang, t } = useTranslation();
   const c = t(COMMON);
   const s = t(STRINGS);
   const pathname = usePathname();
+
+  useEffect(() => {
+    getMe()
+      .then((res) => {
+        if (res.success && res.data) {
+          setUser(res.data);
+        } else {
+          setUser(null);
+        }
+      })
+      .catch(() => setUser(null));
+  }, [pathname]);
+
+  const handleLogout = async () => {
+    await logout();
+    setUser(null);
+    router.push("/");
+    router.refresh();
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -136,13 +158,37 @@ export function Navbar() {
             </button>
           </div>
 
-          <Link
-            href="/login"
-            className="hidden h-10 items-center gap-1.5 rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all hover:bg-brand-50 hover:shadow md:inline-flex"
-          >
-            <UserRound className="h-4 w-4" aria-hidden="true" />
-            {c.login}
-          </Link>
+          {user ? (
+            <div className="hidden items-center gap-1.5 md:inline-flex">
+              <Link
+                href={user.role?.toUpperCase() === "ADMIN" ? "/admin/dashboard" : "/dashboard"}
+                className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-white px-3.5 text-xs font-bold text-brand-800 shadow-sm transition-all hover:bg-brand-50"
+              >
+                {user.role?.toUpperCase() === "ADMIN" ? (
+                  <Shield className="h-4 w-4 text-flag-600" aria-hidden="true" />
+                ) : (
+                  <UserRound className="h-4 w-4 text-brand-700" aria-hidden="true" />
+                )}
+                <span className="max-w-[120px] truncate">{user.name || (user.role?.toUpperCase() === "ADMIN" ? "Admin" : "Dashboard")}</span>
+              </Link>
+              <button
+                type="button"
+                onClick={handleLogout}
+                title="Logout"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-brand-50/90 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                <LogOut className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="hidden h-10 items-center gap-1.5 rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all hover:bg-brand-50 hover:shadow md:inline-flex"
+            >
+              <UserRound className="h-4 w-4" aria-hidden="true" />
+              {c.login}
+            </Link>
+          )}
 
           <button
             type="button"
