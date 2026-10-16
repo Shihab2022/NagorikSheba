@@ -123,3 +123,51 @@ export type SearchResult = {
   href: string;
   badge?: string;
 };
+
+/* ------------------------------------------------------------------
+   Nearby government offices feature
+   ------------------------------------------------------------------ */
+
+/** Office service keys accepted by the backend nearby endpoint. */
+export type OfficeServiceKey =
+  | "NID"
+  | "PASSPORT"
+  | "BIRTH_REGISTRATION"
+  | "DRIVING_LICENCE";
+
+/** A government office returned by the nearby/by-area API, with the
+ *  approximate straight-line distance from the user (km) when available. */
+export type NearbyOffice = {
+  id: string;
+  name: string;
+  /** Backend office type enum, e.g. ELECTION_COMMISSION. */
+  officeType: string;
+  address: string;
+  district: string;
+  upazila: string;
+  latitude: number;
+  longitude: number;
+  /** Verified phone number, when the office publishes one. */
+  phone: string | null;
+  officialUrl: string | null;
+  /** ISO date the record was last verified against an official source. */
+  lastVerifiedAt: string;
+  /** Straight-line distance in km; null when searching by area instead of GPS. */
+  distanceKm: number | null;
+};
+
+export type OfficeArea = { district: string; upazila: string };
+
+/** Envelope returned by the nearby / by-area endpoints. */
+export type NearbyOfficesResult = {
+  service: OfficeServiceKey;
+  origin?: { lat: number; lng: number };
+  area?: { district: string; upazila: string | null };
+  radiusKm?: number;
+  offices: NearbyOffice[];
+};
+
+/** Where the user's "location" on the nearby page comes from. */
+export type NearbyOrigin =
+  | { mode: "gps"; lat: number; lng: number }
+  | { mode: "area"; district: string; upazila: string | null };
