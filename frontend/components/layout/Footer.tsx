@@ -5,6 +5,9 @@ import { AlertCircle, HeartHandshake } from "lucide-react";
 import { LogoMark } from "@/components/ui/Logo";
 import { useTranslation, type Dict } from "@/lib/i18n";
 
+
+
+
 const COLUMNS: {
   title: Dict<string>;
   links: { label: Dict<string>; href: string }[];
