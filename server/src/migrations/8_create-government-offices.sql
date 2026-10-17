@@ -11,5 +11,6 @@ CREATE TABLE serviceVerification (
     status verification_status NOT NULL,
     notes TEXT,
     "verifiedAt" TIMESTAMP NOT NULL,
-    "createdAt" TIMESTAMP NOT NULL
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

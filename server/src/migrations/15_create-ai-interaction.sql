@@ -12,5 +12,6 @@ CREATE TABLE aiInteraction (
     "interactionType" ai_interaction_type NOT NULL,
     "detectedIntent" VARCHAR,
     "responseSummary" TEXT,
-    "createdAt" TIMESTAMP NOT NULL
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
