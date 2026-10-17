@@ -27,11 +27,11 @@ export const metadata: Metadata = {
     template: "%s | NagorikSheba",
   },
   description:
-    "NagorikSheba (একসেবা) helps citizens discover Bangladesh government services — eligibility, required documents, fees, step-by-step procedures, offices, notices and official links in one place.",
+    "NagorikSheba (নাগরিক সেবা) helps citizens discover Bangladesh government services — eligibility, required documents, fees, step-by-step procedures, offices, notices and official links in one place.",
   applicationName: "NagorikSheba",
   keywords: [
     "NagorikSheba",
-    "একসেবা",
+    "নাগরিক সেবা",
     "Bangladesh government services",
     "সরকারি সেবা",
     "NID",

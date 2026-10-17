@@ -1,5 +1,5 @@
 "use client";
-import { ChevronDown, Coins, FileCheck2, Globe } from "lucide-react";
+import { ChevronDown, Coins, FileCheck2 } from "lucide-react";
 import { HelpCircle, MapPin, UserCheck } from "lucide-react";
 import { getServiceBySlug } from "@/lib/data/services";
 import { ServiceSteps, DetailSection } from "@/components/services/ServiceSteps";

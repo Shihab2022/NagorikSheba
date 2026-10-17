@@ -1,4 +1,4 @@
-class ApiError extends Error {
+class AppError extends Error {
   statusCode: number;
   success: boolean;
 
@@ -15,4 +15,4 @@ class ApiError extends Error {
   }
 }
 
-export default ApiError;
+export default AppError;

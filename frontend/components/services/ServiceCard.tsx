@@ -6,7 +6,6 @@ import type { GovernmentService } from "@/lib/types";
 import { getCategoryBySlug } from "@/lib/data/categories";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
-import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/i18n";
 import { COMMON } from "@/lib/i18n/common";
 

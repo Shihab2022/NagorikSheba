@@ -1,5 +1,5 @@
 import jwt, { type JwtPayload, type SignOptions } from "jsonwebtoken";
-import config from "../config";
+import config from "../../config";
 
 const signJwt = (
   payload: Record<string, unknown>,

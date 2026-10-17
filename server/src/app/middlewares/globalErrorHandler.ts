@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import ApiError from "./ApiError";
+import ApiError from "../errors/AppError";
+import httpStatus from "http-status";
 
 const globalErrorHandler = (
   err: any,
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction,
 ) => {
@@ -20,6 +21,10 @@ const globalErrorHandler = (
   if (err instanceof ApiError) {
     statusCode = err.statusCode;
     message = err.message;
+  } else if (err?.statusCode && err?.message) {
+    statusCode = err.statusCode;
+    message = err.message;
+    errorMessages = err.errorMessages || [];
   } else if (err instanceof Error) {
     message = err.message;
     errorMessages = [{ path: "", message: err.message }];

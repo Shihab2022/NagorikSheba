@@ -7,7 +7,6 @@ import {
   Building2,
   Coins,
   FileSearch,
-  ListChecks,
   MapPin,
   Newspaper,
   Route,

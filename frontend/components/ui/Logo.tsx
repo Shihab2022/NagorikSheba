@@ -2,7 +2,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 /**
- * NagorikSheba / একসেবা brand lockup.
+ * NagorikSheba / নাগরিক সেবা brand lockup.
  * Mark: rounded deep-green tile with a flag-red disc (abstract flag reference).
  */
 export function LogoMark({ className }: { className?: string }) {
@@ -48,7 +48,12 @@ export function Logo({
             tone === "dark" ? "text-slate-900" : "text-white",
           )}
         >
-          Nagorik<span className={tone === "dark" ? "text-brand-600" : "text-brand-200"}>Sheba</span>
+          Nagorik
+          <span
+            className={tone === "dark" ? "text-brand-600" : "text-brand-200"}
+          >
+            Sheba
+          </span>
         </span>
         <span
           className={cn(
@@ -56,7 +61,7 @@ export function Logo({
             tone === "dark" ? "text-slate-500" : "text-white/70",
           )}
         >
-          একসেবা
+          নাগরিক সেবা
         </span>
       </span>
     </Link>

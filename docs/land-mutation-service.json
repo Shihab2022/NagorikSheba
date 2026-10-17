@@ -1,0 +1,239 @@
+{
+  "category": {
+    "name": "ভূমি ও সম্পত্তি সেবা",
+    "slug": "land-property",
+    "description": "জমির নামজারি, খারিজ, ভূমি উন্নয়ন কর (খাজনা) ও খতিয়ান সংক্রান্ত যাবতীয় নাগরিক সেবা।",
+    "icon": "LandPlot",
+    "isDeleted": false
+  },
+  "service": {
+    "name": "ই-নামজারি (Land Mutation)",
+    "slug": "land-mutation",
+    "categorySlug": "land-property",
+    "shortDescription": "জমি ক্রয়, উত্তরাধিকার বা দানের পর স্বত্ব হালনাগাদ ও নতুন নামজারি খতিয়ান তৈরির অনলাইন সেবা।",
+    "description": "জমি ক্রয়, উত্তরাধিকার, দান বা হেবা এবং আদালতের ডিক্রির মাধ্যমে অর্জিত জমির মালিকানা রেকর্ড হালনাগাদ করার জন্য ভূমি মন্ত্রণালয়ের ই-নামজারি পোর্টালের (mutation.land.gov.bd) মাধ্যমে অনলাইনে আবেদন করা হয়। আবেদনের পর ইউনিয়ন ভূমি অফিস তদন্ত প্রতিবেদন প্রদান করে এবং সহকারী কমিশনার (ভূমি) কর্তৃক যাচাই-বাছাই ও শুনানি শেষে ডিজিটাল নামজারি খতিয়ান ও ডিসিআর প্রদান করা হয়।",
+    "eligibility": "১. রেজিস্ট্রিকৃত মূল দলিল বা সার্টিফাইড কপির মাধ্যমে বৈধ ক্রেতা/মালিক হতে হবে।\n২. উত্তরাধিকার সূত্রে মালিক হলে বৈধ ওয়ারিশান সনদ থাকতে হবে।\n৩. সংশ্লিষ্ট জমির হালনাগাদ ভূমি উন্নয়ন কর (খাজনা) পরিশোধ থাকতে হবে।\n৪. জমিতে সরকারের কোনো স্বার্থ (খাস/অর্পিত) বা আদালতের নিষেধাজ্ঞা থাকা যাবে না।",
+    "processingTime": "২৮ কার্যদিবস",
+    "officialUrl": "https://mutation.land.gov.bd/",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-10-15T00:00:00.000Z",
+    "isPublished": true,
+    "isDeleted": false
+  },
+  "serviceRequirements": [
+    {
+      "sortOrder": 1,
+      "name": "রেজিস্ট্রিকৃত মূল দলিল বা সার্টিফাইড কপি",
+      "description": "সাব-রেজিস্ট্রি অফিস কর্তৃক প্রদত্ত রেজিস্ট্রিকৃত হস্তান্তর দলিলের সুস্পষ্ট স্ক্যান কপি (PDF)।",
+      "isMandatory": true,
+      "conditionDescription": "ক্রয়, হেবা বা দানসূত্রে প্রাপ্ত জমির ক্ষেত্রে প্রযোজ্য",
+      "isDeleted": false
+    },
+    {
+      "sortOrder": 2,
+      "name": "সর্বশেষ খতিয়ান (Record of Rights)",
+      "description": "সর্বশেষ প্রস্তুতকৃত জরিপ খতিয়ান (CS, SA, RS, BS / City Survey) বা নামজারি খতিয়ানের কপি।",
+      "isMandatory": true,
+      "conditionDescription": "সকল আবেদনের ক্ষেত্রে প্রযোজ্য",
+      "isDeleted": false
+    },
+    {
+      "sortOrder": 3,
+      "name": "হালনাগাদ ভূমি উন্নয়ন কর পরিশোধের দাখিলা",
+      "description": "চলতি অর্থবছরের জমির খাজনা পরিশোধের ইলেকট্রনিক দাখিলা/রসিদ।",
+      "isMandatory": true,
+      "conditionDescription": "সকল আবেদনের ক্ষেত্রে প্রযোজ্য",
+      "isDeleted": false
+    },
+    {
+      "sortOrder": 4,
+      "name": "আবেদনকারীর এনআইডি ও পাসপোর্ট সাইজ ছবি",
+      "description": "আবেদনকারীর জাতীয় পরিচয়পত্র এবং সাম্প্রতিক পাসপোর্ট সাইজ ডিজিটাল ছবি।",
+      "isMandatory": true,
+      "conditionDescription": "সকল আবেদনের ক্ষেত্রে প্রযোজ্য",
+      "isDeleted": false
+    },
+    {
+      "sortOrder": 5,
+      "name": "ওয়ারিশান সনদ (Succession Certificate)",
+      "description": "স্থানীয় ইউনিয়ন পরিষদ চেয়ারম্যান বা পৌর মেয়র/কাউন্সিলর প্রদত্ত ওয়ারিশান সনদ।",
+      "isMandatory": false,
+      "conditionDescription": "উত্তরাধিকার সূত্রে জমির মালিকানা প্রাপ্ত হলে প্রযোজ্য",
+      "isDeleted": false
+    },
+    {
+      "sortOrder": 6,
+      "name": "আদালতের রায় বা ডিক্রি (Court Decree)",
+      "description": "উপযুক্ত দেওয়ানি আদালত কর্তৃক প্রদত্ত চূড়ান্ত রায়, ডিক্রি ও আরজির সার্টিফাইড কপি।",
+      "isMandatory": false,
+      "conditionDescription": "দেওয়ানি মামলার রায় বা বণ্টননামা মূলে নামজারি হলে প্রযোজ্য",
+      "isDeleted": false
+    },
+    {
+      "sortOrder": 7,
+      "name": "আমমোক্তারনামা / পাওয়ার অব অ্যাটর্নি",
+      "description": "রেজিস্ট্রিকৃত আমমোক্তারনামা দলিল ও প্রতিনিধির জাতীয় পরিচয়পত্র।",
+      "isMandatory": false,
+      "conditionDescription": "মূল মালিকের পক্ষে প্রতিনিধি বা আইনজীবী আবেদন করলে প্রযোজ্য",
+      "isDeleted": false
+    },
+    {
+      "sortOrder": 8,
+      "name": "জমির বণ্টননামা বা হাতনকশা (Sketch Map)",
+      "description": "অংশীদারদের সম্মতিক্রমে প্রস্তুতকৃত জমির সীমানা চিহ্নিত হাতনকশা।",
+      "isMandatory": false,
+      "conditionDescription": "নির্দিষ্ট অংশ বা দাগের আংশিক জমি খারিজের ক্ষেত্রে প্রযোজ্য",
+      "isDeleted": false
+    }
+  ],
+  "serviceSteps": [
+    {
+      "stepNumber": 1,
+      "title": "নাগরিক লগইন ও এনআইডি যাচাই",
+      "description": "ই-নামজারি পোর্টালে গিয়ে সচল মোবাইল নম্বর, জন্ম তারিখ এবং এনআইডি নম্বর ইনপুট দিয়ে ওটিপি (OTP) ভেরিফিকেশনের মাধ্যমে নাগরিক প্রোফাইল নিশ্চিত করুন।",
+      "actionType": "VISIT_OFFICIAL_PORTAL",
+      "officialUrl": "https://mutation.land.gov.bd/",
+      "isDeleted": false
+    },
+    {
+      "stepNumber": 2,
+      "title": "জমির ভৌগোলিক এখতিয়ার নির্বাচন",
+      "description": "আবেদনকৃত জমির বিভাগ, জেলা, উপজেলা/সার্কেল এবং নির্দিষ্ট মৌজা ও জেএল নম্বর ড্রপডাউন মেনু থেকে নির্বাচন করুন।",
+      "actionType": "VISIT_OFFICIAL_PORTAL",
+      "officialUrl": "https://mutation.land.gov.bd/",
+      "isDeleted": false
+    },
+    {
+      "stepNumber": 3,
+      "title": "নামজারির উৎস বা প্রকৃতি নির্ধারণ",
+      "description": "মালিকানা অর্জনের উপযুক্ত ধরন (যেমন: ক্রয়সূত্রে, হেবা/দানসূত্রে, ওয়ারিশসূত্রে, নিলাম বা ডিক্রিসূত্রে) বেছে নিন।",
+      "actionType": "READ_GUIDE",
+      "officialUrl": null,
+      "isDeleted": false
+    },
+    {
+      "stepNumber": 4,
+      "title": "খতিয়ান, দাগ ও জমির তথ্য এন্ট্রি",
+      "description": "পূর্ববর্তী রেকর্ডীয় খতিয়ান নম্বর, দাগ নম্বর, জমির শ্রেণি (নাল, ভিটি, বাড়ি ইত্যাদি) এবং মোট হস্তান্তরিত জমির পরিমাণ (শতাংশ/একর) নির্ভুলভাবে লিখুন।",
+      "actionType": "VISIT_OFFICIAL_PORTAL",
+      "officialUrl": "https://mutation.land.gov.bd/",
+      "isDeleted": false
+    },
+    {
+      "stepNumber": 5,
+      "title": "আবেদনকারী ও পূর্ববর্তী মালিকের বিবরণ",
+      "description": "আবেদনকারী (ক্রেতা/গ্রহীতা) এবং দাতা/বিক্রেতার নাম, জাতীয় পরিচয়পত্র নম্বর, বর্তমান ও স্থায়ী ঠিকানা এবং মোবাইল নম্বর এন্ট্রি করুন।",
+      "actionType": "VISIT_OFFICIAL_PORTAL",
+      "officialUrl": "https://mutation.land.gov.bd/",
+      "isDeleted": false
+    },
+    {
+      "stepNumber": 6,
+      "title": "প্রয়োজনীয় কাগজপত্র স্ক্যান ও আপলোড",
+      "description": "প্রস্তুতকৃত রেজিস্ট্রিকৃত দলিল, সর্বশেষ খতিয়ান, হালনাগাদ খাজনা রসিদ ও ওয়ারিশান সনদ (প্রযোজ্য ক্ষেত্রে) পরিষ্কার পিডিএফ (PDF) ফরম্যাটে আপলোড করুন।",
+      "actionType": "PREPARE_DOCUMENTS",
+      "officialUrl": null,
+      "isDeleted": false
+    },
+    {
+      "stepNumber": 7,
+      "title": "প্রাথমিক আবেদন ও নোটিশ ফি পরিশোধ",
+      "description": "আবেদন জমার সময় মোবাইল ব্যাংকিং (বিকাশ, নগদ, রকেট, উপায়) বা কার্ডের মাধ্যমে নির্ধারিত ৭০/- টাকা (আবেদন ফি ২০/- + নোটিশ ফি ৫০/-) পরিশোধ করুন এবং ট্র্যাকিং নম্বরযুক্ত আবেদন কপি সংরক্ষণ করুন।",
+      "actionType": "VISIT_OFFICIAL_PORTAL",
+      "officialUrl": "https://mutation.land.gov.bd/",
+      "isDeleted": false
+    },
+    {
+      "stepNumber": 8,
+      "title": "তদন্ত প্রতিবেদন ও শুনানি",
+      "description": "ইউনিয়ন ভূমি সহকারী কর্মকর্তা সরেজমিন তদন্ত শেষে এসি ল্যান্ড বরাবর প্রতিবেদন দাখিল করবেন। কোনো আপত্তি থাকলে বা প্রয়োজন হলে শুনানির তারিখ এসএমএস মারফত জানিয়ে দেওয়া হবে।",
+      "actionType": "OTHER",
+      "officialUrl": null,
+      "isDeleted": false
+    },
+    {
+      "stepNumber": 9,
+      "title": "চূড়ান্ত অনুমোদন ও খতিয়ান ফি পরিশোধ",
+      "description": "সহকারী কমিশনার (ভূমি) আবেদন মঞ্জুর করলে মোবাইলে এসএমএস পাঠানো হবে। মেসেজ পাওয়ার পর অনলাইনে বাকি ১,১০০/- টাকা (রেকর্ড হালকরণ ১,০০০/- + খতিয়ান/ডিসিআর ১০০/-) পরিশোধ করুন।",
+      "actionType": "VISIT_OFFICIAL_PORTAL",
+      "officialUrl": "https://mutation.land.gov.bd/",
+      "isDeleted": false
+    },
+    {
+      "stepNumber": 10,
+      "title": "ডিজিটাল নামজারি খতিয়ান ও ডিসিআর ডাউনলোড",
+      "description": "পেমেন্ট সম্পন্ন হওয়া মাত্রই স্বয়ংক্রিয়ভাবে তৈরি কিউআর কোড (QR Code) ভেরিফায়েড অনলাইন নামজারি খতিয়ান ও ডিসিআর (DCR) ডাউনলোড ও প্রিন্ট করে নিন।",
+      "actionType": "VISIT_OFFICIAL_PORTAL",
+      "officialUrl": "https://mutation.land.gov.bd/",
+      "isDeleted": false
+    }
+  ],
+  "serviceFees": [
+    {
+      "name": "কোর্ট ফি (Court Fee)",
+      "amount": 20.00,
+      "currency": "BDT",
+      "description": "অনলাইনে আবেদন দাখিল করার সময় প্রদেয় সরকারি আবেদন ফি।",
+      "effectiveFrom": "2021-01-01",
+      "effectiveUntil": null,
+      "isDeleted": false
+    },
+    {
+      "name": "নোটিশ জারি ফি (Notice Fee)",
+      "amount": 50.00,
+      "currency": "BDT",
+      "description": "পক্ষগণ ও সংশ্লিষ্ট ভূমি অফিসের নোটিশ জারি বাবদ ফি (আবেদন দাখিলের সময় প্রদেয়)।",
+      "effectiveFrom": "2021-01-01",
+      "effectiveUntil": null,
+      "isDeleted": false
+    },
+    {
+      "name": "রেকর্ড সংশোধন / হালকরণ ফি",
+      "amount": 1000.00,
+      "currency": "BDT",
+      "description": "এসি ল্যান্ড কর্তৃক নামজারি আবেদন মঞ্জুর হওয়ার পর রেকর্ড সংশোধনের জন্য প্রদেয়।",
+      "effectiveFrom": "2021-01-01",
+      "effectiveUntil": null,
+      "isDeleted": false
+    },
+    {
+      "name": "নামজারি খতিয়ান / ডিসিআর ফি",
+      "amount": 100.00,
+      "currency": "BDT",
+      "description": "ডিজিটাল নামজারি খতিয়ান ও ডিওপি/ডিসিআর রসিদ সংগ্রহের ফি (মঞ্জুরির পর প্রদেয়)।",
+      "effectiveFrom": "2021-01-01",
+      "effectiveUntil": null,
+      "isDeleted": false
+    }
+  ],
+  "serviceSources": [
+    {
+      "title": "ই-নামজারি অফিশিয়াল পোর্টাল",
+      "url": "https://mutation.land.gov.bd/",
+      "sourceType": "OFFICIAL_PORTAL",
+      "lastCheckedAt": "2026-10-15T00:00:00.000Z",
+      "isDeleted": false
+    },
+    {
+      "title": "ভূমি মন্ত্রণালয় অফিশিয়াল সিটিজেন পোর্টাল",
+      "url": "https://land.gov.bd/",
+      "sourceType": "OFFICIAL_PORTAL",
+      "lastCheckedAt": "2026-10-15T00:00:00.000Z",
+      "isDeleted": false
+    },
+    {
+      "title": "ভূমি মন্ত্রণালয় পরিপত্র (ই-নামজারি ফি নির্ধারণ সংক্রান্ত)",
+      "url": "https://land.gov.bd/",
+      "sourceType": "OFFICIAL_NOTICE",
+      "lastCheckedAt": "2026-10-15T00:00:00.000Z",
+      "isDeleted": false
+    },
+    {
+      "title": "AFR Technology ভিডিও গাইড (ই-নামজারি আবেদন পদ্ধতি)",
+      "url": "https://youtu.be/SVmk61-JpN0",
+      "sourceType": "OTHER",
+      "lastCheckedAt": "2026-10-15T00:00:00.000Z",
+      "isDeleted": false
+    }
+  ]
+}

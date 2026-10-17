@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
-import config from "../config";
-import { jwtHelpers } from "../helpars/jwt";
-import ApiError from "../helpars/ApiError";
-import { pool } from "../utils/pg";
+import config from "../../config";
+import { jwtHelpers } from "../helpers/jwt";
+import ApiError from "../errors/AppError";
+import { pool } from "../../utils/pg";
 
 const auth = (...roles: string[]) => {
-  return async (req: Request, _res: Response, next: NextFunction) => {
+  return async (req: Request & { user?: any }, _res: Response, next: NextFunction) => {
     try {
       const authHeader = req.headers.authorization;
       const token = authHeader?.startsWith("Bearer ")
@@ -28,7 +28,7 @@ const auth = (...roles: string[]) => {
         throw new ApiError(httpStatus.UNAUTHORIZED, "You are not authorized!");
       }
 
-      (req as any).user = user;
+      req.user = user;
 
       if (roles.length && !roles.includes(user.role)) {
         throw new ApiError(httpStatus.FORBIDDEN, "You do not have permission!");
