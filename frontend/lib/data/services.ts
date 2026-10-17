@@ -39,7 +39,9 @@ export const SERVICES: GovernmentService[] = [
       "Track the application until the updated card is delivered",
     ],
     authority: "Bangladesh Election Commission",
-    officeLocations: ["NID Registration Centres (Union Parishad / City Corporation areas)"],
+    officeLocations: [
+      "NID Registration Centres (Union Parishad / City Corporation areas)",
+    ],
     officialUrl: "https://services.nidw.gov.bd/",
     lastVerifiedAt: "2026-09-20",
     isOnline: true,
@@ -54,7 +56,8 @@ export const SERVICES: GovernmentService[] = [
     slug: "birth-registration",
     category: "identity-documents",
     department: "BDRIS",
-    description: "Register a newborn and obtain the Birth Registration Certificate.",
+    description:
+      "Register a newborn and obtain the Birth Registration Certificate.",
     longDescription:
       "Birth registration must be completed within 60 days of birth for a standard certificate. Late registration requires additional approvals from the Upazila Nirbahi Officer or City Corporation authority.",
     eligibility: [
@@ -78,7 +81,11 @@ export const SERVICES: GovernmentService[] = [
       "Verify the certificate online through BDRIS",
     ],
     authority: "Office of the Registrar General, Birth & Death Registration",
-    officeLocations: ["Union Parishad", "Municipality", "City Corporation Ward Office"],
+    officeLocations: [
+      "Union Parishad",
+      "Municipality",
+      "City Corporation Ward Office",
+    ],
     officialUrl: "https://www.bdris.gov.bd/",
     lastVerifiedAt: "2026-09-18",
     isOnline: true,
@@ -93,7 +100,8 @@ export const SERVICES: GovernmentService[] = [
     slug: "death-registration",
     category: "identity-documents",
     department: "BDRIS",
-    description: "Register a death and obtain the Death Registration Certificate.",
+    description:
+      "Register a death and obtain the Death Registration Certificate.",
     eligibility: [
       "Family members or legal heirs of the deceased can apply",
       "Must be registered within 1 year of the death",
@@ -150,8 +158,13 @@ export const SERVICES: GovernmentService[] = [
       "Attend in person with original documents for enrolment",
       "Collect or receive the passport by post",
     ],
-    authority: "Department of Immigration & Passports, Ministry of Home Affairs",
-    officeLocations: ["Regional Passport Office", "District Passport Office", "Mobile Passport Camp"],
+    authority:
+      "Department of Immigration & Passports, Ministry of Home Affairs",
+    officeLocations: [
+      "Regional Passport Office",
+      "District Passport Office",
+      "Mobile Passport Camp",
+    ],
     officialUrl: "https://www.epassport.gov.bd/",
     lastVerifiedAt: "2026-09-22",
     isOnline: true,
@@ -185,7 +198,8 @@ export const SERVICES: GovernmentService[] = [
       "Attend the passport office with original documents",
       "Track delivery and collect the renewed passport",
     ],
-    authority: "Department of Immigration & Passports, Ministry of Home Affairs",
+    authority:
+      "Department of Immigration & Passports, Ministry of Home Affairs",
     officialUrl: "https://www.epassport.gov.bd/",
     lastVerifiedAt: "2026-09-22",
     isOnline: true,
@@ -239,7 +253,8 @@ export const SERVICES: GovernmentService[] = [
     slug: "vehicle-registration",
     category: "transport",
     department: "BRTA",
-    description: "Register a newly purchased vehicle and get the registration certificate.",
+    description:
+      "Register a newly purchased vehicle and get the registration certificate.",
     eligibility: [
       "Vehicle purchased from a registered dealer",
       "Owner holds a valid NID card and driving licence",
@@ -339,7 +354,8 @@ export const SERVICES: GovernmentService[] = [
     slug: "land-mutation",
     category: "land-property",
     department: "Ministry of Land",
-    description: "Transfer land ownership records after purchase, inheritance or gift.",
+    description:
+      "Transfer land ownership records after purchase, inheritance or gift.",
     longDescription:
       "Mutation (খতিয়ানের নাম পরিবর্তন) is completed at the Sub-Assistant Commissioner (Land) office of the relevant upazila after application through the land service portal or in person, with the verified deed registered at the Sub-Registrar.",
     eligibility: [
@@ -384,7 +400,11 @@ export const SERVICES: GovernmentService[] = [
       "Recorded land owner of the relevant mouja",
       "Tax must be paid within the government's fiscal schedule",
     ],
-    requiredDocuments: ["Khatian / dag information", "NID card", "Previous tax receipt (if any)"],
+    requiredDocuments: [
+      "Khatian / dag information",
+      "NID card",
+      "Previous tax receipt (if any)",
+    ],
     fee: "Based on land type and area (mouja schedule)",
     processingTime: "Same day at the land office",
     steps: [
@@ -448,7 +468,10 @@ export const SERVICES: GovernmentService[] = [
       "Any citizen wishing to record an incident for future reference",
       "No fee is required for filing a GD",
     ],
-    requiredDocuments: ["NID card of the applicant", "Details of the incident (written or dictated)"],
+    requiredDocuments: [
+      "NID card of the applicant",
+      "Details of the incident (written or dictated)",
+    ],
     fee: "Free",
     processingTime: "Same day",
     steps: [
@@ -545,7 +568,11 @@ export const SERVICES: GovernmentService[] = [
       "Candidates of SSC, HSC and equivalent examinations",
       "Requires roll, registration and examination year",
     ],
-    requiredDocuments: ["Examination roll number", "Registration number", "Examination year"],
+    requiredDocuments: [
+      "Examination roll number",
+      "Registration number",
+      "Examination year",
+    ],
     fee: "Free",
     processingTime: "Instant",
     steps: [
@@ -600,8 +627,12 @@ export const SERVICES: GovernmentService[] = [
     slug: "government-hospital-services",
     category: "health",
     department: "Ministry of Health & Family Welfare",
-    description: "Find government hospitals, departments and OPD service hours.",
-    eligibility: ["Open to all citizens", "Some specialized services require referral"],
+    description:
+      "Find government hospitals, departments and OPD service hours.",
+    eligibility: [
+      "Open to all citizens",
+      "Some specialized services require referral",
+    ],
     requiredDocuments: ["NID card (for admission / discount schemes)"],
     fee: "Free or nominal fee at government hospitals",
     processingTime: "Same day (OPD)",
@@ -624,7 +655,8 @@ export const SERVICES: GovernmentService[] = [
     slug: "union-parishad-certificates",
     category: "local-government",
     department: "Union Parishad",
-    description: "Get citizenship, residence and family certificates from Union Parishad.",
+    description:
+      "Get citizenship, residence and family certificates from Union Parishad.",
     eligibility: [
       "Permanent residents of the Union Parishad area",
       "Valid NID with matching address information",
@@ -678,12 +710,17 @@ export const SERVICES: GovernmentService[] = [
     slug: "farmer-subsidy",
     category: "agriculture",
     department: "Ministry of Agriculture",
-    description: "Information on input subsidies, seeds and farmer registration.",
+    description:
+      "Information on input subsidies, seeds and farmer registration.",
     eligibility: [
       "Registered farmers with verifiable land/lease information",
       "Program-specific criteria published by the department",
     ],
-    requiredDocuments: ["NID card", "Land ownership or lease documents", "Passport-size photographs"],
+    requiredDocuments: [
+      "NID card",
+      "Land ownership or lease documents",
+      "Passport-size photographs",
+    ],
     fee: "Free",
     processingTime: "Program dependent",
     steps: [
@@ -710,7 +747,11 @@ export const SERVICES: GovernmentService[] = [
       "The birth must already be registered with BDRIS",
       "Requester's details must match the registration record",
     ],
-    requiredDocuments: ["Registration number", "Date of birth", "Father's / mother's name"],
+    requiredDocuments: [
+      "Registration number",
+      "Date of birth",
+      "Father's / mother's name",
+    ],
     fee: "Free (online copy)",
     processingTime: "Instant download",
     steps: [
@@ -729,23 +770,20 @@ export const SERVICES: GovernmentService[] = [
   },
 ];
 
-
-
-
-
-
-
-
 export function getServiceBySlug(slug: string): GovernmentService | undefined {
   return SERVICES.find((s) => s.slug === slug);
 }
 
-export function getServicesByCategory(categorySlug: string): GovernmentService[] {
+export function getServicesByCategory(
+  categorySlug: string,
+): GovernmentService[] {
   return SERVICES.filter((s) => s.category === categorySlug);
 }
 
 export function getPopularServices(limit = 10): GovernmentService[] {
-  return [...SERVICES].sort((a, b) => b.popularity - a.popularity).slice(0, limit);
+  return [...SERVICES]
+    .sort((a, b) => b.popularity - a.popularity)
+    .slice(0, limit);
 }
 
 export function getServiceDepartments(): string[] {
