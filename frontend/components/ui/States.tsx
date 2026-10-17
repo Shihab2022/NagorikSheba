@@ -1,12 +1,16 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { AlertTriangle, CheckCircle2, FileSearch, SearchX } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
+import { useTranslation } from "@/lib/i18n";
+import { COMMON } from "@/lib/i18n/common";
 
 /** Empty result state — "No services found." */
 export function EmptyState({
-  title = "No services found.",
-  description = "Try changing your search or filters.",
+  title,
+  description,
   icon,
   action,
   className,
@@ -17,6 +21,10 @@ export function EmptyState({
   action?: ReactNode;
   className?: string;
 }) {
+  const { t } = useTranslation();
+  const c = t(COMMON);
+  const heading = title ?? c.noServices;
+  const body = description ?? c.tryFilters;
   return (
     <div
       className={cn(
@@ -27,8 +35,8 @@ export function EmptyState({
       <span className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
         {icon ?? <SearchX className="h-7 w-7" aria-hidden="true" />}
       </span>
-      <h3 className="text-lg font-bold text-slate-900">{title}</h3>
-      <p className="mt-1.5 max-w-sm text-sm leading-6 text-slate-500">{description}</p>
+      <h3 className="text-lg font-bold text-slate-900">{heading}</h3>
+      <p className="mt-1.5 max-w-sm text-sm leading-6 text-slate-500">{body}</p>
       {action ? <div className="mt-5">{action}</div> : null}
     </div>
   );
@@ -36,8 +44,8 @@ export function EmptyState({
 
 /** Error state with retry — used by error boundaries and failed loads. */
 export function ErrorState({
-  title = "Something went wrong.",
-  description = "Please try again.",
+  title,
+  description,
   onRetry,
   className,
 }: {
@@ -46,6 +54,10 @@ export function ErrorState({
   onRetry?: () => void;
   className?: string;
 }) {
+  const { t } = useTranslation();
+  const c = t(COMMON);
+  const heading = title ?? c.somethingWrong;
+  const body = description ?? c.pleaseTryAgain;
   return (
     <div
       role="alert"
@@ -57,11 +69,11 @@ export function ErrorState({
       <span className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-flag-600 shadow-sm">
         <AlertTriangle className="h-7 w-7" aria-hidden="true" />
       </span>
-      <h3 className="text-lg font-bold text-flag-800">{title}</h3>
-      <p className="mt-1.5 max-w-sm text-sm leading-6 text-flag-700/80">{description}</p>
+      <h3 className="text-lg font-bold text-flag-800">{heading}</h3>
+      <p className="mt-1.5 max-w-sm text-sm leading-6 text-flag-700/80">{body}</p>
       {onRetry ? (
         <Button variant="red" className="mt-5" onClick={onRetry}>
-          Try again
+          {c.tryAgain}
         </Button>
       ) : null}
     </div>
@@ -92,6 +104,8 @@ export function SuccessNote({
 
 /** Small note that data is demo/mock — used on prototype-only features. */
 export function DemoNote({ className }: { className?: string }) {
+  const { t } = useTranslation();
+  const c = t(COMMON);
   return (
     <p
       className={cn(
@@ -101,8 +115,7 @@ export function DemoNote({ className }: { className?: string }) {
     >
       <FileSearch className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
       <span>
-        <strong className="font-semibold">Demo data:</strong> this prototype uses mock
-        information. Always verify fees, documents and links with the official source.
+        <strong className="font-semibold">{c.demoTitle}</strong> {c.demoBody}
       </span>
     </p>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Clock, FileText, MonitorSmartphone, MapPin } from "lucide-react";
 import type { GovernmentService } from "@/lib/types";
@@ -5,6 +7,25 @@ import { getCategoryBySlug } from "@/lib/data/categories";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n";
+import { COMMON } from "@/lib/i18n/common";
+
+const STRINGS = {
+  bn: {
+    onlineService: "অনলাইন সেবা",
+    officeService: "অফিস সেবা",
+    requiredDocuments: "প্রয়োজনীয় ডকুমেন্ট",
+    estimatedProcess: "আনুমানিক প্রক্রিয়া",
+    documents: "{n} টি ডকুমেন্ট",
+  },
+  en: {
+    onlineService: "Online Service",
+    officeService: "Office Service",
+    requiredDocuments: "Required documents",
+    estimatedProcess: "Estimated process",
+    documents: "{n} documents",
+  },
+};
 
 /**
  * Service card used on home, category, search and services pages.
@@ -17,6 +38,9 @@ export function ServiceCard({
   service: GovernmentService;
   compact?: boolean;
 }) {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
+  const c = t(COMMON);
   const category = getCategoryBySlug(service.category);
 
   return (
@@ -33,7 +57,7 @@ export function ServiceCard({
               ) : (
                 <MapPin className="h-3 w-3" aria-hidden="true" />
               )}
-              {service.isOnline ? "Online Service" : "Office Service"}
+              {service.isOnline ? s.onlineService : s.officeService}
             </Badge>
           </div>
           <h3 className="mt-2 text-base font-bold text-slate-900 transition-colors group-hover:text-brand-700">
@@ -57,21 +81,24 @@ export function ServiceCard({
         <dl className="mt-3 grid grid-cols-2 gap-2 border-t border-line pt-3">
           <div className="flex items-center gap-1.5 text-xs text-slate-500">
             <FileText className="h-3.5 w-3.5 text-brand-600" aria-hidden="true" />
-            <dt className="sr-only">Required documents</dt>
+            <dt className="sr-only">{s.requiredDocuments}</dt>
             <dd className="font-medium">
-              {service.requiredDocuments?.length ?? 0} documents
+              {s.documents.replace(
+                "{n}",
+                String(service.requiredDocuments?.length ?? 0),
+              )}
             </dd>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-slate-500">
             <Clock className="h-3.5 w-3.5 text-brand-600" aria-hidden="true" />
-            <dt className="sr-only">Estimated process</dt>
+            <dt className="sr-only">{s.estimatedProcess}</dt>
             <dd className="truncate font-medium">{service.processingTime ?? "—"}</dd>
           </div>
         </dl>
       ) : null}
 
       <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700">
-        View Service
+        {c.viewService}
         <ArrowRight
           className="h-4 w-4 transition-transform group-hover:translate-x-1"
           aria-hidden="true"

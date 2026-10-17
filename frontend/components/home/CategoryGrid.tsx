@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CATEGORIES } from "@/lib/data/categories";
@@ -5,18 +7,42 @@ import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n";
+
+const STRINGS = {
+  bn: {
+    eyebrow: "ক্যাটাগরি",
+    title: "সেবার বিভাগসমূহ",
+    description:
+      "সরকারি সেবা বিভাগ অনুযায়ী দেখুন — পরিচয়পত্র থেকে স্থানীয় সরকার পর্যন্ত।",
+    services: "+ সেবা",
+    viewServices: "সেবা দেখুন",
+    viewAllCategories: "সব ক্যাটাগরি দেখুন",
+  },
+  en: {
+    eyebrow: "Categories",
+    title: "Service Categories",
+    description:
+      "Browse government services by category — from identity documents to local government.",
+    services: "+ services",
+    viewServices: "View services",
+    viewAllCategories: "View all categories",
+  },
+};
 
 /** Responsive 12-category grid (1 → 2 → 3 → 4 columns). */
 export function CategoryGrid() {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
   return (
     <section aria-labelledby="categories-heading" className="bg-white">
       <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <Reveal>
           <SectionHeading
             id="categories-heading"
-            eyebrow="Categories"
-            title="সেবার বিভাগসমূহ"
-            description="Browse government services by category — from identity documents to local government."
+            eyebrow={s.eyebrow}
+            title={s.title}
+            description={s.description}
           />
         </Reveal>
 
@@ -40,7 +66,8 @@ export function CategoryGrid() {
                       <Icon name={cat.icon} className="h-6 w-6" />
                     </span>
                     <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-bold text-slate-500">
-                      {cat.serviceCount}+ services
+                      {cat.serviceCount}
+                      {s.services}
                     </span>
                   </div>
 
@@ -63,7 +90,7 @@ export function CategoryGrid() {
                   </div>
 
                   <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700">
-                    View services
+                    {s.viewServices}
                     <ArrowRight
                       className="h-4 w-4 transition-transform group-hover:translate-x-1"
                       aria-hidden="true"
@@ -81,7 +108,7 @@ export function CategoryGrid() {
               href="/categories"
               className="inline-flex h-11 items-center gap-2 rounded-xl border border-line bg-white px-5 text-sm font-bold text-slate-700 transition-all hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
             >
-              View all categories
+              {s.viewAllCategories}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
