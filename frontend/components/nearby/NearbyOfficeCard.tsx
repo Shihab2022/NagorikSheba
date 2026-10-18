@@ -1,6 +1,6 @@
 "use client";
 
-import { ExternalLink, MapPin, Navigation, Phone } from "lucide-react";
+import { ExternalLink, MapPin, Navigation, Phone, Route } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import type { NearbyOffice, NearbyOrigin } from "@/lib/types";
@@ -13,6 +13,7 @@ import { useTranslation } from "@/lib/i18n";
 const STRINGS = {
   bn: {
     directions: "দিকনির্দেশনা নিন",
+    showRoute: "ম্যাপে রুট দেখুন",
     approx: "≈ {n} কিমি (আনুমানিক)",
     straightLine: "সরলরেখায় দূরত্ব; প্রকৃত রাস্তার দূরত্ব Google Maps-এ দেখাবে।",
     noDistance: "দূরত্ব অনুমান করা যায় নি",
@@ -25,6 +26,7 @@ const STRINGS = {
   },
   en: {
     directions: "Get Directions",
+    showRoute: "Show route on map",
     approx: "≈ {n} km (approx.)",
     straightLine: "Straight-line distance; Google Maps shows the actual road distance.",
     noDistance: "Distance unavailable",
@@ -41,14 +43,19 @@ const STRINGS = {
  * One nearby-office result card. Distance shown is approximate
  * straight-line; the "Get Directions" button opens Google Maps with the
  * user's origin and this office's coordinates so Google calculates the
- * real route and travel distance.
+ * real route and travel distance. "Show route on map" draws the same trip
+ * on the page's own map (GPS mode). Cards show full office details.
  */
 export function NearbyOfficeCard({
   office,
   origin,
+  selected,
+  onShowRoute,
 }: {
   office: NearbyOffice;
   origin: NearbyOrigin;
+  selected?: boolean;
+  onShowRoute?: () => void;
 }) {
   const { t, lang } = useTranslation();
   const s = t(STRINGS);
@@ -70,7 +77,11 @@ export function NearbyOfficeCard({
   });
 
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-line bg-white p-5 shadow-card">
+    <article
+      className={`flex h-full flex-col rounded-2xl border bg-white p-5 shadow-card ${
+        selected ? "border-brand-400 ring-2 ring-brand-100" : "border-line"
+      }`}
+    >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <Badge tone="soft-green">{typeLabel}</Badge>
@@ -130,7 +141,18 @@ export function NearbyOfficeCard({
         </p>
       </div>
 
-      <div className="mt-3">
+      <div className="mt-3 space-y-2">
+        {origin.mode === "gps" && onShowRoute ? (
+          <Button
+            variant={selected ? "primary" : "outline"}
+            size="sm"
+            block
+            onClick={onShowRoute}
+          >
+            <Route className="h-4 w-4" aria-hidden="true" />
+            {s.showRoute}
+          </Button>
+        ) : null}
         {directionsUrl ? (
           <>
             <a
