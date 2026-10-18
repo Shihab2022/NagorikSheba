@@ -13,6 +13,7 @@ const COLUMNS: {
     title: { bn: "সেবা", en: "Services" },
     links: [
       { href: "/categories", label: { bn: "ক্যাটাগরি", en: "Categories" } },
+      { href: "/income-tax-calculator", label: { bn: "আয়কর ক্যালকুলেটর", en: "Tax Calculator" } },
       { href: "/government-offices", label: { bn: "সরকারি অফিস", en: "Government Offices" } },
       { href: "/notices", label: { bn: "নোটিশ", en: "Notices" } },
       { href: "/application-tracker", label: { bn: "আবেদন ট্র্যাকিং", en: "Application Tracking" } },
