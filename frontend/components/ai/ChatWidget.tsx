@@ -89,7 +89,7 @@ export function ChatWidget() {
       <div className="flex items-center gap-3 border-b border-line bg-brand-800 px-5 py-4 text-white">
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/15"><Bot className="h-5 w-5" aria-hidden="true" /></span>
         <div>
-          <p className="text-sm font-extrabold">EkSheba AI</p>
+          <p className="text-sm font-extrabold">NagorikSheba AI</p>
           <p className="text-xs text-brand-200">{s.subtitle}</p>
         </div>
       </div>

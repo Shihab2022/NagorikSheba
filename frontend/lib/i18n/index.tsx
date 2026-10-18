@@ -47,7 +47,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored === "bn" || stored === "en") setLangState(stored);
+      if (stored === "bn" || stored === "en") {
+        setTimeout(() => setLangState(stored), 0);
+      }
     } catch {
       /* storage unavailable — keep the default */
     }

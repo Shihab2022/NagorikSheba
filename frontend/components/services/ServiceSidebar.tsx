@@ -1,8 +1,16 @@
 "use client";
 
-import { BadgeCheck, Clock, ExternalLink, Landmark, MonitorSmartphone } from "lucide-react";
+import {
+  BadgeCheck,
+  Clock,
+  ExternalLink,
+  Landmark,
+  MonitorSmartphone,
+} from "lucide-react";
 import type { GovernmentService } from "@/lib/types";
 import { Badge } from "@/components/ui/Badge";
+import { FindNearbyOffices } from "@/components/nearby/FindNearbyOffices";
+import { getOfficeServiceKey } from "@/lib/nearby";
 import { useTranslation } from "@/lib/i18n";
 
 const STRINGS = {
@@ -22,7 +30,7 @@ const STRINGS = {
     officialSource: "অফিসিয়াল উৎস:",
     lastVerified: "সর্বশেষ যাচাই:",
     guidanceOnly:
-      "একসেবা কেবল নির্দেশনা প্রদান করে। আবেদন জমা দেওয়া হয় সরকারি সরকারি সিস্টেমের মাধ্যমে।",
+      "নাগরিক সেবা কেবল নির্দেশনা প্রদান করে। আবেদন জমা দেওয়া হয় সরকারি সরকারি সিস্টেমের মাধ্যমে।",
   },
   en: {
     ariaLabel: "Service information",
@@ -40,7 +48,7 @@ const STRINGS = {
     officialSource: "Official Source:",
     lastVerified: "Last Verified:",
     guidanceOnly:
-      "EkSheba provides guidance only. Applications are submitted through official government systems.",
+      "NagorikSheba provides guidance only. Applications are submitted through official government systems.",
   },
 };
 
@@ -82,7 +90,10 @@ export function ServiceSidebar({ service }: { service: GovernmentService }) {
             </div>
             <div className="flex items-start justify-between gap-3">
               <dt className="flex items-center gap-1.5 text-slate-500">
-                <Landmark className="h-4 w-4 text-brand-600" aria-hidden="true" />
+                <Landmark
+                  className="h-4 w-4 text-brand-600"
+                  aria-hidden="true"
+                />
                 {s.fee}
               </dt>
               <dd className="max-w-[60%] text-right font-bold text-slate-900">
@@ -109,16 +120,24 @@ export function ServiceSidebar({ service }: { service: GovernmentService }) {
 
           <div className="rounded-xl bg-canvas px-4 py-3 text-xs leading-5 text-slate-500">
             <p>
-              <strong className="font-semibold text-slate-700">{s.officialSource}</strong>{" "}
+              <strong className="font-semibold text-slate-700">
+                {s.officialSource}
+              </strong>{" "}
               {service.authority}
             </p>
             {service.lastVerifiedAt ? (
               <p className="mt-1">
-                <strong className="font-semibold text-slate-700">{s.lastVerified}</strong>{" "}
+                <strong className="font-semibold text-slate-700">
+                  {s.lastVerified}
+                </strong>{" "}
                 {service.lastVerifiedAt}
               </p>
             ) : null}
           </div>
+
+          {getOfficeServiceKey(service.slug) ? (
+            <FindNearbyOffices slug={service.slug} />
+          ) : null}
 
           <p className="text-[11px] leading-4 text-slate-400">
             {s.guidanceOnly}
