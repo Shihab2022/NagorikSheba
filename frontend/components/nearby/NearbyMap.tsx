@@ -48,7 +48,9 @@ export function NearbyMap({
   const s = t(STRINGS);
   const containerRef = useRef<HTMLDivElement>(null);
   const selectRef = useRef(onMarkerClick);
-  selectRef.current = onMarkerClick;
+  useEffect(() => {
+    selectRef.current = onMarkerClick;
+  }, [onMarkerClick]);
 
   const [routeInfo, setRouteInfo] = useState<{
     km: string;
@@ -62,6 +64,7 @@ export function NearbyMap({
   const mappedOffices = offices.filter(
     (o) => Number.isFinite(o.latitude) && Number.isFinite(o.longitude),
   );
+  const mappedOfficeIds = mappedOffices.map((o) => o.id).join(",");
   const selectedOffice =
     mappedOffices.find((o) => o.id === selectedOfficeId) ?? null;
 
@@ -130,7 +133,9 @@ export function NearbyMap({
         }).addTo(map);
         marker.bindPopup(
           `<strong>${escapeHtml(office.name)}</strong><br/>${escapeHtml(office.address)}<br/>` +
-            `<small>${escapeHtml(office.upazila)}, ${escapeHtml(office.district)}` +
+            `<small>${escapeHtml(
+              [office.upazila, office.district].filter(Boolean).join(", "),
+            )}` +
             (office.distanceKm != null ? ` · ≈ ${office.distanceKm} km` : "") +
             `</small>`,
         );
@@ -218,7 +223,7 @@ export function NearbyMap({
   }, [
     hasGpsOrigin,
     origin,
-    mappedOffices.map((o) => o.id).join(","),
+    mappedOfficeIds,
     s.attribution,
     s.yourLocation,
     s.routeFrom,

@@ -143,7 +143,7 @@ export function OfficeFinder() {
             </Select>
             <Select
               aria-label={s.upazila}
-              value={upazila}
+              value={upazila ?? ""}
               onChange={(e) => setUpazila(e.target.value)}
             >
               <option value="">{s.allUpazilas}</option>

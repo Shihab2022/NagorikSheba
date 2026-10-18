@@ -5,7 +5,7 @@ import {
   DEFAULT_RADIUS_KM,
   RADIUS_OPTIONS_KM,
   getOfficeServiceKey,
-  isValidCoordinate,
+  parseCoordinateQuery,
 } from "@/lib/nearby";
 import type { NearbyOrigin } from "@/lib/types";
 import { NearbyOfficesView } from "@/components/nearby/NearbyOfficesView";
@@ -43,8 +43,9 @@ export default async function NearbyOfficesPage(
   let origin: NearbyOrigin | null = null;
   let radiusKm = DEFAULT_RADIUS_KM;
 
-  const rawLat = typeof sp?.lat === "string" ? Number(sp.lat) : NaN;
-  const rawLng = typeof sp?.lng === "string" ? Number(sp.lng) : NaN;
+  const hasCoordinateQuery = sp?.lat !== undefined || sp?.lng !== undefined;
+  const lat = parseCoordinateQuery(sp?.lat, -90, 90);
+  const lng = parseCoordinateQuery(sp?.lng, -180, 180);
   const rawDistrict = typeof sp?.district === "string" ? sp.district.trim() : "";
   const rawUpazila = typeof sp?.upazila === "string" ? sp.upazila.trim() : "";
   const rawRadius = typeof sp?.radius === "string" ? Number(sp.radius) : NaN;
@@ -53,8 +54,8 @@ export default async function NearbyOfficesPage(
     radiusKm = rawRadius;
   }
 
-  if (isValidCoordinate(rawLat, rawLng)) {
-    origin = { mode: "gps", lat: rawLat, lng: rawLng };
+  if (hasCoordinateQuery && lat !== null && lng !== null) {
+    origin = { mode: "gps", lat, lng };
   } else if (rawDistrict && rawDistrict.length <= 100) {
     origin = {
       mode: "area",
@@ -90,6 +91,8 @@ export default async function NearbyOfficesPage(
             origin={origin}
             radiusKm={radiusKm}
           />
+        ) : hasCoordinateQuery ? (
+          <NearbyIntro slug={slug} invalidCoordinates />
         ) : (
           <NearbyIntro slug={slug} />
         )}

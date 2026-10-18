@@ -53,6 +53,8 @@ export function useNearbyOffices(params: {
   }, [origin, service, radiusKm]);
 
   useEffect(() => {
+    // This effect synchronizes the hook with the external API request.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     load();
   }, [load]);
 

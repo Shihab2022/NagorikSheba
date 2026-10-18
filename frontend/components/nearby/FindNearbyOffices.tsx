@@ -29,6 +29,8 @@ const STRINGS = {
     errUnknown: "লোকেশন পাওয়া যায়নি। আবার চেষ্টা করুন বা এলাকা দিয়ে খুঁজুন।",
     needLocationBody:
       "নিকটবর্তী সরকারি অফিস দেখার জন্য আপনার বর্তমান লোকেশন বা নির্বাচিত এলাকা প্রয়োজন। নিচের বোতামে ক্লিক করুন।",
+    invalidCoordinates:
+      "এই URL-এর latitude বা longitude অসম্পূর্ণ বা ভুল। 23.8103 ও 90.4125-এর মতো দশমিক স্থানাঙ্ক ব্যবহার করুন অথবা আবার লোকেশন নিন।",
   },
   en: {
     cta: "Find Nearby Offices",
@@ -46,6 +48,8 @@ const STRINGS = {
     errUnknown: "Could not get your location. Try again or search by area.",
     needLocationBody:
       "To show nearby government offices we need your current location or a selected area. Click the button below.",
+    invalidCoordinates:
+      "The latitude or longitude in this URL is incomplete or invalid. Use decimal coordinates such as 23.8103 and 90.4125, or get your location again.",
   },
 };
 
@@ -174,14 +178,28 @@ export function FindNearbyOffices({ slug }: { slug: string }) {
 export default FindNearbyOffices;
 
 /** Intro panel shown on the nearby page when no location/area was supplied yet. */
-export function NearbyIntro({ slug }: { slug: string }) {
+export function NearbyIntro({
+  slug,
+  invalidCoordinates = false,
+}: {
+  slug: string;
+  invalidCoordinates?: boolean;
+}) {
   const { t } = useTranslation();
   const s = t(STRINGS);
   return (
     <div className="mx-auto max-w-md">
-      <p className="mb-4 text-sm leading-6 text-slate-600">{s.needLocationBody}</p>
+      <p
+        className={`mb-4 rounded-xl px-4 py-3 text-sm leading-6 ${
+          invalidCoordinates
+            ? "border border-flag-200 bg-flag-50 text-flag-700"
+            : "text-slate-600"
+        }`}
+        role={invalidCoordinates ? "alert" : undefined}
+      >
+        {invalidCoordinates ? s.invalidCoordinates : s.needLocationBody}
+      </p>
       <FindNearbyOffices slug={slug} />
     </div>
   );
 }
-

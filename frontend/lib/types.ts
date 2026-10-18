@@ -143,15 +143,16 @@ export type NearbyOffice = {
   /** Backend office type enum, e.g. ELECTION_COMMISSION. */
   officeType: string;
   address: string;
+  division?: string | null;
   district: string;
-  upazila: string;
+  upazila: string | null;
   latitude: number;
   longitude: number;
   /** Verified phone number, when the office publishes one. */
   phone: string | null;
   officialUrl: string | null;
   /** ISO date the record was last verified against an official source. */
-  lastVerifiedAt: string;
+  lastVerifiedAt: string | null;
   /** Straight-line distance in km; null when searching by area instead of GPS. */
   distanceKm: number | null;
 };

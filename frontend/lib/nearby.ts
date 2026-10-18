@@ -45,6 +45,23 @@ export function isValidCoordinate(lat: unknown, lng: unknown): boolean {
   );
 }
 
+export function parseCoordinateQuery(
+  value: unknown,
+  min: number,
+  max: number,
+): number | null {
+  if (
+    typeof value !== "string" ||
+    !/^[+-]?(?:\d+(?:\.\d+)?|\.\d+)$/.test(value)
+  ) {
+    return null;
+  }
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed >= min && parsed <= max
+    ? parsed
+    : null;
+}
+
 /** Geolocation error codes from the browser Geolocation API. */
 export type GeolocationFailure =
   | "permission-denied"
@@ -185,4 +202,3 @@ export const OFFICE_SERVICE_LABELS: Record<
   BIRTH_REGISTRATION: { bn: "জন্ম নিবন্ধন", en: "Birth Registration" },
   DRIVING_LICENCE: { bn: "ড্রাইভিং লাইসেন্স", en: "Driving Licence" },
 };
-

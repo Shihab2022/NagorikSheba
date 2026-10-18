@@ -47,10 +47,13 @@ const parseCoordinate = (
   raw: unknown,
   bounds: { min: number; max: number; label: string },
 ): number => {
-  if (raw === undefined || raw === null || raw === "") {
+  if (
+    typeof raw !== "string" ||
+    !/^[+-]?(?:\d+(?:\.\d+)?|\.\d+)$/.test(raw)
+  ) {
     throw new ApiError(
       httpStatus.BAD_REQUEST,
-      `Missing required query parameter: ${bounds.label}.`,
+      `Invalid ${bounds.label}. Expected a complete decimal number.`,
     );
   }
   const value = Number(raw);
@@ -349,4 +352,3 @@ export const GovernmentOfficesServices = {
   findOfficesByArea,
   listServiceAreas,
 };
-

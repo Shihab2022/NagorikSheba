@@ -108,7 +108,8 @@ export function NearbyOfficeCard({
         <span>
           {office.address}
           <span className="block text-xs text-slate-400">
-            {office.upazila}, {office.district}
+            {office.division ? `${office.division}, ` : ""}
+          {[office.upazila, office.district].filter(Boolean).join(", ")}
           </span>
         </span>
       </p>
@@ -136,9 +137,11 @@ export function NearbyOfficeCard({
             </a>
           </p>
         ) : null}
-        <p>
-          {s.lastVerified}: {office.lastVerifiedAt}
-        </p>
+        {office.lastVerifiedAt ? (
+          <p>
+            {s.lastVerified}: {office.lastVerifiedAt}
+          </p>
+        ) : null}
       </div>
 
       <div className="mt-3 space-y-2">
