@@ -72,7 +72,7 @@ export function Modal({
         aria-label={title}
         tabIndex={-1}
         className={cn(
-          "relative max-h-[88vh] w-full overflow-y-auto rounded-t-2xl bg-white p-5 shadow-2xl outline-none sm:max-w-lg sm:rounded-2xl sm:p-6",
+          "relative max-h-[88vh] w-full overflow-y-auto rounded-t-2xl bg-white p-5 shadow-2xl outline-none sm:max-w-3/4 sm:rounded-2xl sm:p-6",
           className,
         )}
       >

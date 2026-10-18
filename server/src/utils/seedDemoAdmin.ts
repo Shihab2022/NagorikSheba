@@ -2,9 +2,9 @@ import { pool } from "./pg";
 import bcrypt from "bcryptjs";
 import config from "../config";
 
-const DEMO_ADMIN_EMAIL = process.env.DEMO_ADMIN_EMAIL || "demo.admin@nagoriksheba.local";
-const DEMO_ADMIN_PASSWORD = process.env.DEMO_ADMIN_PASSWORD || "DemoAdmin@12345";
-const DEMO_ADMIN_NAME = process.env.DEMO_ADMIN_NAME || "Demo Admin";
+const DEMO_ADMIN_EMAIL =  config.demo_admin_email || ""
+const DEMO_ADMIN_PASSWORD =  config.demo_admin_password || ""
+const DEMO_ADMIN_NAME = config.demo_admin_name || ""
 
 export async function seedDemoAdmin() {
   // Only seed in non-production environments
