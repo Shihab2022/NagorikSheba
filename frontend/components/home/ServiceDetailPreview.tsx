@@ -29,8 +29,8 @@ const TIPS = [
     icon: ShieldCheck,
     title: { bn: "নির্দেশনা, বিকল্প নয়", en: "Guidance, not a replacement" },
     text: {
-      bn: "একসেবা কেবল নির্দেশনা ও সরকারি সিস্টেমের লিংক দেয় — আমরা নিজেরা আবেদন প্রক্রিয়া করি না।",
-      en: "EkSheba provides guidance and links to official government systems — we never process applications ourselves.",
+      bn: "নাগরিক সেবা কেবল নির্দেশনা ও সরকারি সিস্টেমের লিংক দেয় — আমরা নিজেরা আবেদন প্রক্রিয়া করি না।",
+      en: "NagorikSheba provides guidance and links to official government systems — we never process applications ourselves.",
     },
   },
   {
@@ -87,8 +87,14 @@ export function ServiceDetailPreview() {
   const steps = service.steps?.slice(0, 5) ?? [];
 
   return (
-    <section aria-labelledby="preview-heading" className="relative overflow-hidden bg-brand-800">
-      <div className="pattern-dots absolute inset-0 opacity-30" aria-hidden="true" />
+    <section
+      aria-labelledby="preview-heading"
+      className="relative overflow-hidden bg-brand-800"
+    >
+      <div
+        className="pattern-dots absolute inset-0 opacity-30"
+        aria-hidden="true"
+      />
       <div
         className="absolute -right-24 top-1/4 h-72 w-72 rounded-full bg-flag-500/10 blur-3xl"
         aria-hidden="true"
@@ -117,7 +123,9 @@ export function ServiceDetailPreview() {
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <Badge tone="soft-green">{s.badge}</Badge>
-                    <span className="text-xs font-medium text-slate-400">{s.nidServices}</span>
+                    <span className="text-xs font-medium text-slate-400">
+                      {s.nidServices}
+                    </span>
                   </div>
                   <h3 className="mt-1.5 text-xl font-extrabold text-slate-900">
                     {service.name}
@@ -127,7 +135,10 @@ export function ServiceDetailPreview() {
 
               <div className="grid grid-cols-2 gap-px bg-line sm:grid-cols-4">
                 {FACTS.map((label) => (
-                  <div key={label.en} className="bg-white px-4 py-4 text-center">
+                  <div
+                    key={label.en}
+                    className="bg-white px-4 py-4 text-center"
+                  >
                     <Check
                       className="mx-auto h-5 w-5 text-brand-600"
                       strokeWidth={3}
@@ -143,7 +154,10 @@ export function ServiceDetailPreview() {
               <div className="space-y-3 p-5 sm:p-6">
                 <div className="flex items-center justify-between rounded-xl bg-canvas px-4 py-3">
                   <span className="flex items-center gap-2 text-sm font-semibold text-slate-600">
-                    <Hourglass className="h-4 w-4 text-brand-600" aria-hidden="true" />
+                    <Hourglass
+                      className="h-4 w-4 text-brand-600"
+                      aria-hidden="true"
+                    />
                     {s.processing}
                   </span>
                   <span className="text-sm font-bold text-slate-900">
@@ -152,7 +166,10 @@ export function ServiceDetailPreview() {
                 </div>
                 <div className="flex items-center justify-between rounded-xl bg-canvas px-4 py-3">
                   <span className="flex items-center gap-2 text-sm font-semibold text-slate-600">
-                    <Building2 className="h-4 w-4 text-brand-600" aria-hidden="true" />
+                    <Building2
+                      className="h-4 w-4 text-brand-600"
+                      aria-hidden="true"
+                    />
                     {s.authority}
                   </span>
                   <span className="text-right text-sm font-bold text-slate-900">
@@ -204,13 +221,16 @@ export function ServiceDetailPreview() {
                   <item.icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <div>
-                  <h3 className="text-sm font-bold text-white">{t(item.title)}</h3>
-                  <p className="mt-1 text-sm leading-6 text-brand-100/80">{t(item.text)}</p>
+                  <h3 className="text-sm font-bold text-white">
+                    {t(item.title)}
+                  </h3>
+                  <p className="mt-1 text-sm leading-6 text-brand-100/80">
+                    {t(item.text)}
+                  </p>
                 </div>
               </div>
             ))}
           </Reveal>
-
         </div>
       </div>
     </section>

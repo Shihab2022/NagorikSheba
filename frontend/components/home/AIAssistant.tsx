@@ -1,7 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { AlertTriangle, ArrowRight, Bot, Sparkles, UserRound } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowRight,
+  Bot,
+  Sparkles,
+  UserRound,
+} from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { useTranslation } from "@/lib/i18n";
@@ -12,7 +18,7 @@ const STRINGS = {
     title: "সরকারি সেবা বুঝতে সাহায্য দরকার?",
     description:
       "সরকারি সেবা, প্রয়োজনীয় ডকুমেন্ট, যোগ্যতা ও প্রক্রিয়া সম্পর্কে প্রশ্ন করুন।",
-    askAi: "একসেবা এআই-এ জিজ্ঞাসা করুন",
+    askAi: "নাগরিক সেবা এআই-এ জিজ্ঞাসা করুন",
     demoNote: "ডেমো উত্তর — অফিসিয়াল উৎস থেকে যাচাই করুন",
     disclaimer:
       "এআই উত্তরগুলো তৈরি করা নির্দেশনা। কাজ করার আগে সর্বদা সরকারি উৎস থেকে তথ্য যাচাই করুন।",
@@ -25,7 +31,7 @@ const STRINGS = {
     doc2: "• এনআইডি কার্ড",
     doc3: "• ব্যাংক পেমেন্ট রসিদ",
     portal: "অফিসিয়াল পোর্টাল: epassport.gov.bd — ফি সেখানে যাচাই করুন।",
-    typing: "একসেবা এআই টাইপ করছে…",
+    typing: "নাগরিক সেবা এআই টাইপ করছে…",
     askPlaceholder: "যেকোনো সরকারি সেবা সম্পর্কে জিজ্ঞাসা করুন…",
   },
   en: {
@@ -33,7 +39,7 @@ const STRINGS = {
     title: "Need help understanding government services?",
     description:
       "Ask questions about government services, required documents, eligibility and procedures.",
-    askAi: "Ask EkSheba AI",
+    askAi: "Ask NagorikSheba AI",
     demoNote: "Demo responses — verify with official sources",
     disclaimer:
       "AI answers are generated guidance. Always verify information against official government sources before acting.",
@@ -46,7 +52,7 @@ const STRINGS = {
     doc2: "• NID card",
     doc3: "• Bank payment receipt",
     portal: "Official portal: epassport.gov.bd — verify fees there.",
-    typing: "EkSheba AI is typing…",
+    typing: "NagorikSheba AI is typing…",
     askPlaceholder: "Ask about any government service…",
   },
 };
@@ -79,16 +85,20 @@ export function AIAssistant() {
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400">
-                <Sparkles className="h-3.5 w-3.5 text-flag-500" aria-hidden="true" />
+                <Sparkles
+                  className="h-3.5 w-3.5 text-flag-500"
+                  aria-hidden="true"
+                />
                 {s.demoNote}
               </span>
             </div>
 
             <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
-              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" aria-hidden="true" />
-              <p className="text-xs leading-5 text-amber-800">
-                {s.disclaimer}
-              </p>
+              <AlertTriangle
+                className="mt-0.5 h-4 w-4 shrink-0 text-amber-600"
+                aria-hidden="true"
+              />
+              <p className="text-xs leading-5 text-amber-800">{s.disclaimer}</p>
             </div>
           </Reveal>
           <Reveal delay={100}>
@@ -103,8 +113,12 @@ export function AIAssistant() {
                   <Bot className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <div>
-                  <p className="text-sm font-bold text-slate-900">EkSheba AI</p>
-                  <p className="text-[11px] font-medium text-brand-600">{s.online}</p>
+                  <p className="text-sm font-bold text-slate-900">
+                    NagorikSheba AI
+                  </p>
+                  <p className="text-[11px] font-medium text-brand-600">
+                    {s.online}
+                  </p>
                 </div>
               </div>
 
@@ -133,9 +147,7 @@ export function AIAssistant() {
                       <li>{s.doc2}</li>
                       <li>{s.doc3}</li>
                     </ul>
-                    <p className="mt-2 text-xs text-slate-400">
-                      {s.portal}
-                    </p>
+                    <p className="mt-2 text-xs text-slate-400">{s.portal}</p>
                   </div>
                 </div>
 
@@ -159,7 +171,6 @@ export function AIAssistant() {
               </div>
             </div>
           </Reveal>
-
         </div>
       </div>
     </section>

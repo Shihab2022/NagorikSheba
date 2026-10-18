@@ -1,7 +1,17 @@
 "use client";
+
 import { Icon } from "@/components/ui/Icon";
 import { useTranslation, type Dict } from "@/lib/i18n";
-export function ContactCard({ icon, title, text }: { icon: string; title: Dict<string>; text: Dict<string> }) {
+
+export function ContactCard({
+  icon,
+  title,
+  text,
+}: {
+  icon: string;
+  title: Dict<string>;
+  text: Dict<string>;
+}) {
   const { t } = useTranslation();
   return (
     <div className="rounded-2xl border border-line bg-white p-5 shadow-card">
@@ -13,3 +23,5 @@ export function ContactCard({ icon, title, text }: { icon: string; title: Dict<s
     </div>
   );
 }
+
+export default ContactCard;

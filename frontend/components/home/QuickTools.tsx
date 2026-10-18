@@ -8,7 +8,6 @@ import {
   Calculator,
   Coins,
   FileSearch,
-  ListChecks,
   MapPin,
   Newspaper,
   Route,

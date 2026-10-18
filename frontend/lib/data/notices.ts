@@ -40,7 +40,8 @@ export const NOTICES: GovernmentNotice[] = [
   },
   {
     id: "ntc-tax-deadline",
-    title: "Income tax return filing deadline reminder for individual taxpayers",
+    title:
+      "Income tax return filing deadline reminder for individual taxpayers",
     category: "tax",
     department: "National Board of Revenue",
     publishedAt: "2026-10-01",
@@ -92,7 +93,8 @@ export const NOTICES: GovernmentNotice[] = [
     category: "transport",
     department: "Bangladesh Road Transport Authority",
     publishedAt: "2026-09-20",
-    summary: "Updated written and traffic test slots are available through the BRTA service portal.",
+    summary:
+      "Updated written and traffic test slots are available through the BRTA service portal.",
     body: [
       "BRTA has updated test scheduling for driving licence applicants across zonal offices.",
       "Applicants must upload the bank payment receipt generated from the BSP portal before booking a slot.",
@@ -187,8 +189,8 @@ export const FAQS: FaqItem[] = [
     id: "faq-1",
     category: "general",
     question: {
-      bn: "একসেবা (NagorikSheba) কী?",
-      en: "What is একসেবা (NagorikSheba)?",
+      bn: "নাগরিক সেবা (NagorikSheba) কী?",
+      en: "What is নাগরিক সেবা (NagorikSheba)?",
     },
     answer: {
       bn: "নাগরিকসেবা একটি স্বাধীন সিভিক-টেক প্ল্যাটফর্ম যা নাগরিকদের সরকারি সেবা আবিষ্কার করতে, যোগ্যতা, প্রয়োজনীয় ডকুমেন্ট, ফি ও ধাপে ধাপে প্রক্রিয়া বুঝতে সাহায্য করে — এবং তারপর অফিসিয়াল সরকারি পোর্টালে পৌঁছে যেতে সহায়তা করে।",
@@ -199,8 +201,8 @@ export const FAQS: FaqItem[] = [
     id: "faq-2",
     category: "general",
     question: {
-      bn: "কি একসেবা একটি সরকারি ওয়েবসাইট?",
-      en: "Is একসেবা a government website?",
+      bn: "কি নাগরিক সেবা একটি সরকারি ওয়েবসাইট?",
+      en: "Is নাগরিক সেবা a government website?",
     },
     answer: {
       bn: "না। নাগরিকসেবা একটি স্বাধীন তথ্য ও সেবা-আবিষ্কার প্ল্যাটফর্ম। আমরা সরকারি ওয়েবসাইটের বিকল্প নই — সরকারি সেবা প্রদান করা হয় অফিসিয়াল পোর্টাল ও কর্তৃপক্ষের মাধ্যমে। গুরুত্বপূর্ণ তথ্য সর্বদা অফিসিয়াল উৎসে যাচাই করুন।",
@@ -304,5 +306,3 @@ export const FAQS: FaqItem[] = [
     },
   },
 ];
-
-
