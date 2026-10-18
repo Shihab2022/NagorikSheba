@@ -1,6 +1,6 @@
 import httpStatus from "http-status";
-import ApiError from "../../app/errors/AppError";
-import { pool } from "../../utils/pg";
+import { pool } from "../../../utils/pg";
+import AppError from "../../errors/AppError";
 
 /**
  * Government offices — nearby lookup module.
@@ -47,18 +47,15 @@ const parseCoordinate = (
   raw: unknown,
   bounds: { min: number; max: number; label: string },
 ): number => {
-  if (
-    typeof raw !== "string" ||
-    !/^[+-]?(?:\d+(?:\.\d+)?|\.\d+)$/.test(raw)
-  ) {
-    throw new ApiError(
+  if (raw === undefined || raw === null || raw === "") {
+    throw new AppError(
       httpStatus.BAD_REQUEST,
       `Invalid ${bounds.label}. Expected a complete decimal number.`,
     );
   }
   const value = Number(raw);
   if (!Number.isFinite(value) || value < bounds.min || value > bounds.max) {
-    throw new ApiError(
+    throw new AppError(
       httpStatus.BAD_REQUEST,
       `Invalid ${bounds.label}. Expected a number between ${bounds.min} and ${bounds.max}.`,
     );
@@ -75,7 +72,7 @@ const parsePositiveInt = (
   if (raw === undefined || raw === null || raw === "") return fallback;
   const value = Number(raw);
   if (!Number.isInteger(value) || value < 1 || value > max) {
-    throw new ApiError(
+    throw new AppError(
       httpStatus.BAD_REQUEST,
       `Invalid ${label}. Expected an integer between 1 and ${max}.`,
     );
@@ -89,7 +86,7 @@ const parseServiceKey = (raw: unknown): OfficeServiceKey => {
     if (fromSlug) return fromSlug;
   }
   if (!isOfficeServiceKey(raw)) {
-    throw new ApiError(
+    throw new AppError(
       httpStatus.BAD_REQUEST,
       `Invalid service. Expected one of: ${OFFICE_SERVICE_KEYS.join(", ")} (or a service slug like epassport-new).`,
     );
@@ -104,7 +101,7 @@ const sanitizeAreaText = (
 ): string | null => {
   if (raw === undefined || raw === null || raw === "") {
     if (required) {
-      throw new ApiError(
+      throw new AppError(
         httpStatus.BAD_REQUEST,
         `Missing required query parameter: ${label}.`,
       );
@@ -112,12 +109,12 @@ const sanitizeAreaText = (
     return null;
   }
   if (typeof raw !== "string" || raw.length > 100) {
-    throw new ApiError(httpStatus.BAD_REQUEST, `Invalid ${label}.`);
+    throw new AppError(httpStatus.BAD_REQUEST, `Invalid ${label}.`);
   }
   const trimmed = raw.trim();
   if (!trimmed) {
     if (required) {
-      throw new ApiError(
+      throw new AppError(
         httpStatus.BAD_REQUEST,
         `Missing required query parameter: ${label}.`,
       );
@@ -154,12 +151,15 @@ const mapOfficeRow = (row: Record<string, unknown>): NearbyOfficeRow => ({
   upazila: String(row.upazila),
   latitude: Number(row.latitude),
   longitude: Number(row.longitude),
-  phone: row.phone === null || row.phone === undefined ? null : String(row.phone),
+  phone:
+    row.phone === null || row.phone === undefined ? null : String(row.phone),
   officialUrl:
     row.officialUrl === null || row.officialUrl === undefined
       ? null
       : String(row.officialUrl),
-  lastVerifiedAt: new Date(String(row.lastVerifiedAt)).toISOString().slice(0, 10),
+  lastVerifiedAt: new Date(String(row.lastVerifiedAt))
+    .toISOString()
+    .slice(0, 10),
   distanceKm:
     row.distanceKm === null || row.distanceKm === undefined
       ? null
@@ -181,23 +181,41 @@ const findNearbyOffices = async (params: {
 }) => {
   const service = parseServiceKey(params.service);
   const lat = parseCoordinate(params.lat, { min: -90, max: 90, label: "lat" });
-  const lng = parseCoordinate(params.lng, { min: -180, max: 180, label: "lng" });
+  const lng = parseCoordinate(params.lng, {
+    min: -180,
+    max: 180,
+    label: "lng",
+  });
 
   const rawRadius =
     params.radiusKm === undefined ||
-    params.radiusKm === "" ||
-    params.radiusKm === null
+      params.radiusKm === "" ||
+      params.radiusKm === null
       ? DEFAULT_RADIUS_KM
       : Number(params.radiusKm);
-  if (!Number.isFinite(rawRadius) || rawRadius < 1 || rawRadius > MAX_RADIUS_KM) {
-    throw new ApiError(
+  if (
+    !Number.isFinite(rawRadius) ||
+    rawRadius < 1 ||
+    rawRadius > MAX_RADIUS_KM
+  ) {
+    throw new AppError(
       httpStatus.BAD_REQUEST,
       `Invalid radiusKm. Expected a number between 1 and ${MAX_RADIUS_KM}.`,
     );
   }
   const radiusKm = rawRadius;
-  const page = parsePositiveInt(params.page, 1, Number.MAX_SAFE_INTEGER, "page");
-  const limit = parsePositiveInt(params.limit, DEFAULT_PAGE_LIMIT, MAX_PAGE_LIMIT, "limit");
+  const page = parsePositiveInt(
+    params.page,
+    1,
+    Number.MAX_SAFE_INTEGER,
+    "page",
+  );
+  const limit = parsePositiveInt(
+    params.limit,
+    DEFAULT_PAGE_LIMIT,
+    MAX_PAGE_LIMIT,
+    "limit",
+  );
   const offset = (page - 1) * limit;
 
   // Bounding box in degrees around the search point (1 deg lat ≈ 111.045 km).
@@ -244,13 +262,7 @@ const findNearbyOffices = async (params: {
          SELECT 1 FROM government_office_services s
          WHERE s."officeId" = o.id AND s."serviceKey" = $1
        )`,
-    [
-      service,
-      lat - latDelta,
-      lat + latDelta,
-      lng - lngDelta,
-      lng + lngDelta,
-    ],
+    [service, lat - latDelta, lat + latDelta, lng - lngDelta, lng + lngDelta],
   );
   const total: number = countResult.rows[0]?.total ?? 0;
 
@@ -288,8 +300,18 @@ const findOfficesByArea = async (params: {
   const service = parseServiceKey(params.service);
   const district = sanitizeAreaText(params.district, "district", true);
   const upazila = sanitizeAreaText(params.upazila, "upazila", false);
-  const page = parsePositiveInt(params.page, 1, Number.MAX_SAFE_INTEGER, "page");
-  const limit = parsePositiveInt(params.limit, DEFAULT_PAGE_LIMIT, MAX_PAGE_LIMIT, "limit");
+  const page = parsePositiveInt(
+    params.page,
+    1,
+    Number.MAX_SAFE_INTEGER,
+    "page",
+  );
+  const limit = parsePositiveInt(
+    params.limit,
+    DEFAULT_PAGE_LIMIT,
+    MAX_PAGE_LIMIT,
+    "limit",
+  );
   const offset = (page - 1) * limit;
 
   const filters = `o."isDeleted" = FALSE AND o."isActive" = TRUE
@@ -299,7 +321,9 @@ const findOfficesByArea = async (params: {
         SELECT 1 FROM government_office_services s
         WHERE s."officeId" = o.id AND s."serviceKey" = $${upazila ? 3 : 2}
       )`;
-  const paramsList = upazila ? [district, upazila, service] : [district, service];
+  const paramsList = upazila
+    ? [district, upazila, service]
+    : [district, service];
 
   const countResult = await pool.query(
     `SELECT COUNT(*)::int AS total FROM government_offices o WHERE ${filters}`,

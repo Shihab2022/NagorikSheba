@@ -1,29 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { apiMethods } from "@/constant";
 import { apiHandler } from "@/lib/apiHandler";
+import type { CategoryItem, CategoryResponse } from "@/types/category";
+export type { CategoryItem, CategoryResponse };
 import { revalidatePath } from "next/cache";
 
-export interface CategoryItem {
-  id: string;
-  name: string;
-  slug: string;
-  description: string | null;
-  icon: string | null;
-  isDeleted: boolean;
-  createdAt: string;
-  updatedAt: string;
-  serviceCount?: number;
-}
-
-export interface CategoryResponse<T = any> {
-  success: boolean;
-  message?: string;
-  status?: number;
-  data?: T;
-}
-
-export const getAllCategories = async (): Promise<CategoryResponse<CategoryItem[]>> => {
+export const getAllCategories = async (): Promise<
+  CategoryResponse<CategoryItem[]>
+> => {
   const res = await apiHandler({
     path: "category",
     method: apiMethods.GET as keyof typeof apiMethods,
@@ -37,7 +21,9 @@ export const getAllCategories = async (): Promise<CategoryResponse<CategoryItem[
   };
 };
 
-export const getSingleCategory = async (categoryId: string): Promise<CategoryResponse<CategoryItem>> => {
+export const getSingleCategory = async (
+  categoryId: string,
+): Promise<CategoryResponse<CategoryItem>> => {
   const res = await apiHandler({
     path: `category/${categoryId}`,
     method: apiMethods.GET as keyof typeof apiMethods,
@@ -71,7 +57,11 @@ export const createCategory = async (payload: {
 
   return {
     success: res.success,
-    message: res.message || (res.success ? "Category created successfully" : "Failed to create category"),
+    message:
+      res.message ||
+      (res.success
+        ? "Category created successfully"
+        : "Failed to create category"),
     status: res.status,
     data: res?.data?.data,
   };
@@ -84,7 +74,7 @@ export const updateCategory = async (
     slug?: string;
     description?: string;
     icon?: string;
-  }
+  },
 ): Promise<CategoryResponse<CategoryItem>> => {
   const res = await apiHandler({
     path: `category/${categoryId}`,
@@ -100,13 +90,19 @@ export const updateCategory = async (
 
   return {
     success: res.success,
-    message: res.message || (res.success ? "Category updated successfully" : "Failed to update category"),
+    message:
+      res.message ||
+      (res.success
+        ? "Category updated successfully"
+        : "Failed to update category"),
     status: res.status,
     data: res?.data?.data,
   };
 };
 
-export const deleteCategory = async (categoryId: string): Promise<CategoryResponse<CategoryItem>> => {
+export const deleteCategory = async (
+  categoryId: string,
+): Promise<CategoryResponse<CategoryItem>> => {
   const res = await apiHandler({
     path: `category/${categoryId}`,
     method: apiMethods.DELETE as keyof typeof apiMethods,
@@ -120,7 +116,11 @@ export const deleteCategory = async (categoryId: string): Promise<CategoryRespon
 
   return {
     success: res.success,
-    message: res.message || (res.success ? "Category deleted successfully" : "Failed to delete category"),
+    message:
+      res.message ||
+      (res.success
+        ? "Category deleted successfully"
+        : "Failed to delete category"),
     status: res.status,
     data: res?.data?.data,
   };

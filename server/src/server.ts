@@ -6,7 +6,7 @@ import { seedDemoAdmin } from "./utils/seedDemoAdmin";
 
 async function main() {
   const port = config.port;
-  if (process.env.NODE_ENV !== "production") {
+  if (config.NODE_ENV !== "production") {
     await runMigrations();
     await seedDemoAdmin();
   }

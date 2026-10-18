@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
-import catchAsync from "../../shared/catchAsync";
-import sendResponse from "../../shared/sendResponse";
 import { GovernmentOfficesServices } from "./government-offices.service";
-import { findNearbyPassportOffices } from "./passport-office.service";
+import sendResponse from "../../../shared/sendResponse";
+import catchAsync from "../../../shared/catchAsync";
 
 const getNearby = catchAsync(async (req: Request, res: Response) => {
   const service = req.query.service ?? req.query.slug;

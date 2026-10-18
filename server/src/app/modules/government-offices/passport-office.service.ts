@@ -1,11 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import httpStatus from "http-status";
-import ApiError from "../../app/errors/AppError";
-import {
-  haversineDistanceKm,
-  isValidCoordinate,
-} from "./distance";
+import { haversineDistanceKm, isValidCoordinate } from "./distance";
+import ApiError from "../../errors/AppError";
 
 type RawPassportOffice = {
   office_name?: unknown;
@@ -69,8 +66,7 @@ function loadRows(): RawPassportOffice[] {
     parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
   } catch (error) {
     throw new Error(
-      `Could not load passport office data from ${filePath}: ${
-        error instanceof Error ? error.message : String(error)
+      `Could not load passport office data from ${filePath}: ${error instanceof Error ? error.message : String(error)
       }`,
     );
   }
@@ -78,8 +74,8 @@ function loadRows(): RawPassportOffice[] {
   const rows = Array.isArray(parsed)
     ? parsed
     : typeof parsed === "object" &&
-        parsed !== null &&
-        Array.isArray((parsed as { offices?: unknown }).offices)
+      parsed !== null &&
+      Array.isArray((parsed as { offices?: unknown }).offices)
       ? (parsed as { offices: unknown[] }).offices
       : null;
 
