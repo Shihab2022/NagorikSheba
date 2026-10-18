@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
-import catchAsync from "../../helpars/catchAsync";
-import sendResponse from "../../helpars/sendResponse";
 import { GovernmentOfficesServices } from "./government-offices.service";
+import sendResponse from "../../../shared/sendResponse";
+import catchAsync from "../../../shared/catchAsync";
 
 const getNearby = catchAsync(async (req: Request, res: Response) => {
   const result = await GovernmentOfficesServices.findNearbyOffices({
