@@ -32,7 +32,7 @@ export default function CopyLinkButton({
     <button
       type="button"
       onClick={handleCopy}
-      className="inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition hover:bg-gray-100 dark:hover:bg-gray-800"
+      className="cursor-pointer inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition  bg-brand-600  text-white"
     >
       {copied ? <Check size={18} /> : <Copy size={18} />}
       {copied ? "Link copied!" : "Copy link"}
