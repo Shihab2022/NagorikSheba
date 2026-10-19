@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { NearbyOffice, NearbyOrigin } from "@/lib/types";
+import { buildGoogleMapsEmbedUrl, buildOfficeMapQuery } from "@/lib/nearby";
 import { useTranslation } from "@/lib/i18n";
 
 const STRINGS = {
@@ -13,6 +14,9 @@ const STRINGS = {
     loadingRoute: "রুট লোড হচ্ছে…",
     routeSummary: "ড্রাইভিং রুট: {km} কিমি, ≈ {min} মিনিট",
     attribution: "ম্যাপ ডেটা &copy; OpenStreetMap অবদানকারী | রুট &copy; OSRM",
+    googlePreviewTitle: "Google Maps-এ অফিসের অবস্থান",
+    googlePreviewHint: "নির্বাচিত অফিসের Google Maps প্রিভিউ",
+    openInGoogleMaps: "Google Maps-এ খুলুন",
   },
   en: {
     mapLabel: "Map of nearby government offices",
@@ -23,6 +27,9 @@ const STRINGS = {
     loadingRoute: "Loading route…",
     routeSummary: "Driving route: {km} km, ≈ {min} min",
     attribution: "Map data &copy; OpenStreetMap contributors | Routes &copy; OSRM",
+    googlePreviewTitle: "Office location on Google Maps",
+    googlePreviewHint: "Google Maps preview of the selected office",
+    openInGoogleMaps: "Open in Google Maps",
   },
 };
 
@@ -232,6 +239,17 @@ export function NearbyMap({
 
   if (!hasGpsOrigin && mappedOffices.length === 0) return null;
 
+  // Google Maps embed (no API key) for the currently selected office — e.g.
+  // `CHAPAI NABABGANJ SADAR Upazila Election Office, CHAPAI NABABGANJ, Bangladesh`.
+  const googleEmbedUrl = selectedOffice
+    ? buildGoogleMapsEmbedUrl(buildOfficeMapQuery(selectedOffice))
+    : null;
+  const googleMapsLink = selectedOffice
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        buildOfficeMapQuery(selectedOffice),
+      )}`
+    : null;
+
   return (
     <div className="space-y-2">
       <div
@@ -241,6 +259,33 @@ export function NearbyMap({
         aria-label={s.mapLabel}
         className="h-72 w-full overflow-hidden rounded-2xl border border-line sm:h-96 [&_.leaflet-container]:h-full [&_.leaflet-container]:w-full"
       />
+      {googleEmbedUrl && selectedOffice ? (
+        <figure className="overflow-hidden rounded-2xl border border-line bg-white shadow-card">
+          <iframe
+            title={`${s.googlePreviewTitle} — ${selectedOffice.name}`}
+            src={googleEmbedUrl}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+            className="h-72 w-full border-0 sm:h-96"
+          />
+          <figcaption className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 text-xs text-slate-500">
+            <span>
+              {s.googlePreviewHint} — {selectedOffice.name}
+            </span>
+            {googleMapsLink ? (
+              <a
+                href={googleMapsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-brand-700 hover:underline"
+              >
+                {s.openInGoogleMaps}
+              </a>
+            ) : null}
+          </figcaption>
+        </figure>
+      ) : null}
       {routeState === "loading" ? (
         <p className="text-xs font-semibold text-slate-500" aria-live="polite">
           {s.loadingRoute}
