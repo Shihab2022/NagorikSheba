@@ -59,7 +59,7 @@ export interface TrackedServiceResponse<T = any> {
 }
 
 export interface CreateTrackedServicePayload {
-  serviceId: string;
+  serviceSlug: string;
   title?: string;
   referenceNumber?: string;
   status?: TrackedServiceStatus;

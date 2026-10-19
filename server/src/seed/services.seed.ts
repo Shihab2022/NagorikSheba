@@ -41,13 +41,6 @@ const CATEGORY_IDS: Record<string, string> = {
   "local-government": "10000000-0000-0000-0000-000000000012",
 };
 
-let stepCounter = 0;
-const nextStepId = (): string => {
-  stepCounter += 1;
-  const n = String(stepCounter).padStart(3, "0");
-  return `30000000-0000-0000-0000-000000000${n}`;
-};
-
 const SERVICES: ServiceInput[] = [
   {
     id: "20000000-0000-0000-0000-000000000001",
@@ -449,21 +442,29 @@ const upsertCategory = async ({
   slug: string;
   description: string;
   icon?: string | null;
-}) => {
+}): Promise<string> => {
+  // Insert only when the slug is new — existing admin-created categories keep
+  // their content and their id. Either way, return the id that owns the slug.
   await pool.query(
     `INSERT INTO category (id, name, slug, description, icon, "isDeleted", "createdAt", "updatedAt")
      VALUES ($1, $2, $3, $4, $5, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-     ON CONFLICT (id) DO UPDATE
-     SET name = EXCLUDED.name,
-         slug = EXCLUDED.slug,
-         description = EXCLUDED.description,
-         icon = EXCLUDED.icon,
-         "updatedAt" = CURRENT_TIMESTAMP`,
+     ON CONFLICT (slug) DO NOTHING`,
     [id, name, slug, description, icon || null],
   );
+  const existing = await pool.query(
+    `SELECT id FROM category WHERE slug = $1 LIMIT 1`,
+    [slug],
+  );
+  return existing.rows[0].id;
 };
 
-const upsertService = async (svc: ServiceInput) => {
+const upsertService = async (
+  svc: ServiceInput,
+  categoryId: string,
+): Promise<void> => {
+  // Create the service only if its slug is not present yet (never overwriting
+  // an admin-created row), then read back whatever id actually owns the slug so
+  // the steps below attach to the real row.
   await pool.query(
     `INSERT INTO services (
        id, "categoryId", name, slug, "shortDescription", description,
@@ -474,19 +475,10 @@ const upsertService = async (svc: ServiceInput) => {
        $1, $2, $3, $4, $5, $6, $7, $8, $9, 'VERIFIED',
        CURRENT_TIMESTAMP, $10, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
      )
-     ON CONFLICT (id) DO UPDATE
-     SET name = EXCLUDED.name,
-         slug = EXCLUDED.slug,
-         "shortDescription" = EXCLUDED."shortDescription",
-         description = EXCLUDED.description,
-         eligibility = EXCLUDED.eligibility,
-         "processingTime" = EXCLUDED."processingTime",
-         "officialUrl" = EXCLUDED."officialUrl",
-         "isPublished" = EXCLUDED."isPublished",
-         "updatedAt" = CURRENT_TIMESTAMP`,
+     ON CONFLICT (slug) DO NOTHING`,
     [
       svc.id,
-      svc.categoryId,
+      categoryId,
       svc.name,
       svc.slug,
       svc.shortDescription,
@@ -498,22 +490,26 @@ const upsertService = async (svc: ServiceInput) => {
     ],
   );
 
+  const existing = await pool.query(
+    `SELECT id FROM services WHERE slug = $1 LIMIT 1`,
+    [svc.slug],
+  );
+  const serviceId = existing.rows[0].id;
+
   for (const step of svc.steps) {
-    const stepId = nextStepId();
     await pool.query(
       `INSERT INTO serviceStep (
-         id, "serviceId", "stepNumber", title, description, "actionType",
+         "serviceId", "stepNumber", title, description, "actionType",
          "officialUrl", "isDeleted", "createdAt", "updatedAt"
        )
-       VALUES ($1, $2, $3, $4, $5, $6, NULL, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-       ON CONFLICT (id) DO UPDATE
+       VALUES ($1, $2, $3, $4, $5, NULL, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+       ON CONFLICT ("serviceId", "stepNumber") DO UPDATE
        SET title = EXCLUDED.title,
            description = EXCLUDED.description,
            "actionType" = EXCLUDED."actionType",
            "updatedAt" = CURRENT_TIMESTAMP`,
       [
-        stepId,
-        svc.id,
+        serviceId,
         step.stepNumber,
         step.title,
         step.description,
@@ -539,12 +535,17 @@ export const seedServices = async () => {
     { id: CATEGORY_IDS["local-government"], name: "Local Government", slug: "local-government", description: "City Corporation, Municipality and Union Parishad services.", icon: "Landmark" },
   ];
 
+  // Resolve each deterministic category id to the id that actually owns that
+  // slug — admin-created categories keep their own ids, and services must
+  // reference whichever id is real to satisfy the foreign key.
+  const realCategoryIds: Record<string, string> = {};
   for (const cat of categories) {
-    await upsertCategory(cat);
+    realCategoryIds[cat.id] = await upsertCategory(cat);
   }
 
   for (const svc of SERVICES) {
-    await upsertService(svc);
+    const categoryId = realCategoryIds[svc.categoryId] ?? svc.categoryId;
+    await upsertService(svc, categoryId);
   }
 
   console.log(

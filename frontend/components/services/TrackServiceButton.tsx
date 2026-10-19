@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { PackageSearch } from "lucide-react";
-import { getDbServiceId } from "@/lib/data/dbServiceIds";
 import { createTrackedService } from "@/service/tracked-service";
 import { getMe } from "@/service/auth";
 import { T } from "@/components/ui/T";
@@ -18,9 +17,6 @@ export function TrackServiceButton({
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const dbServiceId = getDbServiceId(slug);
-  if (!dbServiceId) return null;
-
   const handleTrack = async () => {
     setLoading(true);
     const me = await getMe();
@@ -29,7 +25,7 @@ export function TrackServiceButton({
       setLoading(false);
       return;
     }
-    const res = await createTrackedService({ serviceId: dbServiceId });
+    const res = await createTrackedService({ serviceSlug: slug });
     setLoading(false);
     if (res.success && res.data) {
       const tracked = res.data as TrackedServiceItem;

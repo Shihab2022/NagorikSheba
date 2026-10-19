@@ -11,8 +11,8 @@ const trackedServiceStatusEnum = z.enum([
 
 export const createTrackedServiceSchema = z.object({
   body: z.object({
-    serviceId: z.string({
-      required_error: "Service ID is required!",
+    serviceSlug: z.string({
+      required_error: "Service slug is required!",
     }),
     title: z.string().optional(),
     referenceNumber: z.string().optional().nullable(),

@@ -7,15 +7,18 @@ const now = (): string => new Date().toISOString();
 
 const createTrackedServiceIntoDB = async (req: Request) => {
   const userId = (req as any).user?.id;
-  const { serviceId, title, referenceNumber, status } = req.body;
+  const { serviceSlug, title, referenceNumber, status } = req.body;
 
+  // Resolve the service by its stable slug rather than a hardcoded UUID so the
+  // call keeps working regardless of which id the row was created with.
   const serviceExist = await pool.query(
-    `SELECT id, slug FROM services WHERE id = $1 AND "isDeleted" = FALSE LIMIT 1`,
-    [serviceId],
+    `SELECT id, slug FROM services WHERE slug = $1 AND "isDeleted" = FALSE LIMIT 1`,
+    [serviceSlug],
   );
   if (!serviceExist.rows.length) {
     throw new AppError(httpStatus.NOT_FOUND, "Service not found.");
   }
+  const serviceId: string = serviceExist.rows[0].id;
 
   const tsNow = now();
   const finalStatus = status || "PREPARING";
@@ -35,10 +38,10 @@ const createTrackedServiceIntoDB = async (req: Request) => {
 const getMyTrackedServicesFromDB = async (userId: string) => {
   const result = await pool.query(
     `SELECT ts.*, s.name AS service_name, s.slug AS service_slug,
-            s.category AS service_category, s.icon AS service_icon,
-            s.department AS service_department
+            c.name AS service_category, c.icon AS service_icon
      FROM trackedService ts
      JOIN services s ON s.id = ts."serviceId" AND s."isDeleted" = FALSE
+     LEFT JOIN category c ON c.id = s."categoryId" AND c."isDeleted" = FALSE
      WHERE ts."userId" = $1
      ORDER BY ts."updatedAt" DESC`,
     [userId],
@@ -52,10 +55,10 @@ const getSingleTrackedServiceFromDB = async (
 ) => {
   const result = await pool.query(
     `SELECT ts.*, s.name AS service_name, s.slug AS service_slug,
-            s.category AS service_category, s.icon AS service_icon,
-            s.department AS service_department
+            c.name AS service_category, c.icon AS service_icon
      FROM trackedService ts
      JOIN services s ON s.id = ts."serviceId" AND s."isDeleted" = FALSE
+     LEFT JOIN category c ON c.id = s."categoryId" AND c."isDeleted" = FALSE
      WHERE ts.id = $1 AND ts."userId" = $2
      LIMIT 1`,
     [trackedServiceId, userId],
