@@ -3,12 +3,14 @@ import app from "./app";
 import config from "./config";
 import { runMigrations } from "./utils/migrate";
 import { seedDemoAdmin } from "./utils/seedDemoAdmin";
+import { seedServices } from "./seed/services.seed";
 
 async function main() {
   const port = config.port;
   if (config.NODE_ENV !== "production") {
     await runMigrations();
     await seedDemoAdmin();
+    await seedServices();
   }
   const server: Server = app.listen(port, () => {
     console.log(`\x1b[32mSuccess! Server running on port ${port}\x1b[0m`);

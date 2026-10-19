@@ -34,7 +34,7 @@ type NavItem = {
 
 const MAIN_ITEMS: NavItem[] = [
   { href: "/dashboard", label: { bn: "ড্যাশবোর্ড", en: "Dashboard" }, icon: LayoutDashboard },
-  { href: "/application-tracker", label: { bn: "আমার আবেদন", en: "My Applications" }, icon: PackageSearch },
+  { href: "/dashboard/applications", label: { bn: "আমার আবেদন", en: "My Applications" }, icon: PackageSearch },
   { href: "/services", label: { bn: "সকল সেবা", en: "All Services" }, icon: Bookmark },
   { href: "/documents", label: { bn: "ডকুমেন্ট চেকলিস্ট", en: "Documents" }, icon: FileText },
   { href: "/fees", label: { bn: "সরকারি ফি", en: "Govt Fees" }, icon: CreditCard },

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ExternalLink, Globe, MapPin } from "lucide-react";
 import { getServiceBySlug } from "@/lib/data/services";
 import { ServiceSidebar } from "@/components/services/ServiceSidebar";
+import { TrackServiceButton } from "@/components/services/TrackServiceButton";
 import { DetailSection } from "@/components/services/ServiceSteps";
 import { DemoNote } from "@/components/ui/States";
 import { useTranslation } from "@/lib/i18n";
@@ -31,6 +32,7 @@ export function SvcBody({ slug }: { slug: string }) {
         <div className="mb-6 lg:hidden"><ServiceSidebar service={service} /></div>
         <div className="grid gap-10 lg:grid-cols-[1fr_340px]">
           <div>
+            <div className="mb-6"><TrackServiceButton slug={slug} /></div>
             <SvcMain slug={slug} />
             <div className="mt-10">
               <DetailSection id="official" title={s.official} icon={<Globe className="h-4 w-4" />}>
