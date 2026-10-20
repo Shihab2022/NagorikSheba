@@ -45,7 +45,8 @@ export default async function NearbyOfficesPage(
 
   const rawLat = typeof sp?.lat === "string" ? Number(sp.lat) : NaN;
   const rawLng = typeof sp?.lng === "string" ? Number(sp.lng) : NaN;
-  const rawDistrict = typeof sp?.district === "string" ? sp.district.trim() : "";
+  const rawDistrict =
+    typeof sp?.district === "string" ? sp.district.trim() : "";
   const rawUpazila = typeof sp?.upazila === "string" ? sp.upazila.trim() : "";
   const rawRadius = typeof sp?.radius === "string" ? Number(sp.radius) : NaN;
 
@@ -77,7 +78,10 @@ export default async function NearbyOfficesPage(
         breadcrumbs={[
           { label: { bn: "হোম", en: "Home" }, href: "/" },
           { label: { bn: "সেবা", en: "Services" }, href: "/services" },
-          { label: { bn: service.name, en: service.name }, href: `/services/${service.slug}` },
+          {
+            label: { bn: service.name, en: service.name },
+            href: `/services/${service.slug}`,
+          },
           { label: { bn: "নিকটবর্তী অফিস", en: "Nearby Offices" } },
         ]}
       />
