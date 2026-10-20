@@ -15,8 +15,8 @@ import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
 import { useTranslation } from "@/lib/i18n";
 import { COMMON } from "@/lib/i18n/common";
-import ShareButton from "../layout/share-button";
-import CopyLinkButton from "../layout/copy-link-button";
+
+
 
 
 

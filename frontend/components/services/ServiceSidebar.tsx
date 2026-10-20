@@ -15,7 +15,7 @@ import { getOfficeServiceKey } from "@/lib/nearby";
 import { useTranslation } from "@/lib/i18n";
 
 import ShareButton from "@/components/layout/share-button";
-import CopyLinkButton from "@/components/layout/copy-link-button";
+
 
 const STRINGS = {
   bn: {
@@ -164,7 +164,7 @@ export function ServiceSidebar({
               text={service.description}
             />
 
-            <CopyLinkButton url={serviceUrl} />
+ 
           </div>
 
           {/* Official source and verification date */}
