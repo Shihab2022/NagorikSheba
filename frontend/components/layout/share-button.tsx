@@ -1,8 +1,14 @@
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MessageCircle, Share2, X, Link as LinkIcon } from "lucide-react";
-import { FaFacebook, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { MessageCircle, Share2, X } from "lucide-react";
+import {
+  FaFacebook,
+  FaLinkedin,
+  FaWhatsapp,
+  FaRedditAlien,
+} from "react-icons/fa";
 import CopyLinkButton from "./copy-link-button";
 
 type ShareButtonProps = {
@@ -10,6 +16,13 @@ type ShareButtonProps = {
   title?: string;
   text?: string;
 };
+
+type SharePlatform =
+  | "whatsapp"
+  | "facebook"
+  | "linkedin"
+  | "x"
+  | "reddit";
 
 export default function ShareButton({
   url,
@@ -38,7 +51,9 @@ export default function ShareButton({
     };
 
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsOpen(false);
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
     };
 
     document.addEventListener("mousedown", handleOutsideClick);
@@ -50,18 +65,24 @@ export default function ShareButton({
     };
   }, []);
 
-  const openShare = (platform: "whatsapp" | "facebook" | "linkedin" | "x") => {
+  const openShare = (platform: SharePlatform) => {
     const shareUrl = getShareUrl();
     const encodedUrl = encodeURIComponent(shareUrl);
+    const encodedTitle = encodeURIComponent(title);
     const encodedText = encodeURIComponent(text);
 
-    const shareLinks = {
+    const shareLinks: Record<SharePlatform, string> = {
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+
       whatsapp: `https://wa.me/?text=${encodeURIComponent(
         `${text} ${shareUrl}`,
       )}`,
+
       x: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`,
+
+      reddit: `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`,
     };
 
     window.open(
@@ -69,28 +90,6 @@ export default function ShareButton({
       "_blank",
       "noopener,noreferrer,width=600,height=500",
     );
-  };
-
-  const nativeShare = async () => {
-    const shareData = {
-      title,
-      text,
-      url: getShareUrl(),
-    };
-
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-      } catch {
-        // User cancelled the share dialog.
-      }
-    } else {
-      try {
-        await navigator.clipboard.writeText(getShareUrl());
-      } catch {
-        window.prompt("Copy this link:", getShareUrl());
-      }
-    }
   };
 
   const shareBySms = () => {
@@ -115,24 +114,26 @@ export default function ShareButton({
         <div
           role="dialog"
           aria-label="Share this page"
-          className="absolute bottom-full left-0 z-50 mb-3 w-[min(440px,calc(100vw-32px))] rounded-2xl border border-white/10 bg-brand-600 p-5 text-white shadow-2xl"
+          className="absolute bottom-full -left-10 z-50 mb-3 w-[min(380px,calc(100vw-34px))] border border-white/10 bg-brand-600 p-5 text-white shadow-2xl"
         >
-          <div className="grid grid-cols-4 gap-x-3 gap-y-4">
+          <div className="grid grid-cols-4 gap-x-2 gap-y-2">
+            {/* Reddit */}
             <button
               type="button"
-              onClick={() => openShare("linkedin")}
-              className="flex flex-col items-center gap-2"
+              onClick={() => openShare("reddit")}
+              className="flex cursor-pointer flex-col items-center gap-2"
             >
-              <span className="cursor-pointer flex size-14 items-center justify-center rounded-full bg-[#0A66C2] text-white transition hover:brightness-90">
-                <FaLinkedin size={27} />
+              <span className="flex size-14 items-center justify-center rounded-full bg-[#FF4500] text-white transition hover:brightness-90">
+                <FaRedditAlien size={27} />
               </span>
-              <span className="text-xs">LinkedIn</span>
+              <span className="text-xs">Reddit</span>
             </button>
 
+            {/* WhatsApp */}
             <button
               type="button"
               onClick={() => openShare("whatsapp")}
-              className="cursor-pointer flex flex-col items-center gap-2"
+              className="flex cursor-pointer flex-col items-center gap-2"
             >
               <span className="flex size-14 items-center justify-center rounded-full bg-[#00C96B] text-white transition hover:brightness-90">
                 <FaWhatsapp size={29} />
@@ -140,20 +141,23 @@ export default function ShareButton({
               <span className="text-xs">WhatsApp</span>
             </button>
 
+            {/* Facebook */}
             <button
               type="button"
               onClick={() => openShare("facebook")}
-              className="cursor-pointer flex flex-col items-center gap-2"
+              className="flex cursor-pointer flex-col items-center gap-2"
             >
               <span className="flex size-14 items-center justify-center rounded-full bg-[#3165A5] text-white transition hover:brightness-90">
                 <FaFacebook size={27} />
               </span>
               <span className="text-xs">Facebook</span>
             </button>
+
+            {/* LinkedIn */}
             <button
               type="button"
               onClick={() => openShare("linkedin")}
-              className="cursor-pointer flex flex-col items-center gap-2"
+              className="flex cursor-pointer flex-col items-center gap-2"
             >
               <span className="flex size-14 items-center justify-center rounded-full bg-[#0A66C2] text-white transition hover:brightness-90">
                 <FaLinkedin size={27} />
@@ -161,10 +165,11 @@ export default function ShareButton({
               <span className="text-xs">LinkedIn</span>
             </button>
 
+            {/* X */}
             <button
               type="button"
               onClick={() => openShare("x")}
-              className="cursor-pointer flex flex-col items-center gap-2"
+              className="flex cursor-pointer flex-col items-center gap-2"
             >
               <span className="flex size-14 items-center justify-center rounded-full bg-black text-white transition hover:bg-gray-800">
                 <X size={29} />
@@ -172,10 +177,11 @@ export default function ShareButton({
               <span className="text-xs">X</span>
             </button>
 
+            {/* Messages */}
             <button
               type="button"
               onClick={shareBySms}
-              className="cursor-pointer flex flex-col items-center gap-2"
+              className="flex cursor-pointer flex-col items-center gap-2"
             >
               <span className="flex size-14 items-center justify-center rounded-full bg-[#343434] text-white transition hover:bg-[#454545]">
                 <MessageCircle size={27} />
@@ -183,6 +189,7 @@ export default function ShareButton({
               <span className="text-xs">Messages</span>
             </button>
 
+            {/* Copy Link */}
             <div className="flex flex-col items-center gap-2">
               <CopyLinkButton url={getShareUrl()} iconOnly />
               <span className="text-xs">Copy link</span>
