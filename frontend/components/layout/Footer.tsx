@@ -5,62 +5,59 @@ import { AlertCircle, HeartHandshake } from "lucide-react";
 import { LogoMark } from "@/components/ui/Logo";
 import { useTranslation, type Dict } from "@/lib/i18n";
 
-
-
-
 const COLUMNS: {
   title: Dict<string>;
   links: { label: Dict<string>; href: string }[];
 }[] = [
-    {
-      title: { bn: "সেবা", en: "Services" },
-      links: [
-        { href: "/categories", label: { bn: "ক্যাটাগরি", en: "Categories" } },
-        {
-          href: "/income-tax-calculator",
-          label: { bn: "আয়কর ক্যালকুলেটর", en: "Tax Calculator" },
-        },
-        {
-          href: "/government-offices",
-          label: { bn: "সরকারি অফিস", en: "Government Offices" },
-        },
-        { href: "/notices", label: { bn: "নোটিশ", en: "Notices" } },
-        {
-          href: "/application-tracker",
-          label: { bn: "আবেদন ট্র্যাকিং", en: "Application Tracking" },
-        },
-        {
-          href: "/ai-assistant",
-          label: { bn: "এআই সহকারী", en: "AI Assistant" },
-        },
-      ],
-    },
-    {
-      title: { bn: "রিসোর্স", en: "Resources" },
-      links: [
-        {
-          href: "/how-it-works",
-          label: { bn: "কীভাবে কাজ করে", en: "How It Works" },
-        },
-        { href: "/faq", label: { bn: "সাধারণ জিজ্ঞাসা", en: "FAQ" } },
-        { href: "/documents", label: { bn: "ডকুমেন্ট", en: "Documents" } },
-        { href: "/fees", label: { bn: "ফি", en: "Fees" } },
-        { href: "/contact", label: { bn: "সাহায্য", en: "Help" } },
-      ],
-    },
-    {
-      title: { bn: "প্রতিষ্ঠান", en: "Company" },
-      links: [
-        { href: "/about", label: { bn: "আমাদের কথা", en: "About" } },
-        { href: "/contact", label: { bn: "যোগাযোগ", en: "Contact" } },
-        {
-          href: "/about",
-          label: { bn: "প্রাইভেসি পলিসি", en: "Privacy Policy" },
-        },
-        { href: "/about", label: { bn: "শর্তাবলি", en: "Terms" } },
-      ],
-    },
-  ];
+  {
+    title: { bn: "সেবা", en: "Services" },
+    links: [
+      { href: "/categories", label: { bn: "ক্যাটাগরি", en: "Categories" } },
+      {
+        href: "/income-tax-calculator",
+        label: { bn: "আয়কর ক্যালকুলেটর", en: "Tax Calculator" },
+      },
+      {
+        href: "/government-offices",
+        label: { bn: "সরকারি অফিস", en: "Government Offices" },
+      },
+      { href: "/notices", label: { bn: "নোটিশ", en: "Notices" } },
+      {
+        href: "/application-tracker",
+        label: { bn: "আবেদন ট্র্যাকিং", en: "Application Tracking" },
+      },
+      {
+        href: "/ai-assistant",
+        label: { bn: "এআই সহকারী", en: "AI Assistant" },
+      },
+    ],
+  },
+  {
+    title: { bn: "রিসোর্স", en: "Resources" },
+    links: [
+      {
+        href: "/how-it-works",
+        label: { bn: "কীভাবে কাজ করে", en: "How It Works" },
+      },
+      { href: "/faq", label: { bn: "সাধারণ জিজ্ঞাসা", en: "FAQ" } },
+      { href: "/documents", label: { bn: "ডকুমেন্ট", en: "Documents" } },
+      { href: "/fees", label: { bn: "ফি", en: "Fees" } },
+      { href: "/contact", label: { bn: "সাহায্য", en: "Help" } },
+    ],
+  },
+  {
+    title: { bn: "প্রতিষ্ঠান", en: "Company" },
+    links: [
+      { href: "/about", label: { bn: "আমাদের কথা", en: "About" } },
+      { href: "/contact", label: { bn: "যোগাযোগ", en: "Contact" } },
+      {
+        href: "/about",
+        label: { bn: "প্রাইভেসি পলিসি", en: "Privacy Policy" },
+      },
+      { href: "/about", label: { bn: "শর্তাবলি", en: "Terms" } },
+    ],
+  },
+];
 
 const STRINGS = {
   bn: {
