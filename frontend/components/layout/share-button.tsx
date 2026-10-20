@@ -115,7 +115,7 @@ export default function ShareButton({
         <div
           role="dialog"
           aria-label="Share this page"
-          className="absolute bottom-full left-0 z-50 mb-3 w-[min(440px,calc(100vw-32px))] rounded-2xl border border-white/10 bg-[#212121] p-5 text-white shadow-2xl"
+          className="absolute bottom-full left-0 z-50 mb-3 w-[min(440px,calc(100vw-32px))] rounded-2xl border border-white/10 bg-brand-600 p-5 text-white shadow-2xl"
         >
           <div className="grid grid-cols-4 gap-x-3 gap-y-4">
             <button
