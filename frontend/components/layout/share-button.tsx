@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -8,6 +7,7 @@ import {
   FaLinkedin,
   FaWhatsapp,
   FaRedditAlien,
+  FaPinterest,
 } from "react-icons/fa";
 import CopyLinkButton from "./copy-link-button";
 
@@ -22,7 +22,8 @@ type SharePlatform =
   | "facebook"
   | "linkedin"
   | "x"
-  | "reddit";
+  | "reddit"
+  | "pinterest";
 
 export default function ShareButton({
   url,
@@ -83,6 +84,9 @@ export default function ShareButton({
       x: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`,
 
       reddit: `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`,
+      pinterest: `https://www.pinterest.com/pin/create/button/?url=${encodedUrl}&description=${encodeURIComponent(
+        `${title} - ${text}`,
+      )}`,
     };
 
     window.open(
@@ -194,6 +198,17 @@ export default function ShareButton({
               <CopyLinkButton url={getShareUrl()} iconOnly />
               <span className="text-xs">Copy link</span>
             </div>
+            {/* Pinterest */}
+<button
+  type="button"
+  onClick={() => openShare("pinterest")}
+  className="flex cursor-pointer flex-col items-center gap-2"
+>
+  <span className="flex size-14 items-center justify-center rounded-full bg-[#E60023] text-white transition hover:brightness-90">
+    <FaPinterest size={27} />
+  </span>
+  <span className="text-xs">Pinterest</span>
+</button>
           </div>
         </div>
       )}
