@@ -11,7 +11,9 @@ export function ServiceSteps({ steps }: { steps: string[] }) {
             <span
               className={cn(
                 "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-sm font-extrabold",
-                i === 0 ? "bg-brand-600 text-white" : "bg-brand-50 text-brand-700",
+                i === 0
+                  ? "bg-brand-600 text-white"
+                  : "bg-brand-50 text-brand-700",
               )}
             >
               {String(i + 1).padStart(2, "0")}
@@ -21,7 +23,9 @@ export function ServiceSteps({ steps }: { steps: string[] }) {
             ) : null}
           </div>
           <div className="pb-1">
-            <p className="text-sm font-semibold leading-6 text-slate-700">{step}</p>
+            <p className="text-sm font-semibold leading-6 text-slate-700">
+              {step}
+            </p>
           </div>
         </li>
       ))}
