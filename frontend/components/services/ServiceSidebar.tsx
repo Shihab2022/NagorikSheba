@@ -57,11 +57,7 @@ const STRINGS = {
  * Sticky Service Information card for the service detail page.
  * Includes service information and social sharing actions.
  */
-export function ServiceSidebar({
-  service,
-}: {
-  service: GovernmentService;
-}) {
+export function ServiceSidebar({ service }: { service: GovernmentService }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
 
@@ -71,17 +67,11 @@ export function ServiceSidebar({
       : `/services/${service.slug}`;
 
   return (
-    <aside
-      aria-label={s.ariaLabel}
-      className="lg:sticky lg:top-28"
-    >
+    <aside aria-label={s.ariaLabel} className="lg:sticky lg:top-28">
       <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-card">
         <div className="border-b border-line bg-brand-50 px-5 py-4">
           <h2 className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-wider text-brand-800">
-            <BadgeCheck
-              className="h-4 w-4"
-              aria-hidden="true"
-            />
+            <BadgeCheck className="h-4 w-4" aria-hidden="true" />
             {s.title}
           </h2>
         </div>
@@ -89,27 +79,17 @@ export function ServiceSidebar({
         <div className="space-y-3 p-5">
           <div className="flex flex-wrap gap-2">
             <Badge tone={service.isOnline ? "soft-green" : "soft-red"}>
-              <MonitorSmartphone
-                className="h-3 w-3"
-                aria-hidden="true"
-              />
-              {service.isOnline
-                ? s.onlineAvailable
-                : s.officeVisit}
+              <MonitorSmartphone className="h-3 w-3" aria-hidden="true" />
+              {service.isOnline ? s.onlineAvailable : s.officeVisit}
             </Badge>
 
-            <Badge tone="slate">
-              {s.governmentService}
-            </Badge>
+            <Badge tone="slate">{s.governmentService}</Badge>
           </div>
 
           <dl className="space-y-3 border-t border-line pt-3 text-sm">
             <div className="flex items-start justify-between gap-3">
               <dt className="flex items-center gap-1.5 text-slate-500">
-                <Clock
-                  className="h-4 w-4 text-brand-600"
-                  aria-hidden="true"
-                />
+                <Clock className="h-4 w-4 text-brand-600" aria-hidden="true" />
                 {s.processing}
               </dt>
 
@@ -142,10 +122,7 @@ export function ServiceSidebar({
             >
               {s.visitOfficialWebsite}
 
-              <ExternalLink
-                className="h-4 w-4"
-                aria-hidden="true"
-              />
+              <ExternalLink className="h-4 w-4" aria-hidden="true" />
             </a>
           ) : (
             <p className="rounded-xl border border-dashed border-line bg-canvas px-4 py-3 text-xs leading-5 text-slate-500">
