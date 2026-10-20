@@ -32,12 +32,17 @@ export interface TrackedServiceItem {
   lastUpdatedAt: string;
   createdAt: string;
   updatedAt: string;
-  /** Joined service info (set by the list endpoint). */
+  /** Joined service info */
   service_name?: string;
   service_slug?: string;
   service_category?: string;
   service_icon?: string;
   service_department?: string;
+  service_short_description?: string;
+  service_description?: string;
+  service_eligibility?: string;
+  service_processing_time?: string;
+  service_official_url?: string;
 }
 
 export interface TrackedStepItem {
@@ -47,6 +52,11 @@ export interface TrackedStepItem {
   status: TrackedStepStatus;
   completedAt?: string | null;
   note?: string | null;
+  step_title?: string;
+  stepNumber?: number;
+  step_description?: string;
+  actionType?: string;
+  officialUrl?: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -69,7 +79,7 @@ export interface UpdateTrackedServicePayload {
   title?: string;
   status?: TrackedServiceStatus;
   referenceNumber?: string;
-  completedAt?: string;
+  completedAt?: string | null;
 }
 
 export interface UpdateTrackedStepPayload {

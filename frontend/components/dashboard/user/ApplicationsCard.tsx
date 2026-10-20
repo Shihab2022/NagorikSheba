@@ -68,14 +68,17 @@ export async function ApplicationsCard() {
           {applications.map((app) => (
             <Card
               key={app.id}
-              className="hover:border-brand-100 hover:shadow-sm"
+              className="hover:border-brand-200 hover:shadow-md transition-all group"
             >
               <CardBody className="p-4 sm:p-5">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-bold text-slate-900 leading-snug">
+                    <Link
+                      href={`/dashboard/applications/${app.id}`}
+                      className="text-sm font-bold text-slate-900 group-hover:text-brand-600 leading-snug transition-colors"
+                    >
                       {app.service_name || app.title || "Untitled service"}
-                    </h3>
+                    </Link>
                     {app.referenceNumber && (
                       <p className="mt-0.5 text-xs font-mono text-slate-500">
                         {app.referenceNumber}
@@ -92,17 +95,25 @@ export async function ApplicationsCard() {
                       />
                     </div>
                   </div>
-                  <Badge
-                    tone={(STATUS_TONE[app.status] ?? "slate") as any}
-                    className="whitespace-nowrap"
-                  >
-                    <T
-                      bn={STATUS_LABEL[app.status]?.bn ?? app.status}
-                      en={STATUS_LABEL[app.status]?.en ?? app.status}
-                    />
-                  </Badge>
+                  <div className="flex items-center gap-3">
+                    <Badge
+                      tone={(STATUS_TONE[app.status] ?? "slate") as any}
+                      className="whitespace-nowrap"
+                    >
+                      <T
+                        bn={STATUS_LABEL[app.status]?.bn ?? app.status}
+                        en={STATUS_LABEL[app.status]?.en ?? app.status}
+                      />
+                    </Badge>
+                    <Link
+                      href={`/dashboard/applications/${app.id}`}
+                      className="inline-flex items-center justify-center text-xs font-semibold text-brand-600 hover:text-brand-700 p-1"
+                    >
+                      <T bn="বিস্তারিত →" en="Details →" />
+                    </Link>
+                  </div>
                 </div>
-                <div className="mt-3 flex items-center gap-3 text-xs text-slate-500">
+                <div className="mt-3 flex items-center gap-3 text-xs text-slate-500 border-t border-line/50 pt-2.5">
                   <span>
                     <T bn="শেষ আপডেট" en="Last updated" />{" "}
                   </span>

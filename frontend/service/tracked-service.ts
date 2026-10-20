@@ -5,6 +5,7 @@ import { apiHandler } from "@/lib/apiHandler";
 import type {
   CreateTrackedServicePayload,
   TrackedServiceItem,
+  TrackedStepItem,
   TrackedServiceResponse,
   UpdateTrackedServicePayload,
   UpdateTrackedStepPayload,
@@ -12,6 +13,7 @@ import type {
 export type {
   CreateTrackedServicePayload,
   TrackedServiceItem,
+  TrackedStepItem,
   TrackedServiceResponse,
   UpdateTrackedServicePayload,
   UpdateTrackedStepPayload,
@@ -52,7 +54,7 @@ export const getSingleTrackedService = async (
 
 export const getTrackedSteps = async (
   trackedServiceId: string,
-): Promise<TrackedServiceResponse<any[]>> => {
+): Promise<TrackedServiceResponse<TrackedStepItem[]>> => {
   const res = await apiHandler({
     path: `tracked-service/${trackedServiceId}/steps`,
     method: apiMethods.GET as keyof typeof apiMethods,
@@ -145,7 +147,7 @@ export const updateTrackedStep = async (
   trackedServiceId: string,
   serviceStepId: string,
   payload: UpdateTrackedStepPayload,
-): Promise<TrackedServiceResponse<any>> => {
+): Promise<TrackedServiceResponse<TrackedStepItem>> => {
   const res = await apiHandler({
     path: `tracked-service/${trackedServiceId}/steps/${serviceStepId}`,
     method: apiMethods.PATCH as keyof typeof apiMethods,

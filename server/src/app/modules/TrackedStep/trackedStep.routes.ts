@@ -8,13 +8,13 @@ const router = express.Router();
 
 router.get(
   "/:tracked_service_id/steps",
-  auth("USER"),
+  auth("USER", "ADMIN"),
   validateRequest(TrackedStepValidation.trackedServiceIdParamSchema),
   TrackedStepControllers.getTrackedSteps,
 );
 router.patch(
   "/:tracked_service_id/steps/:service_step_id",
-  auth("USER"),
+  auth("USER", "ADMIN"),
   validateRequest(TrackedStepValidation.updateTrackedStepSchema),
   TrackedStepControllers.updateTrackedStep,
 );

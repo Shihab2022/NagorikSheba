@@ -30,6 +30,7 @@ const getSingleTrackedService = catchAsync(async (req: any, res: any) => {
   const result = await TrackedServiceServices.getSingleTrackedServiceFromDB(
     tracked_service_id,
     req.user.id,
+    req.user.role,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -54,6 +55,7 @@ const deleteTrackedService = catchAsync(async (req: any, res: any) => {
   const result = await TrackedServiceServices.deleteTrackedServiceFromDB(
     tracked_service_id,
     req.user.id,
+    req.user.role,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,

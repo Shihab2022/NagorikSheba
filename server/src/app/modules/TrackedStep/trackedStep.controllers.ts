@@ -8,6 +8,7 @@ const getTrackedSteps = catchAsync(async (req: any, res: any) => {
   const result = await TrackedStepServices.getTrackedStepsFromDB(
     tracked_service_id,
     req.user.id,
+    req.user.role,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -23,6 +24,7 @@ const updateTrackedStep = catchAsync(async (req: any, res: any) => {
     trackedServiceId: tracked_service_id,
     serviceStepId: service_step_id,
     userId: req.user.id,
+    userRole: req.user.role,
     status: req.body.status,
     note: req.body.note,
   });
