@@ -125,18 +125,7 @@ export default function ShareButton({
           aria-label="Share this page"
           className="absolute bottom-full left-0 z-50 mb-3 w-[min(440px,calc(100vw-32px))] rounded-2xl border border-white/10 bg-[#212121] p-5 text-white shadow-2xl"
         >
-          <div className="mb-5 flex items-center justify-between">
-            <h2 className="text-base font-medium">Share</h2>
 
-            <button
-              type="button"
-              aria-label="Close share menu"
-              onClick={() => setIsOpen(false)}
-              className="rounded-full cursor-pointer p-1.5 transition hover:bg-white/10"
-            >
-              <X size={21} />
-            </button>
-          </div>
 
           <div className="grid grid-cols-4 gap-x-3 gap-y-4">
             <button
@@ -213,13 +202,6 @@ export default function ShareButton({
             </div>
           </div>
 
-          <div className="mt-6 flex items-center gap-2 rounded-xl border border-white/10 bg-[#161616] p-2 pl-3">
-            <span className="min-w-0 flex-1 truncate text-xs text-gray-200">
-              {getShareUrl()}
-            </span>
-
-            <CopyLinkButton url={getShareUrl()} />
-          </div>
         </div>
       )}
     </div>
