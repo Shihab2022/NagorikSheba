@@ -1,13 +1,7 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  MessageCircle,
-  Share2,
-  X,
-  Link as LinkIcon,
-} from "lucide-react";
+import { MessageCircle, Share2, X, Link as LinkIcon } from "lucide-react";
 import { FaFacebook, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import CopyLinkButton from "./copy-link-button";
 
@@ -56,9 +50,7 @@ export default function ShareButton({
     };
   }, []);
 
-  const openShare = (
-    platform: "whatsapp" | "facebook" | "linkedin" | "x",
-  ) => {
+  const openShare = (platform: "whatsapp" | "facebook" | "linkedin" | "x") => {
     const shareUrl = getShareUrl();
     const encodedUrl = encodeURIComponent(shareUrl);
     const encodedText = encodeURIComponent(text);
@@ -125,8 +117,6 @@ export default function ShareButton({
           aria-label="Share this page"
           className="absolute bottom-full left-0 z-50 mb-3 w-[min(440px,calc(100vw-32px))] rounded-2xl border border-white/10 bg-[#212121] p-5 text-white shadow-2xl"
         >
-
-
           <div className="grid grid-cols-4 gap-x-3 gap-y-4">
             <button
               type="button"
@@ -194,14 +184,10 @@ export default function ShareButton({
             </button>
 
             <div className="flex flex-col items-center gap-2">
-              <CopyLinkButton
-                url={getShareUrl()}
-                iconOnly
-              />
+              <CopyLinkButton url={getShareUrl()} iconOnly />
               <span className="text-xs">Copy link</span>
             </div>
           </div>
-
         </div>
       )}
     </div>
