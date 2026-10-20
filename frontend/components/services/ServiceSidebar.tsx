@@ -13,9 +13,7 @@ import { Badge } from "@/components/ui/Badge";
 import { FindNearbyOffices } from "@/components/nearby/FindNearbyOffices";
 import { getOfficeServiceKey } from "@/lib/nearby";
 import { useTranslation } from "@/lib/i18n";
-
 import ShareButton from "@/components/layout/share-button";
-
 
 const STRINGS = {
   bn: {
@@ -34,7 +32,7 @@ const STRINGS = {
     officialSource: "অফিসিয়াল উৎস:",
     lastVerified: "সর্বশেষ যাচাই:",
     guidanceOnly:
-      "একসেবা কেবল নির্দেশনা প্রদান করে। আবেদন জমা দেওয়া হয় সরকারি সিস্টেমের মাধ্যমে।",
+      "নাগরিক সেবা কেবল নির্দেশনা প্রদান করে। আবেদন জমা দেওয়া হয় সরকারি সিস্টেমের মাধ্যমে।",
   },
   en: {
     ariaLabel: "Service information",
@@ -52,13 +50,13 @@ const STRINGS = {
     officialSource: "Official Source:",
     lastVerified: "Last Verified:",
     guidanceOnly:
-      "EkSheba provides guidance only. Applications are submitted through official government systems.",
+      "NagorikSheba provides guidance only. Applications are submitted through official government systems.",
   },
 };
 
 /**
- * Sticky "Service Information" card for the service detail page.
- * Includes service information, sharing, and copy-link actions.
+ * Sticky Service Information card for the service detail page.
+ * Includes service information and social sharing actions.
  */
 export function ServiceSidebar({
   service,
@@ -156,15 +154,13 @@ export function ServiceSidebar({
             </p>
           )}
 
-          {/* Share and Copy Link buttons */}
+          {/* Social sharing */}
           <div className="flex flex-wrap items-center gap-2">
             <ShareButton
               url={serviceUrl}
               title={service.name}
               text={service.description}
             />
-
- 
           </div>
 
           {/* Official source and verification date */}
