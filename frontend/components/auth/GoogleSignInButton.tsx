@@ -36,7 +36,10 @@ declare global {
             client_id: string;
             callback: (response: GoogleCredentialResponse) => void;
           }) => void;
-          renderButton: (parent: HTMLElement, options: Record<string, unknown>) => void;
+          renderButton: (
+            parent: HTMLElement,
+            options: Record<string, unknown>,
+          ) => void;
           prompt: () => void;
         };
       };
@@ -50,7 +53,9 @@ function loadScript(): Promise<void> {
       resolve();
       return;
     }
-    const existing = document.querySelector<HTMLScriptElement>(`script[src="${GSI_SRC}"]`);
+    const existing = document.querySelector<HTMLScriptElement>(
+      `script[src="${GSI_SRC}"]`,
+    );
     if (existing) {
       existing.addEventListener("load", () => resolve());
       return;
@@ -60,7 +65,8 @@ function loadScript(): Promise<void> {
     script.async = true;
     script.defer = true;
     script.onload = () => resolve();
-    script.onerror = () => reject(new Error("Failed to load Google Identity Services."));
+    script.onerror = () =>
+      reject(new Error("Failed to load Google Identity Services."));
     document.head.appendChild(script);
   });
 }
@@ -75,7 +81,9 @@ export function GoogleSignInButton({
   const buttonRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
   const s = t(ERRORS);
-  const [errorKey, setErrorKey] = useState<ErrKey | null>(!CLIENT_ID ? "notConfigured" : null);
+  const [errorKey, setErrorKey] = useState<ErrKey | null>(
+    !CLIENT_ID ? "notConfigured" : null,
+  );
   const [serverError, setServerError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -144,11 +152,17 @@ export function GoogleSignInButton({
     <div className={cn("w-full", className)}>
       <div
         ref={buttonRef}
-        className={cn("flex min-h-12 w-full items-center justify-center", loading && "opacity-60")}
+        className={cn(
+          "flex min-h-12 w-full items-center justify-center",
+          loading && "opacity-60",
+        )}
         aria-busy={loading}
       />
       {(serverError ?? (errorKey ? s[errorKey] : null)) && (
-        <p role="alert" className="mt-2 text-center text-xs font-semibold text-flag-600">
+        <p
+          role="alert"
+          className="mt-2 text-center text-xs font-semibold text-flag-600"
+        >
           {serverError ?? (errorKey ? s[errorKey] : null)}
         </p>
       )}

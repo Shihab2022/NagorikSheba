@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/Badge";
 import { FindNearbyOffices } from "@/components/nearby/FindNearbyOffices";
 import { getOfficeServiceKey } from "@/lib/nearby";
 import { useTranslation } from "@/lib/i18n";
+import ShareButton from "@/components/layout/share-button";
 
 const STRINGS = {
   bn: {
@@ -53,12 +54,18 @@ const STRINGS = {
 };
 
 /**
- * Sticky "Service Information" card for the service detail page.
- * Desktop: sticky sidebar. Mobile: rendered above a sticky CTA bar.
+ * Sticky Service Information card for the service detail page.
+ * Includes service information and social sharing actions.
  */
 export function ServiceSidebar({ service }: { service: GovernmentService }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
+
+  const serviceUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/services/${service.slug}`
+      : `/services/${service.slug}`;
+
   return (
     <aside aria-label={s.ariaLabel} className="lg:sticky lg:top-28">
       <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-card">
@@ -75,6 +82,7 @@ export function ServiceSidebar({ service }: { service: GovernmentService }) {
               <MonitorSmartphone className="h-3 w-3" aria-hidden="true" />
               {service.isOnline ? s.onlineAvailable : s.officeVisit}
             </Badge>
+
             <Badge tone="slate">{s.governmentService}</Badge>
           </div>
 
@@ -84,10 +92,12 @@ export function ServiceSidebar({ service }: { service: GovernmentService }) {
                 <Clock className="h-4 w-4 text-brand-600" aria-hidden="true" />
                 {s.processing}
               </dt>
+
               <dd className="text-right font-bold text-slate-900">
                 {service.processingTime ?? s.varies}
               </dd>
             </div>
+
             <div className="flex items-start justify-between gap-3">
               <dt className="flex items-center gap-1.5 text-slate-500">
                 <Landmark
@@ -96,6 +106,7 @@ export function ServiceSidebar({ service }: { service: GovernmentService }) {
                 />
                 {s.fee}
               </dt>
+
               <dd className="max-w-[60%] text-right font-bold text-slate-900">
                 {service.fee ?? s.basedOnService}
               </dd>
@@ -110,6 +121,7 @@ export function ServiceSidebar({ service }: { service: GovernmentService }) {
               className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-brand-600 text-sm font-bold text-white transition-all hover:bg-brand-700 hover:shadow-md"
             >
               {s.visitOfficialWebsite}
+
               <ExternalLink className="h-4 w-4" aria-hidden="true" />
             </a>
           ) : (
@@ -118,6 +130,16 @@ export function ServiceSidebar({ service }: { service: GovernmentService }) {
             </p>
           )}
 
+          {/* Social sharing */}
+          <div className="flex flex-wrap items-center gap-2">
+            <ShareButton
+              url={serviceUrl}
+              title={service.name}
+              text={service.description}
+            />
+          </div>
+
+          {/* Official source and verification date */}
           <div className="rounded-xl bg-canvas px-4 py-3 text-xs leading-5 text-slate-500">
             <p>
               <strong className="font-semibold text-slate-700">
@@ -125,6 +147,7 @@ export function ServiceSidebar({ service }: { service: GovernmentService }) {
               </strong>{" "}
               {service.authority}
             </p>
+
             {service.lastVerifiedAt ? (
               <p className="mt-1">
                 <strong className="font-semibold text-slate-700">
@@ -135,6 +158,7 @@ export function ServiceSidebar({ service }: { service: GovernmentService }) {
             ) : null}
           </div>
 
+          {/* Nearby government offices */}
           {getOfficeServiceKey(service.slug) ? (
             <FindNearbyOffices slug={service.slug} />
           ) : null}

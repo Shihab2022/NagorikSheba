@@ -13,8 +13,14 @@ import { getMe, logout } from "@/service/auth";
 
 const NAV_LINKS: { label: Dict<string>; href: string }[] = [
   { href: "/services", label: { bn: "সেবা", en: "Services" } },
-  { href: "/how-it-works", label: { bn: "কীভাবে কাজ করে", en: "How It Works" } },
-  { href: "/government-offices", label: { bn: "সরকারি অফিস", en: "Government Offices" } },
+  {
+    href: "/how-it-works",
+    label: { bn: "কীভাবে কাজ করে", en: "How It Works" },
+  },
+  {
+    href: "/government-offices",
+    label: { bn: "সরকারি অফিস", en: "Government Offices" },
+  },
   { href: "/notices", label: { bn: "নোটিশ", en: "Notices" } },
   { href: "/faq", label: { bn: "সাহায্য", en: "Help" } },
 ];
@@ -28,7 +34,9 @@ export function Navbar() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [user, setUser] = useState<{ name?: string; role?: string } | null>(null);
+  const [user, setUser] = useState<{ name?: string; role?: string } | null>(
+    null,
+  );
   const { lang, setLang, t } = useTranslation();
   const c = t(COMMON);
   const s = t(STRINGS);
@@ -95,7 +103,8 @@ export function Navbar() {
         <ul className="hidden items-center gap-0.5 xl:flex">
           {NAV_LINKS.map((link) => {
             const active =
-              pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
+              pathname === link.href ||
+              (link.href !== "/" && pathname.startsWith(link.href));
             return (
               <li key={link.href}>
                 <Link
@@ -111,7 +120,9 @@ export function Navbar() {
                     aria-hidden="true"
                     className={cn(
                       "absolute inset-x-3 -bottom-0.5 h-0.5 origin-left rounded-full bg-flag-500 transition-transform duration-250",
-                      active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
+                      active
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover:scale-x-100",
                     )}
                   />
                 </Link>
@@ -141,7 +152,9 @@ export function Navbar() {
               onClick={() => setLang("bn")}
               className={cn(
                 "rounded-md px-2.5 py-1.5 transition-colors",
-                lang === "bn" ? "bg-white text-brand-800" : "text-brand-50/80 hover:text-white",
+                lang === "bn"
+                  ? "bg-white text-brand-800"
+                  : "text-brand-50/80 hover:text-white",
               )}
             >
               বাংলা
@@ -152,7 +165,9 @@ export function Navbar() {
               onClick={() => setLang("en")}
               className={cn(
                 "rounded-md px-2.5 py-1.5 transition-colors",
-                lang === "en" ? "bg-white text-brand-800" : "text-brand-50/80 hover:text-white",
+                lang === "en"
+                  ? "bg-white text-brand-800"
+                  : "text-brand-50/80 hover:text-white",
               )}
             >
               EN
@@ -162,15 +177,30 @@ export function Navbar() {
           {user ? (
             <div className="hidden items-center gap-1.5 md:inline-flex">
               <Link
-                href={user.role?.toUpperCase() === "ADMIN" ? "/admin/dashboard" : "/dashboard"}
+                href={
+                  user.role?.toUpperCase() === "ADMIN"
+                    ? "/admin/dashboard"
+                    : "/dashboard"
+                }
                 className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-white px-3.5 text-xs font-bold text-brand-800 shadow-sm transition-all hover:bg-brand-50"
               >
                 {user.role?.toUpperCase() === "ADMIN" ? (
-                  <Shield className="h-4 w-4 text-flag-600" aria-hidden="true" />
+                  <Shield
+                    className="h-4 w-4 text-flag-600"
+                    aria-hidden="true"
+                  />
                 ) : (
-                  <UserRound className="h-4 w-4 text-brand-700" aria-hidden="true" />
+                  <UserRound
+                    className="h-4 w-4 text-brand-700"
+                    aria-hidden="true"
+                  />
                 )}
-                <span className="max-w-[120px] truncate">{user.name || (user.role?.toUpperCase() === "ADMIN" ? "Admin" : "Dashboard")}</span>
+                <span className="max-w-[120px] truncate">
+                  {user.name ||
+                    (user.role?.toUpperCase() === "ADMIN"
+                      ? "Admin"
+                      : "Dashboard")}
+                </span>
               </Link>
               <button
                 type="button"
@@ -204,7 +234,11 @@ export function Navbar() {
         </div>
       </nav>
 
-      <MobileMenu open={open} onClose={() => setOpen(false)} links={NAV_LINKS} />
+      <MobileMenu
+        open={open}
+        onClose={() => setOpen(false)}
+        links={NAV_LINKS}
+      />
     </header>
   );
 }

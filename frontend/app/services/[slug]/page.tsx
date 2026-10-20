@@ -17,7 +17,9 @@ export async function generateMetadata(
   return { title: service.name, description: service.description };
 }
 
-export default async function ServiceDetailPage(props: PageProps<"/services/[slug]">) {
+export default async function ServiceDetailPage(
+  props: PageProps<"/services/[slug]">,
+) {
   const { slug } = await props.params;
   const service = getServiceBySlug(slug);
   if (!service) notFound();

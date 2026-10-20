@@ -95,7 +95,8 @@ export function MobileMenu({
           <ul className="space-y-1">
             {links.map((link) => {
               const active =
-                pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
+                pathname === link.href ||
+                (link.href !== "/" && pathname.startsWith(link.href));
               return (
                 <li key={link.href}>
                   <Link
@@ -130,7 +131,10 @@ export function MobileMenu({
               onClick={onClose}
               className="flex items-center gap-3 rounded-xl px-4 py-3.5 text-sm font-semibold text-brand-50/85 transition-colors hover:bg-white/5 hover:text-white"
             >
-              <LayoutDashboard className="h-[18px] w-[18px]" aria-hidden="true" />
+              <LayoutDashboard
+                className="h-[18px] w-[18px]"
+                aria-hidden="true"
+              />
               {s.dashboard}
             </Link>
             <Link
@@ -158,7 +162,9 @@ export function MobileMenu({
                 onClick={() => setLang("bn")}
                 className={cn(
                   "rounded-md px-2.5 py-1.5 transition-colors",
-                  lang === "bn" ? "bg-white text-brand-800" : "text-brand-100 hover:text-white",
+                  lang === "bn"
+                    ? "bg-white text-brand-800"
+                    : "text-brand-100 hover:text-white",
                 )}
               >
                 {c.bengali}
@@ -169,7 +175,9 @@ export function MobileMenu({
                 onClick={() => setLang("en")}
                 className={cn(
                   "rounded-md px-2.5 py-1.5 transition-colors",
-                  lang === "en" ? "bg-white text-brand-800" : "text-brand-100 hover:text-white",
+                  lang === "en"
+                    ? "bg-white text-brand-800"
+                    : "text-brand-100 hover:text-white",
                 )}
               >
                 EN
