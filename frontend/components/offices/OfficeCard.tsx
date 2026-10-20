@@ -6,7 +6,6 @@ import type { GovernmentOffice } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
 import { useTranslation } from "@/lib/i18n";
-import { COMMON } from "@/lib/i18n/common";
 
 const STRINGS = {
   bn: { viewDetails: "বিস্তারিত দেখুন" },
@@ -17,7 +16,6 @@ const STRINGS = {
 export function OfficeCard({ office }: { office: GovernmentOffice }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
-  const c = t(COMMON);
   return (
     <article className="group relative flex h-full flex-col rounded-2xl border border-line bg-white p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift hover:ring-1 hover:ring-brand-100">
       <div className="flex items-start gap-4">

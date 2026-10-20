@@ -33,7 +33,9 @@ export const apiHandler = async <
     formData = false,
 }: ApiHandlerOptions<TParams>): Promise<ApiResponse<TData, TParams>> => {
     try {
-        let url = `${baseURL}${path}`;
+        const base = (baseURL || "").replace(/\/+$/, "");
+        const cleanPath = (path || "").replace(/^\/+/, "");
+        let url = `${base}/${cleanPath}`;
         const cookieStore = await cookies();
         const token = cookieStore.get("accessToken")?.value;
 
@@ -47,6 +49,7 @@ export const apiHandler = async <
         const options: RequestInit = {
             method: method.toUpperCase(),
             headers,
+            cache: "no-store",
         };
 
         const isGetMethod = options.method === "GET";

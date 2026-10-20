@@ -18,22 +18,31 @@ const persistToken = async (token: string) => {
   });
 };
 
-export interface AuthResult {
+export interface AuthResult<T = any> {
   success: boolean;
   message?: string;
   status?: number;
-  data?: { user?: any; accessToken?: string };
+  data?: T;
 }
 
 export const registerUser = async (
-  params: { name: string; email: string; password: string },
+  params: { name: string; email: string; password: string; role?: "USER" | "ADMIN" },
 ): Promise<AuthResult> => {
+  const payload = {
+    password: params.password,
+    role: params.role || "USER",
+    user: {
+      name: params.name,
+      email: params.email,
+    },
+  };
+
   const res = await apiHandler({
     baseURL,
     path: "auth/register",
     method: apiMethods.POST as keyof typeof apiMethods,
     formData: false,
-    params,
+    params: payload,
   });
 
   const token = res?.data?.data?.accessToken;
@@ -102,6 +111,25 @@ export const getMe = async (): Promise<AuthResult> => {
     method: apiMethods.GET as keyof typeof apiMethods,
     formData: false,
     params: {},
+  });
+
+  return {
+    success: res.success,
+    message: res.message,
+    status: res.status,
+    data: res?.data?.data,
+  };
+};
+
+export const changePassword = async (
+  params: { oldPassword: string; newPassword: string },
+): Promise<AuthResult> => {
+  const res = await apiHandler({
+    baseURL,
+    path: "auth/change-password",
+    method: apiMethods.POST as keyof typeof apiMethods,
+    formData: false,
+    params,
   });
 
   return {

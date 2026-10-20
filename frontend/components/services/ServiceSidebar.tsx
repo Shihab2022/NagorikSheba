@@ -7,7 +7,6 @@ import {
   Landmark,
   MonitorSmartphone,
 } from "lucide-react";
-
 import type { GovernmentService } from "@/lib/types";
 import { Badge } from "@/components/ui/Badge";
 import { FindNearbyOffices } from "@/components/nearby/FindNearbyOffices";
@@ -32,7 +31,7 @@ const STRINGS = {
     officialSource: "অফিসিয়াল উৎস:",
     lastVerified: "সর্বশেষ যাচাই:",
     guidanceOnly:
-      "নাগরিক সেবা কেবল নির্দেশনা প্রদান করে। আবেদন জমা দেওয়া হয় সরকারি সিস্টেমের মাধ্যমে।",
+      "নাগরিক সেবা কেবল নির্দেশনা প্রদান করে। আবেদন জমা দেওয়া হয় সরকারি সরকারি সিস্টেমের মাধ্যমে।",
   },
   en: {
     ariaLabel: "Service information",

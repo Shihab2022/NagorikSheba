@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   NagorikSheba / একসেবা design tokens
+   NagorikSheba / নাগরিক সেবা design tokens
    Inspired by the Bangladesh flag: deep green + flag red accents,
    civic information design, clean off-white surfaces.
    ------------------------------------------------------------------ */
@@ -37,11 +37,15 @@
   --color-muted: #64748b;
 
   /* Shadows — soft, professional */
-  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 10px 30px -14px rgb(15 23 42 / 0.14);
-  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -16px rgb(0 106 78 / 0.22);
-  --shadow-redlift: 0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -16px rgb(244 42 65 / 0.2);
+  --shadow-card:
+    0 1px 2px rgb(15 23 42 / 0.04), 0 10px 30px -14px rgb(15 23 42 / 0.14);
+  --shadow-lift:
+    0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -16px rgb(0 106 78 / 0.22);
+  --shadow-redlift:
+    0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -16px rgb(244 42 65 / 0.2);
   /* Alias used by cards/lists for the hover-elevated state */
-  --shadow-card-hover: 0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -16px rgb(0 106 78 / 0.22);
+  --shadow-card-hover:
+    0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -16px rgb(0 106 78 / 0.22);
 
   /* Motion */
   --animate-fade-up: fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -94,7 +98,8 @@
 
 /* Latin first, Bangla falls through to Noto Sans Bengali per glyph */
 @theme inline {
-  --font-sans: var(--font-inter), var(--font-bangla), ui-sans-serif, system-ui,
+  --font-sans:
+    var(--font-inter), var(--font-bangla), ui-sans-serif, system-ui,
     -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -102,6 +107,7 @@
    Base
    ------------------------------------------------------------------ */
 :root {
+  color-scheme: light;
   --background: #ffffff;
   --foreground: #0f172a;
 }
@@ -135,12 +141,17 @@
     border-radius: 4px;
   }
 
-  /* Minimum 44px touch targets for interactive controls */
-  button,
-  a,
+  /* Ensure inputs have solid readable text and clean light theme rendering */
   input,
   select,
   textarea {
+    color: #0f172a;
+    background-color: #ffffff;
+    min-height: 0;
+  }
+
+  button,
+  a {
     min-height: 0;
   }
 }
@@ -149,28 +160,19 @@
    Utilities — subtle Bangladesh-inspired civic patterns
    ------------------------------------------------------------------ */
 @utility pattern-grid {
-  background-image: linear-gradient(
-      to right,
-      rgb(0 106 78 / 0.06) 1px,
-      transparent 1px
-    ),
+  background-image:
+    linear-gradient(to right, rgb(0 106 78 / 0.06) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(0 106 78 / 0.06) 1px, transparent 1px);
   background-size: 34px 34px;
 }
 
 @utility pattern-dots {
-  background-image: radial-gradient(
-    rgb(0 106 78 / 0.16) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(rgb(0 106 78 / 0.16) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
 @utility pattern-dots-red {
-  background-image: radial-gradient(
-    rgb(244 42 65 / 0.22) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(rgb(244 42 65 / 0.22) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 

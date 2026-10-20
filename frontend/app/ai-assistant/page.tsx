@@ -3,7 +3,7 @@ import { AiAssistantView } from "./AiAssistantView";
 
 export const metadata: Metadata = {
   title: "AI Assistant",
-  description: "Ask EkSheba AI about government services, documents, eligibility and procedures.",
+  description: "Ask NagorikSheba AI about government services, documents, eligibility and procedures.",
 };
 
 export default function AiPage() {

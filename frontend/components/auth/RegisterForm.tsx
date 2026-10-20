@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { GoogleSignInButton } from "@/components/auth/GoogleSignInButton";
-import { registerUser } from "@/service/auth";
+import { getMe, registerUser } from "@/service/auth";
 import { useTranslation } from "@/lib/i18n";
 
 const STRINGS = {
@@ -51,6 +51,20 @@ export function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const handleRedirectByRole = async (user?: { role?: string }) => {
+    let role = user?.role;
+    if (!role) {
+      const meRes = await getMe();
+      role = meRes?.data?.role;
+    }
+    if (role?.toUpperCase() === "ADMIN") {
+      router.push("/admin/dashboard");
+    } else {
+      router.push("/dashboard");
+    }
+    router.refresh();
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -64,8 +78,7 @@ export function RegisterForm() {
     const result = await registerUser({ name, email, password });
     setLoading(false);
     if (result.success) {
-      router.push("/");
-      router.refresh();
+      await handleRedirectByRole(result.data?.user);
     } else {
       setError(result.message || s.registrationFailed);
     }
@@ -108,7 +121,7 @@ export function RegisterForm() {
       <div className="my-5 flex items-center gap-3 text-xs font-bold text-slate-400" aria-hidden="true">
         <span className="h-px flex-1 bg-line" /> {s.or} <span className="h-px flex-1 bg-line" />
       </div>
-      <GoogleSignInButton onSuccess={() => { router.push("/"); router.refresh(); }} />
+      <GoogleSignInButton onSuccess={(user) => handleRedirectByRole(user)} />
       <p className="mt-5 text-center text-sm text-slate-500">
         {s.haveAccount} <Link href="/login" className="font-bold text-brand-700 hover:text-brand-800">{s.login}</Link>
       </p>
