@@ -61,7 +61,7 @@ const STRINGS = {
     about:
       "সরকারি সেবা আবিষ্কার করুন, যোগ্যতা, ডকুমেন্ট, ফি ও ধাপে ধাপে প্রক্রিয়া বুঝুন — তারপর অফিসিয়াল পোর্টালে পৌঁছে যান।",
 
-    rights: "© ২০২৬ EkSheba। সর্বস্বত্ব সংরক্ষিত।",
+    rights: "© ২০২৬ Nagorik Sheba । সর্বস্বত্ব সংরক্ষিত।",
     madeWith: "তৈরি করা হয়েছে",
     madeFor: "বাংলাদেশের নাগরিকদের জন্য",
   },
@@ -70,7 +70,7 @@ const STRINGS = {
     about:
       "Discover government services, understand eligibility, documents, fees and step-by-step procedures — then reach the official portal.",
 
-    rights: "© 2026 EkSheba. All rights reserved.",
+    rights: "© 2026 Nagorik Sheba. All rights reserved.",
     madeWith: "Made with",
     madeFor: "for the citizens of Bangladesh",
   },
