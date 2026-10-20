@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { AlertCircle, HeartHandshake } from "lucide-react";
-import { LogoMark } from "@/components/ui/Logo";
+import Logo, { LogoMark } from "@/components/ui/Logo";
 import { useTranslation, type Dict } from "@/lib/i18n";
 
 const COLUMNS: {
@@ -96,10 +96,7 @@ export function Footer() {
           {/* Brand */}
           <div className="max-w-sm">
             <div className="flex items-center gap-3">
-              <LogoMark className="bg-white" />
-              <span className="text-lg font-extrabold tracking-tight text-white">
-                EkSheba <span className="text-brand-200">/ একসেবা</span>
-              </span>
+              <Logo tone="light" />
             </div>
             <p className="mt-4 text-sm leading-6 text-brand-100/85">
               {s.tagline}
