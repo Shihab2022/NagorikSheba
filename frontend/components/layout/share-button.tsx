@@ -199,16 +199,16 @@ export default function ShareButton({
               <span className="text-xs">Copy link</span>
             </div>
             {/* Pinterest */}
-<button
-  type="button"
-  onClick={() => openShare("pinterest")}
-  className="flex cursor-pointer flex-col items-center gap-2"
->
-  <span className="flex size-14 items-center justify-center rounded-full bg-[#E60023] text-white transition hover:brightness-90">
-    <FaPinterest size={27} />
-  </span>
-  <span className="text-xs">Pinterest</span>
-</button>
+            <button
+              type="button"
+              onClick={() => openShare("pinterest")}
+              className="flex cursor-pointer flex-col items-center gap-2"
+            >
+              <span className="flex size-14 items-center justify-center rounded-full bg-[#E60023] text-white transition hover:brightness-90">
+                <FaPinterest size={27} />
+              </span>
+              <span className="text-xs">Pinterest</span>
+            </button>
           </div>
         </div>
       )}
