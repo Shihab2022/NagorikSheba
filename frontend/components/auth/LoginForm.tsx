@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { GoogleSignInButton } from "@/components/auth/GoogleSignInButton";
 import { getMe, loginUser } from "@/service/auth";
 import { useTranslation } from "@/lib/i18n";
-
+import { Eye, EyeOff } from "lucide-react";
 const STRINGS = {
   bn: {
     email: "ইমেইল",
@@ -42,6 +42,7 @@ export function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRedirectByRole = async (user?: { role?: string }) => {
     let role = user?.role;
@@ -93,24 +94,43 @@ export function LoginForm() {
           className="h-12 w-full rounded-xl border border-line bg-canvas px-4 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-100 focus:outline-none"
         />
       </div>
-      <div className="mt-4">
-        <label
-          htmlFor="login-pass"
-          className="mb-1.5 block text-sm font-bold text-slate-700"
-        >
-          {s.password}
-        </label>
-        <input
-          id="login-pass"
-          type="password"
-          required
-          autoComplete="current-password"
-          placeholder="••••••••"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="h-12 w-full rounded-xl border border-line bg-canvas px-4 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-100 focus:outline-none"
-        />
-      </div>
+
+<div className="mt-4">
+  <label
+    htmlFor="login-pass"
+    className="mb-1.5 block text-sm font-bold text-slate-700"
+  >
+    {s.password}
+  </label>
+
+  <div className="relative">
+    <input
+      id="login-pass"
+      type={showPassword ? "text" : "password"}
+      required
+      autoComplete="current-password"
+      placeholder="••••••••"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      className="h-12 w-full rounded-xl border border-line bg-canvas px-4 pr-12 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-100 focus:outline-none"
+    />
+
+    <button
+      type="button"
+      onClick={() => setShowPassword((prev) => !prev)}
+      aria-label={showPassword ? "Hide password" : "Show password"}
+      title={showPassword ? "Hide password" : "Show password"}
+      className="absolute inset-y-0 right-0 flex items-center justify-center px-4 text-slate-500 transition hover:text-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+    >
+      {showPassword ? (
+        <EyeOff size={20} />
+      ) : (
+        <Eye size={20} />
+      )}
+    </button>
+  </div>
+</div>
+
       {error && (
         <p role="alert" className="mt-3 text-sm font-semibold text-flag-600">
           {error}
