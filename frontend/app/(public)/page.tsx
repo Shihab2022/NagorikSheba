@@ -28,7 +28,7 @@ export default function HomePage() {
       <Hero />
       <TrustBar />
       <ServiceSearch />
-      {/* <CategoryGrid /> */}
+      <CategoryGrid />
       {/* <PopularServices /> */}
       {/* <HowItWorks /> */}
       {/* <ServiceDetailPreview /> */}
