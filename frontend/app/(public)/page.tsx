@@ -31,7 +31,7 @@ export default function HomePage() {
       <CategoryGrid />
       <PopularServices />
       <HowItWorks />
-      {/* <ServiceDetailPreview /> */}
+      <ServiceDetailPreview />
       {/* <OfficeFinder /> */}
       <DocumentChecklist />
       <FeesSection />
