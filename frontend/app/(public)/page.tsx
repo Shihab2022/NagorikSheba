@@ -29,7 +29,7 @@ export default function HomePage() {
       <TrustBar />
       <ServiceSearch />
       <CategoryGrid />
-      {/* <PopularServices /> */}
+      <PopularServices />
       {/* <HowItWorks /> */}
       {/* <ServiceDetailPreview /> */}
       {/* <OfficeFinder /> */}
