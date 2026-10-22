@@ -30,8 +30,8 @@ export function LoginView() {
     <div className="mx-auto grid min-h-[calc(100svh-2rem)] w-full max-w-6xl grid-cols-1 items-center gap-10 px-4 py-8 md:grid-cols-2 md:gap-16 lg:px-8">
       {/* Left Side */}
       <section className="flex flex-col items-center text-center md:items-start md:text-left">
-        {/* <Logo />
- */}
+        <Logo />
+
         <h1 className="mt-8 text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-2xl lg:text-3xl">
           {s.title}
         </h1>
