@@ -30,7 +30,7 @@ export default function HomePage() {
       <ServiceSearch />
       <CategoryGrid />
       <PopularServices />
-      {/* <HowItWorks /> */}
+      <HowItWorks />
       {/* <ServiceDetailPreview /> */}
       {/* <OfficeFinder /> */}
       <DocumentChecklist />
