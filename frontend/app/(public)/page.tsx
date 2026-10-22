@@ -32,7 +32,7 @@ export default function HomePage() {
       <PopularServices />
       <HowItWorks />
       <ServiceDetailPreview />
-      {/* <OfficeFinder /> */}
+      <OfficeFinder />
       <DocumentChecklist />
       <FeesSection />
       <ApplicationTracker />
