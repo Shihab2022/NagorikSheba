@@ -20,7 +20,7 @@ const STRINGS = {
 
 export function RegisterView() {
   const { t } = useTranslation();
-  const s = t(STRINGS);
+  // const s = t(STRINGS);
 
   return (
     <div className="mx-auto grid min-h-[calc(100svh-100px)] w-full max-w-6xl grid-cols-1 items-center gap-10 px-4 py-8 md:grid-cols-2 md:gap-16 lg:px-8">
