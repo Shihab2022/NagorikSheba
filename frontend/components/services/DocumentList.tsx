@@ -37,7 +37,10 @@ export function DocumentList({ documents }: { documents: string[] }) {
             <Check className="h-3 w-3" strokeWidth={4} aria-hidden="true" />
           </span>
           <span className="flex items-start gap-2 text-sm font-medium leading-6 text-slate-700">
-            <FileText className="mt-1 h-3.5 w-3.5 shrink-0 text-slate-400" aria-hidden="true" />
+            <FileText
+              className="mt-1 h-3.5 w-3.5 shrink-0 text-slate-400"
+              aria-hidden="true"
+            />
             {doc}
           </span>
         </li>

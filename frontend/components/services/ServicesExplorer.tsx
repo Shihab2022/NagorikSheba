@@ -60,7 +60,11 @@ const STRINGS = {
  * Client-side services explorer: search, category chips, department,
  * online filter and sorting with a short simulated loading state.
  */
-export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string }) {
+export function ServicesExplorer({
+  initialQuery = "",
+}: {
+  initialQuery?: string;
+}) {
   const { t } = useTranslation();
   const s = t(STRINGS);
   const c = t(COMMON);
@@ -104,7 +108,10 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
   }, [query, category, department, availability, sort]);
 
   const hasFilters =
-    category !== "all" || department !== "all" || availability !== "all" || query !== "";
+    category !== "all" ||
+    department !== "all" ||
+    availability !== "all" ||
+    query !== "";
 
   const activeFilterCount =
     (category !== "all" ? 1 : 0) +
@@ -131,7 +138,10 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
           className="flex w-full items-center justify-between gap-2 rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold text-slate-900 shadow-card transition-colors hover:border-brand-300 lg:hidden"
         >
           <span className="flex items-center gap-2">
-            <SlidersHorizontal className="h-4 w-4 text-brand-600" aria-hidden="true" />
+            <SlidersHorizontal
+              className="h-4 w-4 text-brand-600"
+              aria-hidden="true"
+            />
             {s.filters}
             {activeFilterCount > 0 ? (
               <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-600 px-1.5 text-xs font-bold text-white">
@@ -158,7 +168,10 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
         >
           <div className="flex items-center justify-between gap-2">
             <h2 className="hidden items-center gap-2 text-sm font-bold text-slate-900 lg:flex">
-              <SlidersHorizontal className="h-4 w-4 text-brand-600" aria-hidden="true" />
+              <SlidersHorizontal
+                className="h-4 w-4 text-brand-600"
+                aria-hidden="true"
+              />
               {s.filters}
             </h2>
             {hasFilters ? (
@@ -172,81 +185,81 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
             ) : null}
           </div>
 
-        <div className="relative mt-4">
-          <Search
-            className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
-            aria-hidden="true"
-          />
-          <label htmlFor="svc-search" className="sr-only">
-            {s.searchLabel}
-          </label>
-          <input
-            id="svc-search"
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder={s.searchPlaceholder}
-            className="h-11 w-full rounded-xl border border-line bg-white pl-9 pr-3 text-sm transition-all placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-100"
-          />
-        </div>
+          <div className="relative mt-4">
+            <Search
+              className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+              aria-hidden="true"
+            />
+            <label htmlFor="svc-search" className="sr-only">
+              {s.searchLabel}
+            </label>
+            <input
+              id="svc-search"
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={s.searchPlaceholder}
+              className="h-11 w-full rounded-xl border border-line bg-white pl-9 pr-3 text-sm transition-all placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-100"
+            />
+          </div>
 
-        <div className="mt-4">
-          <label
-            htmlFor="svc-dept"
-            className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-500"
-          >
-            {s.department}
-          </label>
-          <Select
-            id="svc-dept"
-            value={department}
-            onChange={(e) => update(setDepartment, e.target.value)}
-          >
-            <option value="all">{s.allDepartments}</option>
-            {departments.map((d) => (
-              <option key={d} value={d}>
-                {d}
-              </option>
-            ))}
-          </Select>
-        </div>
+          <div className="mt-4">
+            <label
+              htmlFor="svc-dept"
+              className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-500"
+            >
+              {s.department}
+            </label>
+            <Select
+              id="svc-dept"
+              value={department}
+              onChange={(e) => update(setDepartment, e.target.value)}
+            >
+              <option value="all">{s.allDepartments}</option>
+              {departments.map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
+            </Select>
+          </div>
 
-        <div className="mt-4">
-          <label
-            htmlFor="svc-avail"
-            className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-500"
-          >
-            {s.availability}
-          </label>
-          <Select
-            id="svc-avail"
-            value={availability}
-            onChange={(e) => update(setAvailability, e.target.value)}
-          >
-            <option value="all">{s.allServices}</option>
-            <option value="online">{s.onlineAvailable}</option>
-            <option value="office">{s.officeVisitRequired}</option>
-          </Select>
-        </div>
+          <div className="mt-4">
+            <label
+              htmlFor="svc-avail"
+              className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-500"
+            >
+              {s.availability}
+            </label>
+            <Select
+              id="svc-avail"
+              value={availability}
+              onChange={(e) => update(setAvailability, e.target.value)}
+            >
+              <option value="all">{s.allServices}</option>
+              <option value="online">{s.onlineAvailable}</option>
+              <option value="office">{s.officeVisitRequired}</option>
+            </Select>
+          </div>
 
-        <div className="mt-4">
-          <label
-            htmlFor="svc-sort"
-            className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-500"
-          >
-            {s.sortBy}
-          </label>
-          <Select
-            id="svc-sort"
-            value={sort}
-            onChange={(e) => update(setSort, e.target.value as SortKey)}
-          >
-            <option value="popular">{s.mostPopular}</option>
-            <option value="az">{s.nameAz}</option>
-            <option value="za">{s.nameZa}</option>
-          </Select>
-        </div>
-      </aside>
+          <div className="mt-4">
+            <label
+              htmlFor="svc-sort"
+              className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-500"
+            >
+              {s.sortBy}
+            </label>
+            <Select
+              id="svc-sort"
+              value={sort}
+              onChange={(e) => update(setSort, e.target.value as SortKey)}
+            >
+              <option value="popular">{s.mostPopular}</option>
+              <option value="az">{s.nameAz}</option>
+              <option value="za">{s.nameZa}</option>
+            </Select>
+          </div>
+        </aside>
       </div>
 
       {/* Results */}
@@ -287,7 +300,11 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
           ))}
         </div>
 
-        <p className="mt-3 text-sm text-slate-500" role="status" aria-live="polite">
+        <p
+          className="mt-3 text-sm text-slate-500"
+          role="status"
+          aria-live="polite"
+        >
           {s.showing
             .replace("{shown}", String(results.length))
             .replace("{total}", String(SERVICES.length))}
@@ -324,7 +341,6 @@ export function ServicesExplorer({ initialQuery = "" }: { initialQuery?: string 
           )}
         </div>
       </div>
-
     </div>
   );
 }
