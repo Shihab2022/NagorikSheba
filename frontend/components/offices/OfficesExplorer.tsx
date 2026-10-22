@@ -177,7 +177,7 @@ export function OfficesExplorer() {
           </Select>
           <Select
             aria-label={s.upazila}
-            value={upazila}
+            value={upazila ?? ""}
             onChange={(e) => withLoading(() => setUpazila(e.target.value))}
           >
             <option value="">{s.allUpazilas}</option>

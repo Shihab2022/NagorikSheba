@@ -45,6 +45,23 @@ export function isValidCoordinate(lat: unknown, lng: unknown): boolean {
   );
 }
 
+export function parseCoordinateQuery(
+  value: unknown,
+  min: number,
+  max: number,
+): number | null {
+  if (
+    typeof value !== "string" ||
+    !/^[+-]?(?:\d+(?:\.\d+)?|\.\d+)$/.test(value)
+  ) {
+    return null;
+  }
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed >= min && parsed <= max
+    ? parsed
+    : null;
+}
+
 /** Geolocation error codes from the browser Geolocation API. */
 export type GeolocationFailure =
   | "permission-denied"
@@ -164,6 +181,39 @@ export function buildGoogleMapsDirectionsUrl(
   return `https://www.google.com/maps/dir/?${params.toString()}`;
 }
 
+/**
+ * Build a no-API-key Google Maps embed URL for an address query.
+ *
+ * Uses `https://maps.google.com/maps?q=...&output=embed`, which needs no
+ * API key and works in a plain <iframe>. The query is URI-encoded so
+ * office names with commas/spaces embed correctly, e.g.:
+ * `CHAPAI NABABGANJ SADAR Upazila Election Office, CHAPAI NABABGANJ, Bangladesh`.
+ *
+ * Returns null when the query is empty.
+ */
+export function buildGoogleMapsEmbedUrl(query: string): string | null {
+  const q = query.trim();
+  if (!q) return null;
+  const mapSearchQuery = encodeURIComponent(q);
+  return `https://maps.google.com/maps?q=${mapSearchQuery}&output=embed`;
+}
+
+/**
+ * Build the human-readable map query for an office — name + address +
+ * upazila/district + Bangladesh — so the Google embed pins the right place.
+ */
+export function buildOfficeMapQuery(office: {
+  name: string;
+  address: string;
+  upazila?: string | null;
+  district?: string | null;
+}): string {
+  return [office.name, office.address, office.upazila, office.district, "Bangladesh"]
+    .map((part) => (part ?? "").trim())
+    .filter(Boolean)
+    .join(", ");
+}
+
 /** Bilingual display labels for backend office-type enums. */
 export const OFFICE_TYPE_LABELS: Record<string, { bn: string; en: string }> = {
   ELECTION_COMMISSION: { bn: "নির্বাচন কমিশন", en: "Election Commission" },
@@ -185,4 +235,3 @@ export const OFFICE_SERVICE_LABELS: Record<
   BIRTH_REGISTRATION: { bn: "জন্ম নিবন্ধন", en: "Birth Registration" },
   DRIVING_LICENCE: { bn: "ড্রাইভিং লাইসেন্স", en: "Driving Licence" },
 };
-
