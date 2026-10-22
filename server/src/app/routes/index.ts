@@ -7,6 +7,7 @@ import { ServiceStepRoutes } from "../modules/ServiceStep/serviceStep.routes";
 import { ServiceFeeRoutes } from "../modules/ServiceFee/serviceFee.routes";
 import { ServiceSourceRoutes } from "../modules/ServiceSource/serviceSource.routes";
 import { GovernmentOfficesRouter } from "../modules/government-offices/government-offices.routes";
+import { AIRoutes } from "../modules/AI/ai.routes";
 
 const router = express.Router();
 
@@ -21,6 +22,10 @@ const moduleRoutes = [
   {
     path: "/government-offices",
     route: GovernmentOfficesRouter,
+  },
+  {
+    path: "/ai",
+    route: AIRoutes
   },
 ];
 
