@@ -25,14 +25,14 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <Hero />
-      <TrustBar />
-      <ServiceSearch />
-      <CategoryGrid />
-      <PopularServices />
-      <HowItWorks />
-      <ServiceDetailPreview />
-      <OfficeFinder />
+      {/* <Hero /> */}
+      {/* <TrustBar /> */}
+      {/* <ServiceSearch /> */}
+      {/* <CategoryGrid /> */}
+      {/* <PopularServices /> */}
+      {/* <HowItWorks /> */}
+      {/* <ServiceDetailPreview /> */}
+      {/* <OfficeFinder /> */}
       <DocumentChecklist />
       <FeesSection />
       <ApplicationTracker />
