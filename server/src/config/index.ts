@@ -21,4 +21,9 @@ export default {
   demo_admin_email: process.env.DEMO_ADMIN_EMAIL,
   demo_admin_password: process.env.DEMO_ADMIN_PASSWORD,
   demo_admin_name: process.env.DEMO_ADMIN_NAME,
+  cloudinary: {
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  },
 };
