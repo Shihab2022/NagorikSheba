@@ -59,7 +59,7 @@ export function Modal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-end justify-center sm:items-center">
+    <div className="fixed inset-0 z-70 flex items-end justify-center sm:items-center">
       <div
         className="absolute inset-0 bg-slate-900/45 backdrop-blur-[2px]"
         onClick={onClose}
