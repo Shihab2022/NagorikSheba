@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+
+import { SkipLink } from "@/components/layout/SkipLink";
+import { LanguageProvider } from "@/lib/i18n";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,11 +26,11 @@ export const metadata: Metadata = {
     template: "%s | NagorikSheba",
   },
   description:
-    "NagorikSheba (একসেবা) helps citizens discover Bangladesh government services — eligibility, required documents, fees, step-by-step procedures, offices, notices and official links in one place.",
+    "NagorikSheba (নাগরিক সেবা) helps citizens discover Bangladesh government services — eligibility, required documents, fees, step-by-step procedures, offices, notices and official links in one place.",
   applicationName: "NagorikSheba",
   keywords: [
     "NagorikSheba",
-    "একসেবা",
+    "নাগরিক সেবা",
     "Bangladesh government services",
     "সরকারি সেবা",
     "NID",
@@ -72,17 +73,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${bangla.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col bg-white font-sans text-slate-900">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2.5 focus:text-sm focus:font-bold focus:text-brand-800 focus:shadow-lg"
-        >
-          Skip to main content
-        </a>
-        <Navbar />
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <LanguageProvider>
+          <SkipLink />
+
+          <main id="main-content" className="flex-1  min-h-[calc(600vh-5000px)]">
+            {children}
+          </main>
+        </LanguageProvider>
       </body>
     </html>
   );

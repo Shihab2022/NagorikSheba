@@ -9,9 +9,37 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { EmptyState } from "@/components/ui/States";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n";
+import { COMMON } from "@/lib/i18n/common";
+
+const STRINGS = {
+  bn: {
+    eyebrow: "নোটিশ",
+    title: "সর্বশেষ সরকারি নোটিশ",
+    description: "সরকারি বিভাগগুলোর সর্বশেষ ঘোষণার খবর রাখুন।",
+    filterLabel: "বিভাগ অনুযায়ী নোটিশ ফিল্টার করুন",
+    noticeBadge: "নোটিশ",
+    noNoticesInCategory: "এই বিভাগে কোনো নোটিশ নেই।",
+    readNotice: "নোটিশ পড়ুন",
+    viewAllNotices: "সব নোটিশ দেখুন",
+  },
+  en: {
+    eyebrow: "Notices",
+    title: "Latest Government Notices",
+    description: "Stay updated with the latest announcements from government departments.",
+    filterLabel: "Filter notices by category",
+    noticeBadge: "NOTICE",
+    noNoticesInCategory: "No notices in this category.",
+    readNotice: "Read Notice",
+    viewAllNotices: "View all notices",
+  },
+};
 
 /** Latest government notices with category chips (client-side filter). */
 export function NoticeSection() {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
+  const c = t(COMMON);
   const [active, setActive] = useState<string>("all");
 
   const filtered = NOTICES.filter((n) => active === "all" || n.category === active).slice(0, 6);
@@ -22,9 +50,9 @@ export function NoticeSection() {
         <Reveal>
           <SectionHeading
             id="notices-heading"
-            eyebrow="Notices"
-            title="সর্বশেষ সরকারি নোটিশ"
-            description="Stay updated with the latest announcements from government departments."
+            eyebrow={s.eyebrow}
+            title={s.title}
+            description={s.description}
           />
         </Reveal>
 
@@ -32,7 +60,7 @@ export function NoticeSection() {
           <div
             className="scrollbar-none mt-8 flex gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:justify-center"
             role="group"
-            aria-label="Filter notices by category"
+            aria-label={s.filterLabel}
           >
             {NOTICE_CATEGORIES.map((cat) => (
               <button
@@ -47,7 +75,7 @@ export function NoticeSection() {
                     : "border border-line bg-white text-slate-600 hover:border-brand-300 hover:text-brand-700",
                 )}
               >
-                {cat.label}
+                {t(cat.label)}
               </button>
             ))}
           </div>
@@ -56,8 +84,8 @@ export function NoticeSection() {
         <div className="mt-6">
           {filtered.length === 0 ? (
             <EmptyState
-              title="No notices in this category."
-              description="Try changing your search or filters."
+              title={s.noNoticesInCategory}
+              description={c.tryFilters}
               icon={<Newspaper className="h-7 w-7" aria-hidden="true" />}
             />
           ) : (
@@ -68,7 +96,7 @@ export function NoticeSection() {
                     <div className="flex items-center justify-between gap-2">
                       <Badge tone="soft-red">
                         <Newspaper className="h-3 w-3" aria-hidden="true" />
-                        NOTICE
+                        {s.noticeBadge}
                       </Badge>
                       <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
                         {notice.category}
@@ -93,7 +121,7 @@ export function NoticeSection() {
                     </div>
 
                     <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700">
-                      Read Notice
+                      {s.readNotice}
                       <ArrowRight
                         className="h-4 w-4 transition-transform group-hover:translate-x-1"
                         aria-hidden="true"
@@ -112,7 +140,7 @@ export function NoticeSection() {
               href="/notices"
               className="inline-flex h-11 items-center gap-2 rounded-xl border border-line bg-white px-5 text-sm font-bold text-slate-700 transition-all hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
             >
-              View all notices
+              {s.viewAllNotices}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>

@@ -1,0 +1,4 @@
+NEXT_PUBLIC_API_SERVER_API=http://localhost:5000/api/
+
+# Google OAuth 2.0 Web Client ID (same value as the server GOOGLE_CLIENT_ID)
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=

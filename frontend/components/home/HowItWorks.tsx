@@ -1,45 +1,84 @@
+"use client";
+
 import { ClipboardList, FileSearch, Search, Stamp } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { useTranslation } from "@/lib/i18n";
 
 const STEPS = [
   {
     no: "01",
-    title: "সেবা খুঁজুন",
-    en: "Discover the service",
+    title: { bn: "সেবা খুঁজুন", en: "Discover the service" },
+    note: {
+      bn: "প্রয়োজনীয় সরকারি সেবাটি খুঁজে বের করুন",
+      en: "Find the government service you need",
+    },
     icon: Search,
   },
   {
     no: "02",
-    title: "যোগ্যতা ও প্রয়োজনীয় কাগজপত্র দেখুন",
-    en: "Check eligibility & documents",
+    title: {
+      bn: "যোগ্যতা ও প্রয়োজনীয় কাগজপত্র দেখুন",
+      en: "Check eligibility & documents",
+    },
+    note: {
+      bn: "কী কী ডকুমেন্ট ও যোগ্যতা লাগবে তা জেনে নিন",
+      en: "See what documents and criteria are required",
+    },
     icon: FileSearch,
   },
   {
     no: "03",
-    title: "ধাপে ধাপে প্রক্রিয়া অনুসরণ করুন",
-    en: "Follow the step-by-step process",
+    title: {
+      bn: "ধাপে ধাপে প্রক্রিয়া অনুসরণ করুন",
+      en: "Follow the step-by-step process",
+    },
+    note: {
+      bn: "প্রতিটি ধাপ অনুসরণ করে আবেদন সম্পন্ন করুন",
+      en: "Complete the application one step at a time",
+    },
     icon: ClipboardList,
   },
   {
     no: "04",
-    title: "অফিসিয়াল সেবায় আবেদন করুন",
-    en: "Apply on the official portal",
+    title: {
+      bn: "অফিসিয়াল সেবায় আবেদন করুন",
+      en: "Apply on the official portal",
+    },
+    note: {
+      bn: "সরকারি পোর্টালে গিয়ে আবেদন জমা দিন",
+      en: "Submit your application on the official portal",
+    },
     icon: Stamp,
   },
 ];
 
+const STRINGS = {
+  bn: {
+    eyebrow: "নাগরিক সেবা কীভাবে কাজ করে",
+    title: "নাগরিক সেবা কীভাবে কাজ করে",
+    description: "বিভ্রান্তি থেকে আবেদন সম্পন্ন — চারটি সহজ ধাপ।",
+  },
+  en: {
+    eyebrow: "How NagorikSheba works",
+    title: "How NagorikSheba Works",
+    description: "Four simple steps from confusion to a completed application.",
+  },
+};
+
 /** 4-step connected timeline (desktop) / vertical timeline (mobile). */
 export function HowItWorks() {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
   return (
     <section aria-labelledby="how-heading" className="bg-white">
       <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <Reveal>
           <SectionHeading
             id="how-heading"
-            eyebrow="How EkSheba works"
-            title="একসেবা কীভাবে কাজ করে"
-            description="Four simple steps from confusion to a completed application."
+            eyebrow={s.eyebrow}
+            title={s.title}
+            description={s.description}
           />
         </Reveal>
 
@@ -66,9 +105,11 @@ export function HowItWorks() {
                   </div>
 
                   <h3 className="mt-5 text-base font-bold leading-6 text-slate-900">
-                    {step.title}
+                    {t(step.title)}
                   </h3>
-                  <p className="mt-1.5 text-sm text-slate-500">{step.en}</p>
+                  <p className="mt-1.5 text-sm text-slate-500">
+                    {t(step.note)}
+                  </p>
 
                   {/* vertical connector on mobile */}
                   {i < STEPS.length - 1 ? (

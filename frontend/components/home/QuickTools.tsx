@@ -1,11 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import {
   ArrowUpRight,
   Bot,
   Building2,
+  Calculator,
   Coins,
   FileSearch,
-  ListChecks,
   MapPin,
   Newspaper,
   Route,
@@ -14,35 +16,56 @@ import {
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
+import { useTranslation, type Dict } from "@/lib/i18n";
 
 const TOOLS = [
-  { label: "Service Search", bn: "সেবা খোঁজ", href: "/search", icon: Search },
-  { label: "Document Checklist", bn: "কাগজপত্র", href: "/documents", icon: FileSearch },
-  { label: "Fee Guide", bn: "ফি তালিকা", href: "/fees", icon: Coins },
-  { label: "Office Finder", bn: "অফিস খোঁজ", href: "/government-offices", icon: Building2 },
-  { label: "Find Nearby Office", bn: "কাছাকাছি", href: "/government-offices", icon: MapPin },
-  { label: "Application Tracker", bn: "আবেদন ট্র্যাক", href: "/application-tracker", icon: Route },
-  { label: "AI Assistant", bn: "এআই সহায়ক", href: "/ai-assistant", icon: Bot },
-  { label: "Government Notices", bn: "নোটিশ", href: "/notices", icon: Newspaper },
-];
+  { label: { bn: "সেবা খোঁজ", en: "Service Search" }, href: "/search", icon: Search },
+  { label: { bn: "কাগজপত্র", en: "Document Checklist" }, href: "/documents", icon: FileSearch },
+  { label: { bn: "ফি তালিকা", en: "Fee Guide" }, href: "/fees", icon: Coins },
+  { label: { bn: "আয়কর হিসাব", en: "Tax Calculator" }, href: "/income-tax-calculator", icon: Calculator },
+  { label: { bn: "অফিস খোঁজ", en: "Office Finder" }, href: "/government-offices", icon: Building2 },
+  { label: { bn: "কাছাকাছি অফিস", en: "Find Nearby Office" }, href: "/government-offices", icon: MapPin },
+  { label: { bn: "আবেদন ট্র্যাক", en: "Application Tracker" }, href: "/application-tracker", icon: Route },
+  { label: { bn: "এআই সহায়ক", en: "AI Assistant" }, href: "/ai-assistant", icon: Bot },
+  { label: { bn: "নোটিশ", en: "Government Notices" }, href: "/notices", icon: Newspaper },
+] satisfies { label: Dict<string>; href: string; icon: typeof Search }[];
+
+const STRINGS = {
+  bn: {
+    eyebrow: "দ্রুত সাধন",
+    title: "দ্রুত সেবা",
+    description: "নাগরিকের যে কোনো সরঞ্জাম — এক ট্যাপের দূরত্বে।",
+    needSpecific: "কিছু নির্দিষ্ট খুঁজছেন?",
+    searchEverything: "সবকিছু অনুসন্ধান করুন →",
+  },
+  en: {
+    eyebrow: "Quick tools",
+    title: "Quick Tools",
+    description: "Every utility a citizen needs — one tap away.",
+    needSpecific: "Need something specific?",
+    searchEverything: "Search everything →",
+  },
+};
 
 /** "দ্রুত সেবা" — quick utility tiles. */
 export function QuickTools() {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
   return (
     <section aria-labelledby="tools-heading" className="bg-white">
       <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <Reveal>
           <SectionHeading
             id="tools-heading"
-            eyebrow="Quick tools"
-            title="দ্রুত সেবা"
-            description="Every utility a citizen needs — one tap away."
+            eyebrow={s.eyebrow}
+            title={s.title}
+            description={s.description}
           />
         </Reveal>
 
         <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {TOOLS.map((tool, i) => (
-            <li key={tool.label}>
+            <li key={tool.label.en}>
               <Reveal delay={(i % 4) * 60} className="h-full">
                 <Link
                   href={tool.href}
@@ -63,9 +86,8 @@ export function QuickTools() {
                   </span>
                   <span className="flex-1">
                     <span className="block text-sm font-bold text-slate-900 group-hover:text-brand-700">
-                      {tool.label}
+                      {t(tool.label)}
                     </span>
-                    <span className="mt-0.5 block text-xs text-slate-500">{tool.bn}</span>
                   </span>
                   <ArrowUpRight
                     className="h-4 w-4 text-slate-300 transition-all group-hover:text-brand-600"
@@ -79,9 +101,9 @@ export function QuickTools() {
 
         <Reveal>
           <p className="mt-8 text-center text-sm text-slate-500">
-            Need something specific?{" "}
+            {s.needSpecific}{" "}
             <Link href="/search" className="font-bold text-brand-700 hover:text-brand-800">
-              Search everything →
+              {s.searchEverything}
             </Link>
           </p>
         </Reveal>

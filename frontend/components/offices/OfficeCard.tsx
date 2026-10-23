@@ -1,11 +1,21 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Clock, MapPin, Phone } from "lucide-react";
 import type { GovernmentOffice } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
+import { useTranslation } from "@/lib/i18n";
+
+const STRINGS = {
+  bn: { viewDetails: "বিস্তারিত দেখুন" },
+  en: { viewDetails: "View Details" },
+};
 
 /** Government office card — used on home, offices page and search. */
 export function OfficeCard({ office }: { office: GovernmentOffice }) {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
   return (
     <article className="group relative flex h-full flex-col rounded-2xl border border-line bg-white p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift hover:ring-1 hover:ring-brand-100">
       <div className="flex items-start gap-4">
@@ -48,7 +58,7 @@ export function OfficeCard({ office }: { office: GovernmentOffice }) {
       </div>
 
       <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700">
-        View Details
+        {s.viewDetails}
         <ArrowRight
           className="h-4 w-4 transition-transform group-hover:translate-x-1"
           aria-hidden="true"

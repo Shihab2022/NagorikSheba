@@ -7,9 +7,59 @@ import { OfficeCard } from "@/components/offices/OfficeCard";
 import { EmptyState, SkeletonCard } from "@/components/ui/States";
 import { Select } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n";
+import { COMMON } from "@/lib/i18n/common";
+
+const STRINGS = {
+  bn: {
+    searchLabel: "অফিস অনুসন্ধান করুন",
+    searchPlaceholder: "অফিস বা সেবা খুঁজুন…",
+    division: "বিভাগ",
+    district: "জেলা",
+    upazila: "উপজেলা",
+    officeType: "অফিসের ধরন",
+    allDivisions: "সব বিভাগ",
+    allDistricts: "সব জেলা",
+    allUpazilas: "সব উপজেলা",
+    allOfficeTypes: "সব অফিসের ধরন",
+    officesFound: "{n} টি অফিস পাওয়া গেছে",
+    reset: "রিসেট",
+    viewMode: "ভিউ মোড",
+    list: "তালিকা",
+    map: "ম্যাপ",
+    mapTitle: "ম্যাপ ভিউ (প্রিভিউ)",
+    mapDesc:
+      "লাইভ ম্যাপ ইন্টিগ্রেশন পরবর্তী রিলিজের জন্য পরিকল্পিত। এখন তালিকা ভিউতে {n} টি মিলিত অফিস রয়েছে।",
+    mapDemo: "ডেমো প্লেসহোল্ডার — এই প্রোটোটাইপে কোনো ম্যাপ ডেটা লোড হয় না।",
+  },
+  en: {
+    searchLabel: "Search offices",
+    searchPlaceholder: "Search office or service…",
+    division: "Division",
+    district: "District",
+    upazila: "Upazila",
+    officeType: "Office type",
+    allDivisions: "All Divisions",
+    allDistricts: "All Districts",
+    allUpazilas: "All Upazilas",
+    allOfficeTypes: "All Office Types",
+    officesFound: "{n} offices found",
+    reset: "Reset",
+    viewMode: "View mode",
+    list: "List",
+    map: "Map",
+    mapTitle: "Map view (preview)",
+    mapDesc:
+      "A live map integration is planned for a later release. For now, {n} matching offices are available in the list view.",
+    mapDemo: "Demo placeholder — no map data is loaded in this prototype.",
+  },
+};
 
 /** Offices explorer with search, cascading filters and list/map toggle. */
 export function OfficesExplorer() {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
+  const c = t(COMMON);
   const [query, setQuery] = useState("");
   const [division, setDivision] = useState("");
   const [district, setDistrict] = useState("");
@@ -75,7 +125,7 @@ export function OfficesExplorer() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           <div className="relative">
             <label htmlFor="off-search" className="sr-only">
-              Search offices
+              {s.searchLabel}
             </label>
             <SearchX
               className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
@@ -86,12 +136,12 @@ export function OfficesExplorer() {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search office or service…"
+              placeholder={s.searchPlaceholder}
               className="h-12 w-full rounded-xl border border-line bg-white pl-9 pr-3 text-sm placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-100"
             />
           </div>
           <Select
-            aria-label="Division"
+            aria-label={s.division}
             value={division}
             onChange={(e) =>
               withLoading(() => {
@@ -101,7 +151,7 @@ export function OfficesExplorer() {
               })
             }
           >
-            <option value="">All Divisions</option>
+            <option value="">{s.allDivisions}</option>
             {DIVISIONS.map((d) => (
               <option key={d} value={d}>
                 {d}
@@ -109,7 +159,7 @@ export function OfficesExplorer() {
             ))}
           </Select>
           <Select
-            aria-label="District"
+            aria-label={s.district}
             value={district}
             onChange={(e) =>
               withLoading(() => {
@@ -118,7 +168,7 @@ export function OfficesExplorer() {
               })
             }
           >
-            <option value="">All Districts</option>
+            <option value="">{s.allDistricts}</option>
             {districts.map((d) => (
               <option key={d} value={d}>
                 {d}
@@ -126,11 +176,11 @@ export function OfficesExplorer() {
             ))}
           </Select>
           <Select
-            aria-label="Upazila"
-            value={upazila}
+            aria-label={s.upazila}
+            value={upazila ?? ""}
             onChange={(e) => withLoading(() => setUpazila(e.target.value))}
           >
-            <option value="">All Upazilas</option>
+            <option value="">{s.allUpazilas}</option>
             {upazilas.map((u) => (
               <option key={u} value={u}>
                 {u}
@@ -138,21 +188,22 @@ export function OfficesExplorer() {
             ))}
           </Select>
           <Select
-            aria-label="Office type"
+            aria-label={s.officeType}
             value={type}
             onChange={(e) => withLoading(() => setType(e.target.value))}
           >
-            <option value="">All Office Types</option>
-            {OFFICE_TYPES.map((t) => (
-              <option key={t.type} value={t.type}>
-                {t.typeLabel}
+            <option value="">{s.allOfficeTypes}</option>
+            {OFFICE_TYPES.map((ot) => (
+              <option key={ot.type} value={ot.type}>
+                {ot.typeLabel}
               </option>
             ))}
           </Select>
         </div>
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
           <p className="text-sm text-slate-500" role="status" aria-live="polite">
-            <strong className="text-slate-800">{results.length}</strong> offices found
+            <strong className="text-slate-800">{results.length}</strong>{" "}
+            {s.officesFound.replace("{n}", "")}
           </p>
           <div className="flex items-center gap-2">
             <button
@@ -160,12 +211,12 @@ export function OfficesExplorer() {
               onClick={reset}
               className="h-9 rounded-lg border border-line px-3 text-xs font-bold text-slate-600 transition-colors hover:border-brand-300 hover:text-brand-700"
             >
-              Reset
+              {s.reset}
             </button>
             <div
               className="flex rounded-lg border border-line p-0.5"
               role="group"
-              aria-label="View mode"
+              aria-label={s.viewMode}
             >
               <button
                 type="button"
@@ -179,7 +230,7 @@ export function OfficesExplorer() {
                 )}
               >
                 <List className="h-3.5 w-3.5" aria-hidden="true" />
-                List
+                {s.list}
               </button>
               <button
                 type="button"
@@ -193,7 +244,7 @@ export function OfficesExplorer() {
                 )}
               >
                 <Map className="h-3.5 w-3.5" aria-hidden="true" />
-                Map
+                {s.map}
               </button>
             </div>
           </div>
@@ -211,8 +262,8 @@ export function OfficesExplorer() {
           </div>
         ) : results.length === 0 ? (
           <EmptyState
-            title="No offices found."
-            description="Try changing your search or filters."
+            title={c.noOffices}
+            description={c.tryFilters}
             icon={<Building2 className="h-7 w-7" aria-hidden="true" />}
           />
         ) : (
@@ -229,6 +280,8 @@ export function OfficesExplorer() {
 
 /** Placeholder map panel — no map SDK in the initial UI version. */
 function MapPlaceholder({ count }: { count: number }) {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
   return (
     <div className="relative overflow-hidden rounded-2xl border border-line bg-brand-50/60 p-6 sm:p-10">
       <div className="pattern-grid absolute inset-0" aria-hidden="true" />
@@ -236,13 +289,12 @@ function MapPlaceholder({ count }: { count: number }) {
         <span className="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-brand-700 shadow-card">
           <MapPin className="h-7 w-7" aria-hidden="true" />
         </span>
-        <h3 className="mt-4 text-lg font-extrabold text-slate-900">Map view (preview)</h3>
+        <h3 className="mt-4 text-lg font-extrabold text-slate-900">{s.mapTitle}</h3>
         <p className="mt-2 text-sm leading-6 text-slate-600">
-          A live map integration is planned for a later release. For now, {count} matching
-          offices are available in the list view.
+          {s.mapDesc.replace("{n}", String(count))}
         </p>
         <p className="mt-4 rounded-xl border border-dashed border-brand-200 bg-white px-4 py-3 text-xs text-slate-500">
-          Demo placeholder — no map data is loaded in this prototype.
+          {s.mapDemo}
         </p>
       </div>
     </div>

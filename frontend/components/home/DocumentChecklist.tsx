@@ -7,11 +7,37 @@ import { SERVICES } from "@/lib/data/services";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n";
 
 const PREVIEW_SLUGS = ["passport-renewal", "nid-correction", "driving-license", "land-mutation"];
 
+const STRINGS = {
+  bn: {
+    eyebrow: "ডকুমেন্ট চেকলিস্ট",
+    title: "কোন সেবার জন্য কী কী কাগজ লাগবে?",
+    description:
+      "বাড়ি থেকে বের হওয়ার আগে সঠিক কাগজপত্র প্রস্তুত করুন — বারবার অফিস যেতে হবে না, কোনো অপ্রত্যাশিত বিষয় নেই।",
+    viewCompleteChecklist: "সম্পূর্ণ চেকলিস্ট দেখুন",
+    chooseService: "একটি সেবা বেছে নিন",
+    documentsRequired: "{n} টি ডকুমেন্ট প্রয়োজন",
+    openServicePage: "সেবার পাতা খুলুন",
+  },
+  en: {
+    eyebrow: "Document checklist",
+    title: "Which papers do you need for which service?",
+    description:
+      "Prepare the right papers before you leave home — no repeated office visits, no surprises.",
+    viewCompleteChecklist: "View Complete Checklist",
+    chooseService: "Choose a service",
+    documentsRequired: "{n} documents required",
+    openServicePage: "Open service page",
+  },
+};
+
 /** Document checklist preview — switch between popular services. */
 export function DocumentChecklist() {
+  const { t } = useTranslation();
+  const s = t(STRINGS);
   const options = PREVIEW_SLUGS
     .map((slug) => SERVICES.find((s) => s.slug === slug))
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
@@ -28,15 +54,15 @@ export function DocumentChecklist() {
             <SectionHeading
               id="checklist-heading"
               align="left"
-              eyebrow="Document checklist"
-              title="কোন সেবার জন্য কী কী কাগজ লাগবে?"
-              description="Prepare the right papers before you leave home — no repeated office visits, no surprises."
+              eyebrow={s.eyebrow}
+              title={s.title}
+              description={s.description}
             />
             <Link
               href="/documents"
               className="mt-6 inline-flex h-11 items-center gap-2 rounded-xl bg-brand-600 px-5 text-sm font-bold text-white transition-all hover:bg-brand-700 hover:shadow-md"
             >
-              View Complete Checklist
+              {s.viewCompleteChecklist}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </Reveal>
@@ -47,23 +73,23 @@ export function DocumentChecklist() {
               <div
                 className="scrollbar-none -mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
                 role="tablist"
-                aria-label="Choose a service"
+                aria-label={s.chooseService}
               >
-                {options.map((s) => (
+                {options.map((svc) => (
                   <button
-                    key={s.id}
+                    key={svc.id}
                     role="tab"
                     type="button"
-                    aria-selected={s.slug === active.slug}
-                    onClick={() => setActiveSlug(s.slug)}
+                    aria-selected={svc.slug === active.slug}
+                    onClick={() => setActiveSlug(svc.slug)}
                     className={cn(
                       "shrink-0 rounded-full px-3.5 py-2 text-xs font-bold transition-all",
-                      s.slug === active.slug
+                      svc.slug === active.slug
                         ? "bg-brand-600 text-white shadow-sm"
                         : "border border-line bg-white text-slate-600 hover:border-brand-300 hover:text-brand-700",
                     )}
                   >
-                    {s.name}
+                    {svc.name}
                   </button>
                 ))}
               </div>
@@ -94,13 +120,16 @@ export function DocumentChecklist() {
 
               <div className="mt-5 flex items-center justify-between border-t border-line pt-4">
                 <span className="text-xs font-semibold text-slate-400">
-                  {active.requiredDocuments?.length ?? 0} documents required
+                  {s.documentsRequired.replace(
+                    "{n}",
+                    String(active.requiredDocuments?.length ?? 0),
+                  )}
                 </span>
                 <Link
                   href={`/services/${active.slug}`}
                   className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-700 hover:text-brand-800"
                 >
-                  Open service page
+                  {s.openServicePage}
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </div>
