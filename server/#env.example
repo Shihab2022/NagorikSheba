@@ -22,3 +22,8 @@ DATABASE_URL=
 
 # Google OAuth 2.0 Web Client ID (used to verify Google ID tokens)
 GOOGLE_CLIENT_ID=
+
+# Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=

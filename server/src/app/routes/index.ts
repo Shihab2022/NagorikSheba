@@ -9,6 +9,7 @@ import { ServiceSourceRoutes } from "../modules/ServiceSource/serviceSource.rout
 import { GovernmentOfficesRouter } from "../modules/government-offices/government-offices.routes";
 import { TrackedServiceRoutes } from "../modules/TrackedService/trackedService.routes";
 import { TrackedStepRoutes } from "../modules/TrackedStep/trackedStep.routes";
+import { UploadRoutes } from "../modules/Upload/upload.routes";
 
 const router = express.Router();
 
@@ -25,6 +26,10 @@ const moduleRoutes = [
   {
     path: "/government-offices",
     route: GovernmentOfficesRouter,
+  },
+  {
+    path: "/upload",
+    route: UploadRoutes,
   },
 ];
 
