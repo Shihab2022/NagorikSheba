@@ -20,6 +20,20 @@ export const OFFICE_SERVICE_KEYS = [
 
 export type OfficeServiceKey = (typeof OFFICE_SERVICE_KEYS)[number];
 
+/**
+ * Service-page slugs resolve to the same keys, so one reusable `/nearby`
+ * endpoint serves every `/services/[slug]/nearby-offices` page without the
+ * frontend having to map slugs first. Keys still work directly.
+ */
+const SERVICE_KEY_BY_SLUG: Record<string, OfficeServiceKey> = {
+  "nid-correction": "NID",
+  "epassport-new": "PASSPORT",
+  "passport-renewal": "PASSPORT",
+  "birth-registration": "BIRTH_REGISTRATION",
+  "birth-certificate-copy": "BIRTH_REGISTRATION",
+  "driving-license": "DRIVING_LICENCE",
+};
+
 const DEFAULT_RADIUS_KM = 50;
 const MAX_RADIUS_KM = 500;
 const DEFAULT_PAGE_LIMIT = 20;
@@ -36,7 +50,7 @@ const parseCoordinate = (
   if (raw === undefined || raw === null || raw === "") {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `Missing required query parameter: ${bounds.label}.`,
+      `Invalid ${bounds.label}. Expected a complete decimal number.`,
     );
   }
   const value = Number(raw);
@@ -67,10 +81,14 @@ const parsePositiveInt = (
 };
 
 const parseServiceKey = (raw: unknown): OfficeServiceKey => {
+  if (typeof raw === "string") {
+    const fromSlug = SERVICE_KEY_BY_SLUG[raw.trim().toLowerCase()];
+    if (fromSlug) return fromSlug;
+  }
   if (!isOfficeServiceKey(raw)) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `Invalid service. Expected one of: ${OFFICE_SERVICE_KEYS.join(", ")}.`,
+      `Invalid service. Expected one of: ${OFFICE_SERVICE_KEYS.join(", ")} (or a service slug like epassport-new).`,
     );
   }
   return raw;
@@ -171,8 +189,8 @@ const findNearbyOffices = async (params: {
 
   const rawRadius =
     params.radiusKm === undefined ||
-    params.radiusKm === "" ||
-    params.radiusKm === null
+      params.radiusKm === "" ||
+      params.radiusKm === null
       ? DEFAULT_RADIUS_KM
       : Number(params.radiusKm);
   if (

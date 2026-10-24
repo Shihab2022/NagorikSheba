@@ -7,7 +7,13 @@ import { ServiceStepRoutes } from "../modules/ServiceStep/serviceStep.routes";
 import { ServiceFeeRoutes } from "../modules/ServiceFee/serviceFee.routes";
 import { ServiceSourceRoutes } from "../modules/ServiceSource/serviceSource.routes";
 import { GovernmentOfficesRouter } from "../modules/government-offices/government-offices.routes";
+<<<<<<< HEAD
 import { AIRoutes } from "../modules/AI/ai.routes";
+=======
+import { TrackedServiceRoutes } from "../modules/TrackedService/trackedService.routes";
+import { TrackedStepRoutes } from "../modules/TrackedStep/trackedStep.routes";
+import { UploadRoutes } from "../modules/Upload/upload.routes";
+>>>>>>> DEV
 
 const router = express.Router();
 
@@ -19,13 +25,20 @@ const moduleRoutes = [
   { path: "/service-step", route: ServiceStepRoutes },
   { path: "/service-fee", route: ServiceFeeRoutes },
   { path: "/service-source", route: ServiceSourceRoutes },
+  { path: "/tracked-service", route: TrackedServiceRoutes },
+  { path: "/tracked-step", route: TrackedStepRoutes },
   {
     path: "/government-offices",
     route: GovernmentOfficesRouter,
   },
   {
+<<<<<<< HEAD
     path: "/ai",
     route: AIRoutes
+=======
+    path: "/upload",
+    route: UploadRoutes,
+>>>>>>> DEV
   },
 ];
 

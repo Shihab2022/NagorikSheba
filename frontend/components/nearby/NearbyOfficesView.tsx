@@ -21,7 +21,11 @@ import {
   requestBrowserPosition,
 } from "@/lib/nearby";
 import { getNearbyOffices, getOfficesByArea } from "@/service/offices";
-import type { NearbyOffice, NearbyOrigin, OfficeServiceKey } from "@/lib/types";
+import type {
+  NearbyOffice,
+  NearbyOrigin,
+  OfficeServiceKey,
+} from "@/lib/types";
 import { useTranslation } from "@/lib/i18n";
 
 const STRINGS = {
@@ -37,6 +41,8 @@ const STRINGS = {
     noResults: "এই পরিসরে কোনো অফিস পাওয়া যায়নি",
     noResultsHint:
       "পরিসর বাড়িয়ে দেখুন বা অন্য এলাকা নির্বাচন করুন। অফিসের তথ্য কেবল যাচাইকৃত উৎস থেকে যুক্ত হয়।",
+    widenSearch: "পরিসর বাড়ান",
+    routeOnMap: "ম্যাপে রুট দেখুন",
     errorTitle: "অফিসের তথ্য আনা যায়নি",
     errorHint: "সার্ভারে সমস্যা হতে পারে। একটু পরে আবার চেষ্টা করুন।",
     locErrDenied: "লোকেশনের অনুমতি দেওয়া হয়নি — আগের ফলাফল দেখানো হচ্ছে।",
@@ -56,6 +62,8 @@ const STRINGS = {
     noResults: "No offices found within this radius",
     noResultsHint:
       "Try a larger radius or choose a different area. Office data is only added from verified official sources.",
+    widenSearch: "Widen search",
+    routeOnMap: "Show route on map",
     errorTitle: "Could not load office data",
     errorHint: "There may be a server problem. Please try again shortly.",
     locErrDenied: "Location permission was denied — showing previous results.",
@@ -91,6 +99,9 @@ export function NearbyOfficesView({
   const [failed, setFailed] = useState(false);
   const [locating, setLocating] = useState(false);
   const [locError, setLocError] = useState<string | null>(null);
+  // Office currently highlighted / routed on the map. Shared between the
+  // cards and the map so "Show route on map" and marker clicks stay in sync.
+  const [selectedOfficeId, setSelectedOfficeId] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -109,10 +120,16 @@ export function NearbyOfficesView({
             upazila: origin.upazila,
           });
     if (res.success) {
-      setOffices(res.data?.offices ?? []);
+      const next = res.data?.offices ?? [];
+      setOffices(next);
+      // Keep selection only if the office is still in the result set.
+      setSelectedOfficeId((prev) =>
+        prev && next.some((o) => o.id === prev) ? prev : null,
+      );
     } else {
       setFailed(true);
       setOffices([]);
+      setSelectedOfficeId(null);
     }
     setLoading(false);
   }, [origin, service, radiusKm]);
@@ -235,7 +252,11 @@ export function NearbyOfficesView({
         </p>
       ) : null}
 
-      {/* Results */}
+      {/* Results — the map always renders for GPS origins so the user can
+          see their own location even when no office is inside the radius.
+          Cards carry full office details + a Directions button (Google Maps
+          route from user location to office) + an in-app route button that
+          draws the driving route on this same map. */}
       {loading ? (
         <div
           className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
@@ -253,26 +274,62 @@ export function NearbyOfficesView({
           description={s.errorHint}
           onRetry={load}
         />
-      ) : offices.length === 0 ? (
-        <EmptyState
-          title={s.noResults}
-          description={s.noResultsHint}
-          icon={<Building2 className="h-7 w-7" aria-hidden="true" />}
-        />
       ) : (
         <>
           <p className="text-sm font-semibold text-slate-600" aria-live="polite">
             {countLabel}
           </p>
-          <NearbyMap origin={origin} offices={offices} />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {offices.map((office) => (
-              <NearbyOfficeCard key={office.id} office={office} origin={origin} />
-            ))}
-          </div>
-          <p className="rounded-xl border border-dashed border-line bg-canvas px-4 py-3 text-xs leading-5 text-slate-500">
-            {s.straightLineDisclaimer}
-          </p>
+          <NearbyMap
+            origin={origin}
+            offices={offices}
+            selectedOfficeId={selectedOfficeId}
+            onMarkerClick={setSelectedOfficeId}
+          />
+          {offices.length === 0 ? (
+            <EmptyState
+              title={s.noResults}
+              description={s.noResultsHint}
+              icon={<Building2 className="h-7 w-7" aria-hidden="true" />}
+              action={
+                origin.mode === "gps" && radiusKm < 100 ? (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() =>
+                      handleRadiusChange(radiusKm < 50 ? 50 : 100)
+                    }
+                  >
+                    {s.widenSearch}
+                  </Button>
+                ) : undefined
+              }
+            />
+          ) : (
+            <>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {offices.map((office) => (
+                  <NearbyOfficeCard
+                    key={office.id}
+                    office={office}
+                    origin={origin}
+                    selected={office.id === selectedOfficeId}
+                    onShowRoute={() => {
+                      setSelectedOfficeId(office.id);
+                      document
+                        .getElementById("nearby-map")
+                        ?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "center",
+                        });
+                    }}
+                  />
+                ))}
+              </div>
+              <p className="rounded-xl border border-dashed border-line bg-canvas px-4 py-3 text-xs leading-5 text-slate-500">
+                {s.straightLineDisclaimer}
+              </p>
+            </>
+          )}
         </>
       )}
     </div>
