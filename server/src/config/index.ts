@@ -25,4 +25,5 @@ export default {
   groq_api_key: process.env.GROQ_API_KEY,
   groq_model: process.env.GROQ_MODEL,
   rag_min_similarity: process.env.RAG_MIN_SIMILARITY,
+  tavily_api_key: process.env.TAVILY_API_KEY ,
 };
