@@ -2,24 +2,16 @@ import { Server } from "http";
 import app from "./app";
 import config from "./config";
 import { runMigrations } from "./utils/migrate";
-<<<<<<< HEAD
 import { setupAICheckpointer } from "./app/modules/AI/ai.graph";
-// import { seedDemoAdmin } from "./utils/seedDemoAdmin";
-=======
 import { seedDemoAdmin } from "./utils/seedDemoAdmin";
 import { seedServices } from "./seed/services.seed";
->>>>>>> DEV
 
 async function main() {
   const port = config.port;
   if (config.NODE_ENV !== "production") {
     await runMigrations();
-<<<<<<< HEAD
-    // await seedDemoAdmin(); 
-=======
     await seedDemoAdmin();
     await seedServices();
->>>>>>> DEV
   }
 
   await setupAICheckpointer();
@@ -27,6 +19,8 @@ async function main() {
   const server: Server = app.listen(port, () => {
     console.log(`\x1b[32mSuccess! Server running on port ${port}\x1b[0m`);
   });
+
+
   const exitHandler = () => {
     if (server) {
       server.close(() => {

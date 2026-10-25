@@ -8,11 +8,7 @@
     "build": "tsup src/server.ts --format cjs --out-dir dist --clean",
     "start": "node dist/server.js",
     "seed:offices": "tsx src/seed/government-offices.seed.ts",
-<<<<<<< HEAD
     "test": "tsx --test src/**/*.test.ts"
-=======
-    "test": "node --import tsx --test"
->>>>>>> DEV
   },
   "keywords": [],
   "author": "",
@@ -43,23 +39,15 @@
     "pgvector": "^0.3.0",
     "postgrator": "^8.0.0",
     "tsup": "^8.5.1",
-<<<<<<< HEAD
     "zod": "^3.25.76"
-=======
-    "zod": "^3.23.8"
->>>>>>> DEV
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
-<<<<<<< HEAD
-    "@types/node": "^26.6.5",
-=======
     "@types/multer": "^2.3.0",
-    "@types/node": "^26.6.4",
->>>>>>> DEV
+    "@types/node": "^26.6.5",
     "@types/nodemailer": "^8.0.2",
     "@types/pg": "^8.23.1",
     "ts-node": "^10.9.2",
