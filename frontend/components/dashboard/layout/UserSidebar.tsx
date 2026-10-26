@@ -33,19 +33,56 @@ type NavItem = {
 };
 
 const MAIN_ITEMS: NavItem[] = [
-  { href: "/dashboard", label: { bn: "ড্যাশবোর্ড", en: "Dashboard" }, icon: LayoutDashboard },
-  { href: "/dashboard/applications", label: { bn: "আমার আবেদন", en: "My Applications" }, icon: PackageSearch },
-  { href: "/services", label: { bn: "সকল সেবা", en: "All Services" }, icon: Bookmark },
-  { href: "/documents", label: { bn: "ডকুমেন্ট চেকলিস্ট", en: "Documents" }, icon: FileText },
-  { href: "/fees", label: { bn: "সরকারি ফি", en: "Govt Fees" }, icon: CreditCard },
+  {
+    href: "/dashboard",
+    label: { bn: "ড্যাশবোর্ড", en: "Dashboard" },
+    icon: LayoutDashboard,
+  },
+  {
+    href: "/dashboard/applications",
+    label: { bn: "আমার আবেদন", en: "My Applications" },
+    icon: PackageSearch,
+  },
+  {
+    href: "/services",
+    label: { bn: "সকল সেবা", en: "All Services" },
+    icon: Bookmark,
+  },
+  {
+    href: "/documents",
+    label: { bn: "ডকুমেন্ট চেকলিস্ট", en: "Documents" },
+    icon: FileText,
+  },
+  {
+    href: "/fees",
+    label: { bn: "সরকারি ফি", en: "Govt Fees" },
+    icon: CreditCard,
+  },
 ];
 
 const DISCOVERY_ITEMS: NavItem[] = [
-  { href: "/search", label: { bn: "সেবা খুঁজুন", en: "Search Services" }, icon: Search },
-  { href: "/government-offices", label: { bn: "সরকারি অফিস", en: "Govt Offices" }, icon: Building2 },
+  {
+    href: "/search",
+    label: { bn: "সেবা খুঁজুন", en: "Search Services" },
+    icon: Search,
+  },
+  {
+    href: "/government-offices",
+    label: { bn: "সরকারি অফিস", en: "Govt Offices" },
+    icon: Building2,
+  },
   { href: "/notices", label: { bn: "নোটিশ বোর্ড", en: "Notices" }, icon: Bell },
-  { href: "/ai-assistant", label: { bn: "এআই সহকারী", en: "AI Assistant" }, icon: Bot, badge: "AI" },
-  { href: "/faq", label: { bn: "সাহায্য ও প্রশ্ন", en: "Help & FAQ" }, icon: HelpCircle },
+  {
+    href: "/ai-assistant",
+    label: { bn: "এআই সহকারী", en: "AI Assistant" },
+    icon: Bot,
+    badge: "AI",
+  },
+  {
+    href: "/faq",
+    label: { bn: "সাহায্য ও প্রশ্ন", en: "Help & FAQ" },
+    icon: HelpCircle,
+  },
 ];
 
 const STRINGS = {
@@ -110,7 +147,9 @@ export function UserSidebar({
                 <item.icon
                   className={cn(
                     "h-4 w-4 shrink-0 transition-colors",
-                    active ? "text-white" : "text-slate-400 group-hover:text-brand-700",
+                    active
+                      ? "text-white"
+                      : "text-slate-400 group-hover:text-brand-700",
                   )}
                 />
                 <span>{t(item.label)}</span>
@@ -141,16 +180,26 @@ export function UserSidebar({
         <div className="rounded-2xl border border-line bg-canvas/60 p-4">
           <div className="flex items-center gap-3">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-700 text-white shadow-sm font-bold text-sm">
-              {user?.name ? user.name.slice(0, 2).toUpperCase() : <UserRound className="h-5 w-5" />}
+              {user?.name ? (
+                user.name.slice(0, 2).toUpperCase()
+              ) : (
+                <UserRound className="h-5 w-5" />
+              )}
             </span>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-xs font-black text-slate-900">{user?.name || "Citizen"}</p>
-              <p className="truncate text-[11px] text-slate-400">{user?.email || "Signed In"}</p>
+              <p className="truncate text-xs font-black text-slate-900">
+                {user?.name || "Citizen"}
+              </p>
+              <p className="truncate text-[11px] text-slate-400">
+                {user?.email || "Signed In"}
+              </p>
             </div>
             <span
               className={cn(
                 "rounded-full px-2 py-0.5 text-[10px] font-extrabold uppercase",
-                isAdmin ? "bg-flag-100 text-flag-700" : "bg-emerald-100 text-emerald-800",
+                isAdmin
+                  ? "bg-flag-100 text-flag-700"
+                  : "bg-emerald-100 text-emerald-800",
               )}
             >
               {isAdmin ? s.adminBadge : s.citizen}
@@ -217,7 +266,11 @@ export function UserSidebar({
           onClick={() => setMobileOpen(!mobileOpen)}
           className="inline-flex h-9 items-center gap-1.5 rounded-xl bg-canvas px-3 text-xs font-bold text-slate-700 transition-colors hover:bg-brand-50 hover:text-brand-800 cursor-pointer"
         >
-          {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          {mobileOpen ? (
+            <X className="h-4 w-4" />
+          ) : (
+            <Menu className="h-4 w-4" />
+          )}
           <span>{mobileOpen ? "বন্ধ করুন" : "মেনু দেখুন"}</span>
         </button>
       </div>
@@ -231,7 +284,9 @@ export function UserSidebar({
           />
           <aside className="fixed inset-y-0 left-0 w-72 bg-white p-5 shadow-2xl overflow-y-auto">
             <div className="mb-4 flex items-center justify-between pb-3 border-b border-line">
-              <span className="text-sm font-black text-slate-900">{s.menu}</span>
+              <span className="text-sm font-black text-slate-900">
+                {s.menu}
+              </span>
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
