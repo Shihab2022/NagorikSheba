@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -88,9 +87,7 @@ export function Navbar() {
   };
 
   const dashboardHref =
-    user?.role?.toUpperCase() === "ADMIN"
-      ? "/admin/dashboard"
-      : "/dashboard";
+    user?.role?.toUpperCase() === "ADMIN" ? "/admin/dashboard" : "/dashboard";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -128,10 +125,7 @@ export function Navbar() {
         scrolled ? "shadow-lg shadow-brand-900/20" : "",
       )}
     >
-      <div
-        className="h-[3px] w-full bg-flag-500"
-        aria-hidden="true"
-      />
+      <div className="h-[3px] w-full bg-flag-500" aria-hidden="true" />
 
       <nav
         aria-label="Main"
@@ -143,8 +137,7 @@ export function Navbar() {
         <ul className="hidden items-center gap-0.5 lg:flex">
           {NAV_LINKS.map((link) => {
             const active =
-              pathname === link.href ||
-              pathname.startsWith(`${link.href}/`);
+              pathname === link.href || pathname.startsWith(`${link.href}/`);
 
             return (
               <li key={link.href}>
@@ -153,9 +146,7 @@ export function Navbar() {
                   aria-current={active ? "page" : undefined}
                   className={cn(
                     "group relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                    active
-                      ? "text-white"
-                      : "text-brand-50/80 hover:text-white",
+                    active ? "text-white" : "text-brand-50/80 hover:text-white",
                   )}
                 >
                   {t(link.label)}
@@ -257,13 +248,21 @@ export function Navbar() {
               </button>
             </div>
           ) : (
-            <Link
-              href="/login"
-              className="hidden h-10 items-center gap-1.5 rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all hover:bg-brand-50 hover:shadow lg:inline-flex"
-            >
-              <UserRound className="h-4 w-4" aria-hidden="true" />
-              {c.login}
-            </Link>
+            <div className="hidden items-center gap-2 lg:flex">
+              <Link
+                href="/login"
+                className="inline-flex h-10 items-center justify-center rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all duration-200 hover:bg-brand-50 hover:shadow-md active:scale-[0.98]"
+              >
+                {c.login}
+              </Link>
+
+              <Link
+                href="/register"
+                className="inline-flex h-10 items-center justify-center rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all duration-200 hover:bg-brand-50 hover:shadow-md active:scale-[0.98]"
+              >
+                {lang === "bn" ? "নিবন্ধন" : "Register"}
+              </Link>
+            </div>
           )}
 
           {/* Mobile menu button */}
