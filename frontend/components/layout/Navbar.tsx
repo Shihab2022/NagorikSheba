@@ -1,9 +1,10 @@
+
 "use client";
 
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LogOut, Menu, Search, UserRound } from "lucide-react";
+import { LogOut, Menu, Search } from "lucide-react";
 
 import { Logo } from "@/components/ui/Logo";
 import { MobileMenu } from "@/components/layout/MobileMenu";
@@ -87,7 +88,16 @@ export function Navbar() {
   };
 
   const dashboardHref =
-    user?.role?.toUpperCase() === "ADMIN" ? "/admin/dashboard" : "/dashboard";
+    user?.role?.toUpperCase() === "ADMIN"
+      ? "/admin/dashboard"
+      : "/dashboard";
+
+  // Dashboard পেজে Dashboard বাটন দেখাবে না।
+  const isDashboardPage =
+    pathname === "/dashboard" ||
+    pathname.startsWith("/dashboard/") ||
+    pathname === "/admin/dashboard" ||
+    pathname.startsWith("/admin/dashboard/");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -125,7 +135,10 @@ export function Navbar() {
         scrolled ? "shadow-lg shadow-brand-900/20" : "",
       )}
     >
-      <div className="h-[3px] w-full bg-flag-500" aria-hidden="true" />
+      <div
+        className="h-[3px] w-full bg-flag-500"
+        aria-hidden="true"
+      />
 
       <nav
         aria-label="Main"
@@ -137,7 +150,8 @@ export function Navbar() {
         <ul className="hidden items-center gap-0.5 lg:flex">
           {NAV_LINKS.map((link) => {
             const active =
-              pathname === link.href || pathname.startsWith(`${link.href}/`);
+              pathname === link.href ||
+              pathname.startsWith(`${link.href}/`);
 
             return (
               <li key={link.href}>
@@ -146,7 +160,9 @@ export function Navbar() {
                   aria-current={active ? "page" : undefined}
                   className={cn(
                     "group relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                    active ? "text-white" : "text-brand-50/80 hover:text-white",
+                    active
+                      ? "text-white"
+                      : "text-brand-50/80 hover:text-white",
                   )}
                 >
                   {t(link.label)}
@@ -211,16 +227,20 @@ export function Navbar() {
             </button>
           </div>
 
-          {/* Dashboard and logout buttons */}
+          {/* Logged-in user buttons */}
           {user ? (
             <div className="hidden items-center gap-2 lg:flex">
-              <Link
-                href={dashboardHref}
-                className="inline-flex h-10 items-center justify-center rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all duration-200 hover:bg-brand-50 hover:shadow-md active:scale-[0.98]"
-              >
-                {s.dashboard}
-              </Link>
+              {/* Dashboard button: hidden on dashboard pages */}
+              {!isDashboardPage && (
+                <Link
+                  href={dashboardHref}
+                  className="inline-flex h-10 items-center justify-center rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all duration-200 hover:bg-brand-50 hover:shadow-md active:scale-[0.98]"
+                >
+                  {s.dashboard}
+                </Link>
+              )}
 
+              {/* Logout button remains visible */}
               <button
                 type="button"
                 onClick={handleLogout}
@@ -248,6 +268,7 @@ export function Navbar() {
               </button>
             </div>
           ) : (
+            /* Logged-out user buttons */
             <div className="hidden items-center gap-2 lg:flex">
               <Link
                 href="/login"
