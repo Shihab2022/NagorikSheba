@@ -127,7 +127,7 @@ export function ServicesExplorer({
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[280px_1fr] lg:items-start">
+    <div className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
       {/* Filters: collapsible panel on mobile, sticky sidebar on desktop */}
       <div className="lg:sticky lg:top-28">
         <button
@@ -263,9 +263,9 @@ export function ServicesExplorer({
       </div>
 
       {/* Results */}
-      <div>
+      <div className="min-w-0">
         <div
-          className="scrollbar-none -mx-1 flex gap-2 overflow-x-auto px-1 pb-2"
+          className="scrollbar-none flex w-full gap-2 overflow-x-auto pb-2 scroll-smooth"
           role="group"
           aria-label={s.categoryFilter}
         >

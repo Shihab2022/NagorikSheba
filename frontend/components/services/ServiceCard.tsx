@@ -56,7 +56,7 @@ export function ServiceCard({
   const servicePath = `/services/${service.slug}`;
 
   return (
-    <article className="group relative flex h-full flex-col rounded-2xl border border-line bg-white p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift hover:ring-1 hover:ring-brand-100">
+    <article className="group relative flex h-full min-w-0 flex-col rounded-2xl border border-line bg-white p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift hover:ring-1 hover:ring-brand-100">
       <div className="flex items-start gap-4">
         <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700 transition-transform duration-300 group-hover:-translate-y-1 group-hover:-rotate-6">
           <Icon name={service.icon} className="h-6 w-6" />
@@ -67,11 +67,11 @@ export function ServiceCard({
             <Badge tone={service.isOnline ? "soft-green" : "soft-red"}>
               {service.isOnline ? (
                 <MonitorSmartphone
-                  className="h-3 w-3"
+                  className="h-3 w-3 shrink-0"
                   aria-hidden="true"
                 />
               ) : (
-                <MapPin className="h-3 w-3" aria-hidden="true" />
+                <MapPin className="h-3 w-3 shrink-0" aria-hidden="true" />
               )}
 
               {service.isOnline ? s.onlineService : s.officeService}
@@ -94,22 +94,22 @@ export function ServiceCard({
       </div>
 
       <div className="mt-4 border-t border-line pt-3">
-        <span className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <span className="block truncate text-xs font-semibold uppercase tracking-wide text-slate-400">
           {category?.name ?? service.department}
         </span>
       </div>
 
       {!compact ? (
         <dl className="mt-3 grid grid-cols-2 gap-2 border-t border-line pt-3">
-          <div className="flex items-center gap-1.5 text-xs text-slate-500">
+          <div className="flex min-w-0 items-center gap-1.5 text-xs text-slate-500">
             <FileText
-              className="h-3.5 w-3.5 text-brand-600"
+              className="h-3.5 w-3.5 shrink-0 text-brand-600"
               aria-hidden="true"
             />
 
             <dt className="sr-only">{s.requiredDocuments}</dt>
 
-            <dd className="font-medium">
+            <dd className="min-w-0 truncate font-medium">
               {s.documents.replace(
                 "{n}",
                 String(service.requiredDocuments?.length ?? 0),
@@ -117,15 +117,15 @@ export function ServiceCard({
             </dd>
           </div>
 
-          <div className="flex items-center gap-1.5 text-xs text-slate-500">
+          <div className="flex min-w-0 items-center gap-1.5 text-xs text-slate-500">
             <Clock
-              className="h-3.5 w-3.5 text-brand-600"
+              className="h-3.5 w-3.5 shrink-0 text-brand-600"
               aria-hidden="true"
             />
 
             <dt className="sr-only">{s.estimatedProcess}</dt>
 
-            <dd className="truncate font-medium">
+            <dd className="min-w-0 truncate font-medium">
               {service.processingTime ?? "—"}
             </dd>
           </div>
