@@ -153,9 +153,7 @@ export function Navbar() {
     };
   }, [open]);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+
 
   return (
     <header
