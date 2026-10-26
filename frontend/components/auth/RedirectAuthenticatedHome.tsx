@@ -3,55 +3,65 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
+
 import { getMe } from "@/service/auth";
 
-const SESSION_KEY = "nagoriksheba-initial-redirect-done";
+const HOME_INTENT_KEY = "nagoriksheba-user-chose-home";
 
 export function RedirectAuthenticatedHome() {
   const pathname = usePathname();
   const router = useRouter();
-  const checkedRef = useRef(false);
+  const hasCheckedRef = useRef(false);
 
   useEffect(() => {
-    if (pathname !== "/" || checkedRef.current) {
+    if (pathname !== "/") {
+      hasCheckedRef.current = false;
       return;
     }
 
+    if (hasCheckedRef.current) {
+      return;
+    }
+
+    // Respect the user's intentional navigation to Home.
     try {
-      if (sessionStorage.getItem(SESSION_KEY) === "true") {
+      if (sessionStorage.getItem(HOME_INTENT_KEY) === "true") {
+        sessionStorage.removeItem(HOME_INTENT_KEY);
+        hasCheckedRef.current = true;
         return;
       }
-
-      sessionStorage.setItem(SESSION_KEY, "true");
     } catch {
-      return;
+      // Continue with authentication check if storage is unavailable.
     }
 
-    checkedRef.current = true;
-    let cancelled = false;
+    hasCheckedRef.current = true;
+    let isActive = true;
 
-    async function checkAuthentication() {
+    const checkAuthentication = async () => {
       try {
         const response = await getMe();
 
-        if (cancelled || !response.success || !response.data) {
+        if (!isActive || !response.success || !response.data) {
           return;
         }
 
         const role = response.data.role?.toUpperCase();
 
-        router.replace(
-          role === "ADMIN" ? "/admin/dashboard" : "/dashboard",
-        );
+        if (role === "ADMIN") {
+          router.replace("/admin/dashboard");
+          return;
+        }
+
+        router.replace("/dashboard");
       } catch {
-        // Stay on the Home page when the user is not authenticated.
+        // Unauthenticated users remain on the Home page.
       }
-    }
+    };
 
     void checkAuthentication();
 
     return () => {
-      cancelled = true;
+      isActive = false;
     };
   }, [pathname, router]);
 
