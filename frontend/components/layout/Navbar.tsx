@@ -52,6 +52,7 @@ export function Navbar() {
     name?: string;
     role?: string;
   } | null>(null);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   const { lang, setLang, t } = useTranslation();
   const c = t(COMMON);
@@ -70,13 +71,19 @@ export function Navbar() {
   }, [pathname]);
 
   const handleLogout = async () => {
+    if (loggingOut) return;
+
     try {
+      setLoggingOut(true);
       await logout();
       setUser(null);
+      setOpen(false);
       router.push("/");
       router.refresh();
     } catch (error) {
       console.error("Logout failed:", error);
+    } finally {
+      setLoggingOut(false);
     }
   };
 
@@ -94,7 +101,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the drawer when the viewport grows back to desktop.
   useEffect(() => {
     if (!open) return;
 
@@ -109,7 +115,6 @@ export function Navbar() {
     return () => window.removeEventListener("resize", onResize);
   }, [open]);
 
-  // Close the drawer on navigation.
   useEffect(() => {
     const timer = setTimeout(() => setOpen(false), 0);
 
@@ -123,7 +128,6 @@ export function Navbar() {
         scrolled ? "shadow-lg shadow-brand-900/20" : "",
       )}
     >
-      {/* Thin flag-red accent line */}
       <div
         className="h-[3px] w-full bg-flag-500"
         aria-hidden="true"
@@ -218,10 +222,10 @@ export function Navbar() {
 
           {/* Dashboard and logout buttons */}
           {user ? (
-            <div className="hidden items-center gap-1.5 lg:inline-flex">
+            <div className="hidden items-center gap-2 lg:flex">
               <Link
                 href={dashboardHref}
-                className="inline-flex h-10 items-center rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all hover:bg-brand-50"
+                className="inline-flex h-10 items-center justify-center rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all duration-200 hover:bg-brand-50 hover:shadow-md active:scale-[0.98]"
               >
                 {s.dashboard}
               </Link>
@@ -229,14 +233,27 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={handleLogout}
+                disabled={loggingOut}
                 title={s.logout}
                 aria-label={s.logout}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-brand-50/90 transition-colors hover:bg-white/10 hover:text-white"
+                className={cn(
+                  "group inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-white/20 px-3.5 text-sm font-semibold text-white",
+                  "bg-white/10 shadow-sm backdrop-blur-sm",
+                  "transition-all duration-200",
+                  "hover:border-red-300/40 hover:bg-red-500 hover:shadow-md hover:shadow-red-950/20",
+                  "active:scale-[0.97]",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700",
+                  "disabled:cursor-not-allowed disabled:opacity-60",
+                )}
               >
                 <LogOut
-                  className="h-4 w-4"
+                  className={cn(
+                    "h-4 w-4 transition-transform duration-200",
+                    !loggingOut && "group-hover:translate-x-0.5",
+                  )}
                   aria-hidden="true"
                 />
+                <span>{loggingOut ? "..." : s.logout}</span>
               </button>
             </div>
           ) : (
@@ -244,10 +261,7 @@ export function Navbar() {
               href="/login"
               className="hidden h-10 items-center gap-1.5 rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all hover:bg-brand-50 hover:shadow lg:inline-flex"
             >
-              <UserRound
-                className="h-4 w-4"
-                aria-hidden="true"
-              />
+              <UserRound className="h-4 w-4" aria-hidden="true" />
               {c.login}
             </Link>
           )}
