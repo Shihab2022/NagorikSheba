@@ -1,4 +1,5 @@
 import type { GovernmentService } from "@/lib/types";
+import { EXTRA_SERVICES } from "@/lib/data/services-extra";
 
 /**
  * MOCK DATA — government services.
@@ -727,6 +728,7 @@ export const SERVICES: GovernmentService[] = [
     icon: "FileText",
     updatedLabel: "Updated 3 weeks ago",
   },
+  ...EXTRA_SERVICES,
 ];
 
 
