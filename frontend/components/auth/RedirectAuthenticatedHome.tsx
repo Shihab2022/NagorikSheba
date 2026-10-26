@@ -1,47 +1,37 @@
 
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-import { getMe } from "@/service/auth";
-
-const HOME_INTENT_KEY = "nagoriksheba-user-chose-home";
+import { getMeDeduplicated } from "@/lib/get-me-deduplicated";
+import {
+  consumeHomeNavigationIntent,
+  clearHomeNavigationIntent,
+} from "@/lib/home-navigation-intent";
 
 export function RedirectAuthenticatedHome() {
   const pathname = usePathname();
   const router = useRouter();
-  const hasCheckedRef = useRef(false);
 
   useEffect(() => {
     if (pathname !== "/") {
-      hasCheckedRef.current = false;
+      clearHomeNavigationIntent();
       return;
     }
 
-    if (hasCheckedRef.current) {
+    // Logo click করে Home-এ এলে redirect করবে না।
+    if (consumeHomeNavigationIntent()) {
       return;
     }
 
-    // Respect the user's intentional navigation to Home.
-    try {
-      if (sessionStorage.getItem(HOME_INTENT_KEY) === "true") {
-        sessionStorage.removeItem(HOME_INTENT_KEY);
-        hasCheckedRef.current = true;
-        return;
-      }
-    } catch {
-      // Continue with authentication check if storage is unavailable.
-    }
+    let active = true;
 
-    hasCheckedRef.current = true;
-    let isActive = true;
-
-    const checkAuthentication = async () => {
+    async function checkUser() {
       try {
-        const response = await getMe();
+        const response = await getMeDeduplicated();
 
-        if (!isActive || !response.success || !response.data) {
+        if (!active || !response?.success || !response?.data) {
           return;
         }
 
@@ -49,21 +39,22 @@ export function RedirectAuthenticatedHome() {
 
         if (role === "ADMIN") {
           router.replace("/admin/dashboard");
-          return;
+        } else if (role === "USER") {
+          router.replace("/dashboard");
         }
-
-        router.replace("/dashboard");
       } catch {
-        // Unauthenticated users remain on the Home page.
+        // Not authenticated; remain on Home.
       }
-    };
+    }
 
-    void checkAuthentication();
+    void checkUser();
 
     return () => {
-      isActive = false;
+      active = false;
     };
   }, [pathname, router]);
 
   return null;
 }
+
+export default RedirectAuthenticatedHome;

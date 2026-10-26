@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { useTranslation, type Dict } from "@/lib/i18n";
 import { COMMON } from "@/lib/i18n/common";
 import { getMe, logout } from "@/service/auth";
+import { markHomeNavigationIntent } from "@/lib/home-navigation-intent";
 
 const NAV_LINKS: { label: Dict<string>; href: string }[] = [
   { href: "/services", label: { bn: "সেবা", en: "Services" } },
@@ -42,43 +43,65 @@ const STRINGS = {
   },
 };
 
+type NavbarUser = {
+  name?: string;
+  role?: string;
+};
+
 export function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
 
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [user, setUser] = useState<{
-    name?: string;
-    role?: string;
-  } | null>(null);
+  const [user, setUser] = useState<NavbarUser | null>(null);
   const [loggingOut, setLoggingOut] = useState(false);
 
   const { lang, setLang, t } = useTranslation();
   const c = t(COMMON);
   const s = t(STRINGS);
 
+  // Load the authenticated user when Navbar mounts.
   useEffect(() => {
-    getMe()
-      .then((res) => {
+    let isActive = true;
+
+    async function checkUser() {
+      try {
+        const res = await getMe();
+
+        if (!isActive) return;
+
         if (res.success && res.data) {
           setUser(res.data);
         } else {
           setUser(null);
         }
-      })
-      .catch(() => setUser(null));
-  }, [pathname]);
+      } catch {
+        if (isActive) {
+          setUser(null);
+        }
+      }
+    }
+
+    void checkUser();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   const handleLogout = async () => {
     if (loggingOut) return;
 
     try {
       setLoggingOut(true);
+
       await logout();
+
       setUser(null);
       setOpen(false);
-      router.push("/");
+
+      router.replace("/");
       router.refresh();
     } catch (error) {
       console.error("Logout failed:", error);
@@ -92,7 +115,6 @@ export function Navbar() {
       ? "/admin/dashboard"
       : "/dashboard";
 
-  // Dashboard পেজে Dashboard বাটন দেখাবে না।
   const isDashboardPage =
     pathname === "/dashboard" ||
     pathname.startsWith("/dashboard/") ||
@@ -100,12 +122,19 @@ export function Navbar() {
     pathname.startsWith("/admin/dashboard/");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+    };
 
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
 
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -119,13 +148,13 @@ export function Navbar() {
 
     window.addEventListener("resize", onResize);
 
-    return () => window.removeEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
   }, [open]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setOpen(false), 0);
-
-    return () => clearTimeout(timer);
+    setOpen(false);
   }, [pathname]);
 
   return (
@@ -144,7 +173,12 @@ export function Navbar() {
         aria-label="Main"
         className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:h-[72px] lg:px-8"
       >
-        <Logo tone="light" />
+        {/* Logo: Logo component already renders its own Link. */}
+        <Logo
+          tone="light"
+          href="/"
+          onClick={markHomeNavigationIntent}
+        />
 
         {/* Desktop navigation links */}
         <ul className="hidden items-center gap-0.5 lg:flex">
@@ -230,7 +264,6 @@ export function Navbar() {
           {/* Logged-in user buttons */}
           {user ? (
             <div className="hidden items-center gap-2 lg:flex">
-              {/* Dashboard button: hidden on dashboard pages */}
               {!isDashboardPage && (
                 <Link
                   href={dashboardHref}
@@ -240,7 +273,6 @@ export function Navbar() {
                 </Link>
               )}
 
-              {/* Logout button remains visible */}
               <button
                 type="button"
                 onClick={handleLogout}
@@ -264,6 +296,7 @@ export function Navbar() {
                   )}
                   aria-hidden="true"
                 />
+
                 <span>{loggingOut ? "..." : s.logout}</span>
               </button>
             </div>

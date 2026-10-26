@@ -343,6 +343,7 @@ export function ServiceManager({
     try {
       const detailRes = await getSingleService(svc.id);
       if (detailRes.success && detailRes.data) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const d = detailRes.data as any;
         if (d.serviceRequirement || d.requirements) {
           setFormRequirements(d.serviceRequirement || d.requirements);
