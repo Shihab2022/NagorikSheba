@@ -72,6 +72,7 @@ export function Navbar() {
   useEffect(() => {
     if (!open) return;
     const onResize = () => {
+      // Match the lg breakpoint (1024px) where the desktop nav becomes visible
       if (window.innerWidth >= 1024) setOpen(false);
     };
     window.addEventListener("resize", onResize);
@@ -100,7 +101,7 @@ export function Navbar() {
       >
         <Logo tone="light" />
 
-        <ul className="hidden items-center gap-0.5 xl:flex">
+        <ul className="hidden items-center gap-0.5 lg:flex">
           {NAV_LINKS.map((link) => {
             const active =
               pathname === link.href ||
@@ -142,7 +143,7 @@ export function Navbar() {
 
           {/* Language toggle — Bangla (default) ⇄ English, persisted via LanguageProvider */}
           <div
-            className="hidden items-center rounded-lg bg-white/10 p-0.5 text-xs font-bold sm:flex"
+            className="hidden items-center rounded-lg bg-white/10 p-0.5 text-xs font-bold md:flex"
             role="group"
             aria-label={c.language}
           >
@@ -175,7 +176,7 @@ export function Navbar() {
           </div>
 
           {user ? (
-            <div className="hidden items-center gap-1.5 md:inline-flex">
+            <div className="hidden items-center gap-1.5 lg:inline-flex">
               <Link
                 href={
                   user.role?.toUpperCase() === "ADMIN"
@@ -214,7 +215,7 @@ export function Navbar() {
           ) : (
             <Link
               href="/login"
-              className="hidden h-10 items-center gap-1.5 rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all hover:bg-brand-50 hover:shadow md:inline-flex"
+              className="hidden h-10 items-center gap-1.5 rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all hover:bg-brand-50 hover:shadow lg:inline-flex"
             >
               <UserRound className="h-4 w-4" aria-hidden="true" />
               {c.login}
@@ -227,7 +228,7 @@ export function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? s.closeMenu : s.openMenu}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-brand-50 transition-colors hover:bg-white/10 xl:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-brand-50 transition-colors hover:bg-white/10 lg:hidden"
           >
             <Menu className="h-6 w-6" aria-hidden="true" />
           </button>

@@ -109,7 +109,7 @@ export function OfficeFinder() {
         </Reveal>
 
         <Reveal delay={80}>
-          <div className="mt-8 grid gap-3 rounded-2xl border border-line bg-canvas p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-5">
+          <div className="mt-8 grid grid-cols-1 gap-3 rounded-2xl border border-line bg-canvas p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-5">
             <Select
               aria-label={s.division}
               value={division}
@@ -164,7 +164,7 @@ export function OfficeFinder() {
             <button
               type="button"
               onClick={reset}
-              className="h-12 rounded-xl border border-line bg-white text-sm font-semibold text-slate-600 transition-colors hover:border-brand-300 hover:text-brand-700"
+              className="col-span-1 h-12 rounded-xl border border-line bg-white text-sm font-semibold text-slate-600 transition-colors hover:border-brand-300 hover:text-brand-700 sm:col-span-2 lg:col-span-1"
             >
               {s.resetFilters}
             </button>

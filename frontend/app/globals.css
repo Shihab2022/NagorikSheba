@@ -135,6 +135,8 @@ body {
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Prevent horizontal overflow at all viewport widths */
+    overflow-x: hidden;
   }
 
   body {
@@ -142,6 +144,9 @@ body {
     color: var(--foreground);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    /* Prevent horizontal scroll from overflowing children */
+    overflow-x: hidden;
+    min-width: 320px;
   }
 
   /* Keep anchored sections clear of the sticky header */
@@ -168,11 +173,21 @@ body {
     color: #0f172a;
     background-color: #ffffff;
     min-height: 0;
+    /* Prevent inputs exceeding container width on mobile */
+    max-width: 100%;
   }
 
   button,
   a {
     min-height: 0;
+  }
+
+  /* Responsive images — prevent overflow */
+  img,
+  video,
+  svg {
+    max-width: 100%;
+    height: auto;
   }
 }
 

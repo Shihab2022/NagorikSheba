@@ -692,7 +692,7 @@ export function TrackedServiceDetail({
                             en="Add your personal note for this step:"
                           />
                         </label>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col gap-2 sm:flex-row">
                           <input
                             type="text"
                             value={noteInput}
@@ -701,8 +701,9 @@ export function TrackedServiceDetail({
                               bn: "যেমন: ফি জমা দিয়েছি, স্লিপ নম্বর #১২৩৪৫",
                               en: "e.g. Paid fee, receipt slip #12345",
                             })}
-                            className="flex-1 rounded-xl border border-line bg-white px-3 py-1.5 text-xs text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-200"
+                            className="w-full flex-1 rounded-xl border border-line bg-white px-3 py-1.5 text-xs text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-200"
                           />
+                          <div className="flex gap-2 shrink-0">
                           <Button
                             size="sm"
                             onClick={() => handleSaveNote(step)}
@@ -723,6 +724,7 @@ export function TrackedServiceDetail({
                           >
                             <T bn="বাতিল" en="Cancel" />
                           </Button>
+                          </div>
                         </div>
                       </div>
                     )}
