@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+
 import { SkipLink } from "@/components/layout/SkipLink";
 import { LanguageProvider } from "@/lib/i18n";
 
@@ -76,11 +75,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col bg-white font-sans text-slate-900">
         <LanguageProvider>
           <SkipLink />
-          <Navbar />
-          <main id="main-content" className="flex-1">
+
+          <main id="main-content" className="flex-1  min-h-[calc(600vh-5000px)]">
             {children}
           </main>
-          <Footer />
         </LanguageProvider>
       </body>
     </html>

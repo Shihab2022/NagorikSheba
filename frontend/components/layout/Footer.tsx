@@ -55,6 +55,8 @@ const COLUMNS: {
   },
 ];
 
+
+
 const STRINGS = {
   bn: {
     tagline: "বাংলাদেশের সরকারি সেবার এক ঠিকানা",
@@ -65,6 +67,8 @@ const STRINGS = {
     madeWith: "তৈরি করা হয়েছে",
     madeFor: "বাংলাদেশের নাগরিকদের জন্য",
   },
+
+
   en: {
     tagline: "Bangladesh Government Services, One Place",
     about:

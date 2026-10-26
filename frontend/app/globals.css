@@ -5,6 +5,26 @@
    Inspired by the Bangladesh flag: deep green + flag red accents,
    civic information design, clean off-white surfaces.
    ------------------------------------------------------------------ */
+
+/* Hide scrollbar while keeping scrolling enabled */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
 @theme {
   /* Brand — Bangladesh deep green scale */
   --color-brand-50: #e8f5f0;
