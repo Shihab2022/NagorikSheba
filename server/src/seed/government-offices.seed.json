@@ -1,0 +1,100 @@
+{
+  "offices": [
+    {
+      "name": "Regional Passport Office, Dhaka",
+      "officeType": "PASSPORT_OFFICE",
+      "address": "EA Bhaban, Agargaon, Dhaka-1207",
+      "district": "Dhaka",
+      "upazila": "Savar",
+      "latitude": 23.7589,
+      "longitude": 90.3914,
+      "phone": "+8801700000000",
+      "officialUrl": "https://www.epassport.gov.bd/",
+      "lastVerifiedAt": "2026-10-01",
+      "services": [
+        "PASSPORT"
+      ],
+      "isActive": true
+    },
+    {
+      "name": "District Passport Office, Chattogram",
+      "officeType": "PASSPORT_OFFICE",
+      "address": "New Building (3rd Floor), CDA Building, Chattogram",
+      "district": "Chattogram",
+      "upazila": "Kotwali",
+      "latitude": 23.8103,
+      "longitude": 90.4125,
+      "phone": "+8801700000000",
+      "officialUrl": "https://www.epassport.gov.bd/",
+      "lastVerifiedAt": "2026-10-01",
+      "services": [
+        "PASSPORT"
+      ],
+      "isActive": true
+    },
+    {
+      "name": "BRTA Zonal Office, Dhaka (Tejgaon)",
+      "officeType": "BRTA_OFFICE",
+      "address": "Tejgaon, Dhaka-1208",
+      "district": "Dhaka",
+      "upazila": "Tejgaon",
+      "latitude": 23.7639,
+      "longitude": 90.3958,
+      "phone": "+8801700000000",
+      "officialUrl": "https://brta.gov.bd/",
+      "lastVerifiedAt": "2026-10-01",
+      "services": [
+        "DRIVING_LICENCE"
+      ],
+      "isActive": true
+    },
+    {
+      "name": "BRTA Zonal Office, Rajshahi",
+      "officeType": "BRTA_OFFICE",
+      "address": "Airport Road, Rajshahi",
+      "district": "Rajshahi",
+      "upazila": "Boalia",
+      "latitude": 23.8103,
+      "longitude": 90.4125,
+      "phone": "+8801700000000",
+      "officialUrl": "https://brta.gov.bd/",
+      "lastVerifiedAt": "2026-10-01",
+      "services": [
+        "DRIVING_LICENCE"
+      ],
+      "isActive": true
+    },
+    {
+      "name": "Dhaka North City Corporation (DNCC)",
+      "officeType": "CITY_CORPORATION",
+      "address": "Gulshan-2, Dhaka-1212",
+      "district": "Dhaka",
+      "upazila": "Dhaka North",
+      "latitude": 23.8103,
+      "longitude": 90.4125,
+      "phone": "+8801700000000",
+      "officialUrl": null,
+      "lastVerifiedAt": "2026-10-01",
+      "services": [
+        "BIRTH_REGISTRATION"
+      ],
+      "isActive": true
+    },
+    {
+      "name": "Gazipur Union Parishad, Kaliakair",
+      "officeType": "UNION_PARISHAD",
+      "address": "Kaliakair, Gazipur",
+      "district": "Gazipur",
+      "upazila": "Kaliakair",
+      "latitude": 23.8103,
+      "longitude": 90.4125,
+      "phone": "+8801700000000",
+      "officialUrl": null,
+      "lastVerifiedAt": "2026-10-01",
+      "services": [
+        "NID"
+      ],
+      "isActive": true
+    }
+  ]
+}

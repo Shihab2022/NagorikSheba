@@ -7,6 +7,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsup src/server.ts --format cjs --out-dir dist --clean",
     "start": "node dist/server.js",
+    "seed:services": "tsx src/seed/services.seed.ts",
     "seed:offices": "tsx src/seed/government-offices.seed.ts",
     "test": "tsx --test src/**/*.test.ts"
   },

@@ -169,8 +169,14 @@ const getAllServicesFromDB = async (query: any) => {
   let paramIdx = 1;
 
   if (categoryId) {
-    conditions.push(`s."categoryId" = $${paramIdx++}`);
-    params.push(categoryId);
+    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(categoryId);
+    if (isUUID) {
+      conditions.push(`s."categoryId" = $${paramIdx++}`);
+      params.push(categoryId);
+    } else {
+      conditions.push(`c.slug = $${paramIdx++}`);
+      params.push(categoryId);
+    }
   }
   if (isPublished !== undefined && isPublished !== "" && isPublished !== "all") {
     conditions.push(`s."isPublished" = $${paramIdx++}`);
@@ -198,7 +204,7 @@ const getAllServicesFromDB = async (query: any) => {
   );
 
   const countResult = await pool.query(
-    `SELECT COUNT(s.id) FROM services s WHERE ${whereClause}`,
+    `SELECT COUNT(s.id) FROM services s LEFT JOIN category c ON s."categoryId" = c.id WHERE ${whereClause}`,
     params,
   );
   const total = parseInt(countResult.rows[0].count, 10);
@@ -210,33 +216,39 @@ const getAllServicesFromDB = async (query: any) => {
 };
 
 const getSingleServiceFromDB = async (serviceId: string) => {
+  // Allow querying either by UUID or by slug
+  const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(serviceId);
+  const whereClause = isUUID ? `s.id = $1` : `s.slug = $1`;
+
   const result = await pool.query(
     `SELECT s.*, c.name as category_name, c.slug as category_slug 
      FROM services s 
      LEFT JOIN category c ON s."categoryId" = c.id 
-     WHERE s.id = $1 AND s."isDeleted" = FALSE`,
+     WHERE ${whereClause} AND s."isDeleted" = FALSE`,
     [serviceId],
   );
   if (!result.rows.length) {
     throw new AppError(httpStatus.NOT_FOUND, "Service not found.");
   }
 
+  const actualServiceId = result.rows[0].id;
+
   const [reqResult, stepResult, feeResult, sourceResult] = await Promise.all([
     pool.query(
       `SELECT * FROM serviceRequirement WHERE "serviceId" = $1 AND "isDeleted" = FALSE ORDER BY "sortOrder" ASC`,
-      [serviceId],
+      [actualServiceId],
     ),
     pool.query(
       `SELECT * FROM serviceStep WHERE "serviceId" = $1 AND "isDeleted" = FALSE ORDER BY "stepNumber" ASC`,
-      [serviceId],
+      [actualServiceId],
     ),
     pool.query(
       `SELECT * FROM serviceFee WHERE "serviceId" = $1 AND "isDeleted" = FALSE ORDER BY "createdAt" ASC`,
-      [serviceId],
+      [actualServiceId],
     ),
     pool.query(
       `SELECT * FROM serviceSource WHERE "serviceId" = $1 AND "isDeleted" = FALSE ORDER BY "createdAt" ASC`,
-      [serviceId],
+      [actualServiceId],
     ),
   ]);
 
