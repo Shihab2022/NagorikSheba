@@ -1,6 +1,6 @@
 {
   "_readme": [
-    'This is a TEMPLATE for seeding verified government office data.',
+    "This is a TEMPLATE for seeding verified government office data.",
     "Do NOT ship invented offices. Collect each record from an official",
     "Bangladesh government source, e.g.:",
     "  - NID / voter registration: Election Commission (ecs.gov.bd / services.nidw.gov.bd)",

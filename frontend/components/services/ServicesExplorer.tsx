@@ -2,14 +2,13 @@
 
 import { useMemo, useState } from "react";
 import { Search, SearchX, SlidersHorizontal, ChevronDown } from "lucide-react";
-import { SERVICES, getServiceDepartments } from "@/lib/data/services";
-import { CATEGORIES } from "@/lib/data/categories";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { EmptyState, SkeletonCard } from "@/components/ui/States";
 import { Select } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/i18n";
 import { COMMON } from "@/lib/i18n/common";
+import type { GovernmentService, ServiceCategory } from "@/lib/types";
 
 type SortKey = "popular" | "az" | "za";
 
@@ -58,46 +57,54 @@ const STRINGS = {
 
 /**
  * Client-side services explorer: search, category chips, department,
- * online filter and sorting with a short simulated loading state.
+ * online filter and sorting with live backend data.
  */
 export function ServicesExplorer({
   initialQuery = "",
+  initialCategory = "all",
+  initialServices = [],
+  initialCategories = [],
 }: {
   initialQuery?: string;
+  initialCategory?: string;
+  initialServices?: GovernmentService[];
+  initialCategories?: ServiceCategory[];
 }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
   const c = t(COMMON);
   const [query, setQuery] = useState(initialQuery);
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState(initialCategory || "all");
   const [department, setDepartment] = useState("all");
   const [availability, setAvailability] = useState("all");
   const [sort, setSort] = useState<SortKey>("popular");
   const [loading, setLoading] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const departments = useMemo(() => getServiceDepartments(), []);
+  const departments = useMemo(() => {
+    return Array.from(new Set(initialServices.map((x) => x.department))).filter(Boolean).sort();
+  }, [initialServices]);
 
   function update<T>(setter: (v: T) => void, value: T) {
     setter(value);
     setLoading(true);
-    window.setTimeout(() => setLoading(false), 320);
+    window.setTimeout(() => setLoading(false), 200);
   }
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const list = SERVICES.filter((s) => {
+    const list = initialServices.filter((svc) => {
       const matchesQuery =
         !q ||
-        s.name.toLowerCase().includes(q) ||
-        s.description.toLowerCase().includes(q) ||
-        s.department.toLowerCase().includes(q);
-      const matchesCategory = category === "all" || s.category === category;
-      const matchesDept = department === "all" || s.department === department;
+        svc.name.toLowerCase().includes(q) ||
+        svc.description.toLowerCase().includes(q) ||
+        svc.department.toLowerCase().includes(q);
+      const matchesCategory = category === "all" || svc.category === category;
+      const matchesDept = department === "all" || svc.department === department;
       const matchesAvail =
         availability === "all" ||
-        (availability === "online" && s.isOnline) ||
-        (availability === "office" && s.requiresOfficeVisit);
+        (availability === "online" && svc.isOnline) ||
+        (availability === "office" && svc.requiresOfficeVisit);
       return matchesQuery && matchesCategory && matchesDept && matchesAvail;
     });
     return [...list].sort((a, b) => {
@@ -105,7 +112,7 @@ export function ServicesExplorer({
       if (sort === "az") return a.name.localeCompare(b.name);
       return b.name.localeCompare(a.name);
     });
-  }, [query, category, department, availability, sort]);
+  }, [query, category, department, availability, sort, initialServices]);
 
   const hasFilters =
     category !== "all" ||
@@ -128,79 +135,77 @@ export function ServicesExplorer({
 
   return (
     <div className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-      {/* Filters: collapsible panel on mobile, sticky sidebar on desktop */}
-      <div className="lg:sticky lg:top-28">
+      {/* Mobile filter toggle */}
+      <div className="lg:hidden">
         <button
           type="button"
-          onClick={() => setFiltersOpen((v) => !v)}
+          onClick={() => setFiltersOpen((o) => !o)}
           aria-expanded={filtersOpen}
-          aria-controls="service-filters"
-          className="flex w-full items-center justify-between gap-2 rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold text-slate-900 shadow-card transition-colors hover:border-brand-300 lg:hidden"
+          aria-controls="services-filter-drawer"
+          className="flex w-full items-center justify-between rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold text-slate-800 shadow-sm"
         >
           <span className="flex items-center gap-2">
-            <SlidersHorizontal
-              className="h-4 w-4 text-brand-600"
-              aria-hidden="true"
-            />
+            <SlidersHorizontal className="h-4 w-4 text-brand-600" aria-hidden="true" />
             {s.filters}
             {activeFilterCount > 0 ? (
-              <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-600 px-1.5 text-xs font-bold text-white">
+              <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-600 px-1.5 text-[11px] font-bold text-white">
                 {activeFilterCount}
               </span>
             ) : null}
           </span>
           <ChevronDown
-            className={cn(
-              "h-4 w-4 text-slate-400 transition-transform duration-200",
-              filtersOpen && "rotate-180",
-            )}
+            className={cn("h-4 w-4 text-slate-400 transition-transform", filtersOpen && "rotate-180")}
             aria-hidden="true"
           />
         </button>
+      </div>
 
-        <aside
-          id="service-filters"
-          aria-label={s.filters}
-          className={cn(
-            "mt-3 rounded-2xl border border-line bg-white p-5 shadow-card lg:mt-0 lg:block",
-            filtersOpen ? "block" : "hidden",
-          )}
-        >
-          <div className="flex items-center justify-between gap-2">
-            <h2 className="hidden items-center gap-2 text-sm font-bold text-slate-900 lg:flex">
-              <SlidersHorizontal
-                className="h-4 w-4 text-brand-600"
-                aria-hidden="true"
-              />
+      {/* Sidebar Filters */}
+      <div
+        id="services-filter-drawer"
+        className={cn(
+          "rounded-2xl border border-line bg-white p-5 shadow-card lg:block",
+          filtersOpen ? "block" : "hidden",
+        )}
+      >
+        <aside aria-label={s.filters}>
+          <div className="flex items-center justify-between border-b border-line pb-4">
+            <h2 className="flex items-center gap-2 text-sm font-bold text-slate-900">
+              <SlidersHorizontal className="h-4 w-4 text-brand-600" aria-hidden="true" />
               {s.filters}
             </h2>
             {hasFilters ? (
               <button
                 type="button"
                 onClick={clearAll}
-                className="text-xs font-bold text-flag-600 hover:text-flag-700 lg:ml-auto"
+                className="text-xs font-semibold text-brand-700 hover:underline"
               >
                 {s.clearAll}
               </button>
             ) : null}
           </div>
 
-          <div className="relative mt-4">
-            <Search
-              className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
-              aria-hidden="true"
-            />
-            <label htmlFor="svc-search" className="sr-only">
+          <div className="mt-4">
+            <label
+              htmlFor="svc-search"
+              className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-500"
+            >
               {s.searchLabel}
             </label>
-            <input
-              id="svc-search"
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={s.searchPlaceholder}
-              className="h-11 w-full rounded-xl border border-line bg-white pl-9 pr-3 text-sm transition-all placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-100"
-            />
+            <div className="relative">
+              <Search
+                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+                aria-hidden="true"
+              />
+              <input
+                id="svc-search"
+                type="search"
+                value={query}
+                onChange={(e) => update(setQuery, e.target.value)}
+                placeholder={s.searchPlaceholder}
+                className="h-10 w-full rounded-xl border border-line bg-canvas pl-9 pr-3 text-sm text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+              />
+            </div>
           </div>
 
           <div className="mt-4">
@@ -282,7 +287,7 @@ export function ServicesExplorer({
           >
             {s.allCategories}
           </button>
-          {CATEGORIES.map((cat) => (
+          {initialCategories.map((cat) => (
             <button
               key={cat.id}
               type="button"
@@ -307,7 +312,7 @@ export function ServicesExplorer({
         >
           {s.showing
             .replace("{shown}", String(results.length))
-            .replace("{total}", String(SERVICES.length))}
+            .replace("{total}", String(initialServices.length))}
         </p>
 
         <div className="mt-4">
