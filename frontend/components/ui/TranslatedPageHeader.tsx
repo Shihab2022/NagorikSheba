@@ -15,12 +15,14 @@ export function TranslatedPageHeader({
   breadcrumbs,
   actions,
   className,
+  containerClassName,
 }: {
   title: Dict<string>;
   description?: Dict<string>;
   breadcrumbs?: { label: Dict<string>; href?: string }[];
   actions?: ReactNode;
   className?: string;
+  containerClassName?: string;
 }) {
   const { t } = useTranslation();
   return (
@@ -30,6 +32,7 @@ export function TranslatedPageHeader({
       breadcrumbs={breadcrumbs?.map((crumb) => ({ label: t(crumb.label), href: crumb.href }))}
       actions={actions}
       className={className}
+      containerClassName={containerClassName}
     />
   );
 }

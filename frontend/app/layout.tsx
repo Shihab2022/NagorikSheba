@@ -76,7 +76,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <LanguageProvider>
           <SkipLink />
 
-          <main id="main-content" className="flex-1  min-h-[calc(600vh-5000px)]">
+          <main id="main-content" className="flex-1">
             {children}
           </main>
         </LanguageProvider>

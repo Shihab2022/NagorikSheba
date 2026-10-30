@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <>
+    <div className="w-full max-w-full overflow-x-hidden">
       <TranslatedPageHeader
         title={{ bn: "সরকারি সেবা", en: "Government Services" }}
         description={{
@@ -23,12 +23,12 @@ export default function ServicesPage() {
           { label: { bn: "সেবা", en: "Services" } },
         ]}
       />
-      <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-        <div className="mb-6">
+      <div className="mx-auto w-full max-w-[1720px] px-3.5 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8 xl:px-10 2xl:px-12 min-w-0">
+        <div className="mb-4 sm:mb-6">
           <DemoNote />
         </div>
         <ServicesExplorer />
       </div>
-    </>
+    </div>
   );
 }
