@@ -1,9 +1,19 @@
+
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+
 import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
+
 import { getAllServices } from "@/service/service";
 import { getAllCategories } from "@/service/category";
-import { mapBackendServiceToFrontend, mapBackendCategoryToFrontend } from "@/lib/service-adapter";
+
+import {
+  mapBackendServiceToFrontend,
+  mapBackendCategoryToFrontend,
+} from "@/lib/service-adapter";
+
 import type { GovernmentService, ServiceCategory } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -19,22 +29,37 @@ interface ServicesPageProps {
 }
 
 export default async function ServicesPage(props: ServicesPageProps) {
-  const searchParams = props.searchParams ? await props.searchParams : {};
-  const initialCategory = searchParams?.category || "all";
-  const initialQuery = searchParams?.q || "";
+  // Check authentication
+  const cookieStore = await cookies();
+  const token = cookieStore.get("accessToken")?.value;
 
+  if (!token) {
+    redirect("/login");
+  }
+
+  // Read search params
+  const searchParams = props.searchParams
+    ? await props.searchParams
+    : {};
+
+  const initialCategory = searchParams.category || "all";
+  const initialQuery = searchParams.q || "";
+
+  // Fetch services and categories
   const [servicesRes, categoriesRes] = await Promise.all([
     getAllServices({ limit: 100 }),
     getAllCategories(),
   ]);
 
-  const initialServices: GovernmentService[] = (servicesRes.success && servicesRes.data)
-    ? servicesRes.data.map(mapBackendServiceToFrontend)
-    : [];
+  const initialServices: GovernmentService[] =
+    servicesRes.success && servicesRes.data
+      ? servicesRes.data.map(mapBackendServiceToFrontend)
+      : [];
 
-  const initialCategories: ServiceCategory[] = (categoriesRes.success && categoriesRes.data)
-    ? categoriesRes.data.map(mapBackendCategoryToFrontend)
-    : [];
+  const initialCategories: ServiceCategory[] =
+    categoriesRes.success && categoriesRes.data
+      ? categoriesRes.data.map(mapBackendCategoryToFrontend)
+      : [];
 
   return (
     <>
@@ -49,6 +74,7 @@ export default async function ServicesPage(props: ServicesPageProps) {
           { label: { bn: "সেবা", en: "Services" } },
         ]}
       />
+
       <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <ServicesExplorer
           initialQuery={initialQuery}
