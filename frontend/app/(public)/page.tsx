@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 
 import { Hero } from "@/components/home/Hero";
@@ -26,10 +25,7 @@ import {
   mapBackendServiceToFrontend,
 } from "@/lib/service-adapter";
 
-import type {
-  ServiceCategory,
-  GovernmentService,
-} from "@/lib/types";
+import type { ServiceCategory, GovernmentService } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
@@ -47,9 +43,7 @@ export default async function HomePage() {
 
   const categories: ServiceCategory[] =
     catRes.success && catRes.data
-      ? catRes.data
-          .slice(0, 12)
-          .map(mapBackendCategoryToFrontend)
+      ? catRes.data.slice(0, 8).map(mapBackendCategoryToFrontend)
       : [];
 
   const services: GovernmentService[] =
