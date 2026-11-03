@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
 import { Building2, Clock, Coins, ShieldCheck } from "lucide-react";
-import { getServiceBySlug } from "@/lib/data/services";
+import type { GovernmentService } from "@/lib/types";
 import { getCategoryBySlug } from "@/lib/data/categories";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
 import { useTranslation } from "@/lib/i18n";
+
 const STRINGS = {
   bn: {
     home: "হোম",
@@ -28,12 +29,16 @@ const STRINGS = {
     feeApplies: "Fee applies",
   },
 };
-export function SvcHeader({ slug }: { slug: string }) {
+
+export function SvcHeader({
+  service,
+}: {
+  service: GovernmentService;
+}) {
   const { t } = useTranslation();
   const s = t(STRINGS);
-  const service = getServiceBySlug(slug);
-  if (!service) return null;
   const category = getCategoryBySlug(service.category);
+
   return (
     <header className="relative overflow-hidden border-b border-line bg-canvas">
       <div className="pattern-grid absolute inset-0" aria-hidden="true" />
@@ -73,7 +78,7 @@ export function SvcHeader({ slug }: { slug: string }) {
         <div className="mt-5 flex flex-wrap items-start justify-between gap-5">
           <div className="flex min-w-0 items-start gap-4 sm:gap-5">
             <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-card sm:h-16 sm:w-16">
-              <Icon name={service.icon} className="h-7 w-7 sm:h-8 sm:w-8" />
+              <Icon name={service.icon || "FileText"} className="h-7 w-7 sm:h-8 sm:w-8" />
             </span>
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">

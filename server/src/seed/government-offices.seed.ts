@@ -17,7 +17,7 @@ import path from "path";
 import { pool } from "../utils/pg";
 import {
   OFFICE_SERVICE_KEYS,
-} from "../modules/government-offices/government-offices.service";
+} from "../app/modules/government-offices/government-offices.service";
 
 const OFFICE_TYPES = [
   "ELECTION_COMMISSION",

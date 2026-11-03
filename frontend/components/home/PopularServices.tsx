@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { getPopularServices } from "@/lib/data/services";
+import type { GovernmentService } from "@/lib/types";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
@@ -25,11 +25,14 @@ const STRINGS = {
   },
 };
 
-/** "জনপ্রিয় সরকারি সেবা" — top 9 services by popularity. */
-export function PopularServices() {
+/** "জনপ্রিয় সরকারি সেবা" — receives live backend services. */
+export function PopularServices({
+  services = [],
+}: {
+  services?: GovernmentService[];
+}) {
   const { t } = useTranslation();
   const s = t(STRINGS);
-  const services = getPopularServices(9);
 
   return (
     <section aria-labelledby="popular-heading" className="border-y border-line bg-canvas">

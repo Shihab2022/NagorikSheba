@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { CATEGORIES } from "@/lib/data/categories";
+import { getAllCategories } from "@/service/category";
+import { mapBackendCategoryToFrontend } from "@/lib/service-adapter";
 import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Reveal";
 import { T } from "@/components/ui/T";
 import { cn } from "@/lib/utils";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Service Categories",
@@ -14,7 +17,12 @@ export const metadata: Metadata = {
     "Browse all Bangladesh government service categories — identity, passport, transport, tax, land, education, health and more.",
 };
 
-export default function CategoriesPage() {
+export default async function CategoriesPage() {
+  const res = await getAllCategories();
+  const categories = (res.success && res.data)
+    ? res.data.map(mapBackendCategoryToFrontend)
+    : [];
+
   return (
     <>
       <TranslatedPageHeader
@@ -28,7 +36,7 @@ export default function CategoriesPage() {
 
       <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {CATEGORIES.map((cat, i) => (
+          {categories.map((cat, i) => (
             <Reveal
               key={cat.id}
               as="li"
@@ -48,10 +56,10 @@ export default function CategoriesPage() {
                         : "bg-flag-50 text-flag-600",
                     )}
                   >
-                    <Icon name={cat.icon} className="h-6 w-6" />
+                    <Icon name={cat.icon || "Folder"} className="h-6 w-6" />
                   </span>
                   <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-bold text-slate-500">
-                    {cat.serviceCount}+ <T bn="সেবা" en="services" />
+                    {cat.serviceCount ?? 0} <T bn="সেবা" en="services" />
                   </span>
                 </div>
                 <h2 className="mt-4 flex min-h-[2.75rem] items-start text-base font-bold text-slate-900 transition-colors group-hover:text-brand-700">

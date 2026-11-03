@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { CATEGORIES } from "@/lib/data/categories";
+import type { ServiceCategory } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
@@ -30,10 +30,15 @@ const STRINGS = {
   },
 };
 
-/** Responsive 12-category grid (1 → 2 → 3 → 4 columns). */
-export function CategoryGrid() {
+/** Responsive category grid powered by backend categories. */
+export function CategoryGrid({
+  categories = [],
+}: {
+  categories?: ServiceCategory[];
+}) {
   const { t } = useTranslation();
   const s = t(STRINGS);
+
   return (
     <section aria-labelledby="categories-heading" className="bg-white">
       <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
@@ -47,7 +52,7 @@ export function CategoryGrid() {
         </Reveal>
 
         <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {CATEGORIES.map((cat, i) => (
+          {categories.map((cat, i) => (
             <Reveal
               key={cat.id}
               as="li"
@@ -67,10 +72,10 @@ export function CategoryGrid() {
                         : "bg-flag-50 text-flag-600 group-hover:bg-flag-100",
                     )}
                   >
-                    <Icon name={cat.icon} className="h-6 w-6" />
+                    <Icon name={cat.icon || "Folder"} className="h-6 w-6" />
                   </span>
                   <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-bold text-slate-500">
-                    {cat.serviceCount}
+                    {cat.serviceCount ?? 0}
                     {s.services}
                   </span>
                 </div>
@@ -81,17 +86,6 @@ export function CategoryGrid() {
                 <p className="mt-1.5 min-h-[3rem] text-sm leading-6 text-slate-500 line-clamp-2">
                   {cat.description}
                 </p>
-
-                <div className="mt-4 flex min-h-[54px] flex-wrap content-start gap-1.5">
-                  {cat.samples.slice(0, 3).map((sample) => (
-                    <span
-                      key={sample}
-                      className="inline-block max-w-[150px] truncate rounded-md bg-canvas px-2 py-1 text-[11px] font-medium text-slate-500 ring-1 ring-line"
-                    >
-                      {sample}
-                    </span>
-                  ))}
-                </div>
 
                 <div className="mt-auto border-t border-line/60 pt-4">
                   <span className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-700">

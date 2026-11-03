@@ -63,6 +63,24 @@ const deleteCategoryFromDB = async (category_id: string) => {
   return result.rows[0];
 };
 
+const getSingleCategoryFromDB = async (categoryId: string) => {
+  const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(categoryId);
+  const whereClause = isUUID ? `c.id = $1` : `c.slug = $1`;
+
+  const result = await pool.query(
+    `SELECT c.*, COUNT(s.id)::int AS "serviceCount"
+     FROM category c
+     LEFT JOIN services s ON c.id = s."categoryId" AND s."isDeleted" = FALSE
+     WHERE ${whereClause} AND c."isDeleted" = FALSE
+     GROUP BY c.id`,
+    [categoryId],
+  );
+  if (!result.rows.length) {
+    throw new AppError(httpStatus.NOT_FOUND, "Category not found.");
+  }
+  return result.rows[0];
+};
+
 const getAllCategoriesFromDB = async () => {
   const result = await pool.query(
     `SELECT c.*, COUNT(s.id)::int AS "serviceCount"
@@ -70,7 +88,7 @@ const getAllCategoriesFromDB = async () => {
      LEFT JOIN services s ON c.id = s."categoryId" AND s."isDeleted" = FALSE
      WHERE c."isDeleted" = FALSE
      GROUP BY c.id
-     ORDER BY c."createdAt" DESC`,
+     ORDER BY c."createdAt" ASC`,
   );
   return result.rows;
 };
@@ -80,4 +98,5 @@ export const CategoryServices = {
   updateCategoryIntoDB,
   deleteCategoryFromDB,
   getAllCategoriesFromDB,
+  getSingleCategoryFromDB,
 };

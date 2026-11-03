@@ -1,7 +1,7 @@
 "use client";
 import { ChevronDown, Coins, FileCheck2 } from "lucide-react";
 import { HelpCircle, MapPin, UserCheck } from "lucide-react";
-import { getServiceBySlug } from "@/lib/data/services";
+import type { GovernmentService } from "@/lib/types";
 import {
   ServiceSteps,
   DetailSection,
@@ -9,12 +9,16 @@ import {
 import { DocumentList } from "@/components/services/DocumentList";
 import { useTranslation } from "@/lib/i18n";
 import { SVC_FAQ, SVC_STR } from "./SvcStrings";
-export function SvcMain({ slug }: { slug: string }) {
+
+export function SvcMain({
+  service,
+}: {
+  service: GovernmentService;
+}) {
   const { t } = useTranslation();
   const s = t(SVC_STR);
   const faq = t(SVC_FAQ);
-  const service = getServiceBySlug(slug);
-  if (!service) return null;
+
   return (
     <div className="min-w-0 space-y-10">
       <DetailSection
@@ -30,18 +34,24 @@ export function SvcMain({ slug }: { slug: string }) {
         icon={<UserCheck className="h-4 w-4" />}
       >
         <ul className="space-y-2.5">
-          {(service.eligibility ?? []).map((item) => (
-            <li
-              key={item}
-              className="flex items-start gap-2.5 rounded-xl border border-line bg-white px-4 py-3 text-sm leading-6 text-slate-600"
-            >
-              <span
-                className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"
-                aria-hidden="true"
-              />
-              {item}
+          {(service.eligibility ?? []).length > 0 ? (
+            service.eligibility!.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-2.5 rounded-xl border border-line bg-white px-4 py-3 text-sm leading-6 text-slate-600"
+              >
+                <span
+                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"
+                  aria-hidden="true"
+                />
+                {item}
+              </li>
+            ))
+          ) : (
+            <li className="rounded-xl border border-dashed border-line bg-canvas px-4 py-3 text-sm text-slate-500">
+              Open to all eligible citizens.
             </li>
-          ))}
+          )}
         </ul>
       </DetailSection>
       <DetailSection

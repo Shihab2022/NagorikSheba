@@ -11,6 +11,7 @@ import { AIRoutes } from "../modules/AI/ai.routes";
 import { TrackedServiceRoutes } from "../modules/TrackedService/trackedService.routes";
 import { TrackedStepRoutes } from "../modules/TrackedStep/trackedStep.routes";
 import { UploadRoutes } from "../modules/Upload/upload.routes";
+import { SearchRoutes } from "../modules/Search/search.routes";
 
 const router = express.Router();
 
@@ -35,6 +36,10 @@ const moduleRoutes = [
   {
     path: "/upload",
     route: UploadRoutes,
+  },
+  {
+    path: "/search",
+    route: SearchRoutes,
   },
 ];
 

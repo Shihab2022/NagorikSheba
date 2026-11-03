@@ -1,19 +1,22 @@
 "use client";
 import Link from "next/link";
 import { ExternalLink, Globe, MapPin } from "lucide-react";
-import { getServiceBySlug } from "@/lib/data/services";
+import type { GovernmentService } from "@/lib/types";
 import { ServiceSidebar } from "@/components/services/ServiceSidebar";
 import { TrackServiceButton } from "@/components/services/TrackServiceButton";
 import { DetailSection } from "@/components/services/ServiceSteps";
-import { DemoNote } from "@/components/ui/States";
 import { useTranslation } from "@/lib/i18n";
 import { SVC_STR } from "./SvcStrings";
 import { SvcMain } from "./SvcMain";
-export function SvcBody({ slug }: { slug: string }) {
+
+export function SvcBody({
+  service,
+}: {
+  service: GovernmentService;
+}) {
   const { t } = useTranslation();
   const s = t(SVC_STR);
-  const service = getServiceBySlug(slug);
-  if (!service) return null;
+
   const anchors = [
     { id: "documents", label: s.docs },
     { id: "eligibility", label: s.elig },
@@ -21,6 +24,7 @@ export function SvcBody({ slug }: { slug: string }) {
     { id: "fees", label: s.fee },
     { id: "official", label: s.official },
   ];
+
   return (
     <>
       <div className="mx-auto w-full max-w-7xl scroll-mt-28 px-4 pt-6 sm:px-6 lg:px-8">
@@ -42,8 +46,10 @@ export function SvcBody({ slug }: { slug: string }) {
         </div>
         <div className="grid gap-10 lg:grid-cols-[1fr_340px]">
           <div>
-            <div className="mb-6"><TrackServiceButton slug={slug} /></div>
-            <SvcMain slug={slug} />
+            <div className="mb-6">
+              <TrackServiceButton slug={service.slug} />
+            </div>
+            <SvcMain service={service} />
             <div className="mt-10">
               <DetailSection
                 id="official"
@@ -52,7 +58,6 @@ export function SvcBody({ slug }: { slug: string }) {
               >
                 {service.officialUrl ? (
                   <div className="rounded-2xl border border-brand-100 bg-brand-50/60 p-5">
-                    <DemoNote className="mb-2" />
                     <a
                       href={service.officialUrl}
                       target="_blank"

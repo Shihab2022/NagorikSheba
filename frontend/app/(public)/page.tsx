@@ -16,20 +16,40 @@ import { QuickTools } from "@/components/home/QuickTools";
 import { WhyEkSheba } from "@/components/home/WhyEkSheba";
 import { CTASection } from "@/components/home/CTASection";
 
+import { getAllCategories } from "@/service/category";
+import { getAllServices } from "@/service/service";
+import { mapBackendCategoryToFrontend, mapBackendServiceToFrontend } from "@/lib/service-adapter";
+import type { ServiceCategory, GovernmentService } from "@/lib/types";
+
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "NagorikSheba — বাংলাদেশের সরকারি সেবার এক ঠিকানা",
   description:
     "Find the government service you need, understand the process, and access the official service. Services, documents, fees, offices, notices and AI guidance — all in one place.",
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [catRes, svcRes] = await Promise.all([
+    getAllCategories(),
+    getAllServices({ limit: 12 }),
+  ]);
+
+  const categories: ServiceCategory[] = (catRes.success && catRes.data)
+    ? catRes.data.map(mapBackendCategoryToFrontend)
+    : [];
+
+  const services: GovernmentService[] = (svcRes.success && svcRes.data)
+    ? svcRes.data.map(mapBackendServiceToFrontend)
+    : [];
+
   return (
     <>
       <Hero />
       <TrustBar />
       <ServiceSearch />
-      <CategoryGrid />
-      <PopularServices />
+      <CategoryGrid categories={categories} />
+      <PopularServices services={services} />
       <HowItWorks />
       <ServiceDetailPreview />
       <OfficeFinder />
