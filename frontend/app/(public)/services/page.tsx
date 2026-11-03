@@ -1,9 +1,9 @@
-
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
+
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 
 import { getAllServices } from "@/service/service";
@@ -15,6 +15,7 @@ import {
 } from "@/lib/service-adapter";
 
 import type { GovernmentService, ServiceCategory } from "@/lib/types";
+import { HomeButtonAction } from "@/components/layout/HomeButtonAction";
 
 export const dynamic = "force-dynamic";
 
@@ -25,10 +26,15 @@ export const metadata: Metadata = {
 };
 
 interface ServicesPageProps {
-  searchParams?: Promise<{ category?: string; q?: string }>;
+  searchParams?: Promise<{
+    category?: string;
+    q?: string;
+  }>;
 }
 
-export default async function ServicesPage(props: ServicesPageProps) {
+export default async function ServicesPage({
+  searchParams,
+}: ServicesPageProps) {
   // Check authentication
   const cookieStore = await cookies();
   const token = cookieStore.get("accessToken")?.value;
@@ -38,12 +44,10 @@ export default async function ServicesPage(props: ServicesPageProps) {
   }
 
   // Read search params
-  const searchParams = props.searchParams
-    ? await props.searchParams
-    : {};
+  const params = searchParams ? await searchParams : {};
 
-  const initialCategory = searchParams.category || "all";
-  const initialQuery = searchParams.q || "";
+  const initialCategory = params.category || "all";
+  const initialQuery = params.q || "";
 
   // Fetch services and categories
   const [servicesRes, categoriesRes] = await Promise.all([
@@ -64,15 +68,30 @@ export default async function ServicesPage(props: ServicesPageProps) {
   return (
     <>
       <TranslatedPageHeader
-        title={{ bn: "সরকারি সেবা", en: "Government Services" }}
+        title={{
+          bn: "সরকারি সেবা",
+          en: "Government Services",
+        }}
         description={{
           bn: "সরকারি সেবা খুঁজুন — প্রতিটি সেবার জন্য ব্রাউজ, ফিল্টার করুন এবং অফিসিয়াল আবেদন লিংক খুলুন।",
           en: "Browse, filter and open the official application link for every service.",
         }}
         breadcrumbs={[
-          { label: { bn: "হোম", en: "Home" }, href: "/" },
-          { label: { bn: "সেবা", en: "Services" } },
+          {
+            label: {
+              bn: "হোম",
+              en: "Home",
+            },
+            href: "/",
+          },
+          {
+            label: {
+              bn: "সেবা",
+              en: "Services",
+            },
+          },
         ]}
+        actions={<HomeButtonAction />}
       />
 
       <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
