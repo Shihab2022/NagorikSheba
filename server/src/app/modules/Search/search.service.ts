@@ -427,47 +427,6 @@ function calculateServiceRelevance(
   return { score, isAiMatched, aiSimilarity };
 }
 
-/**
- * Ensures foundational citizen services (like New NID Registration) exist in the database.
- */
-async function ensureNewNidServiceExists(): Promise<void> {
-  try {
-    const check = await pool.query(`SELECT id FROM services WHERE slug = 'nid-registration' LIMIT 1`);
-    if (check.rows.length === 0) {
-      const catRes = await pool.query(`SELECT id FROM category WHERE slug = 'identity-documents' LIMIT 1`);
-      const catId = catRes.rows[0]?.id;
-      if (catId) {
-        const newSvcId = "20000000-0000-0000-0000-000000000099";
-        await pool.query(
-          `INSERT INTO services (id, "categoryId", name, slug, "shortDescription", description, eligibility, "processingTime", "officialUrl", "isPublished")
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, TRUE)
-           ON CONFLICT (slug) DO NOTHING`,
-          [
-            newSvcId,
-            catId,
-            "New NID Registration",
-            "nid-registration",
-            "Apply for a new National ID (NID) card and voter registration.",
-            "Bangladeshi citizens aged 16 and above can apply online for new National ID (NID) card registration. Complete the online application on the Election Commission portal, print the form, and attend the local Upazila or Thana Election Office for biometric enrolment (photo, fingerprints and iris scan).",
-            "Bangladeshi citizen aged 16 or older; Never registered as a voter or NID card holder before; Must have verified 17-digit digital birth certificate",
-            "15–30 days",
-            "https://services.nidw.gov.bd/nid-pub/register-account",
-          ]
-        );
-
-        await pool.query(
-          `INSERT INTO serviceFee ("serviceId", name, amount, currency, description)
-           VALUES ($1, 'Free of cost (First time registration)', 0.00, 'BDT', 'New NID voter registration is completely free of charge')
-           ON CONFLICT DO NOTHING`,
-          [newSvcId]
-        );
-      }
-    }
-  } catch (err: any) {
-    console.warn("Auto-seeding New NID service warning:", err?.message || err);
-  }
-}
-
 export const executeSearch = async (params: SearchQueryParams): Promise<SearchAggregatedResponse> => {
   const rawQuery = (params.q || "").trim();
   const searchType = params.type || "all";
@@ -475,11 +434,6 @@ export const executeSearch = async (params: SearchQueryParams): Promise<SearchAg
 
   const analysis = analyzeQuery(rawQuery);
   const results: SearchItemResult[] = [];
-
-  // Ensure New NID service exists if user is querying for NID or registration
-  if (analysis.detectedDomains.includes("nid") || analysis.isRegisterOrNewQuery) {
-    await ensureNewNidServiceExists();
-  }
 
   // Run Semantic AI search concurrently in background
   const aiPromise = rawQuery.length >= 3 ? searchVectorSemantic(rawQuery, 20) : Promise.resolve(new Map());
