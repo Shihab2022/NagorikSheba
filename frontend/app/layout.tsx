@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { SkipLink } from "@/components/layout/SkipLink";
 import { LanguageProvider } from "@/lib/i18n";
+import { RedirectAuthenticatedHome } from "@/components/auth/RedirectAuthenticatedHome";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -77,6 +78,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <SkipLink />
 
           <main id="main-content" className="flex-1  min-h-[calc(600vh-5000px)]">
+              <RedirectAuthenticatedHome />
             {children}
           </main>
         </LanguageProvider>
