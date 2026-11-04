@@ -60,7 +60,13 @@ export function Navbar() {
   const { lang, setLang, t } = useTranslation();
   const c = t(COMMON);
   const s = t(STRINGS);
+const visibleNavLinks = NAV_LINKS.filter((link) => {
+  if (link.href === "/services") {
+    return Boolean(user);
+  }
 
+  return true;
+});
   // Load the authenticated user when Navbar mounts.
   useEffect(() => {
     let isActive = true;
@@ -180,7 +186,7 @@ export function Navbar() {
 
         {/* Desktop navigation links */}
         <ul className="hidden items-center gap-0.5 lg:flex">
-          {NAV_LINKS.map((link) => {
+          {visibleNavLinks.map((link) => {
             const active =
               pathname === link.href ||
               pathname.startsWith(`${link.href}/`);
@@ -331,11 +337,11 @@ export function Navbar() {
         </div>
       </nav>
 
-      <MobileMenu
-        open={open}
-        onClose={() => setOpen(false)}
-        links={NAV_LINKS}
-      />
+<MobileMenu
+  open={open}
+  onClose={() => setOpen(false)}
+  links={visibleNavLinks}
+/>
     </header>
   );
 }

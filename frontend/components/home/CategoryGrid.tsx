@@ -1,13 +1,17 @@
+
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+
 import type { ServiceCategory } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/i18n";
+import { getMe } from "@/service/auth";
 
 const STRINGS = {
   bn: {
@@ -36,8 +40,23 @@ export function CategoryGrid({
 }: {
   categories?: ServiceCategory[];
 }) {
+  const router = useRouter();
   const { t } = useTranslation();
   const s = t(STRINGS);
+
+  const handleViewAllCategories = async () => {
+    try {
+      const res = await getMe();
+
+      if (res.success && res.data) {
+        router.push("/categories");
+      } else {
+        router.push("/login");
+      }
+    } catch {
+      router.push("/login");
+    }
+  };
 
   return (
     <section aria-labelledby="categories-heading" className="bg-white">
@@ -72,8 +91,12 @@ export function CategoryGrid({
                         : "bg-flag-50 text-flag-600 group-hover:bg-flag-100",
                     )}
                   >
-                    <Icon name={cat.icon || "Folder"} className="h-6 w-6" />
+                    <Icon
+                      name={cat.icon || "Folder"}
+                      className="h-6 w-6"
+                    />
                   </span>
+
                   <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-bold text-slate-500">
                     {cat.serviceCount ?? 0}
                     {s.services}
@@ -83,6 +106,7 @@ export function CategoryGrid({
                 <h3 className="mt-4 flex min-h-[2.75rem] items-start text-base font-bold text-slate-900 transition-colors group-hover:text-brand-700">
                   <span className="line-clamp-2">{cat.name}</span>
                 </h3>
+
                 <p className="mt-1.5 min-h-[3rem] text-sm leading-6 text-slate-500 line-clamp-2">
                   {cat.description}
                 </p>
@@ -103,13 +127,14 @@ export function CategoryGrid({
 
         <Reveal>
           <div className="mt-10 text-center">
-            <Link
-              href="/categories"
+            <button
+              type="button"
+              onClick={handleViewAllCategories}
               className="inline-flex h-11 items-center gap-2 rounded-xl border border-line bg-white px-5 text-sm font-bold text-slate-700 transition-all hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
             >
               {s.viewAllCategories}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+            </button>
           </div>
         </Reveal>
       </div>

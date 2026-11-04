@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import { Hero } from "@/components/home/Hero";
 import { TrustBar } from "@/components/home/TrustBar";
 import { ServiceSearch } from "@/components/home/ServiceSearch";
@@ -18,7 +19,12 @@ import { CTASection } from "@/components/home/CTASection";
 
 import { getAllCategories } from "@/service/category";
 import { getAllServices } from "@/service/service";
-import { mapBackendCategoryToFrontend, mapBackendServiceToFrontend } from "@/lib/service-adapter";
+
+import {
+  mapBackendCategoryToFrontend,
+  mapBackendServiceToFrontend,
+} from "@/lib/service-adapter";
+
 import type { ServiceCategory, GovernmentService } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -32,16 +38,18 @@ export const metadata: Metadata = {
 export default async function HomePage() {
   const [catRes, svcRes] = await Promise.all([
     getAllCategories(),
-    getAllServices({ limit: 12 }),
+    getAllServices({ limit: 3 }),
   ]);
 
-  const categories: ServiceCategory[] = (catRes.success && catRes.data)
-    ? catRes.data.map(mapBackendCategoryToFrontend)
-    : [];
+  const categories: ServiceCategory[] =
+    catRes.success && catRes.data
+      ? catRes.data.slice(0, 8).map(mapBackendCategoryToFrontend)
+      : [];
 
-  const services: GovernmentService[] = (svcRes.success && svcRes.data)
-    ? svcRes.data.map(mapBackendServiceToFrontend)
-    : [];
+  const services: GovernmentService[] =
+    svcRes.success && svcRes.data
+      ? svcRes.data.map(mapBackendServiceToFrontend)
+      : [];
 
   return (
     <>

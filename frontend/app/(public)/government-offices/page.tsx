@@ -1,5 +1,8 @@
+
 import type { Metadata } from "next";
+
 import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
+import { HomeButtonAction } from "@/components/layout/HomeButtonAction";
 import { OfficesExplorer } from "@/components/offices/OfficesExplorer";
 import { DemoNote } from "@/components/ui/States";
 
@@ -13,20 +16,34 @@ export default function GovernmentOfficesPage() {
   return (
     <>
       <TranslatedPageHeader
-        title={{ bn: "সরকারি অফিস খুঁজুন", en: "Find Government Offices" }}
+        title={{
+          bn: "সরকারি অফিস খুঁজুন",
+          en: "Find Government Offices",
+        }}
         description={{
           bn: "সরকারি অফিস খুঁজুন — বিভাগ, জেলা, উপজেলা ও অফিসের ধরন অনুযায়ী ফিল্টার করুন।",
           en: "Filter by division, district, upazila and office type.",
         }}
         breadcrumbs={[
-          { label: { bn: "হোম", en: "Home" }, href: "/" },
-          { label: { bn: "সরকারি অফিস", en: "Government Offices" } },
+          {
+            label: { bn: "হোম", en: "Home" },
+            href: "/",
+          },
+          {
+            label: {
+              bn: "সরকারি অফিস",
+              en: "Government Offices",
+            },
+          },
         ]}
+        actions={<HomeButtonAction />}
       />
+
       <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <div className="mb-6">
           <DemoNote />
         </div>
+
         <OfficesExplorer />
       </div>
     </>
