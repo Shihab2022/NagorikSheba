@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -37,8 +36,7 @@ const STR = {
     official: "Visit Official Website",
     related: "Find related services",
     mapSoon: "Map integration coming soon",
-    mapNote:
-      "Coordinates are stored in the data model for a future map view.",
+    mapNote: "Coordinates are stored in the data model for a future map view.",
   },
 };
 
@@ -52,10 +50,7 @@ export function OfficeBody({ id }: { id: string }) {
   return (
     <>
       <header className="relative overflow-hidden border-b border-line bg-canvas">
-        <div
-          className="pattern-grid absolute inset-0"
-          aria-hidden="true"
-        />
+        <div className="pattern-grid absolute inset-0" aria-hidden="true" />
 
         <div
           className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-brand-100/70 blur-2xl"
@@ -88,10 +83,7 @@ export function OfficeBody({ id }: { id: string }) {
 
               <li aria-hidden="true">/</li>
 
-              <li
-                aria-current="page"
-                className="font-medium text-slate-700"
-              >
+              <li aria-current="page" className="font-medium text-slate-700">
                 {office.typeLabel}
               </li>
             </ol>
@@ -155,9 +147,7 @@ export function OfficeBody({ id }: { id: string }) {
                   aria-hidden="true"
                 />
                 <div>
-                  <dd className="text-slate-600">
-                    {office.openingHours}
-                  </dd>
+                  <dd className="text-slate-600">{office.openingHours}</dd>
                 </div>
               </div>
 
@@ -180,10 +170,7 @@ export function OfficeBody({ id }: { id: string }) {
                 className="mt-5 inline-flex h-11 items-center gap-2 rounded-xl bg-brand-600 px-4 text-sm font-bold text-white hover:bg-brand-700"
               >
                 {s.official}
-                <ExternalLink
-                  className="h-4 w-4"
-                  aria-hidden="true"
-                />
+                <ExternalLink className="h-4 w-4" aria-hidden="true" />
               </a>
             ) : null}
           </section>
@@ -219,19 +206,13 @@ export function OfficeBody({ id }: { id: string }) {
               className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700 hover:text-brand-800"
             >
               {s.related}
-              <ArrowRight
-                className="h-4 w-4"
-                aria-hidden="true"
-              />
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </section>
         </div>
 
         <div className="relative mt-6 overflow-hidden rounded-2xl border border-line bg-brand-50/50 p-8 text-center">
-          <div
-            className="pattern-grid absolute inset-0"
-            aria-hidden="true"
-          />
+          <div className="pattern-grid absolute inset-0" aria-hidden="true" />
 
           <div className="relative">
             <MapPin
@@ -239,13 +220,9 @@ export function OfficeBody({ id }: { id: string }) {
               aria-hidden="true"
             />
 
-            <p className="mt-3 text-sm font-bold text-slate-800">
-              {s.mapSoon}
-            </p>
+            <p className="mt-3 text-sm font-bold text-slate-800">{s.mapSoon}</p>
 
-            <p className="mt-1 text-xs text-slate-500">
-              {s.mapNote}
-            </p>
+            <p className="mt-1 text-xs text-slate-500">{s.mapNote}</p>
           </div>
         </div>
       </div>
