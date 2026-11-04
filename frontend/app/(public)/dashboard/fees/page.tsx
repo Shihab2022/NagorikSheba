@@ -1,0 +1,41 @@
+import type { Metadata } from "next";
+import { getMe } from "@/service/auth";
+import { DashboardShell } from "@/components/dashboard/layout/DashboardShell";
+import { UserSidebar } from "@/components/dashboard/layout/UserSidebar";
+import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
+import { DashboardFeesView } from "./DashboardFeesView";
+
+export const metadata: Metadata = {
+  title: "Government Fees | Dashboard",
+  description: "Indicative government fees for citizen services inside the dashboard.",
+};
+
+export default async function DashboardFeesPage() {
+  const meRes = await getMe();
+  const user = meRes.success ? meRes.data : null;
+
+  return (
+    <DashboardShell
+      header={
+        <TranslatedPageHeader
+          title={{
+            bn: "সরকারি ফি নির্দেশিকা",
+            en: "Government Fee Guide",
+          }}
+          description={{
+            bn: "এক নজরে আনুমানিক সরকারি ফি — আবেদনের আগে বাজেট ও তথ্য যাচাই করুন।",
+            en: "Indicative government fees at a glance — budget and verify before applying.",
+          }}
+          breadcrumbs={[
+            { label: { bn: "হোম", en: "Home" }, href: "/" },
+            { label: { bn: "ড্যাশবোর্ড", en: "Dashboard" }, href: "/dashboard" },
+            { label: { bn: "সরকারি ফি", en: "Govt Fees" } },
+          ]}
+        />
+      }
+      sidebar={<UserSidebar user={user} />}
+    >
+      <DashboardFeesView />
+    </DashboardShell>
+  );
+}

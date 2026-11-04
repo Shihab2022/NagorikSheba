@@ -11,14 +11,14 @@ import { DocumentChecklist } from "@/components/home/DocumentChecklist";
 import { FeesSection } from "@/components/home/FeesSection";
 import { ApplicationTracker } from "@/components/home/ApplicationTracker";
 import { AIAssistant } from "@/components/home/AIAssistant";
-import { NoticeSection } from "@/components/home/NoticeSection";
-import { QuickTools } from "@/components/home/QuickTools";
 import { WhyEkSheba } from "@/components/home/WhyEkSheba";
 import { CTASection } from "@/components/home/CTASection";
 
 import { getAllCategories } from "@/service/category";
 import { getAllServices } from "@/service/service";
 import { mapBackendCategoryToFrontend, mapBackendServiceToFrontend } from "@/lib/service-adapter";
+import { SERVICES } from "@/lib/data/services";
+import { CATEGORIES } from "@/lib/data/categories";
 import type { ServiceCategory, GovernmentService } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -30,18 +30,30 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [catRes, svcRes] = await Promise.all([
-    getAllCategories(),
-    getAllServices({ limit: 12 }),
-  ]);
+  let categories: ServiceCategory[] = [];
+  let services: GovernmentService[] = [];
 
-  const categories: ServiceCategory[] = (catRes.success && catRes.data)
-    ? catRes.data.map(mapBackendCategoryToFrontend)
-    : [];
+  try {
+    const [catRes, svcRes] = await Promise.all([
+      getAllCategories(),
+      getAllServices({ limit: 12 }),
+    ]);
 
-  const services: GovernmentService[] = (svcRes.success && svcRes.data)
-    ? svcRes.data.map(mapBackendServiceToFrontend)
-    : [];
+    if (catRes.success && catRes.data && catRes.data.length > 0) {
+      categories = catRes.data.map(mapBackendCategoryToFrontend);
+    } else {
+      categories = CATEGORIES;
+    }
+
+    if (svcRes.success && svcRes.data && svcRes.data.length > 0) {
+      services = svcRes.data.map(mapBackendServiceToFrontend);
+    } else {
+      services = SERVICES.slice(0, 12);
+    }
+  } catch {
+    categories = CATEGORIES;
+    services = SERVICES.slice(0, 12);
+  }
 
   return (
     <>
@@ -57,8 +69,6 @@ export default async function HomePage() {
       <FeesSection />
       <ApplicationTracker />
       <AIAssistant />
-      <NoticeSection />
-      <QuickTools />
       <WhyEkSheba />
       <CTASection />
     </>
