@@ -77,12 +77,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <LanguageProvider>
           <SkipLink />
 
-          <main id="main-content" className="flex-1  min-h-[calc(600vh-5000px)]">
+          <div className="flex-1 flex flex-col">
               <RedirectAuthenticatedHome />
             {children}
-          </main>
+          </div>
         </LanguageProvider>
       </body>
     </html>
   );
 }
+

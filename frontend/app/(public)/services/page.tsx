@@ -4,6 +4,8 @@ import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 import { getAllServices } from "@/service/service";
 import { getAllCategories } from "@/service/category";
 import { mapBackendServiceToFrontend, mapBackendCategoryToFrontend } from "@/lib/service-adapter";
+import { SERVICES } from "@/lib/data/services";
+import { CATEGORIES } from "@/lib/data/categories";
 import type { GovernmentService, ServiceCategory } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -14,27 +16,108 @@ export const metadata: Metadata = {
     "Browse Bangladesh government services by category, department and availability — with documents, fees and step-by-step guidance.",
 };
 
+const PAGE_SIZE = 12;
+
 interface ServicesPageProps {
-  searchParams?: Promise<{ category?: string; q?: string }>;
+  searchParams?: Promise<{
+    page?: string;
+    limit?: string;
+    category?: string;
+    q?: string;
+    department?: string;
+    availability?: string;
+    sort?: string;
+  }>;
 }
 
 export default async function ServicesPage(props: ServicesPageProps) {
-  const searchParams = props.searchParams ? await props.searchParams : {};
-  const initialCategory = searchParams?.category || "all";
-  const initialQuery = searchParams?.q || "";
+  const sp = (await props.searchParams) || {};
+  const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
+  const limit = Math.max(1, parseInt(sp.limit || String(PAGE_SIZE), 10) || PAGE_SIZE);
+  const q = sp.q || "";
+  const category = sp.category || "all";
+  const department = sp.department || "all";
+  const availability = sp.availability || "all";
+  const sort = (sp.sort as "popular" | "az" | "za") || "popular";
 
-  const [servicesRes, categoriesRes] = await Promise.all([
-    getAllServices({ limit: 100 }),
-    getAllCategories(),
-  ]);
+  let services: GovernmentService[] = [];
+  let categories: ServiceCategory[] = [];
+  let totalCount = 0;
 
-  const initialServices: GovernmentService[] = (servicesRes.success && servicesRes.data)
-    ? servicesRes.data.map(mapBackendServiceToFrontend)
-    : [];
+  try {
+    const [servicesRes, categoriesRes] = await Promise.all([
+      getAllServices({
+        page,
+        limit,
+        search: q || undefined,
+        categoryId: category !== "all" ? category : undefined,
+        isPublished: "true",
+      }),
+      getAllCategories(),
+    ]);
 
-  const initialCategories: ServiceCategory[] = (categoriesRes.success && categoriesRes.data)
-    ? categoriesRes.data.map(mapBackendCategoryToFrontend)
-    : [];
+    if (categoriesRes.success && categoriesRes.data && categoriesRes.data.length > 0) {
+      categories = categoriesRes.data.map(mapBackendCategoryToFrontend);
+    } else {
+      categories = CATEGORIES;
+    }
+
+    if (servicesRes.success && servicesRes.data && servicesRes.data.length > 0) {
+      services = servicesRes.data.map(mapBackendServiceToFrontend);
+      totalCount = servicesRes.meta?.total ?? services.length;
+
+      if (department !== "all" || availability !== "all") {
+        services = services.filter((svc) => {
+          const matchDept = department === "all" || svc.department === department;
+          const matchAvail =
+            availability === "all" ||
+            (availability === "online" && svc.isOnline) ||
+            (availability === "office" && svc.requiresOfficeVisit);
+          return matchDept && matchAvail;
+        });
+      }
+    } else {
+      const filtered = SERVICES.filter((s) => {
+        const matchQ =
+          !q ||
+          s.name.toLowerCase().includes(q.toLowerCase()) ||
+          s.description.toLowerCase().includes(q.toLowerCase()) ||
+          s.department.toLowerCase().includes(q.toLowerCase());
+        const matchCat = category === "all" || s.category === category;
+        const matchDept = department === "all" || s.department === department;
+        const matchAvail =
+          availability === "all" ||
+          (availability === "online" && s.isOnline) ||
+          (availability === "office" && s.requiresOfficeVisit);
+        return matchQ && matchCat && matchDept && matchAvail;
+      }).sort((a, b) => {
+        if (sort === "popular") return b.popularity - a.popularity;
+        if (sort === "az") return a.name.localeCompare(b.name);
+        return b.name.localeCompare(a.name);
+      });
+
+      totalCount = filtered.length;
+      services = filtered.slice((page - 1) * limit, page * limit);
+    }
+  } catch {
+    const filtered = SERVICES.filter((s) => {
+      const matchQ =
+        !q ||
+        s.name.toLowerCase().includes(q.toLowerCase()) ||
+        s.description.toLowerCase().includes(q.toLowerCase());
+      const matchCat = category === "all" || s.category === category;
+      return matchQ && matchCat;
+    });
+    totalCount = filtered.length;
+    services = filtered.slice((page - 1) * limit, page * limit);
+    categories = CATEGORIES;
+  }
+
+  const pagination = {
+    page,
+    limit,
+    total: totalCount,
+  };
 
   return (
     <>
@@ -51,10 +134,14 @@ export default async function ServicesPage(props: ServicesPageProps) {
       />
       <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <ServicesExplorer
-          initialQuery={initialQuery}
-          initialCategory={initialCategory}
-          initialServices={initialServices}
-          initialCategories={initialCategories}
+          initialServices={services}
+          initialCategories={categories}
+          pagination={pagination}
+          initialQuery={q}
+          initialCategory={category}
+          initialDepartment={department}
+          initialAvailability={availability}
+          initialSort={sort}
         />
       </div>
     </>

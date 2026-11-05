@@ -110,7 +110,7 @@ export function ServiceSearch() {
   }
 
   return (
-    <section aria-labelledby="search-heading" className="bg-canvas">
+    <section aria-labelledby="search-heading" className="relative z-30 bg-canvas">
       <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <Reveal>
           <SectionHeading
@@ -121,8 +121,8 @@ export function ServiceSearch() {
           />
         </Reveal>
 
-        <Reveal delay={100}>
-          <div ref={wrapperRef} className="relative mx-auto mt-8 max-w-3xl">
+        <Reveal delay={100} className="relative z-40">
+          <div ref={wrapperRef} className="relative z-50 mx-auto mt-8 max-w-3xl">
             <form onSubmit={submit} role="search">
               <label htmlFor="home-search" className="sr-only">
                 {s.searchLabel}
@@ -176,7 +176,7 @@ export function ServiceSearch() {
 
             {/* Instant Typeahead Suggestion Dropdown */}
             {showDropdown && query.trim().length >= 2 ? (
-              <div className="absolute top-full right-0 left-0 z-30 mt-2 overflow-hidden rounded-2xl border border-line bg-white shadow-lift animate-in fade-in slide-in-from-top-2 duration-200">
+              <div className="absolute top-full right-0 left-0 z-50 mt-2 overflow-hidden rounded-2xl border border-line bg-white shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
                 {suggestions.length > 0 ? (
                   <ul className="divide-y divide-slate-100">
                     {suggestions.map((item) => (
