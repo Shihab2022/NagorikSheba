@@ -5,11 +5,11 @@ type ServiceStepInput = {
   title: string;
   description: string;
   actionType:
-    | "READ_GUIDE"
-    | "VISIT_OFFICIAL_PORTAL"
-    | "VISIT_OFFICE"
-    | "PREPARE_DOCUMENTS"
-    | "OTHER";
+  | "READ_GUIDE"
+  | "VISIT_OFFICIAL_PORTAL"
+  | "VISIT_OFFICE"
+  | "PREPARE_DOCUMENTS"
+  | "OTHER";
 };
 
 type ServiceRequirementInput = {
@@ -67,7 +67,7 @@ const CATEGORY_IDS: Record<string, string> = {
 const SERVICES: ServiceInput[] = [
   {
     id: "20000000-0000-0000-0000-000000000001",
-    categoryId: CATEGORY_IDS["identity-documents"],
+    categoryId: CATEGORY_IDS["identity-documents"]!,
     name: "NID Correction",
     slug: "nid-correction",
     shortDescription: "Correct your National ID information.",
@@ -98,7 +98,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000002",
-    categoryId: CATEGORY_IDS["identity-documents"],
+    categoryId: CATEGORY_IDS["identity-documents"]!,
     name: "Birth Registration",
     slug: "birth-registration",
     shortDescription: "Register a newborn and obtain the Birth Registration Certificate.",
@@ -129,7 +129,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000003",
-    categoryId: CATEGORY_IDS["identity-documents"],
+    categoryId: CATEGORY_IDS["identity-documents"]!,
     name: "Death Registration",
     slug: "death-registration",
     shortDescription: "Register a death and obtain the Death Registration Certificate.",
@@ -158,7 +158,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000004",
-    categoryId: CATEGORY_IDS["passport-immigration"],
+    categoryId: CATEGORY_IDS["passport-immigration"]!,
     name: "e-Passport (New Application)",
     slug: "epassport-new",
     shortDescription: "Apply for a new Bangladeshi e-Passport online.",
@@ -190,7 +190,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000005",
-    categoryId: CATEGORY_IDS["passport-immigration"],
+    categoryId: CATEGORY_IDS["passport-immigration"]!,
     name: "Passport Renewal",
     slug: "passport-renewal",
     shortDescription: "Renew or re-issue your expiring e-Passport.",
@@ -220,7 +220,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000006",
-    categoryId: CATEGORY_IDS["transport"],
+    categoryId: CATEGORY_IDS["transport"]!,
     name: "Driving License",
     slug: "driving-license",
     shortDescription: "Apply for a new smart-card driving licence.",
@@ -252,7 +252,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000007",
-    categoryId: CATEGORY_IDS["transport"],
+    categoryId: CATEGORY_IDS["transport"]!,
     name: "Vehicle Registration",
     slug: "vehicle-registration",
     shortDescription: "Register a newly purchased vehicle and get the registration certificate.",
@@ -282,7 +282,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000008",
-    categoryId: CATEGORY_IDS["tax-finance"],
+    categoryId: CATEGORY_IDS["tax-finance"]!,
     name: "e-TIN Registration",
     slug: "e-tin",
     shortDescription: "Register for a Taxpayer Identification Number online.",
@@ -310,7 +310,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000009",
-    categoryId: CATEGORY_IDS["tax-finance"],
+    categoryId: CATEGORY_IDS["tax-finance"]!,
     name: "Income Tax Return",
     slug: "income-tax-return",
     shortDescription: "File your annual income tax return online.",
@@ -340,7 +340,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000010",
-    categoryId: CATEGORY_IDS["land-property"],
+    categoryId: CATEGORY_IDS["land-property"]!,
     name: "Land Mutation (নামজারি)",
     slug: "land-mutation",
     shortDescription: "Transfer land ownership records after purchase, inheritance or gift.",
@@ -372,7 +372,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000011",
-    categoryId: CATEGORY_IDS["land-property"],
+    categoryId: CATEGORY_IDS["land-property"]!,
     name: "Land Development Tax (খাজনা)",
     slug: "land-development-tax",
     shortDescription: "Pay annual land development tax and get a receipt.",
@@ -401,7 +401,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000012",
-    categoryId: CATEGORY_IDS["police-legal"],
+    categoryId: CATEGORY_IDS["police-legal"]!,
     name: "Police Clearance Certificate",
     slug: "police-clearance",
     shortDescription: "Apply for a police clearance (good conduct) certificate.",
@@ -431,7 +431,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000013",
-    categoryId: CATEGORY_IDS["police-legal"],
+    categoryId: CATEGORY_IDS["police-legal"]!,
     name: "General Diary (GD)",
     slug: "general-diary",
     shortDescription: "Record a General Diary at your local police station.",
@@ -458,7 +458,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000014",
-    categoryId: CATEGORY_IDS["business"],
+    categoryId: CATEGORY_IDS["business"]!,
     name: "Trade License (New)",
     slug: "trade-license",
     shortDescription: "Obtain a new trade license for your business.",
@@ -488,7 +488,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000015",
-    categoryId: CATEGORY_IDS["business"],
+    categoryId: CATEGORY_IDS["business"]!,
     name: "Company Registration (RJSC)",
     slug: "company-registration",
     shortDescription: "Register a private limited company with RJSC.",
@@ -518,7 +518,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000016",
-    categoryId: CATEGORY_IDS["education"],
+    categoryId: CATEGORY_IDS["education"]!,
     name: "Education Board Results",
     slug: "education-board-results",
     shortDescription: "Check SSC, HSC and equivalent examination results online.",
@@ -546,7 +546,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000017",
-    categoryId: CATEGORY_IDS["social-welfare"],
+    categoryId: CATEGORY_IDS["social-welfare"]!,
     name: "Old Age Allowance",
     slug: "old-age-allowance",
     shortDescription: "Apply for the monthly old age allowance (ভরণপোষণ ভাতা).",
@@ -575,7 +575,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000018",
-    categoryId: CATEGORY_IDS["health"],
+    categoryId: CATEGORY_IDS["health"]!,
     name: "Government Hospital Services",
     slug: "government-hospital-services",
     shortDescription: "Find government hospitals, departments and OPD service hours.",
@@ -602,7 +602,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000019",
-    categoryId: CATEGORY_IDS["local-government"],
+    categoryId: CATEGORY_IDS["local-government"]!,
     name: "Union Parishad Certificates",
     slug: "union-parishad-certificates",
     shortDescription: "Get citizenship, residence and family certificates from Union Parishad.",
@@ -630,7 +630,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000020",
-    categoryId: CATEGORY_IDS["local-government"],
+    categoryId: CATEGORY_IDS["local-government"]!,
     name: "Holding Tax (উন্নয়ন কর)",
     slug: "holding-tax",
     shortDescription: "Pay annual holding/property development tax.",
@@ -659,7 +659,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000021",
-    categoryId: CATEGORY_IDS["agriculture"],
+    categoryId: CATEGORY_IDS["agriculture"]!,
     name: "Farmer Subsidy Services",
     slug: "farmer-subsidy",
     shortDescription: "Information on input subsidies, seeds and farmer registration.",
@@ -688,7 +688,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000022",
-    categoryId: CATEGORY_IDS["identity-documents"],
+    categoryId: CATEGORY_IDS["identity-documents"]!,
     name: "Birth Certificate Copy (Online)",
     slug: "birth-certificate-copy",
     shortDescription: "Download a certified copy of an existing birth certificate.",
@@ -716,7 +716,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000023",
-    categoryId: CATEGORY_IDS["identity-documents"],
+    categoryId: CATEGORY_IDS["identity-documents"]!,
     name: "NID Reissue (Lost/Damaged)",
     slug: "nid-reissue",
     shortDescription: "Reissue your National ID card if it is lost, stolen or damaged.",
@@ -743,7 +743,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000024",
-    categoryId: CATEGORY_IDS["identity-documents"],
+    categoryId: CATEGORY_IDS["identity-documents"]!,
     name: "Citizenship Certificate",
     slug: "citizenship-certificate",
     shortDescription: "Obtain a citizenship certificate from the District/Upazila office.",
@@ -772,7 +772,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000025",
-    categoryId: CATEGORY_IDS["identity-documents"],
+    categoryId: CATEGORY_IDS["identity-documents"]!,
     name: "Death Certificate Copy (Online)",
     slug: "death-certificate-copy",
     shortDescription: "Download a certified copy of an existing death certificate.",
@@ -800,7 +800,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000026",
-    categoryId: CATEGORY_IDS["identity-documents"],
+    categoryId: CATEGORY_IDS["identity-documents"]!,
     name: "Nationality Certificate",
     slug: "nationality-certificate",
     shortDescription: "Get a nationality certificate for study, job or visa purposes.",
@@ -829,7 +829,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000027",
-    categoryId: CATEGORY_IDS["passport-immigration"],
+    categoryId: CATEGORY_IDS["passport-immigration"]!,
     name: "e-Passport (Lost/Damaged Reissue)",
     slug: "epassport-lost",
     shortDescription: "Reissue your e-Passport if lost or damaged.",
@@ -859,7 +859,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000028",
-    categoryId: CATEGORY_IDS["passport-immigration"],
+    categoryId: CATEGORY_IDS["passport-immigration"]!,
     name: "Visa Services (Bangladesh)",
     slug: "visa-services",
     shortDescription: "Information and application for Bangladesh visa for foreigners.",
@@ -888,7 +888,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000029",
-    categoryId: CATEGORY_IDS["passport-immigration"],
+    categoryId: CATEGORY_IDS["passport-immigration"]!,
     name: "Immigration Clearance (Emigration)",
     slug: "immigration-clearance",
     shortDescription: "Emigration clearance for workers going abroad.",
@@ -917,7 +917,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000030",
-    categoryId: CATEGORY_IDS["passport-immigration"],
+    categoryId: CATEGORY_IDS["passport-immigration"]!,
     name: "Passport Information Correction",
     slug: "passport-correction",
     shortDescription: "Correct personal information on an existing passport.",
@@ -945,7 +945,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000031",
-    categoryId: CATEGORY_IDS["transport"],
+    categoryId: CATEGORY_IDS["transport"]!,
     name: "Driving License Renewal",
     slug: "driving-license-renewal",
     shortDescription: "Renew your driving license before or after expiry.",
@@ -975,7 +975,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000032",
-    categoryId: CATEGORY_IDS["transport"],
+    categoryId: CATEGORY_IDS["transport"]!,
     name: "Vehicle Fitness Certificate",
     slug: "vehicle-fitness",
     shortDescription: "Obtain or renew the annual fitness certificate for a vehicle.",
@@ -1004,7 +1004,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000033",
-    categoryId: CATEGORY_IDS["transport"],
+    categoryId: CATEGORY_IDS["transport"]!,
     name: "Vehicle Tax Token",
     slug: "vehicle-tax-token",
     shortDescription: "Pay and download the annual vehicle tax token.",
@@ -1032,7 +1032,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000034",
-    categoryId: CATEGORY_IDS["transport"],
+    categoryId: CATEGORY_IDS["transport"]!,
     name: "Vehicle Ownership Transfer",
     slug: "vehicle-transfer",
     shortDescription: "Transfer vehicle ownership after sale.",
@@ -1063,7 +1063,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000035",
-    categoryId: CATEGORY_IDS["transport"],
+    categoryId: CATEGORY_IDS["transport"]!,
     name: "Route Permit (Commercial Vehicle)",
     slug: "route-permit",
     shortDescription: "Obtain route permit for commercial/public transport vehicles.",
@@ -1092,7 +1092,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000036",
-    categoryId: CATEGORY_IDS["tax-finance"],
+    categoryId: CATEGORY_IDS["tax-finance"]!,
     name: "VAT Registration",
     slug: "vat-registration",
     shortDescription: "Register for VAT (BIN) with the National Board of Revenue.",
@@ -1123,7 +1123,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000037",
-    categoryId: CATEGORY_IDS["tax-finance"],
+    categoryId: CATEGORY_IDS["tax-finance"]!,
     name: "VAT Return Filing",
     slug: "vat-return",
     shortDescription: "File monthly VAT return online.",
@@ -1151,7 +1151,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000038",
-    categoryId: CATEGORY_IDS["tax-finance"],
+    categoryId: CATEGORY_IDS["tax-finance"]!,
     name: "Income Tax Certificate",
     slug: "income-tax-certificate",
     shortDescription: "Download income tax certificate / acknowledgement.",
@@ -1177,7 +1177,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000039",
-    categoryId: CATEGORY_IDS["tax-finance"],
+    categoryId: CATEGORY_IDS["tax-finance"]!,
     name: "Tax Deducted at Source (TDS) Certificate",
     slug: "tds-certificate",
     shortDescription: "Obtain TDS certificate for deducted tax.",
@@ -1204,7 +1204,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000040",
-    categoryId: CATEGORY_IDS["land-property"],
+    categoryId: CATEGORY_IDS["land-property"]!,
     name: "Khatian Copy (Land Record)",
     slug: "khatian-copy",
     shortDescription: "Download certified copy of land khatian/record of rights.",
@@ -1233,7 +1233,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000041",
-    categoryId: CATEGORY_IDS["land-property"],
+    categoryId: CATEGORY_IDS["land-property"]!,
     name: "Land Record Correction",
     slug: "land-record-correction",
     shortDescription: "Correct errors in land records/khatian.",
@@ -1261,7 +1261,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000042",
-    categoryId: CATEGORY_IDS["land-property"],
+    categoryId: CATEGORY_IDS["land-property"]!,
     name: "Land/Plot Registration",
     slug: "plot-registration",
     shortDescription: "Register a land/plot sale deed at sub-registrar office.",
@@ -1290,7 +1290,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000043",
-    categoryId: CATEGORY_IDS["land-property"],
+    categoryId: CATEGORY_IDS["land-property"]!,
     name: "Land Survey (PoroSheba)",
     slug: "land-survey",
     shortDescription: "Request land survey and updated mouza map.",
@@ -1318,7 +1318,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000044",
-    categoryId: CATEGORY_IDS["education"],
+    categoryId: CATEGORY_IDS["education"]!,
     name: "SSC Certificate (Secondary School)",
     slug: "ssc-certificate",
     shortDescription: "Obtain SSC/equivalent certificate from education board.",
@@ -1346,7 +1346,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000045",
-    categoryId: CATEGORY_IDS["education"],
+    categoryId: CATEGORY_IDS["education"]!,
     name: "HSC Certificate (Higher Secondary)",
     slug: "hsc-certificate",
     shortDescription: "Obtain HSC/equivalent certificate from education board.",
@@ -1374,7 +1374,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000046",
-    categoryId: CATEGORY_IDS["education"],
+    categoryId: CATEGORY_IDS["education"]!,
     name: "Certificate Reissue (Lost/Damaged)",
     slug: "certificate-reissue",
     shortDescription: "Reissue SSC/HSC certificate if lost or damaged.",
@@ -1404,7 +1404,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000047",
-    categoryId: CATEGORY_IDS["education"],
+    categoryId: CATEGORY_IDS["education"]!,
     name: "Name Correction in Certificate",
     slug: "name-correction-certificate",
     shortDescription: "Correct name or other details on an education certificate.",
@@ -1433,7 +1433,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000048",
-    categoryId: CATEGORY_IDS["education"],
+    categoryId: CATEGORY_IDS["education"]!,
     name: "Scholarship (Government)",
     slug: "scholarship",
     shortDescription: "Apply for government scholarships (primary/secondary/higher).",
@@ -1462,7 +1462,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000049",
-    categoryId: CATEGORY_IDS["education"],
+    categoryId: CATEGORY_IDS["education"]!,
     name: "Equivalence Certificate",
     slug: "equivalence-certificate",
     shortDescription: "Equivalence certificate for foreign qualifications.",
@@ -1491,7 +1491,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000050",
-    categoryId: CATEGORY_IDS["education"],
+    categoryId: CATEGORY_IDS["education"]!,
     name: "Migration Certificate",
     slug: "migration-certificate",
     shortDescription: "Obtain migration certificate to change education board.",
@@ -1519,7 +1519,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000051",
-    categoryId: CATEGORY_IDS["education"],
+    categoryId: CATEGORY_IDS["education"]!,
     name: "Transcript / Marksheet Copy",
     slug: "transcript",
     shortDescription: "Get transcript or marksheet copy.",
@@ -1547,7 +1547,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000052",
-    categoryId: CATEGORY_IDS["education"],
+    categoryId: CATEGORY_IDS["education"]!,
     name: "Board Registration (SSC/HSC)",
     slug: "board-registration",
     shortDescription: "Register for SSC/HSC examination with an education board.",
@@ -1576,7 +1576,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000053",
-    categoryId: CATEGORY_IDS["health"],
+    categoryId: CATEGORY_IDS["health"]!,
     name: "Vaccination Services",
     slug: "vaccination",
     shortDescription: "Government vaccination programs (EPI, COVID-19, etc.).",
@@ -1603,7 +1603,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000054",
-    categoryId: CATEGORY_IDS["health"],
+    categoryId: CATEGORY_IDS["health"]!,
     name: "Medical Certificate",
     slug: "medical-certificate",
     shortDescription: "Obtain medical fitness certificate from government hospital.",
@@ -1631,7 +1631,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000055",
-    categoryId: CATEGORY_IDS["health"],
+    categoryId: CATEGORY_IDS["health"]!,
     name: "Health Card / Family Health Card",
     slug: "health-card",
     shortDescription: "Register for community health/family health card.",
@@ -1659,7 +1659,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000056",
-    categoryId: CATEGORY_IDS["health"],
+    categoryId: CATEGORY_IDS["health"]!,
     name: "Blood Bank Services",
     slug: "blood-bank",
     shortDescription: "Government blood bank and donation services.",
@@ -1686,7 +1686,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000057",
-    categoryId: CATEGORY_IDS["health"],
+    categoryId: CATEGORY_IDS["health"]!,
     name: "Family Planning Services",
     slug: "family-planning",
     shortDescription: "Government family planning and reproductive health services.",
@@ -1713,7 +1713,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000058",
-    categoryId: CATEGORY_IDS["social-welfare"],
+    categoryId: CATEGORY_IDS["social-welfare"]!,
     name: "Widow Allowance",
     slug: "widow-allowance",
     shortDescription: "Monthly allowance for widowed women.",
@@ -1742,7 +1742,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000059",
-    categoryId: CATEGORY_IDS["social-welfare"],
+    categoryId: CATEGORY_IDS["social-welfare"]!,
     name: "Disability Allowance",
     slug: "disability-allowance",
     shortDescription: "Monthly allowance for persons with disabilities.",
@@ -1770,7 +1770,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000060",
-    categoryId: CATEGORY_IDS["social-welfare"],
+    categoryId: CATEGORY_IDS["social-welfare"]!,
     name: "Maternity Allowance",
     slug: "maternity-allowance",
     shortDescription: "Maternity allowance for eligible mothers.",
@@ -1798,7 +1798,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000061",
-    categoryId: CATEGORY_IDS["social-welfare"],
+    categoryId: CATEGORY_IDS["social-welfare"]!,
     name: "Orphan Allowance",
     slug: "orphan-allowance",
     shortDescription: "Allowance for orphaned children.",
@@ -1826,7 +1826,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000062",
-    categoryId: CATEGORY_IDS["police-legal"],
+    categoryId: CATEGORY_IDS["police-legal"]!,
     name: "Police Character Certificate",
     slug: "character-certificate",
     shortDescription: "Obtain police character/verification certificate.",
@@ -1855,7 +1855,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000063",
-    categoryId: CATEGORY_IDS["police-legal"],
+    categoryId: CATEGORY_IDS["police-legal"]!,
     name: "FIR Copy",
     slug: "fir-copy",
     shortDescription: "Obtain a copy of a filed First Information Report (FIR).",
@@ -1883,7 +1883,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000064",
-    categoryId: CATEGORY_IDS["police-legal"],
+    categoryId: CATEGORY_IDS["police-legal"]!,
     name: "Victim Support Services",
     slug: "victim-support",
     shortDescription: "Support services for victims of crime.",
@@ -1910,7 +1910,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000065",
-    categoryId: CATEGORY_IDS["police-legal"],
+    categoryId: CATEGORY_IDS["police-legal"]!,
     name: "Legal Aid Services",
     slug: "legal-aid",
     shortDescription: "Free legal aid for eligible citizens.",
@@ -1938,7 +1938,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000066",
-    categoryId: CATEGORY_IDS["business"],
+    categoryId: CATEGORY_IDS["business"]!,
     name: "Import/Export License (IRC/ERC)",
     slug: "import-export-license",
     shortDescription: "Obtain Import Registration Certificate (IRC) / Export Registration Certificate (ERC).",
@@ -1968,7 +1968,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000067",
-    categoryId: CATEGORY_IDS["business"],
+    categoryId: CATEGORY_IDS["business"]!,
     name: "Factory License",
     slug: "factory-license",
     shortDescription: "Obtain license for factory establishment.",
@@ -1997,7 +1997,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000068",
-    categoryId: CATEGORY_IDS["business"],
+    categoryId: CATEGORY_IDS["business"]!,
     name: "Company Name Clearance",
     slug: "name-clearance",
     shortDescription: "Get name clearance for company registration.",
@@ -2025,7 +2025,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000069",
-    categoryId: CATEGORY_IDS["business"],
+    categoryId: CATEGORY_IDS["business"]!,
     name: "Company Annual Return",
     slug: "annual-return",
     shortDescription: "File annual return for registered company.",
@@ -2053,7 +2053,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000070",
-    categoryId: CATEGORY_IDS["agriculture"],
+    categoryId: CATEGORY_IDS["agriculture"]!,
     name: "Farmer Card / Registration",
     slug: "farmer-card",
     shortDescription: "Register as a farmer and obtain farmer card.",
@@ -2081,7 +2081,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000071",
-    categoryId: CATEGORY_IDS["agriculture"],
+    categoryId: CATEGORY_IDS["agriculture"]!,
     name: "Seed Certification",
     slug: "seed-certification",
     shortDescription: "Certification of seeds for quality assurance.",
@@ -2109,7 +2109,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000072",
-    categoryId: CATEGORY_IDS["agriculture"],
+    categoryId: CATEGORY_IDS["agriculture"]!,
     name: "Fisheries License",
     slug: "fisheries-license",
     shortDescription: "Obtain license for fishing/fish farming.",
@@ -2137,7 +2137,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000073",
-    categoryId: CATEGORY_IDS["agriculture"],
+    categoryId: CATEGORY_IDS["agriculture"]!,
     name: "Livestock Vaccination",
     slug: "livestock-vaccination",
     shortDescription: "Government livestock vaccination services.",
@@ -2164,7 +2164,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000074",
-    categoryId: CATEGORY_IDS["local-government"],
+    categoryId: CATEGORY_IDS["local-government"]!,
     name: "Building Permit",
     slug: "building-permit",
     shortDescription: "Obtain building construction permit.",
@@ -2193,7 +2193,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000075",
-    categoryId: CATEGORY_IDS["local-government"],
+    categoryId: CATEGORY_IDS["local-government"]!,
     name: "Municipal Trade License",
     slug: "municipal-trade-license",
     shortDescription: "Obtain trade license from municipality.",
@@ -2221,7 +2221,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000076",
-    categoryId: CATEGORY_IDS["local-government"],
+    categoryId: CATEGORY_IDS["local-government"]!,
     name: "Waste Management Service",
     slug: "waste-management",
     shortDescription: "Register for municipal waste collection service.",
@@ -2248,7 +2248,7 @@ const SERVICES: ServiceInput[] = [
   },
   {
     id: "20000000-0000-0000-0000-000000000077",
-    categoryId: CATEGORY_IDS["local-government"],
+    categoryId: CATEGORY_IDS["local-government"]!,
     name: "Union Parishad Certificate",
     slug: "union-parishad-certificate",
     shortDescription: "Obtain various certificates from Union Parishad.",
@@ -2456,7 +2456,7 @@ export const seedServices = async () => {
 
   const realCategoryIds: Record<string, string> = {};
   for (const cat of categories) {
-    realCategoryIds[cat.id] = await upsertCategory(cat);
+    realCategoryIds[cat.id!] = await upsertCategory({ ...cat, id: cat.id! });
   }
 
   for (const svc of SERVICES) {

@@ -77,7 +77,7 @@ const uploadFiles = async (
       })
     );
 
-    const firstError = failures[0].error as Error | undefined;
+    const firstError = failures[0]?.error as Error | undefined;
     throw new ApiError(
       httpStatus.BAD_GATEWAY,
       `Upload failed for ${failures.length} file(s): ${
