@@ -709,8 +709,9 @@ const retrievalNode = async (state: typeof MessagesAnnotation.State) => {
 
     const svcPayload = parseAIJson(svcContent) as { results?: Array<{ slug?: string }> };
     const services = Array.isArray(svcPayload?.results) ? svcPayload.results : [];
-    if (services.length > 0 && services[0].slug) {
-      topSlug = services[0].slug;
+    const firstService = services[0];
+    if (firstService?.slug) {
+      topSlug = firstService.slug;
     }
   } catch {
     toolMessages.push(
