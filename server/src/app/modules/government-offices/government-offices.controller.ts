@@ -11,10 +11,12 @@ const getNearby = catchAsync(async (req: Request, res: Response) => {
     service === "epassport-new" ||
     service === "passport-renewal"
   ) {
-    const result = findNearbyPassportOffices({
+    const result = await GovernmentOfficesServices.findNearbyOffices({
+      service,
       lat: req.query.lat,
       lng: req.query.lng ?? req.query.lon ?? req.query.long,
       radiusKm: req.query.radiusKm ?? req.query.radius,
+      page: 1,
       limit: req.query.limit,
     });
     sendResponse(res, {
@@ -24,7 +26,7 @@ const getNearby = catchAsync(async (req: Request, res: Response) => {
         result.offices.length > 0
           ? "Nearby passport offices retrieved successfully!"
           : "No passport offices found within the selected radius. The configured source data may not contain passport records.",
-      meta: { page: 1, ...result.meta },
+      meta: { ...result.meta, page: 1 },
       data: {
         service: "PASSPORT",
         origin: result.origin,

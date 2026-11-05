@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsup src/server.ts --format cjs --out-dir dist --clean",
+    "build": "tsc",
     "start": "node dist/server.js",
     "seed:services": "tsx src/seed/services.seed.ts",
     "seed:offices": "tsx src/seed/government-offices.seed.ts",
