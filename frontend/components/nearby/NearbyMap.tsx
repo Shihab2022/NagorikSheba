@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { NearbyOffice, NearbyOrigin } from "@/lib/types";
-import { buildGoogleMapsEmbedUrl, buildOfficeMapQuery } from "@/lib/nearby";
+import type { NearbyOffice, NearbyOfficeCandidate, NearbyOrigin } from "@/lib/types";
+import { buildGoogleMapsEmbedUrl, buildOfficeMapQuery, formatDistanceKm } from "@/lib/nearby";
 import { useTranslation } from "@/lib/i18n";
 
 const STRINGS = {
@@ -17,6 +17,7 @@ const STRINGS = {
     googlePreviewTitle: "Google Maps-এ অফিসের অবস্থান",
     googlePreviewHint: "নির্বাচিত অফিসের Google Maps প্রিভিউ",
     openInGoogleMaps: "Google Maps-এ খুলুন",
+    approx: "≈ {n} (আনুমানিক)",
   },
   en: {
     mapLabel: "Map of nearby government offices",
@@ -30,6 +31,7 @@ const STRINGS = {
     googlePreviewTitle: "Office location on Google Maps",
     googlePreviewHint: "Google Maps preview of the selected office",
     openInGoogleMaps: "Open in Google Maps",
+    approx: "≈ {n} (approx.)",
   },
 };
 
@@ -43,15 +45,17 @@ const STRINGS = {
 export function NearbyMap({
   origin,
   offices,
+  candidates = [],
   selectedOfficeId,
   onMarkerClick,
 }: {
   origin: NearbyOrigin;
   offices: NearbyOffice[];
+  candidates?: NearbyOfficeCandidate[];
   selectedOfficeId?: string | null;
   onMarkerClick?: (id: string) => void;
 }) {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const s = t(STRINGS);
   const containerRef = useRef<HTMLDivElement>(null);
   const selectRef = useRef(onMarkerClick);
@@ -143,14 +147,38 @@ export function NearbyMap({
             `<small>${escapeHtml(
               [office.upazila, office.district].filter(Boolean).join(", "),
             )}` +
-            (office.distanceKm != null ? ` · ≈ ${office.distanceKm} km` : "") +
+            (office.distanceKm != null ? ` · ${s.approx.replace("{n}", formatDistanceKm(office.distanceKm, lang))}` : "") +
             `</small>`,
         );
         marker.on("click", () => selectRef.current?.(office.id));
         if (isSelected) marker.openPopup();
       }
 
-      // In-app driving route user → selected office (GPS mode only, OSRM).
+      for (const candidate of candidates) {
+        if (
+          !Number.isFinite(candidate.latitude) ||
+          !Number.isFinite(candidate.longitude)
+        ) {
+          continue;
+        }
+        const latLng = L.latLng(candidate.latitude, candidate.longitude);
+        bounds.push([candidate.latitude, candidate.longitude]);
+        const marker = L.circleMarker(latLng, {
+          radius: 8,
+          color: "#ffffff",
+          weight: 3,
+          fillColor: "#f97316",
+          fillOpacity: 1,
+        }).addTo(map);
+        const distanceText =
+          candidate.distanceKm != null
+            ? ` · ${s.approx.replace("{n}", formatDistanceKm(candidate.distanceKm, lang))}`
+            : "";
+        marker.bindPopup(
+          `<strong>${escapeHtml(candidate.name)}</strong><br/>` +
+            `<small>সম্ভাব্য অফিস — সেবার প্রাপ্যতা যাচাই করা হয়নি${escapeHtml(distanceText)}</small>`,
+        );
+      }
       let routed = false;
       if (
         hasGpsOrigin &&

@@ -137,6 +137,19 @@ export type OfficeServiceKey =
 
 /** A government office returned by the nearby/by-area API, with the
  *  approximate straight-line distance from the user (km) when available. */
+export type NearbyOfficeCandidate = {
+  name: string;
+  latitude: number;
+  longitude: number;
+  address: string | null;
+  phone: string | null;
+  officialUrl: string | null;
+  source: string;
+  verificationStatus: "candidate";
+  serviceEligible: false;
+  distanceKm?: number | null;
+};
+
 export type NearbyOffice = {
   id: string;
   name: string;
@@ -155,6 +168,8 @@ export type NearbyOffice = {
   lastVerifiedAt: string | null;
   /** Straight-line distance in km; null when searching by area instead of GPS. */
   distanceKm: number | null;
+  /** Driving distance in km from Valhalla, when available. */
+  drivingDistanceKm?: number | null;
 };
 
 export type OfficeArea = { district: string; upazila: string };
@@ -166,6 +181,7 @@ export type NearbyOfficesResult = {
   area?: { district: string; upazila: string | null };
   radiusKm?: number;
   offices: NearbyOffice[];
+  candidates?: NearbyOfficeCandidate[];
 };
 
 /** Where the user's "location" on the nearby page comes from. */

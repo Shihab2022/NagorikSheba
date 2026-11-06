@@ -1,0 +1,392 @@
+[
+  {
+    "location": "Chattogram",
+    "lat": 22.34,
+    "lng": 91.81,
+    "radiusKm": 5,
+    "status": 200,
+    "durationMs": 1979,
+    "validJson": true,
+    "remark": null,
+    "raw": 1,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Chattogram",
+    "lat": 22.34,
+    "lng": 91.81,
+    "radiusKm": 10,
+    "status": 200,
+    "durationMs": 407,
+    "validJson": true,
+    "remark": null,
+    "raw": 1,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Chattogram",
+    "lat": 22.34,
+    "lng": 91.81,
+    "radiusKm": 25,
+    "status": 200,
+    "durationMs": 566,
+    "validJson": true,
+    "remark": null,
+    "raw": 1,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Chattogram",
+    "lat": 22.34,
+    "lng": 91.81,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 638,
+    "validJson": true,
+    "remark": null,
+    "raw": 1,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Dhaka",
+    "lat": 23.8103,
+    "lng": 90.4125,
+    "radiusKm": 5,
+    "status": 200,
+    "durationMs": 477,
+    "validJson": true,
+    "remark": null,
+    "raw": 3,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Dhaka",
+    "lat": 23.8103,
+    "lng": 90.4125,
+    "radiusKm": 10,
+    "status": 200,
+    "durationMs": 468,
+    "validJson": true,
+    "remark": null,
+    "raw": 7,
+    "filtered": 1,
+    "candidates": [
+      {
+        "name": "Regional Passport Office, Uttara",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        }
+      }
+    ]
+  },
+  {
+    "location": "Dhaka",
+    "lat": 23.8103,
+    "lng": 90.4125,
+    "radiusKm": 25,
+    "status": 200,
+    "durationMs": 806,
+    "validJson": true,
+    "remark": null,
+    "raw": 7,
+    "filtered": 1,
+    "candidates": [
+      {
+        "name": "Regional Passport Office, Uttara",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        }
+      }
+    ]
+  },
+  {
+    "location": "Dhaka",
+    "lat": 23.8103,
+    "lng": 90.4125,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 914,
+    "validJson": true,
+    "remark": null,
+    "raw": 11,
+    "filtered": 2,
+    "candidates": [
+      {
+        "name": "Regional Passport Office, Uttara",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        }
+      },
+      {
+        "name": "Regional Passport Office Manikganj",
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        }
+      }
+    ]
+  },
+  {
+    "location": "Cumilla",
+    "lat": 23.4607,
+    "lng": 91.1809,
+    "radiusKm": 5,
+    "status": 200,
+    "durationMs": 393,
+    "validJson": true,
+    "remark": null,
+    "raw": 0,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Cumilla",
+    "lat": 23.4607,
+    "lng": 91.1809,
+    "radiusKm": 10,
+    "status": 200,
+    "durationMs": 379,
+    "validJson": true,
+    "remark": null,
+    "raw": 0,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Cumilla",
+    "lat": 23.4607,
+    "lng": 91.1809,
+    "radiusKm": 25,
+    "status": 200,
+    "durationMs": 552,
+    "validJson": true,
+    "remark": null,
+    "raw": 0,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Cumilla",
+    "lat": 23.4607,
+    "lng": 91.1809,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 723,
+    "validJson": true,
+    "remark": null,
+    "raw": 5,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Sylhet",
+    "lat": 24.8949,
+    "lng": 91.8687,
+    "radiusKm": 5,
+    "status": 200,
+    "durationMs": 419,
+    "validJson": true,
+    "remark": null,
+    "raw": 0,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Sylhet",
+    "lat": 24.8949,
+    "lng": 91.8687,
+    "radiusKm": 10,
+    "status": 200,
+    "durationMs": 419,
+    "validJson": true,
+    "remark": null,
+    "raw": 0,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Sylhet",
+    "lat": 24.8949,
+    "lng": 91.8687,
+    "radiusKm": 25,
+    "status": 200,
+    "durationMs": 769,
+    "validJson": true,
+    "remark": null,
+    "raw": 0,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Sylhet",
+    "lat": 24.8949,
+    "lng": 91.8687,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 906,
+    "validJson": true,
+    "remark": null,
+    "raw": 0,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Khulna",
+    "lat": 22.8456,
+    "lng": 89.5403,
+    "radiusKm": 5,
+    "status": 200,
+    "durationMs": 452,
+    "validJson": true,
+    "remark": null,
+    "raw": 2,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Khulna",
+    "lat": 22.8456,
+    "lng": 89.5403,
+    "radiusKm": 10,
+    "status": 200,
+    "durationMs": 367,
+    "validJson": true,
+    "remark": null,
+    "raw": 2,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Khulna",
+    "lat": 22.8456,
+    "lng": 89.5403,
+    "radiusKm": 25,
+    "status": 200,
+    "durationMs": 475,
+    "validJson": true,
+    "remark": null,
+    "raw": 4,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Khulna",
+    "lat": 22.8456,
+    "lng": 89.5403,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 921,
+    "validJson": true,
+    "remark": null,
+    "raw": 14,
+    "filtered": 1,
+    "candidates": [
+      {
+        "name": "Passport Office",
+        "lat": 22.656578,
+        "lon": 89.7752775,
+        "tags": {
+          "addr:street": "Barishal Khulna Highway",
+          "government": "public_service",
+          "name": "Passport Office",
+          "office": "government",
+          "source": "BDRCS"
+        }
+      }
+    ]
+  },
+  {
+    "location": "Rajshahi",
+    "lat": 24.3745,
+    "lng": 88.6042,
+    "radiusKm": 5,
+    "status": 200,
+    "durationMs": 439,
+    "validJson": true,
+    "remark": null,
+    "raw": 0,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Rajshahi",
+    "lat": 24.3745,
+    "lng": 88.6042,
+    "radiusKm": 10,
+    "status": 200,
+    "durationMs": 455,
+    "validJson": true,
+    "remark": null,
+    "raw": 0,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Rajshahi",
+    "lat": 24.3745,
+    "lng": 88.6042,
+    "radiusKm": 25,
+    "status": 200,
+    "durationMs": 378,
+    "validJson": true,
+    "remark": null,
+    "raw": 0,
+    "filtered": 0,
+    "candidates": []
+  },
+  {
+    "location": "Rajshahi",
+    "lat": 24.3745,
+    "lng": 88.6042,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 482,
+    "validJson": true,
+    "remark": null,
+    "raw": 7,
+    "filtered": 0,
+    "candidates": []
+  }
+]

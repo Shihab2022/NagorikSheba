@@ -2,6 +2,7 @@
 import { apiMethods } from "@/constant";
 import { apiHandler } from "@/lib/apiHandler";
 import type {
+  NearbyOffice,
   NearbyOfficesResult,
   OfficeArea,
   OfficeServiceKey,
@@ -47,7 +48,8 @@ export const getNearbyOffices = async (params: {
     success: res.success,
     message: res.message,
     status: res.status,
-    data: res.data?.data,
+     data: res.data?.data ? { ...res.data.data, offices: (res.data.data.offices ?? []).map((office: NearbyOffice)=>({ id: office.id ?? `${office.latitude}-${office.longitude}`, name: office.name, officeType: "PASSPORT_OFFICE", address: office.address ?? "", division: null, district: office.district ?? "", upazila: null, latitude: office.latitude, longitude: office.longitude, phone: office.phone ?? null, officialUrl: office.officialUrl ?? null, lastVerifiedAt: null, distanceKm: office.distanceKm ?? null,
+             drivingDistanceKm: office.drivingDistanceKm ?? null })) } : undefined,
     meta: res.data?.meta ?? null,
   };
 };

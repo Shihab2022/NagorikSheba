@@ -19,10 +19,12 @@ import {
   OFFICE_SERVICE_LABELS,
   RADIUS_OPTIONS_KM,
   requestBrowserPosition,
+  haversineDistanceKm,
 } from "@/lib/nearby";
 import { getNearbyOffices, getOfficesByArea } from "@/service/offices";
 import type {
   NearbyOffice,
+  NearbyOfficeCandidate,
   NearbyOrigin,
   OfficeServiceKey,
 } from "@/lib/types";
@@ -95,6 +97,7 @@ export function NearbyOfficesView({
   const router = useRouter();
 
   const [offices, setOffices] = useState<NearbyOffice[]>([]);
+  const [candidates, setCandidates] = useState<NearbyOfficeCandidate[]>([]);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
   const [locating, setLocating] = useState(false);
@@ -129,6 +132,7 @@ export function NearbyOfficesView({
     } else {
       setFailed(true);
       setOffices([]);
+      setCandidates([]);
       setSelectedOfficeId(null);
     }
     setLoading(false);
@@ -181,8 +185,39 @@ export function NearbyOfficesView({
     }
   }, [locating, radiusKm, router, s.locErrDenied, s.locErrOther, slug]);
 
-  const countLabel = s.resultsCount.replace("{n}", String(offices.length));
   const serviceLabel = OFFICE_SERVICE_LABELS[service];
+
+  const mergedOffices = [
+    ...offices,
+    ...candidates.map((candidate, index) => ({
+      id: `osm-${candidate.latitude}-${candidate.longitude}-${index}`,
+      name: candidate.name,
+      officeType: "PASSPORT_OFFICE",
+      address: candidate.address ?? "",
+      division: null,
+      district: "",
+      upazila: null,
+      latitude: candidate.latitude,
+      longitude: candidate.longitude,
+      phone: candidate.phone,
+      officialUrl: candidate.officialUrl,
+      lastVerifiedAt: null,
+      distanceKm:
+        candidate.distanceKm ??
+        (origin.mode === "gps"
+          ? haversineDistanceKm(origin, {
+              lat: candidate.latitude,
+              lng: candidate.longitude,
+            })
+          : null),
+    })),
+  ].sort((a, b) => {
+    const left = a.distanceKm ?? Number.POSITIVE_INFINITY;
+    const right = b.distanceKm ?? Number.POSITIVE_INFINITY;
+    return left - right;
+  });
+
+  const countLabel = s.resultsCount.replace("{n}", String(mergedOffices.length));
 
   return (
     <div className="space-y-6">
@@ -281,11 +316,11 @@ export function NearbyOfficesView({
           </p>
           <NearbyMap
             origin={origin}
-            offices={offices}
+            offices={mergedOffices}
             selectedOfficeId={selectedOfficeId}
             onMarkerClick={setSelectedOfficeId}
           />
-          {offices.length === 0 ? (
+          {mergedOffices.length === 0 ? (
             <EmptyState
               title={s.noResults}
               description={s.noResultsHint}
@@ -307,21 +342,12 @@ export function NearbyOfficesView({
           ) : (
             <>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {offices.map((office) => (
+                {mergedOffices.map((office) => (
                   <NearbyOfficeCard
                     key={office.id}
                     office={office}
                     origin={origin}
                     selected={office.id === selectedOfficeId}
-                    onShowRoute={() => {
-                      setSelectedOfficeId(office.id);
-                      document
-                        .getElementById("nearby-map")
-                        ?.scrollIntoView({
-                          behavior: "smooth",
-                          block: "center",
-                        });
-                    }}
                   />
                 ))}
               </div>

@@ -1,6 +1,8 @@
 import httpStatus from "http-status";
 import { pool } from "../../../utils/pg";
 import AppError from "../../errors/AppError";
+import { overpassPassportProvider, type OfficeCandidate } from "./office-location-provider";
+import { getValhallaDrivingDistanceKm } from "./valhalla-routing.provider";
 
 /**
  * Government offices — nearby lookup module.
@@ -35,7 +37,7 @@ const SERVICE_KEY_BY_SLUG: Record<string, OfficeServiceKey> = {
 };
 
 const DEFAULT_RADIUS_KM = 50;
-const MAX_RADIUS_KM = 500;
+const MAX_RADIUS_KM = 100;
 const DEFAULT_PAGE_LIMIT = 20;
 const MAX_PAGE_LIMIT = 50;
 
@@ -218,8 +220,60 @@ const findNearbyOffices = async (params: {
   );
   const offset = (page - 1) * limit;
 
-  // Bounding box in degrees around the search point (1 deg lat ≈ 111.045 km).
-  const latDelta = radiusKm / 111.045;
+  if (service === "PASSPORT") {
+    let offices: any[] = [];
+    try {
+      const rawCandidates = await overpassPassportProvider.findNearbyPassportCandidates(lat, lng, radiusKm);
+      const seen = new Set();
+      const filtered = rawCandidates.filter((c) => {
+        const key = `${c.osmType}:${c.osmId}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        const d = Math.hypot(c.latitude - lat, c.longitude - lng) * 111;
+        return d <= radiusKm;
+      });
+      const mapped = filtered.map((c) => ({
+        id: `osm:${c.osmType}:${c.osmId}`,
+        name: c.name,
+        latitude: c.latitude,
+        longitude: c.longitude,
+        address: c.address,
+        phone: c.phone,
+        officialUrl: c.officialUrl,
+        source: "OpenStreetMap",
+      }));
+      // attach driving distances
+      const withDistances = await Promise.all(
+        mapped.map(async (office) => {
+          const drivingDistanceKm = await getValhallaDrivingDistanceKm(
+            { lat, lng },
+            { lat: office.latitude, lng: office.longitude },
+          );
+          return { ...office, drivingDistanceKm };
+        }),
+      );
+      offices = withDistances
+        .filter((office) => office.drivingDistanceKm == null || office.drivingDistanceKm <= radiusKm)
+        .sort((a, b) => {
+          if (a.drivingDistanceKm == null && b.drivingDistanceKm == null) return 0;
+          if (a.drivingDistanceKm == null) return 1;
+          if (b.drivingDistanceKm == null) return -1;
+          return a.drivingDistanceKm - b.drivingDistanceKm;
+        });
+      console.info(`Passport OSM offices: ${offices.length}`);
+    } catch {
+      offices = [];
+    }
+    return {
+      service,
+      origin: { lat, lng },
+      radiusKm,
+      offices,
+      meta: { page, limit, total: offices.length },
+    };
+  }
+
+  // existing DB path for other services
   const cosLat = Math.max(Math.abs(Math.cos((lat * Math.PI) / 180)), 0.01);
   const lngDelta = radiusKm / (111.045 * cosLat);
 
@@ -237,6 +291,8 @@ const findNearbyOffices = async (params: {
         SELECT 1 FROM government_office_services s
         WHERE s."officeId" = o.id AND s."serviceKey" = $1
       )`;
+
+  const latDelta = radiusKm / 111.045;
 
   const paramsList = [
     service,
@@ -276,11 +332,13 @@ const findNearbyOffices = async (params: {
     [...paramsList, radiusKm, limit, offset],
   );
 
+  const offices = result.rows.map(mapOfficeRow);
+
   return {
     service,
     origin: { lat, lng },
     radiusKm,
-    offices: result.rows.map(mapOfficeRow),
+    offices,
     meta: { page, limit, total },
   };
 };

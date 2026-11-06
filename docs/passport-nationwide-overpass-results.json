@@ -1,0 +1,3723 @@
+[
+  {
+    "ref": "Agargaon Passport Office",
+    "refLat": 23.7772,
+    "refLng": 90.3781,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 2246,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 10,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 10.24,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 39.4,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Agargaon Passport Office",
+    "refLat": 23.7772,
+    "refLng": 90.3781,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1460,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 23,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 10.24,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 73.54,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 39.4,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Uttara Regional Passport Office",
+    "refLat": 23.8693,
+    "refLng": 90.3787,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 914,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 11,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 0,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 38.64,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Uttara Regional Passport Office",
+    "refLat": 23.8693,
+    "refLng": 90.3787,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1311,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 33,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 0,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 75.14,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 38.64,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Keraniganj Passport Office",
+    "refLat": 23.6978,
+    "refLng": 90.3486,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 848,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 9,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 19.31,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 39.42,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Keraniganj Passport Office",
+    "refLat": 23.6978,
+    "refLng": 90.3486,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1385,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 24,
+    "filteredCount": 4,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 19.31,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 70.35,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 39.42,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 98.25,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      }
+    ]
+  },
+  {
+    "ref": "Dhaka Cantonment Passport Office",
+    "refLat": 23.815,
+    "refLng": 90.397,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 974,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 11,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 6.32,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 40.65,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Dhaka Cantonment Passport Office",
+    "refLat": 23.815,
+    "refLng": 90.397,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1352,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 23,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 6.32,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 75.91,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 40.65,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Bangladesh Secretariat Passport Office",
+    "refLat": 23.728,
+    "refLng": 90.401,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 876,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 10,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 15.87,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 43.11,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Bangladesh Secretariat Passport Office",
+    "refLat": 23.728,
+    "refLng": 90.401,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1298,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 22,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 15.87,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 75.63,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 43.11,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Dhaka East Passport Office, Aftabnagar",
+    "refLat": 23.764,
+    "refLng": 90.434,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 805,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 11,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 12.99,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 45.27,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Dhaka East Passport Office, Aftabnagar",
+    "refLat": 23.764,
+    "refLng": 90.434,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1254,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 21,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 12.99,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 79.12,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 45.27,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Dhaka West Passport Office, Mohammadpur",
+    "refLat": 23.765,
+    "refLng": 90.358,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 758,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 10,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 11.78,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 37.73,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Dhaka West Passport Office, Mohammadpur",
+    "refLat": 23.765,
+    "refLng": 90.358,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1264,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 23,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 11.78,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 71.4,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 37.73,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Jatrabari Passport Office",
+    "refLat": 23.71,
+    "refLng": 90.435,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 946,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 10,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 18.61,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 47.03,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Jatrabari Passport Office",
+    "refLat": 23.71,
+    "refLng": 90.435,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1272,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 21,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 18.61,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 79.1,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 47.03,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Narsingdi Passport Office",
+    "refLat": 23.922,
+    "refLng": 90.717,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 847,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 10,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 34.89,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      }
+    ]
+  },
+  {
+    "ref": "Narsingdi Passport Office",
+    "refLat": 23.922,
+    "refLng": 90.717,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1177,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 33,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 34.89,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 73.4,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Gazipur Passport Office",
+    "refLat": 24.0023,
+    "refLng": 90.4264,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 832,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 11,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 15.57,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 46.55,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Gazipur Passport Office",
+    "refLat": 24.0023,
+    "refLng": 90.4264,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1284,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 32,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 15.57,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 84.15,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 46.55,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Manikganj Passport Office",
+    "refLat": 23.8617,
+    "refLng": 90.0003,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 772,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 11,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 38.48,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 38.16,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 1.18,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Manikganj Passport Office",
+    "refLat": 23.8617,
+    "refLng": 90.0003,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1352,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 21,
+    "filteredCount": 4,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 38.48,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 38.16,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 1.18,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 73.49,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      }
+    ]
+  },
+  {
+    "ref": "Munshiganj Passport Office",
+    "refLat": 23.5422,
+    "refLng": 90.5305,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 982,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 8,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 39.52,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      }
+    ]
+  },
+  {
+    "ref": "Munshiganj Passport Office",
+    "refLat": 23.5422,
+    "refLng": 90.5305,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1357,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 23,
+    "filteredCount": 4,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 92.31,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      },
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 39.52,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 91.07,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 64.07,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Tangail Passport Office",
+    "refLat": 24.2513,
+    "refLng": 89.9167,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 646,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 4,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 45.28,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Tangail Passport Office",
+    "refLat": 24.2513,
+    "refLng": 89.9167,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1165,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 28,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 63.28,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 64.53,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 45.28,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Kishoreganj Passport Office",
+    "refLat": 24.426,
+    "refLng": 90.9821,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 568,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 16,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Kishoreganj Passport Office",
+    "refLat": 24.426,
+    "refLng": 90.9821,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1081,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 30,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 87.07,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      }
+    ]
+  },
+  {
+    "ref": "Madaripur Passport Office",
+    "refLat": 23.1641,
+    "refLng": 90.1897,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 556,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 0,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Madaripur Passport Office",
+    "refLat": 23.1641,
+    "refLng": 90.1897,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1259,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 26,
+    "filteredCount": 6,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 97.82,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      },
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 80.74,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 82.33,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 78.82,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 86.18,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1267373532,
+        "name": "Passport Office",
+        "nameBn": null,
+        "lat": 22.656578,
+        "lon": 89.7752775,
+        "tags": {
+          "addr:street": "Barishal Khulna Highway",
+          "government": "public_service",
+          "name": "Passport Office",
+          "office": "government",
+          "source": "BDRCS"
+        },
+        "distanceKm": 70.61,
+        "osmUrl": "https://www.openstreetmap.org/way/1267373532"
+      }
+    ]
+  },
+  {
+    "ref": "Gopalganj Passport Office",
+    "refLat": 23.0051,
+    "refLng": 89.8266,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 568,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 6,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "way",
+        "osmId": 1267373532,
+        "name": "Passport Office",
+        "nameBn": null,
+        "lat": 22.656578,
+        "lon": 89.7752775,
+        "tags": {
+          "addr:street": "Barishal Khulna Highway",
+          "government": "public_service",
+          "name": "Passport Office",
+          "office": "government",
+          "source": "BDRCS"
+        },
+        "distanceKm": 39.11,
+        "osmUrl": "https://www.openstreetmap.org/way/1267373532"
+      }
+    ]
+  },
+  {
+    "ref": "Gopalganj Passport Office",
+    "refLat": 23.0051,
+    "refLng": 89.8266,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1307,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 26,
+    "filteredCount": 4,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 81.47,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 95.71,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 66.9,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1267373532,
+        "name": "Passport Office",
+        "nameBn": null,
+        "lat": 22.656578,
+        "lon": 89.7752775,
+        "tags": {
+          "addr:street": "Barishal Khulna Highway",
+          "government": "public_service",
+          "name": "Passport Office",
+          "office": "government",
+          "source": "BDRCS"
+        },
+        "distanceKm": 39.11,
+        "osmUrl": "https://www.openstreetmap.org/way/1267373532"
+      }
+    ]
+  },
+  {
+    "ref": "Faridpur Passport Office",
+    "refLat": 23.607,
+    "refLng": 89.8429,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 623,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 7,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 22.71,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 31.47,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 45.97,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      }
+    ]
+  },
+  {
+    "ref": "Faridpur Passport Office",
+    "refLat": 23.607,
+    "refLng": 89.8429,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1411,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 21,
+    "filteredCount": 4,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 61.84,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 22.71,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 31.47,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 45.97,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      }
+    ]
+  },
+  {
+    "ref": "Rajbari Passport Office",
+    "refLat": 23.7574,
+    "refLng": 89.6445,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 565,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 7,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 4.25,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 37.57,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 39.2,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      }
+    ]
+  },
+  {
+    "ref": "Rajbari Passport Office",
+    "refLat": 23.7574,
+    "refLng": 89.6445,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1172,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 26,
+    "filteredCount": 4,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 75.71,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 4.25,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 37.57,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 39.2,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      }
+    ]
+  },
+  {
+    "ref": "Shariatpur Passport Office",
+    "refLat": 23.2423,
+    "refLng": 90.4348,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 641,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 0,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Shariatpur Passport Office",
+    "refLat": 23.2423,
+    "refLng": 90.4348,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1565,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 22,
+    "filteredCount": 5,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 78.14,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      },
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 69.95,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 95.45,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 80.96,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1267373532,
+        "name": "Passport Office",
+        "nameBn": null,
+        "lat": 22.656578,
+        "lon": 89.7752775,
+        "tags": {
+          "addr:street": "Barishal Khulna Highway",
+          "government": "public_service",
+          "name": "Passport Office",
+          "office": "government",
+          "source": "BDRCS"
+        },
+        "distanceKm": 93.82,
+        "osmUrl": "https://www.openstreetmap.org/way/1267373532"
+      }
+    ]
+  },
+  {
+    "ref": "Mymensingh Passport Office",
+    "refLat": 24.7471,
+    "refLng": 90.4203,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 555,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 12,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Mymensingh Passport Office",
+    "refLat": 24.7471,
+    "refLng": 90.4203,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1069,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 20,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 97.7,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      }
+    ]
+  },
+  {
+    "ref": "Jamalpur Passport Office",
+    "refLat": 24.9375,
+    "refLng": 89.937,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 565,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 2,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Jamalpur Passport Office",
+    "refLat": 24.9375,
+    "refLng": 89.937,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 957,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 16,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Sherpur Passport Office",
+    "refLat": 25.02,
+    "refLng": 90.015,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 527,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 1,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Sherpur Passport Office",
+    "refLat": 25.02,
+    "refLng": 90.015,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1096,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 16,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Netrokona Passport Office",
+    "refLat": 24.87,
+    "refLng": 90.728,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 639,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 12,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Netrokona Passport Office",
+    "refLat": 24.87,
+    "refLng": 90.728,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 912,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 20,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Chattogram Mansurabad Passport Office",
+    "refLat": 22.34167,
+    "refLng": 91.80738,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 541,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 1,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Chattogram Mansurabad Passport Office",
+    "refLat": 22.34167,
+    "refLng": 91.80738,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 819,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 4,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 95.34,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      }
+    ]
+  },
+  {
+    "ref": "Chandgaon Passport Office",
+    "refLat": 22.367,
+    "refLng": 91.836,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 1041,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 1,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Chandgaon Passport Office",
+    "refLat": 22.367,
+    "refLng": 91.836,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1388,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 4,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 95.83,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      }
+    ]
+  },
+  {
+    "ref": "Cumilla Passport Office",
+    "refLat": 23.4607,
+    "refLng": 91.1809,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 755,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 5,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Cumilla Passport Office",
+    "refLat": 23.4607,
+    "refLng": 91.1809,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1267,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 19,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 63.04,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      },
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 93.48,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      }
+    ]
+  },
+  {
+    "ref": "Feni Passport Office",
+    "refLat": 23.0159,
+    "refLng": 91.3976,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 668,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 5,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 33.05,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      }
+    ]
+  },
+  {
+    "ref": "Feni Passport Office",
+    "refLat": 23.0159,
+    "refLng": 91.3976,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1046,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 10,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 33.05,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      }
+    ]
+  },
+  {
+    "ref": "Brahmanbaria Passport Office",
+    "refLat": 23.9571,
+    "refLng": 91.1119,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 526,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 7,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Brahmanbaria Passport Office",
+    "refLat": 23.9571,
+    "refLng": 91.1119,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1191,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 29,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 75.17,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      }
+    ]
+  },
+  {
+    "ref": "Noakhali Passport Office",
+    "refLat": 22.8985,
+    "refLng": 91.101,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 558,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 5,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 0,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      }
+    ]
+  },
+  {
+    "ref": "Noakhali Passport Office",
+    "refLat": 22.8985,
+    "refLng": 91.101,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1197,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 10,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 0,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      }
+    ]
+  },
+  {
+    "ref": "Chandpur Passport Office",
+    "refLat": 23.233,
+    "refLng": 90.6712,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 635,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 2,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Chandpur Passport Office",
+    "refLat": 23.233,
+    "refLng": 90.6712,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1298,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 20,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 57.59,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      },
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 76.78,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 97.03,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Lakshmipur Passport Office",
+    "refLat": 22.9447,
+    "refLng": 90.8282,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 592,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 5,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 28.41,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      }
+    ]
+  },
+  {
+    "ref": "Lakshmipur Passport Office",
+    "refLat": 22.9447,
+    "refLng": 90.8282,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1148,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 11,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 28.41,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      }
+    ]
+  },
+  {
+    "ref": "Cox's Bazar Passport Office",
+    "refLat": 21.4272,
+    "refLng": 92.0058,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 539,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 0,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Cox's Bazar Passport Office",
+    "refLat": 21.4272,
+    "refLng": 92.0058,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 754,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 0,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Rangamati Passport Office",
+    "refLat": 22.6533,
+    "refLng": 92.175,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 603,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 0,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Rangamati Passport Office",
+    "refLat": 22.6533,
+    "refLng": 92.175,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 914,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 2,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Khagrachhari Passport Office",
+    "refLat": 23.1193,
+    "refLng": 91.9847,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 456,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 0,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Khagrachhari Passport Office",
+    "refLat": 23.1193,
+    "refLng": 91.9847,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 970,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 6,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 93.71,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      }
+    ]
+  },
+  {
+    "ref": "Bandarban Passport Office",
+    "refLat": 22.1953,
+    "refLng": 92.2184,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 658,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 1,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Bandarban Passport Office",
+    "refLat": 22.1953,
+    "refLng": 92.2184,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 847,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 1,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Rajshahi Passport Office",
+    "refLat": 24.3745,
+    "refLng": 88.6042,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 425,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 7,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Rajshahi Passport Office",
+    "refLat": 24.3745,
+    "refLng": 88.6042,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1082,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 7,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Bogura Passport Office",
+    "refLat": 24.8465,
+    "refLng": 89.377,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 411,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 1,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Bogura Passport Office",
+    "refLat": 24.8465,
+    "refLng": 89.377,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 939,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 12,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Pabna Passport Office",
+    "refLat": 24.0064,
+    "refLng": 89.2372,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 732,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 2,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Pabna Passport Office",
+    "refLat": 24.0064,
+    "refLng": 89.2372,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 895,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 17,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 53.27,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 79.36,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 61.96,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      }
+    ]
+  },
+  {
+    "ref": "Sirajganj Passport Office",
+    "refLat": 24.4534,
+    "refLng": 89.7007,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 418,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 3,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Sirajganj Passport Office",
+    "refLat": 24.4534,
+    "refLng": 89.7007,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1155,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 17,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 9622451098,
+        "name": "Regional Passport Office, Uttara",
+        "nameBn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+        "lat": 23.8692695,
+        "lon": 90.3786707,
+        "tags": {
+          "addr:city": "Dhaka",
+          "addr:postcode": "1230",
+          "addr:street": "PLOT-05, ROAD-3B, BLOCK-H, SECTOR-15, UTTARA",
+          "government": "public_service",
+          "name": "Regional Passport Office, Uttara",
+          "name:bn": "আঞ্চলিক পাসপোর্ট অফিস, উত্তরা",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-17:00",
+          "phone": "+8801733393328",
+          "website": "https://diputtara.dhaka.gov.bd/en"
+        },
+        "distanceKm": 94.6,
+        "osmUrl": "https://www.openstreetmap.org/node/9622451098"
+      },
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 81.53,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 73.5,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      }
+    ]
+  },
+  {
+    "ref": "Natore Passport Office",
+    "refLat": 24.4206,
+    "refLng": 88.9884,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 528,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 7,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Natore Passport Office",
+    "refLat": 24.4206,
+    "refLng": 88.9884,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 814,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 10,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Naogaon Passport Office",
+    "refLat": 24.7936,
+    "refLng": 88.9318,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 518,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 7,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Naogaon Passport Office",
+    "refLat": 24.7936,
+    "refLng": 88.9318,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 846,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 9,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Joypurhat Passport Office",
+    "refLat": 25.0968,
+    "refLng": 89.0227,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 450,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 1,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Joypurhat Passport Office",
+    "refLat": 25.0968,
+    "refLng": 89.0227,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 857,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 9,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Chapainawabganj Passport Office",
+    "refLat": 24.5965,
+    "refLng": 88.2775,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 486,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 0,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Chapainawabganj Passport Office",
+    "refLat": 24.5965,
+    "refLng": 88.2775,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 633,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 7,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Khulna Passport Office",
+    "refLat": 22.8456,
+    "refLng": 89.5403,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 640,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 14,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "way",
+        "osmId": 1267373532,
+        "name": "Passport Office",
+        "nameBn": null,
+        "lat": 22.656578,
+        "lon": 89.7752775,
+        "tags": {
+          "addr:street": "Barishal Khulna Highway",
+          "government": "public_service",
+          "name": "Passport Office",
+          "office": "government",
+          "source": "BDRCS"
+        },
+        "distanceKm": 31.97,
+        "osmUrl": "https://www.openstreetmap.org/way/1267373532"
+      }
+    ]
+  },
+  {
+    "ref": "Khulna Passport Office",
+    "refLat": 22.8456,
+    "refLng": 89.5403,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1094,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 21,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 98.11,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 71,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1267373532,
+        "name": "Passport Office",
+        "nameBn": null,
+        "lat": 22.656578,
+        "lon": 89.7752775,
+        "tags": {
+          "addr:street": "Barishal Khulna Highway",
+          "government": "public_service",
+          "name": "Passport Office",
+          "office": "government",
+          "source": "BDRCS"
+        },
+        "distanceKm": 31.97,
+        "osmUrl": "https://www.openstreetmap.org/way/1267373532"
+      }
+    ]
+  },
+  {
+    "ref": "Jashore Passport Office",
+    "refLat": 23.1667,
+    "refLng": 89.2081,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 694,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 3,
+    "filteredCount": 1,
+    "candidates": [
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 40.21,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      }
+    ]
+  },
+  {
+    "ref": "Jashore Passport Office",
+    "refLat": 23.1667,
+    "refLng": 89.2081,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1299,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 22,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 76.87,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 40.21,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1267373532,
+        "name": "Passport Office",
+        "nameBn": null,
+        "lat": 22.656578,
+        "lon": 89.7752775,
+        "tags": {
+          "addr:street": "Barishal Khulna Highway",
+          "government": "public_service",
+          "name": "Passport Office",
+          "office": "government",
+          "source": "BDRCS"
+        },
+        "distanceKm": 81.19,
+        "osmUrl": "https://www.openstreetmap.org/way/1267373532"
+      }
+    ]
+  },
+  {
+    "ref": "Kushtia Passport Office",
+    "refLat": 23.9013,
+    "refLng": 89.1205,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 643,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 2,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Kushtia Passport Office",
+    "refLat": 23.9013,
+    "refLng": 89.1205,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 880,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 14,
+    "filteredCount": 3,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 12086106367,
+        "name": "Regional Passport office Rajbari",
+        "nameBn": null,
+        "lat": 23.7212407,
+        "lon": 89.6580991,
+        "tags": {
+          "government": "public_service",
+          "name": "Regional Passport office Rajbari",
+          "office": "government"
+        },
+        "distanceKm": 58.24,
+        "osmUrl": "https://www.openstreetmap.org/node/12086106367"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1135028165,
+        "name": "Regional Passport Office Manikganj",
+        "nameBn": null,
+        "lat": 23.8511249,
+        "lon": 89.9992791,
+        "tags": {
+          "building": "yes",
+          "government": "public_service",
+          "name": "Regional Passport Office Manikganj",
+          "office": "government"
+        },
+        "distanceKm": 89.53,
+        "osmUrl": "https://www.openstreetmap.org/way/1135028165"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 56.26,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      }
+    ]
+  },
+  {
+    "ref": "Satkhira Passport Office",
+    "refLat": 22.7185,
+    "refLng": 89.0705,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 750,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 9,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Satkhira Passport Office",
+    "refLat": 22.7185,
+    "refLng": 89.0705,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1175,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 19,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "way",
+        "osmId": 1242753139,
+        "name": "Regional Passport Office, Magura",
+        "nameBn": null,
+        "lat": 23.4737972,
+        "lon": 89.4160038,
+        "tags": {
+          "addr:city": "Magura",
+          "government": "public_service",
+          "name": "Regional Passport Office, Magura",
+          "office": "government",
+          "opening_hours": "Su-Th 09:00-16:00",
+          "phone": "01779379894",
+          "website": "https://passport.magura.gov.bd/bn/site/view/StaffList"
+        },
+        "distanceKm": 91.12,
+        "osmUrl": "https://www.openstreetmap.org/way/1242753139"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1267373532,
+        "name": "Passport Office",
+        "nameBn": null,
+        "lat": 22.656578,
+        "lon": 89.7752775,
+        "tags": {
+          "addr:street": "Barishal Khulna Highway",
+          "government": "public_service",
+          "name": "Passport Office",
+          "office": "government",
+          "source": "BDRCS"
+        },
+        "distanceKm": 72.63,
+        "osmUrl": "https://www.openstreetmap.org/way/1267373532"
+      }
+    ]
+  },
+  {
+    "ref": "Barishal Passport Office",
+    "refLat": 22.701,
+    "refLng": 90.3535,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 531,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 2,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Barishal Passport Office",
+    "refLat": 22.701,
+    "refLng": 90.3535,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 934,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 15,
+    "filteredCount": 2,
+    "candidates": [
+      {
+        "osmType": "node",
+        "osmId": 8344170817,
+        "name": "Noakhali Passport Office",
+        "nameBn": null,
+        "lat": 22.8985202,
+        "lon": 91.1010342,
+        "tags": {
+          "government": "public_service",
+          "name": "Noakhali Passport Office",
+          "office": "government",
+          "opening_hours": "Mo-Fr 09:00-18:00"
+        },
+        "distanceKm": 79.71,
+        "osmUrl": "https://www.openstreetmap.org/node/8344170817"
+      },
+      {
+        "osmType": "way",
+        "osmId": 1267373532,
+        "name": "Passport Office",
+        "nameBn": null,
+        "lat": 22.656578,
+        "lon": 89.7752775,
+        "tags": {
+          "addr:street": "Barishal Khulna Highway",
+          "government": "public_service",
+          "name": "Passport Office",
+          "office": "government",
+          "source": "BDRCS"
+        },
+        "distanceKm": 59.53,
+        "osmUrl": "https://www.openstreetmap.org/way/1267373532"
+      }
+    ]
+  },
+  {
+    "ref": "Sylhet Passport Office",
+    "refLat": 24.8949,
+    "refLng": 91.8687,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 581,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 0,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Sylhet Passport Office",
+    "refLat": 24.8949,
+    "refLng": 91.8687,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 846,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 3,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Rangpur Passport Office",
+    "refLat": 25.7439,
+    "refLng": 89.2752,
+    "radiusKm": 50,
+    "status": 200,
+    "durationMs": 706,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 1,
+    "filteredCount": 0,
+    "candidates": []
+  },
+  {
+    "ref": "Rangpur Passport Office",
+    "refLat": 25.7439,
+    "refLng": 89.2752,
+    "radiusKm": 100,
+    "status": 200,
+    "durationMs": 1078,
+    "validJson": true,
+    "remark": null,
+    "rawCount": 5,
+    "filteredCount": 0,
+    "candidates": []
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "_review": [
+    "Pilot record: Divisional Passport and Visa Office, Mansurabad, Chattogram.",
+    "Official identity, jurisdiction, mobile, phone, email, portal, and Facebook details are from DIP.",
+    "Coordinates are from OpenStreetMap node 2581052448 and are not officially published by DIP.",
+    "District/upazila use the city name because the official source does not provide a more specific upazila.",
+    "Do not seed until coordinate provenance and address are reviewed."
+  ],
+  "offices": [
+    {
+      "name": "Divisional Passport and Visa Office, Mansurabad, Chattogram",
+      "officeType": "PASSPORT_OFFICE",
+      "address": "Mansurabad, Chattogram",
+      "district": "Chattogram",
+      "upazila": "Chattogram",
+      "latitude": 22.34167,
+      "longitude": 91.80738,
+      "phone": "01733393349",
+      "officialUrl": "https://dip.gov.bd/pages/static-pages/6922dda9933eb65569e15c7c",
+      "lastVerifiedAt": "2026-10-25",
+      "services": ["PASSPORT"],
+      "isActive": true
+    }
+  ]
+}

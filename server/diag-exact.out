@@ -1,0 +1,22 @@
+URL: https://overpass-api.de/api/interpreter?data=%5Btimeout%3A10%5D%3B%0A%5Bout%3Ajson%5D%5Btimeout%3A10%5D%3B%0A%28node%5Boffice%3Dgovernment%5D%28around%3A50000%2C24.8768%2C91.88646%29%3B%0A+way%5Boffice%3Dgovernment%5D%28around%3A50000%2C24.8768%2C91.88646%29%3B%0A+relation%5Boffice%3Dgovernment%5D%28around%3A50000%2C24.8768%2C91.88646%29%3B%0A+node%5Bamenity%3Dpassport%5D%28around%3A50000%2C24.8768%2C91.88646%29%3B%0A+way%5Bamenity%3Dpassport%5D%28around%3A50000%2C24.8768%2C91.88646%29%3B%0A%29%3B%0Aout+center%3B
+Status: 502
+Parse error: SyntaxError: Unexpected token '#', "# 502 Gate"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at file:///C:/Users/USER/Desktop/Projects/NagorikSheba/server/diag-exact.mjs:26:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+Raw response (first 500 chars): # 502 Gateway Timeout
+
+This Overpass API server is currently at capacity. All query workers are busy
+and the request queue is full.
+
+## What to do
+
+Retry your request using exponential backoff: wait a short interval, then retry.
+If the request fails again, double the wait time and retry again.
+
+## For heavy or automated use
+
+This public endpoint is intended for browser-based and human-operated tools.
+For automated or high-volume use, run a local Overpass API instance:
+
+https://github.com/b1tw153

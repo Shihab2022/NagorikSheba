@@ -26,4 +26,16 @@ export default {
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
   },
+  overpass:{
+    overpass_api_url:process.env.OVERPASS_API_URL,
+    overpass_user_agent:process.env.OVERPASS_USER_AGENT,
+    overpass_timeout_ms:process.env.OVERPASS_TIMEOUT_MS,
+  },
+  valhalla: {
+    base_url: process.env.VALHALLA_BASE_URL || "https://valhalla1.openstreetmap.de",
+    client_id: process.env.VALHALLA_CLIENT_ID || "NagorikSheba",
+    request_timeout_ms: process.env.VALHALLA_REQUEST_TIMEOUT_MS || "10000",
+    cache_ttl_ms: process.env.VALHALLA_CACHE_TTL_MS || "300000",
+    min_request_interval_ms: process.env.VALHALLA_MIN_REQUEST_INTERVAL_MS || "1000",
+  },
 };

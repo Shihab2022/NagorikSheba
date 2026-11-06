@@ -1,0 +1,1 @@
+fatal: path 'test/office-location-provider.test.ts' does not exist in 'HEAD'

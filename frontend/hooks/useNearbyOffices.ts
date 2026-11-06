@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getNearbyOffices, getOfficesByArea } from "@/service/offices";
 import type {
   NearbyOffice,
+  NearbyOfficeCandidate,
   NearbyOrigin,
   OfficeServiceKey,
 } from "@/lib/types";
@@ -24,6 +25,7 @@ export function useNearbyOffices(params: {
 }) {
   const { service, origin, radiusKm } = params;
   const [offices, setOffices] = useState<NearbyOffice[]>([]);
+  const [candidates, setCandidates] = useState<NearbyOfficeCandidate[]>([]);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
 
@@ -45,9 +47,11 @@ export function useNearbyOffices(params: {
           });
     if (res.success) {
       setOffices(res.data?.offices ?? []);
+      setCandidates(res.data?.candidates ?? []);
     } else {
       setFailed(true);
       setOffices([]);
+      setCandidates([]);
     }
     setLoading(false);
   }, [origin, service, radiusKm]);
@@ -58,7 +62,7 @@ export function useNearbyOffices(params: {
     load();
   }, [load]);
 
-  return { offices, loading, failed, reload: load, setOffices };
+  return { offices, candidates, loading, failed, reload: load, setOffices };
 }
 
 export default useNearbyOffices;

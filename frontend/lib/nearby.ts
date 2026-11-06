@@ -158,19 +158,33 @@ export function requestBrowserPosition(
  */
 export function buildGoogleMapsDirectionsUrl(
   origin: { lat: number; lng: number } | { area: string },
-  destination: { lat: number; lng: number },
+  destination: {
+    name?: string | null;
+    address?: string | null;
+    district?: string | null;
+    lat: number;
+    lng: number;
+  },
 ): string | null {
   if (!isValidCoordinate(destination.lat, destination.lng)) return null;
+
+  const toCoordinateString = (value: number): string => {
+    // Preserve the original number format without rounding
+    // This keeps exact decimal places (6 or 7) as provided
+    return value.toString();
+  };
 
   const originParam =
     "area" in origin
       ? origin.area.trim()
       : isValidCoordinate(origin.lat, origin.lng)
-        ? `${origin.lat.toFixed(6)},${origin.lng.toFixed(6)}`
+        ? toCoordinateString(origin.lat) + "," + toCoordinateString(origin.lng)
         : "";
   if (!originParam) return null;
 
-  const destinationParam = `${destination.lat.toFixed(6)},${destination.lng.toFixed(6)}`;
+  const destinationParam = `${toCoordinateString(destination.lat)},${toCoordinateString(destination.lng)}`;
+  if (!isValidCoordinate(destination.lat, destination.lng)) return null;
+  if (!isValidCoordinate(destination.lat, destination.lng)) return null;
 
   const params = new URLSearchParams({
     api: "1",
@@ -214,7 +228,45 @@ export function buildOfficeMapQuery(office: {
     .join(", ");
 }
 
-/** Bilingual display labels for backend office-type enums. */
+export function haversineDistanceKm(
+  from: { lat: number; lng: number },
+  to: { lat: number; lng: number },
+): number {
+  const toRad = (value: number) => (value * Math.PI) / 180;
+  const dLat = toRad(to.lat - from.lat);
+  const dLng = toRad(to.lng - from.lng);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(from.lat)) *
+      Math.cos(toRad(to.lat)) *
+      Math.sin(dLng / 2) ** 2;
+  return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+/**
+ * Format a straight-line distance in kilometers for display.
+ *
+ * Rules:
+ * - Less than 1 km: meters, rounded to nearest 10 meters.
+ * - 1 km or more: kilometers, one decimal place.
+ *
+ * @param km - Distance in kilometers (must be finite and >= 0)
+ * @param lang - "bn" or "en" for the unit label
+ * @returns Formatted distance string like "750 মিটার" or "1.3 কিমি"
+ */
+export function formatDistanceKm(km: number, lang: string): string {
+  if (!Number.isFinite(km) || km < 0) return "";
+  const isBn = lang === "bn";
+  if (km < 1) {
+    const meters = km * 1000;
+    if (meters < 10) {
+      return `< 10 ${isBn ? "মিটার" : "meters"}`;
+    }
+    const rounded = Math.round(km * 100) * 10;
+    return `${rounded} ${isBn ? "মিটার" : "meters"}`;
+  }
+  return `${km.toFixed(1)} ${isBn ? "কিমি" : "km"}`;
+}
 export const OFFICE_TYPE_LABELS: Record<string, { bn: string; en: string }> = {
   ELECTION_COMMISSION: { bn: "নির্বাচন কমিশন", en: "Election Commission" },
   PASSPORT_OFFICE: { bn: "পাসপোর্ট অফিস", en: "Passport Office" },
