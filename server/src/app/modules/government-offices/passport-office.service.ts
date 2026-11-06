@@ -54,7 +54,7 @@ function dataFilePath(): string {
     path.resolve(__dirname, "../../../../data/passportOfficeData.json"),
   ];
   const found = candidates.find((candidate) => fs.existsSync(candidate));
-  return found ?? candidates[0];
+  return found ?? candidates[0]!;
 }
 
 function loadRows(): RawPassportOffice[] {

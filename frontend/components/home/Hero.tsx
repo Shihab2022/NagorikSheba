@@ -129,12 +129,12 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={260}>
-            <dl className="mt-10 grid max-w-md grid-cols-3 gap-4 border-t border-white/10 pt-6">
+            <dl className="mt-10 grid max-w-md grid-cols-3 gap-4 overflow-hidden border-t border-white/10 pt-6">
               {STATS.map((stat) => (
-                <div key={stat.value}>
+                <div key={stat.value} className="min-w-0">
                   <dt className="sr-only">{t(stat.label)}</dt>
-                  <dd className="text-2xl font-extrabold text-white">{stat.value}</dd>
-                  <dd className="mt-0.5 text-xs font-medium uppercase tracking-wider text-brand-200">
+                  <dd className="truncate text-2xl font-extrabold text-white">{stat.value}</dd>
+                  <dd className="mt-0.5 truncate text-xs font-medium uppercase tracking-wider text-brand-200">
                     {t(stat.label)}
                   </dd>
                 </div>

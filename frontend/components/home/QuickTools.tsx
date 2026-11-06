@@ -63,9 +63,9 @@ export function QuickTools() {
           />
         </Reveal>
 
-        <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <ul className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
           {TOOLS.map((tool, i) => (
-            <li key={tool.label.en}>
+            <li key={tool.label.en} className="last:col-span-2 last:sm:col-span-1">
               <Reveal delay={(i % 4) * 60} className="h-full">
                 <Link
                   href={tool.href}

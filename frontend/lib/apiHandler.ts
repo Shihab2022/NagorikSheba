@@ -36,8 +36,7 @@ export const apiHandler = async <
         const base = (baseURL || "").replace(/\/+$/, "");
         const cleanPath = (path || "").replace(/^\/+/, "");
         let url = `${base}/${cleanPath}`;
-        const cookieStore = await cookies();
-        const token = cookieStore.get("accessToken")?.value;
+        let token: string | undefined; try { const cookieStore = await cookies(); token = cookieStore.get("accessToken")?.value; } catch {}
 
         const headers: Record<string, string> = {};
 
@@ -118,5 +117,6 @@ export const apiHandler = async <
         };
     }
 };
+
 
 

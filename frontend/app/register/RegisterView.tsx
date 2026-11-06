@@ -18,6 +18,8 @@ const STRINGS = {
   },
 };
 
+
+
 export function RegisterView() {
   const { t } = useTranslation();
   const s = t(STRINGS);

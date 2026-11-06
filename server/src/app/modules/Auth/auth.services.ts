@@ -7,6 +7,7 @@ import { Secret } from "jsonwebtoken";
 import AppError from "../../../app/errors/AppError";
 import httpStatus from "http-status";
 import { OAuth2Client } from "google-auth-library";
+import type { StringValue } from "ms";
 
 const googleClient = new OAuth2Client(config.google_client_id);
 
@@ -241,7 +242,7 @@ const forgotPassword = async (payload: { email: string }) => {
   const resetToken = jwtHelpers.signJwt(
     { email: user.email, role: user.role },
     config.jwt_access_secret as string,
-    config.forget_pass_expire_in || "1h",
+    (config.forget_pass_expire_in || "1h") as StringValue,
   );
 
   const resetLink = `${config.front_end_base_url || "http://localhost:3000"}/reset-password?userId=${user.id}&token=${resetToken}`;
