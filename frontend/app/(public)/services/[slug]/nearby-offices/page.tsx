@@ -81,7 +81,15 @@ export default async function NearbyOfficesPage(
   const lng = parseCoordinateQuery(sp?.lng, -180, 180);
   const rawDistrict =
     typeof sp?.district === "string" ? sp.district.trim() : "";
+
+  const rawDistrictBn =
+    typeof sp?.districtBn === "string" ? sp.districtBn.trim() : "";
+
   const rawUpazila = typeof sp?.upazila === "string" ? sp.upazila.trim() : "";
+
+  const rawUpazilaBn =
+    typeof sp?.upazilaBn === "string" ? sp.upazilaBn.trim() : "";
+
   const rawRadius = typeof sp?.radius === "string" ? Number(sp.radius) : NaN;
 
   if ((RADIUS_OPTIONS_KM as readonly number[]).includes(rawRadius)) {
@@ -94,7 +102,13 @@ export default async function NearbyOfficesPage(
     origin = {
       mode: "area",
       district: rawDistrict,
+      districtBn:
+        rawDistrictBn && rawDistrictBn.length <= 100
+          ? rawDistrictBn
+          : undefined,
       upazila: rawUpazila && rawUpazila.length <= 100 ? rawUpazila : null,
+      upazilaBn:
+        rawUpazilaBn && rawUpazilaBn.length <= 100 ? rawUpazilaBn : null,
     };
   }
 

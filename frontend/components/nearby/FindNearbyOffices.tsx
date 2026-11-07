@@ -4,7 +4,10 @@ import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, MapPin, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { AreaPickerModal } from "@/components/nearby/AreaPickerModal";
+import {
+  AreaPickerModal,
+  type AreaSelection,
+} from "@/components/nearby/AreaPickerModal";
 import {
   GeolocationError,
   getOfficeServiceKey,
@@ -66,7 +69,12 @@ export function FindNearbyOffices({ slug }: { slug: string }) {
 
   const [locating, setLocating] = useState(false);
   const [errorKey, setErrorKey] = useState<
-    "permission-denied" | "position-unavailable" | "timeout" | "unsupported" | "unknown" | null
+    | "permission-denied"
+    | "position-unavailable"
+    | "timeout"
+    | "unsupported"
+    | "unknown"
+    | null
   >(null);
   const [pickerOpen, setPickerOpen] = useState(false);
 
@@ -86,18 +94,26 @@ export function FindNearbyOffices({ slug }: { slug: string }) {
       });
       router.push(`/services/${slug}/nearby-offices?${params.toString()}`);
     } catch (err) {
-      const reason =
-        err instanceof GeolocationError ? err.reason : "unknown";
+      const reason = err instanceof GeolocationError ? err.reason : "unknown";
       setErrorKey(reason);
       setLocating(false);
     }
   }, [serviceKey, locating, router, slug]);
 
   const handleAreaSelect = useCallback(
-    (area: { district: string; upazila: string | null }) => {
+    (area: AreaSelection) => {
       setPickerOpen(false);
-      const params = new URLSearchParams({ district: area.district });
-      if (area.upazila) params.set("upazila", area.upazila);
+
+      const params = new URLSearchParams({
+        district: area.district,
+        districtBn: area.districtBn,
+      });
+
+      if (area.upazila && area.upazilaBn) {
+        params.set("upazila", area.upazila);
+        params.set("upazilaBn", area.upazilaBn);
+      }
+
       router.push(`/services/${slug}/nearby-offices?${params.toString()}`);
     },
     [router, slug],
@@ -167,7 +183,6 @@ export function FindNearbyOffices({ slug }: { slug: string }) {
         <AreaPickerModal
           open={pickerOpen}
           onClose={() => setPickerOpen(false)}
-          service={serviceKey}
           onSelect={handleAreaSelect}
         />
       ) : null}

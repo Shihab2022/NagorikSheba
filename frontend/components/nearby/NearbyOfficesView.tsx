@@ -2,12 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  Building2,
-  Loader2,
-  LocateFixed,
-  MapPin,
-} from "lucide-react";
+import { Building2, Loader2, LocateFixed, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Input";
@@ -120,7 +115,9 @@ export function NearbyOfficesView({
         : await getOfficesByArea({
             service,
             district: origin.district,
+            districtBn: origin.districtBn,
             upazila: origin.upazila,
+            upazilaBn: origin.upazilaBn,
           });
     if (res.success) {
       const next = res.data?.offices ?? [];
@@ -217,7 +214,10 @@ export function NearbyOfficesView({
     return left - right;
   });
 
-  const countLabel = s.resultsCount.replace("{n}", String(mergedOffices.length));
+  const countLabel = s.resultsCount.replace(
+    "{n}",
+    String(mergedOffices.length),
+  );
 
   return (
     <div className="space-y-6">
@@ -266,7 +266,10 @@ export function NearbyOfficesView({
               aria-busy={locating}
               icon={
                 locating ? (
-                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                  <Loader2
+                    className="h-4 w-4 animate-spin"
+                    aria-hidden="true"
+                  />
                 ) : (
                   <LocateFixed className="h-4 w-4" aria-hidden="true" />
                 )
@@ -311,7 +314,10 @@ export function NearbyOfficesView({
         />
       ) : (
         <>
-          <p className="text-sm font-semibold text-slate-600" aria-live="polite">
+          <p
+            className="text-sm font-semibold text-slate-600"
+            aria-live="polite"
+          >
             {countLabel}
           </p>
           <NearbyMap
@@ -330,9 +336,7 @@ export function NearbyOfficesView({
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() =>
-                      handleRadiusChange(radiusKm < 50 ? 50 : 100)
-                    }
+                    onClick={() => handleRadiusChange(radiusKm < 50 ? 50 : 100)}
                   >
                     {s.widenSearch}
                   </Button>
@@ -363,4 +367,3 @@ export function NearbyOfficesView({
 }
 
 export default NearbyOfficesView;
-

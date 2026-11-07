@@ -1,7 +1,11 @@
 import httpStatus from "http-status";
 import { pool } from "../../../utils/pg";
 import AppError from "../../errors/AppError";
-import { overpassPassportProvider, type OfficeCandidate } from "./office-location-provider";
+import {
+  overpassPassportProvider,
+  type OfficeCandidate,
+  type PassportAreaSearchInput,
+} from "./office-location-provider";
 import { getValhallaDrivingDistanceKm } from "./valhalla-routing.provider";
 
 /**
@@ -191,8 +195,8 @@ const findNearbyOffices = async (params: {
 
   const rawRadius =
     params.radiusKm === undefined ||
-      params.radiusKm === "" ||
-      params.radiusKm === null
+    params.radiusKm === "" ||
+    params.radiusKm === null
       ? DEFAULT_RADIUS_KM
       : Number(params.radiusKm);
   if (
@@ -223,7 +227,12 @@ const findNearbyOffices = async (params: {
   if (service === "PASSPORT") {
     let offices: any[] = [];
     try {
-      const rawCandidates = await overpassPassportProvider.findNearbyPassportCandidates(lat, lng, radiusKm);
+      const rawCandidates =
+        await overpassPassportProvider.findNearbyPassportCandidates(
+          lat,
+          lng,
+          radiusKm,
+        );
       const seen = new Set();
       const filtered = rawCandidates.filter((c) => {
         const key = `${c.osmType}:${c.osmId}`;
@@ -253,9 +262,14 @@ const findNearbyOffices = async (params: {
         }),
       );
       offices = withDistances
-        .filter((office) => office.drivingDistanceKm == null || office.drivingDistanceKm <= radiusKm)
+        .filter(
+          (office) =>
+            office.drivingDistanceKm == null ||
+            office.drivingDistanceKm <= radiusKm,
+        )
         .sort((a, b) => {
-          if (a.drivingDistanceKm == null && b.drivingDistanceKm == null) return 0;
+          if (a.drivingDistanceKm == null && b.drivingDistanceKm == null)
+            return 0;
           if (a.drivingDistanceKm == null) return 1;
           if (b.drivingDistanceKm == null) return -1;
           return a.drivingDistanceKm - b.drivingDistanceKm;
@@ -351,7 +365,9 @@ const findNearbyOffices = async (params: {
 const findOfficesByArea = async (params: {
   service: unknown;
   district: unknown;
+  districtBn?: unknown;
   upazila?: unknown;
+  upazilaBn?: unknown;
   page?: unknown;
   limit?: unknown;
 }) => {
@@ -371,6 +387,57 @@ const findOfficesByArea = async (params: {
     "limit",
   );
   const offset = (page - 1) * limit;
+
+  // Sanitize optional Bengali parameters using existing logic.
+  // sanitizeAreaText returns string | null; for optional fields we convert null to undefined.
+  const sanitizedDistrictBn =
+    params.districtBn !== undefined && params.districtBn !== null
+      ? (sanitizeAreaText(params.districtBn, "districtBn", false) ?? undefined)
+      : undefined;
+
+  const sanitizedUpazilaBn =
+    params.upazilaBn !== undefined && params.upazilaBn !== null
+      ? (sanitizeAreaText(params.upazilaBn, "upazilaBn", false) ?? undefined)
+      : undefined;
+
+  // Passport area discovery uses OSM/Overpass with administrative boundaries
+  if (service === "PASSPORT") {
+    const passportInput: PassportAreaSearchInput = {
+      district: district as string,
+      districtBn: sanitizedDistrictBn,
+      upazila: upazila as string | undefined,
+      upazilaBn: sanitizedUpazilaBn,
+    };
+    const candidates =
+      await overpassPassportProvider.findPassportOfficesByArea(passportInput);
+    // Apply pagination: slice the mapped office list, but total is from complete list
+    const start = (page - 1) * limit;
+    const end = start + limit;
+    const paginatedOffices = candidates
+      .map((c) => ({
+        id: `osm:${c.osmType}:${c.osmId}`,
+        name: c.name,
+        latitude: c.latitude,
+        longitude: c.longitude,
+        address: c.address,
+        phone: c.phone,
+        officialUrl: c.officialUrl,
+        source: "OpenStreetMap",
+        // Distance fields are not applicable for area-based Passport results
+        distanceKm: null,
+      }))
+      .slice(start, end);
+    return {
+      service,
+      area: { district, upazila },
+      offices: paginatedOffices,
+      meta: {
+        page,
+        limit,
+        total: candidates.length,
+      },
+    };
+  }
 
   const filters = `o."isDeleted" = FALSE AND o."isActive" = TRUE
       AND o.district = $1

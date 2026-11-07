@@ -48,8 +48,29 @@ export const getNearbyOffices = async (params: {
     success: res.success,
     message: res.message,
     status: res.status,
-     data: res.data?.data ? { ...res.data.data, offices: (res.data.data.offices ?? []).map((office: NearbyOffice)=>({ id: office.id ?? `${office.latitude}-${office.longitude}`, name: office.name, officeType: "PASSPORT_OFFICE", address: office.address ?? "", division: null, district: office.district ?? "", upazila: null, latitude: office.latitude, longitude: office.longitude, phone: office.phone ?? null, officialUrl: office.officialUrl ?? null, lastVerifiedAt: null, distanceKm: office.distanceKm ?? null,
-             drivingDistanceKm: office.drivingDistanceKm ?? null })) } : undefined,
+    data: res.data?.data
+      ? {
+          ...res.data.data,
+          offices: (res.data.data.offices ?? []).map(
+            (office: NearbyOffice) => ({
+              id: office.id ?? `${office.latitude}-${office.longitude}`,
+              name: office.name,
+              officeType: "PASSPORT_OFFICE",
+              address: office.address ?? "",
+              division: null,
+              district: office.district ?? "",
+              upazila: null,
+              latitude: office.latitude,
+              longitude: office.longitude,
+              phone: office.phone ?? null,
+              officialUrl: office.officialUrl ?? null,
+              lastVerifiedAt: null,
+              distanceKm: office.distanceKm ?? null,
+              drivingDistanceKm: office.drivingDistanceKm ?? null,
+            }),
+          ),
+        }
+      : undefined,
     meta: res.data?.meta ?? null,
   };
 };
@@ -62,7 +83,9 @@ export const getNearbyOffices = async (params: {
 export const getOfficesByArea = async (params: {
   service: OfficeServiceKey;
   district: string;
+  districtBn?: string;
   upazila?: string | null;
+  upazilaBn?: string | null;
   page?: number;
   limit?: number;
 }): Promise<NearbyOfficesResponse> => {
@@ -74,6 +97,8 @@ export const getOfficesByArea = async (params: {
       service: params.service,
       district: params.district,
       upazila: params.upazila ?? undefined,
+      districtBn: params.districtBn ?? undefined,
+      upazilaBn: params.upazilaBn ?? undefined,
       page: params.page,
       limit: params.limit,
     },

@@ -76,7 +76,9 @@ const getByArea = catchAsync(async (req: Request, res: Response) => {
   const result = await GovernmentOfficesServices.findOfficesByArea({
     service: req.query.service ?? req.query.slug,
     district: req.query.district,
+    districtBn: req.query.districtBn,
     upazila: req.query.upazila,
+    upazilaBn: req.query.upazilaBn,
     page: req.query.page,
     limit: req.query.limit,
   });

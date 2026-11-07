@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/i18n";
@@ -13,6 +14,9 @@ const STRINGS = {
 /**
  * Simple accessible modal (dialog): escape to close, focus moves in,
  * backdrop click closes, body scroll locked while open.
+ *
+ * Renders via createPortal into document.body so the modal
+ * escapes any parent stacking context and appears above page content.
  */
 export function Modal({
   open,
@@ -31,6 +35,7 @@ export function Modal({
   const { t } = useTranslation();
 
   const onCloseRef = useRef(onClose);
+
   useEffect(() => {
     onCloseRef.current = onClose;
   }, [onClose]);
@@ -41,12 +46,16 @@ export function Modal({
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onCloseRef.current();
     };
+
     document.addEventListener("keydown", onKey);
+
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    // Only focus modal on initial open if active focus is not already inside it
-    if (panelRef.current && !panelRef.current.contains(document.activeElement)) {
+    if (
+      panelRef.current &&
+      !panelRef.current.contains(document.activeElement)
+    ) {
       panelRef.current.focus();
     }
 
@@ -58,13 +67,14 @@ export function Modal({
 
   if (!open) return null;
 
-  return (
-    <div className="fixed inset-0 z-[70] flex items-end justify-center sm:items-center">
+  return createPortal(
+    <div className="fixed inset-0 z-9999 flex items-end justify-center sm:items-center">
       <div
         className="absolute inset-0 bg-slate-900/45 backdrop-blur-[2px]"
         onClick={onClose}
         aria-hidden="true"
       />
+
       <div
         ref={panelRef}
         role="dialog"
@@ -78,6 +88,7 @@ export function Modal({
       >
         <div className="mb-4 flex items-center justify-between gap-4">
           <h2 className="text-lg font-bold text-slate-900">{title}</h2>
+
           <button
             type="button"
             onClick={onClose}
@@ -87,9 +98,11 @@ export function Modal({
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
+
         {children}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

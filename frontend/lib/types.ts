@@ -187,4 +187,10 @@ export type NearbyOfficesResult = {
 /** Where the user's "location" on the nearby page comes from. */
 export type NearbyOrigin =
   | { mode: "gps"; lat: number; lng: number }
-  | { mode: "area"; district: string; upazila: string | null };
+  | {
+      mode: "area";
+      district: string;
+      districtBn?: string;
+      upazila: string | null;
+      upazilaBn?: string | null;
+    };

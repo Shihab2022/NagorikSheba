@@ -169,9 +169,8 @@ export function buildGoogleMapsDirectionsUrl(
   if (!isValidCoordinate(destination.lat, destination.lng)) return null;
 
   const toCoordinateString = (value: number): string => {
-    // Preserve the original number format without rounding
-    // This keeps exact decimal places (6 or 7) as provided
-    return value.toString();
+    // Format to 6 decimal places — matches database column precision
+    return value.toFixed(6);
   };
 
   const originParam =
