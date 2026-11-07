@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -13,6 +12,7 @@ import { useTranslation, type Dict } from "@/lib/i18n";
 import { COMMON } from "@/lib/i18n/common";
 import { getMe, logout } from "@/service/auth";
 import { markHomeNavigationIntent } from "@/lib/home-navigation-intent";
+import LanguageSwitcher from "@/features/translate/LanguageSwitcher";
 
 const NAV_LINKS: { label: Dict<string>; href: string }[] = [
   { href: "/services", label: { bn: "সেবা", en: "Services" } },
@@ -153,8 +153,6 @@ export function Navbar() {
     };
   }, [open]);
 
-
-
   return (
     <header
       className={cn(
@@ -225,38 +223,8 @@ export function Navbar() {
           </Link>
 
           {/* Language toggle */}
-          <div
-            className="hidden items-center rounded-lg bg-white/10 p-0.5 text-xs font-bold md:flex"
-            role="group"
-            aria-label={c.language}
-          >
-            <button
-              type="button"
-              aria-pressed={lang === "bn"}
-              onClick={() => setLang("bn")}
-              className={cn(
-                "rounded-md px-2.5 py-1.5 transition-colors",
-                lang === "bn"
-                  ? "bg-white text-brand-800"
-                  : "text-brand-50/80 hover:text-white",
-              )}
-            >
-              বাংলা
-            </button>
-
-            <button
-              type="button"
-              aria-pressed={lang === "en"}
-              onClick={() => setLang("en")}
-              className={cn(
-                "rounded-md px-2.5 py-1.5 transition-colors",
-                lang === "en"
-                  ? "bg-white text-brand-800"
-                  : "text-brand-50/80 hover:text-white",
-              )}
-            >
-              EN
-            </button>
+          <div className="hidden md:flex items-center">
+            <LanguageSwitcher variant="navbar" />
           </div>
 
           {/* Logged-in user buttons */}
@@ -312,7 +280,7 @@ export function Navbar() {
                 href="/register"
                 className="inline-flex h-10 items-center justify-center rounded-lg bg-white px-4 text-sm font-bold text-brand-800 shadow-sm transition-all duration-200 hover:bg-brand-50 hover:shadow-md active:scale-[0.98]"
               >
-                {lang === "bn" ? "নিবন্ধন" : "Register"}
+                Register
               </Link>
             </div>
           )}

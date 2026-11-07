@@ -16,10 +16,6 @@ import { Badge } from "@/components/ui/Badge";
 import { useTranslation } from "@/lib/i18n";
 import { COMMON } from "@/lib/i18n/common";
 
-
-
-
-
 const STRINGS = {
   bn: {
     onlineService: "অনলাইন সেবা",
@@ -55,9 +51,19 @@ export function ServiceCard({
   const category = getCategoryBySlug(service.category);
   const servicePath = `/services/${service.slug}`;
 
+  const docCount = service.documentsCount ?? service.requiredDocuments?.length ?? 0;
+
   return (
     <article className="group relative flex h-full min-w-0 flex-col rounded-2xl border border-line bg-white p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift hover:ring-1 hover:ring-brand-100">
-      <div className="flex items-start gap-4">
+      {/* Clickable full-card link */}
+      <Link
+        href={servicePath}
+        className="absolute inset-0 z-0 rounded-2xl"
+        aria-label={service.name}
+        tabIndex={-1}
+      />
+
+      <div className="relative z-10 flex items-start gap-4">
         <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700 transition-transform duration-300 group-hover:-translate-y-1 group-hover:-rotate-6">
           <Icon name={service.icon} className="h-6 w-6" />
         </span>
@@ -93,14 +99,14 @@ export function ServiceCard({
         </div>
       </div>
 
-      <div className="mt-4 border-t border-line pt-3">
+      <div className="relative z-10 mt-4 border-t border-line pt-3">
         <span className="block truncate text-xs font-semibold uppercase tracking-wide text-slate-400">
           {category?.name ?? service.department}
         </span>
       </div>
 
       {!compact ? (
-        <dl className="mt-3 grid grid-cols-2 gap-2 border-t border-line pt-3">
+        <dl className="relative z-10 mt-3 grid grid-cols-2 gap-2 border-t border-line pt-3">
           <div className="flex min-w-0 items-center gap-1.5 text-xs text-slate-500">
             <FileText
               className="h-3.5 w-3.5 shrink-0 text-brand-600"
@@ -112,7 +118,7 @@ export function ServiceCard({
             <dd className="min-w-0 truncate font-medium">
               {s.documents.replace(
                 "{n}",
-                String(service.requiredDocuments?.length ?? 0),
+                String(docCount),
               )}
             </dd>
           </div>
@@ -132,21 +138,10 @@ export function ServiceCard({
         </dl>
       ) : null}
 
-      {/* Share and Copy Link buttons */}
-      {/* <div className="relative z-10 mt-4 flex flex-wrap items-center gap-2">
-        <ShareButton
-          url={servicePath}
-          title={service.name}
-          text={service.description}
-        />
-
-        <CopyLinkButton url={servicePath} />
-      </div> */}
-
       {/* View service link */}
       <Link
         href={servicePath}
-        className="relative z-0 mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700"
+        className="relative z-10 mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700"
       >
         {c.viewService}
 

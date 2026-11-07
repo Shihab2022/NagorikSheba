@@ -162,12 +162,12 @@ export function UserSidebar({
 
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5">
-                <p className="truncate text-sm font-black text-slate-900 leading-snug" title={user?.name || "Citizen"}>
+                <p className="notranslate truncate text-sm font-black text-slate-900 leading-snug" translate="no" title={user?.name || "Citizen"}>
                   {user?.name || "Citizen"}
                 </p>
                 <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-brand-600" aria-hidden="true" />
               </div>
-              <p className="truncate text-[11px] text-slate-400 mt-0.5" title={user?.email || ""}>
+              <p className="notranslate truncate text-[11px] text-slate-400 mt-0.5" translate="no" title={user?.email || ""}>
                 {user?.email || "citizen@nagoriksheba.gov"}
               </p>
 
