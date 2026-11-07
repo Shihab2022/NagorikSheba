@@ -32,6 +32,7 @@ export type GovernmentService = {
   longDescription?: string;
   eligibility?: string[];
   requiredDocuments?: string[];
+  documentsCount?: number;
   fee?: string;
   processingTime?: string;
   /** Ordered steps of the application procedure. */

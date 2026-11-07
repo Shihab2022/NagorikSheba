@@ -71,10 +71,13 @@ export default async function DashboardPage() {
 
             <div>
               <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white leading-tight">
-                <T
-                  bn={user?.name ? `স্বাগতম, ${user.name}!` : "স্বাগতম, নাগরিক!"}
-                  en={user?.name ? `Welcome back, ${user.name}!` : "Welcome, Citizen!"}
-                />
+                {user?.name ? (
+                  <>
+                    Welcome back, <span className="notranslate" translate="no">{user.name}</span>!
+                  </>
+                ) : (
+                  "Welcome, Citizen!"
+                )}
               </h1>
               <p className="mt-1.5 text-xs sm:text-sm text-emerald-100/80 leading-relaxed font-medium">
                 <T

@@ -37,11 +37,12 @@ export function Logo({
     <Link
       href={href}
       onClick={onClick}
-      className={cn("group flex items-center gap-2.5 rounded-lg", className)}
+      className={cn("notranslate group flex items-center gap-2.5 rounded-lg", className)}
+      translate="no"
       aria-label="NagorikSheba home"
     >
       <LogoMark />
-      <span className="flex flex-col leading-none">
+      <span className="notranslate flex flex-col leading-none" translate="no">
         <span
           className={cn(
             "text-[17px] font-extrabold tracking-tight transition-transform duration-200 group-hover:-translate-y-px",

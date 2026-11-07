@@ -89,3 +89,34 @@ The front end is complete and builds cleanly. Both forms validate and show a
 success state, but **they do not submit anywhere yet** — wiring them to the
 `server/` API is the next step.
 
+
+
+## English & Bangla Translation (Google Translate Widget)
+
+NagorikSheba uses the browser-side Google Translate website widget for free, site-wide English and Bangla (`bn`) translation across both statically rendered UI and dynamic data fetched from the Express API.
+
+### Marking Text as Untranslatable
+
+Any text that must NOT be translated (brand names, personal names, tracking/application IDs, currency codes, email addresses, etc.) should be marked with `notranslate`:
+
+1. Using the wrapper component:
+   ```tsx
+   import NoTranslate from "@/features/translate/NoTranslate";
+
+   <NoTranslate>{user.name}</NoTranslate>
+   <NoTranslate>{trackingId}</NoTranslate>
+   ```
+
+2. Using HTML attributes:
+   ```tsx
+   <span className="notranslate" translate="no">NagorikSheba</span>
+   ```
+
+### Known Translation Limitations
+
+- **Iframes**: Text inside embedded iframes (third-party payment forms, widgets) is not translated.
+- **Video Subtitles**: Not translated; require dedicated `.vtt` track files.
+- **Images/Canvas**: Text baked into images or rendered on `<canvas>` is not translated.
+- **HTML Attributes**: `placeholder` and `title` attributes may be bypassed by the widget.
+- **SEO**: Search engines crawl and index only the default English markup.
+- **Initial Load Flash**: The server and initial client render output English first, so a brief flash of English before Bangla renders is expected when Bangla is selected.
