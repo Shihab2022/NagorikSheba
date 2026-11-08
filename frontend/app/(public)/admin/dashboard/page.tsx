@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getMe } from "@/service/auth";
 import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
-import { SERVICES } from "@/lib/data/services";
-import { CATEGORIES } from "@/lib/data/categories";
 import { OFFICES } from "@/lib/data/offices";
 import { NOTICES } from "@/lib/data/notices";
 import { getAllCategories } from "@/service/category";
 import { getAllServices } from "@/service/service";
+import { mapBackendServiceToFrontend } from "@/lib/service-adapter";
 import { DashboardShell } from "@/components/dashboard/layout/DashboardShell";
 import { AdminSidebar } from "@/components/dashboard/layout/AdminSidebar";
 import {
@@ -17,6 +16,8 @@ import {
   AdminRecentServices,
   AdminSystemStatus,
 } from "@/components/dashboard/admin";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -37,12 +38,15 @@ export default async function AdminDashboardPage() {
   const admin = meRes.data;
 
   const [categoriesRes, servicesRes] = await Promise.all([
-    getAllCategories().catch(() => ({ data: [] })),
-    getAllServices({ limit: 1 }).catch(() => ({ data: [], meta: { total: 0 } })),
+    getAllCategories().catch(() => ({ success: false, data: [] })),
+    getAllServices({ limit: 5 }).catch(() => ({ success: false, data: [], meta: { total: 0 } })),
   ]);
 
-  const categoriesCount = categoriesRes.data?.length ?? CATEGORIES.length;
-  const servicesCount = servicesRes.meta?.total ?? SERVICES.length;
+  const categoriesCount = categoriesRes.data?.length ?? 0;
+  const servicesCount = servicesRes.meta?.total ?? 0;
+  const recentServices = Array.isArray(servicesRes.data)
+    ? servicesRes.data.map(mapBackendServiceToFrontend)
+    : [];
 
   return (
     <DashboardShell
@@ -88,7 +92,7 @@ export default async function AdminDashboardPage() {
             noticesCount={NOTICES.length}
           />
 
-          <AdminRecentServices services={SERVICES.slice(0, 5)} />
+          <AdminRecentServices services={recentServices} />
         </div>
 
         <AdminSystemStatus admin={admin} />

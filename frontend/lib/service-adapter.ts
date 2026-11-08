@@ -4,7 +4,7 @@ import type { CategoryItem } from "@/types/category";
 
 /**
  * Maps a backend ServiceItem (with relational steps, requirements, fees, sources)
- * to the frontend GovernmentService UI shape.
+ * to the frontend GovernmentService UI shape purely driven by API data.
  */
 export function mapBackendServiceToFrontend(item: ServiceItem): GovernmentService {
   const steps = (item.steps || [])
@@ -14,6 +14,11 @@ export function mapBackendServiceToFrontend(item: ServiceItem): GovernmentServic
   const requiredDocuments = (item.requirements || [])
     .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0))
     .map((r) => r.name);
+
+  const documentsCount =
+    typeof item.requirementCount === "number" && item.requirementCount >= 0
+      ? item.requirementCount
+      : requiredDocuments.length;
 
   // Derive display fee
   let feeDisplay = "Free";
@@ -27,7 +32,10 @@ export function mapBackendServiceToFrontend(item: ServiceItem): GovernmentServic
   }
 
   const eligibilityList = item.eligibility
-    ? item.eligibility.split(";").map((e) => e.trim()).filter(Boolean)
+    ? item.eligibility
+        .split(";")
+        .map((e) => e.trim())
+        .filter(Boolean)
     : [];
 
   const categorySlug = item.category_slug || "identity-documents";
@@ -46,11 +54,13 @@ export function mapBackendServiceToFrontend(item: ServiceItem): GovernmentServic
     name: item.name,
     slug: item.slug,
     category: categorySlug,
+    categoryName: item.category_name,
     department: departmentName,
-    description: item.shortDescription || item.description,
-    longDescription: item.description,
+    description: item.shortDescription || item.description || "",
+    longDescription: item.description || item.shortDescription || "",
     eligibility: eligibilityList,
     requiredDocuments,
+    documentsCount,
     fee: feeDisplay,
     processingTime: item.processingTime || "Varies",
     steps,

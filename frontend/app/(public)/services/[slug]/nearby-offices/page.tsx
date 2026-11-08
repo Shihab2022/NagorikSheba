@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { SERVICES, getServiceBySlug } from "@/lib/data/services";
 import {
   DEFAULT_RADIUS_KM,
   RADIUS_OPTIONS_KM,
@@ -11,18 +10,17 @@ import { NearbyOfficesView } from "@/components/nearby/NearbyOfficesView";
 import { NearbyIntro } from "@/components/nearby/FindNearbyOffices";
 import { NearbyUnsupported } from "@/components/nearby/NearbyUnsupported";
 import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
+import { getSingleService } from "@/service/service";
+import { mapBackendServiceToFrontend } from "@/lib/service-adapter";
 
-export function generateStaticParams() {
-  return SERVICES.filter((s) => getOfficeServiceKey(s.slug)).map((s) => ({
-    slug: s.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(
   props: PageProps<"/services/[slug]/nearby-offices">,
 ): Promise<Metadata> {
   const { slug } = await props.params;
-  const service = getServiceBySlug(slug);
+  const res = await getSingleService(slug).catch(() => null);
+  const service = res?.data ? mapBackendServiceToFrontend(res.data) : null;
   if (!service) return { title: "Nearby Offices" };
   return {
     title: `Nearby Offices — ${service.name}`,
@@ -41,7 +39,8 @@ export default async function NearbyOfficesPage(
   const { slug } = await props.params;
   const sp = await props.searchParams;
 
-  const service = getServiceBySlug(slug);
+  const res = await getSingleService(slug).catch(() => null);
+  const service = res?.data ? mapBackendServiceToFrontend(res.data) : null;
   const serviceKey = service ? getOfficeServiceKey(slug) : null;
 
   // Never hard-404: unknown / unsupported slugs get a helpful fallback with

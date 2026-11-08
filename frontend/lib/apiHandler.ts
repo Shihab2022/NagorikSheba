@@ -32,10 +32,11 @@ export const apiHandler = async <
     params = {} as TParams,
     formData = false,
 }: ApiHandlerOptions<TParams>): Promise<ApiResponse<TData, TParams>> => {
+    let url = "";
     try {
         const base = (baseURL || "").replace(/\/+$/, "");
         const cleanPath = (path || "").replace(/^\/+/, "");
-        let url = `${base}/${cleanPath}`;
+        url = `${base}/${cleanPath}`;
         let token: string | undefined; try { const cookieStore = await cookies(); token = cookieStore.get("accessToken")?.value; } catch {}
 
         const headers: Record<string, string> = {};
@@ -108,7 +109,18 @@ export const apiHandler = async <
             throw err;
         }
 
-        console.error("API Call Error:", err);
+        const isConnRefused =
+            err?.cause?.code === "ECONNREFUSED" ||
+            (Array.isArray(err?.cause?.errors) &&
+                err.cause.errors.some((e: any) => e?.code === "ECONNREFUSED"));
+
+        if (isConnRefused) {
+            console.warn(
+                `[apiHandler] Backend server unreachable (ECONNREFUSED) at ${url}. Please ensure Express backend is running on port 5000.`,
+            );
+        } else {
+            console.error("API Call Error:", err);
+        }
         return {
             status: 500,
             message: err?.message || SOMETHING_WENT_WRONG,

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, ChevronRight, Info } from "lucide-react";
 import { getMe } from "@/service/auth";
-import { SERVICES } from "@/lib/data/services";
+import { getAllServices } from "@/service/service";
+import { mapBackendServiceToFrontend } from "@/lib/service-adapter";
 import { T } from "@/components/ui/T";
 import { DashboardShell } from "@/components/dashboard/layout/DashboardShell";
 import { UserSidebar } from "@/components/dashboard/layout/UserSidebar";
@@ -24,7 +25,10 @@ export default async function DashboardPage() {
   const meRes = await getMe();
   const user = meRes.success ? meRes.data : null;
   const isAdmin = user?.role?.toUpperCase() === "ADMIN";
-  const saved = SERVICES.slice(0, 4);
+  const svcRes = await getAllServices({ limit: 4 }).catch(() => null);
+  const saved = svcRes?.success && Array.isArray(svcRes.data)
+    ? svcRes.data.map(mapBackendServiceToFrontend)
+    : [];
 
   return (
     <DashboardShell
@@ -71,10 +75,13 @@ export default async function DashboardPage() {
 
             <div>
               <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white leading-tight">
-                <T
-                  bn={user?.name ? `স্বাগতম, ${user.name}!` : "স্বাগতম, নাগরিক!"}
-                  en={user?.name ? `Welcome back, ${user.name}!` : "Welcome, Citizen!"}
-                />
+                {user?.name ? (
+                  <>
+                    Welcome back, <span className="notranslate" translate="no">{user.name}</span>!
+                  </>
+                ) : (
+                  "Welcome, Citizen!"
+                )}
               </h1>
               <p className="mt-1.5 text-xs sm:text-sm text-emerald-100/80 leading-relaxed font-medium">
                 <T

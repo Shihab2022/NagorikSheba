@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight, Check, FileCheck2 } from "lucide-react";
-import { SERVICES } from "@/lib/data/services";
+import type { GovernmentService } from "@/lib/types";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
@@ -35,12 +35,13 @@ const STRINGS = {
 };
 
 /** Document checklist preview — switch between popular services. */
-export function DocumentChecklist() {
+export function DocumentChecklist({ services = [] }: { services?: GovernmentService[] }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
-  const options = PREVIEW_SLUGS
-    .map((slug) => SERVICES.find((s) => s.slug === slug))
+  const matchedOptions = PREVIEW_SLUGS
+    .map((slug) => services.find((s) => s.slug === slug))
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
+  const options = matchedOptions.length > 0 ? matchedOptions : services.slice(0, 4);
   const [activeSlug, setActiveSlug] = useState(options[0]?.slug ?? "");
   const active = options.find((s) => s.slug === activeSlug) ?? options[0];
 

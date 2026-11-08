@@ -4,8 +4,6 @@ import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 import { getAllServices } from "@/service/service";
 import { getAllCategories } from "@/service/category";
 import { mapBackendServiceToFrontend, mapBackendCategoryToFrontend } from "@/lib/service-adapter";
-import { SERVICES } from "@/lib/data/services";
-import { CATEGORIES } from "@/lib/data/categories";
 import type { GovernmentService, ServiceCategory } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -56,13 +54,11 @@ export default async function ServicesPage(props: ServicesPageProps) {
       getAllCategories(),
     ]);
 
-    if (categoriesRes.success && categoriesRes.data && categoriesRes.data.length > 0) {
+    if (categoriesRes?.success && Array.isArray(categoriesRes.data)) {
       categories = categoriesRes.data.map(mapBackendCategoryToFrontend);
-    } else {
-      categories = CATEGORIES;
     }
 
-    if (servicesRes.success && servicesRes.data && servicesRes.data.length > 0) {
+    if (servicesRes?.success && Array.isArray(servicesRes.data)) {
       services = servicesRes.data.map(mapBackendServiceToFrontend);
       totalCount = servicesRes.meta?.total ?? services.length;
 
@@ -76,41 +72,12 @@ export default async function ServicesPage(props: ServicesPageProps) {
           return matchDept && matchAvail;
         });
       }
-    } else {
-      const filtered = SERVICES.filter((s) => {
-        const matchQ =
-          !q ||
-          s.name.toLowerCase().includes(q.toLowerCase()) ||
-          s.description.toLowerCase().includes(q.toLowerCase()) ||
-          s.department.toLowerCase().includes(q.toLowerCase());
-        const matchCat = category === "all" || s.category === category;
-        const matchDept = department === "all" || s.department === department;
-        const matchAvail =
-          availability === "all" ||
-          (availability === "online" && s.isOnline) ||
-          (availability === "office" && s.requiresOfficeVisit);
-        return matchQ && matchCat && matchDept && matchAvail;
-      }).sort((a, b) => {
-        if (sort === "popular") return b.popularity - a.popularity;
-        if (sort === "az") return a.name.localeCompare(b.name);
-        return b.name.localeCompare(a.name);
-      });
-
-      totalCount = filtered.length;
-      services = filtered.slice((page - 1) * limit, page * limit);
     }
-  } catch {
-    const filtered = SERVICES.filter((s) => {
-      const matchQ =
-        !q ||
-        s.name.toLowerCase().includes(q.toLowerCase()) ||
-        s.description.toLowerCase().includes(q.toLowerCase());
-      const matchCat = category === "all" || s.category === category;
-      return matchQ && matchCat;
-    });
-    totalCount = filtered.length;
-    services = filtered.slice((page - 1) * limit, page * limit);
-    categories = CATEGORIES;
+  } catch (error) {
+    console.error("Failed to load services from API:", error);
+    services = [];
+    categories = [];
+    totalCount = 0;
   }
 
   const pagination = {

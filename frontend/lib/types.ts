@@ -26,12 +26,14 @@ export type GovernmentService = {
   slug: string;
   /** Category slug this service belongs to. */
   category: string;
+  categoryName?: string;
   /** Owning ministry / department display name. */
   department: string;
   description: string;
   longDescription?: string;
   eligibility?: string[];
   requiredDocuments?: string[];
+  documentsCount?: number;
   fee?: string;
   processingTime?: string;
   /** Ordered steps of the application procedure. */
