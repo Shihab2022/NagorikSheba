@@ -68,7 +68,9 @@ export function TrackerWidget({ compact = false }: { compact?: boolean }) {
       </form>
       {stage !== null && !loading ? (
         <div className="mt-6" role="status">
-          <p className="text-xs font-bold text-slate-500">{s.demoResult.replace("{id}", id.trim())}</p>
+          <p className="text-xs font-bold text-slate-500">
+            Demo result for <span className="notranslate" translate="no">{id.trim()}</span>
+          </p>
           <ol className="mt-3 space-y-0">
             {STAGES.map((stage2, i) => {
               const done = i < stage;

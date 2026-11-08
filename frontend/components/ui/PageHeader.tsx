@@ -13,12 +13,14 @@ export function PageHeader({
   breadcrumbs,
   actions,
   className,
+  containerClassName,
 }: {
   title: ReactNode;
   description?: ReactNode;
   breadcrumbs?: { label: string; href?: string }[];
   actions?: ReactNode;
   className?: string;
+  containerClassName?: string;
 }) {
   return (
     <header
@@ -37,10 +39,15 @@ export function PageHeader({
         className="absolute -right-6 top-16 h-16 w-16 rounded-full bg-flag-200/50"
         aria-hidden="true"
       />
-      <div className="relative mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+      <div
+        className={cn(
+          "relative mx-auto w-full max-w-[1720px] px-3.5 py-6 sm:px-6 sm:py-9 lg:px-8 lg:py-12 xl:px-10 2xl:px-12",
+          containerClassName,
+        )}
+      >
         {breadcrumbs && breadcrumbs.length > 0 ? (
-          <nav aria-label="Breadcrumb" className="mb-4">
-            <ol className="flex flex-wrap items-center gap-1.5 text-sm text-slate-500">
+          <nav aria-label="Breadcrumb" className="mb-3 sm:mb-4">
+            <ol className="flex flex-wrap items-center gap-1.5 text-xs text-slate-500 sm:text-sm">
               {breadcrumbs.map((crumb, i) => (
                 <li key={crumb.label} className="flex items-center gap-1.5">
                   {i > 0 ? (
@@ -64,18 +71,18 @@ export function PageHeader({
           </nav>
         ) : null}
 
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <div className="max-w-3xl">
-            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+            <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">
               {title}
             </h1>
             {description ? (
-              <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 sm:mt-2.5 sm:text-base sm:leading-7 lg:text-lg">
                 {description}
               </p>
             ) : null}
           </div>
-          {actions ? <div className="flex shrink-0 flex-wrap gap-3">{actions}</div> : null}
+          {actions ? <div className="flex shrink-0 flex-wrap gap-2.5 sm:gap-3">{actions}</div> : null}
         </div>
       </div>
     </header>

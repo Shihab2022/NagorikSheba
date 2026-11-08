@@ -1,9 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
+import "@/features/translate/translate.css";
 
 import { SkipLink } from "@/components/layout/SkipLink";
 import { LanguageProvider } from "@/lib/i18n";
+import { RedirectAuthenticatedHome } from "@/components/auth/RedirectAuthenticatedHome";
+import GoogleTranslateProvider from "@/features/translate/GoogleTranslateProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,7 +16,7 @@ const inter = Inter({
 
 const bangla = Noto_Sans_Bengali({
   variable: "--font-bangla",
-  subsets: ["bengali"],
+  subsets: ["bengali", "latin"],
   display: "swap",
 });
 
@@ -66,21 +69,30 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="bn"
+      lang="en"
+      suppressHydrationWarning
       className={`${inter.variable} ${bangla.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-white font-sans text-slate-900">
-        <LanguageProvider>
-          <SkipLink />
+      <body
+        suppressHydrationWarning
+        className="flex min-h-full flex-col bg-white font-sans text-slate-900"
+      >
+        <GoogleTranslateProvider>
+          <LanguageProvider>
+            <SkipLink />
+            <RedirectAuthenticatedHome />
 
-          <main id="main-content" className="flex-1  min-h-[calc(600vh-5000px)]">
-            {children}
-          </main>
-        </LanguageProvider>
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
+          </LanguageProvider>
+        </GoogleTranslateProvider>
       </body>
     </html>
   );
 }
+

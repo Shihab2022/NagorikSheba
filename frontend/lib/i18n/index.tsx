@@ -4,77 +4,66 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
-  useState,
   type ReactNode,
 } from "react";
+import { useGoogleTranslate } from "@/features/translate/useGoogleTranslate";
+import type { Lang as GTLang } from "@/features/translate/GoogleTranslateProvider";
+
+export type Lang = GTLang;
+
+export const LANGS: readonly Lang[] = ["en", "bn"] as const;
+export const DEFAULT_LANG: Lang = "en";
 
 /**
- * Lightweight i18n for NagorikSheba — no external dependencies.
- * Exactly two languages are supported: Bangla (bn) and English (en),
- * with Bangla as the default.
- */
-export type Lang = "bn" | "en";
-
-export const LANGS: readonly Lang[] = ["bn", "en"] as const;
-export const DEFAULT_LANG: Lang = "bn";
-const STORAGE_KEY = "nagoriksheba.lang";
-
-/**
- * A localized bundle — every entry exists in both languages, so the
- * TypeScript compiler catches any missing translation at the usage site.
+ * A localized bundle — every entry exists in both languages.
  */
 export type Dict<T = string> = Record<Lang, T>;
 
 type I18nValue = {
-  /** Currently selected language ("bn" by default). */
+  /** Currently selected language ("en" by default). */
   lang: Lang;
   /** Switch the language. */
   setLang: (lang: Lang) => void;
   /** Swap between Bangla and English. */
   toggleLang: () => void;
-  /** Resolve a `{ bn, en }` bundle to the active language's value. */
+  /**
+   * Resolve a `{ bn, en }` bundle. Returns the English source text so the
+   * DOM is rendered consistently for Google Translate without hydration or
+   * DOM reconciliation mismatches.
+   */
   t: <T>(dict: Dict<T>) => T;
 };
 
 const I18nContext = createContext<I18nValue | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(DEFAULT_LANG);
+  let gtLang: Lang = "en";
+  let changeLanguage: (l: Lang) => void = () => {};
 
-  // Hydrate the stored preference after mount — the server always renders the default.
-  useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored === "bn" || stored === "en") {
-        setTimeout(() => setLangState(stored), 0);
-      }
-    } catch {
-      /* storage unavailable — keep the default */
-    }
-  }, []);
+  try {
+    const gt = useGoogleTranslate();
+    gtLang = gt.lang;
+    changeLanguage = gt.changeLanguage;
+  } catch {
+    // If mounted outside GoogleTranslateProvider, fallback gracefully
+  }
 
-  // Keep <html lang> and the persisted preference in sync with the state.
-  useEffect(() => {
-    document.documentElement.lang = lang;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, lang);
-    } catch {
-      /* storage unavailable — ignore */
-    }
-  }, [lang]);
-
-  const setLang = useCallback((next: Lang) => setLangState(next), []);
   const toggleLang = useCallback(
-    () => setLangState((current) => (current === "bn" ? "en" : "bn")),
-    [],
+    () => changeLanguage(gtLang === "bn" ? "en" : "bn"),
+    [changeLanguage, gtLang],
   );
-  const t = useCallback(<T,>(dict: Dict<T>): T => dict[lang], [lang]);
+
+  const t = useCallback(<T,>(dict: Dict<T>): T => dict.en, []);
 
   const value = useMemo<I18nValue>(
-    () => ({ lang, setLang, toggleLang, t }),
-    [lang, setLang, toggleLang, t],
+    () => ({
+      lang: gtLang,
+      setLang: changeLanguage,
+      toggleLang,
+      t,
+    }),
+    [gtLang, changeLanguage, toggleLang, t],
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;

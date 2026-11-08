@@ -21,11 +21,7 @@ export function CategoryDeleteModal({
   onConfirm,
 }: CategoryDeleteModalProps) {
   return (
-    <Modal
-      open={isOpen}
-      onClose={onClose}
-      title="ক্যাটাগরি মুছে ফেলুন"
-    >
+    <Modal open={isOpen} onClose={onClose} title="ক্যাটাগরি মুছে ফেলুন">
       <div className="space-y-4">
         <div className="rounded-xl border border-red-100 bg-red-50 p-4">
           <div className="flex items-start gap-3">
@@ -69,7 +65,10 @@ export function CategoryDeleteModal({
           >
             {isSubmitting && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
             <span>
-              <T bn={isSubmitting ? "মুছে ফেলা হচ্ছে..." : "মুছে ফেলুন"} en={isSubmitting ? "Deleting..." : "Delete"} />
+              <T
+                bn={isSubmitting ? "মুছে ফেলা হচ্ছে..." : "মুছে ফেলুন"}
+                en={isSubmitting ? "Deleting..." : "Delete"}
+              />
             </span>
           </button>
         </div>

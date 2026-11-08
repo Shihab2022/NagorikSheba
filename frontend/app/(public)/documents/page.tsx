@@ -1,14 +1,35 @@
 import type { Metadata } from "next";
 import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
-import { DemoNote } from "@/components/ui/States";
 import { DocsExplorer } from "@/components/documents/DocsExplorer";
+import { getAllServices, getSingleService } from "@/service/service";
+import { mapBackendServiceToFrontend } from "@/lib/service-adapter";
+import type { GovernmentService } from "@/lib/types";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Document Checklists",
   description: "Interactive checklists of required documents for every major Bangladesh government service.",
 };
 
-export default function DocumentsPage() {
+export default async function DocumentsPage() {
+  let services: GovernmentService[] = [];
+
+  try {
+    const res = await getAllServices({ limit: 20 });
+    if (res?.success && Array.isArray(res.data) && res.data.length > 0) {
+      // Fetch details with actual required documents for the services
+      const detailResults = await Promise.all(
+        res.data.map((s) => getSingleService(s.slug || s.id).catch(() => null)),
+      );
+      services = detailResults
+        .filter((r): r is NonNullable<typeof r> => Boolean(r?.success && r.data))
+        .map((r) => mapBackendServiceToFrontend(r.data!));
+    }
+  } catch {
+    services = [];
+  }
+
   return (
     <>
       <TranslatedPageHeader
@@ -26,8 +47,7 @@ export default function DocumentsPage() {
         ]}
       />
       <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-        <div className="mb-6"><DemoNote /></div>
-        <DocsExplorer />
+        <DocsExplorer services={services} />
       </div>
     </>
   );

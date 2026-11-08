@@ -1,9 +1,5 @@
 /**
  * Shared domain types for NagorikSheba / নাগরিক সেবা.
- *
- * All data consumed by the UI is MOCK/DEMO data until a backend is
- * connected. The shapes below mirror what a real API would return so
- * swapping mock data for live endpoints later requires no UI changes.
  */
 
 export type ServiceCategory = {
@@ -14,6 +10,10 @@ export type ServiceCategory = {
   /** Lucide icon name (kept as a string so data stays serializable). */
   icon: string;
   serviceCount: number;
+  noticeCount?: number;
+  notice_count?: number;
+  newNoticeCount?: number;
+  new_notice_count?: number;
   /** Sample sub-services shown on the category card. */
   samples: string[];
   /** Which subtle accent tint the card uses. */
@@ -26,12 +26,14 @@ export type GovernmentService = {
   slug: string;
   /** Category slug this service belongs to. */
   category: string;
+  categoryName?: string;
   /** Owning ministry / department display name. */
   department: string;
   description: string;
   longDescription?: string;
   eligibility?: string[];
   requiredDocuments?: string[];
+  documentsCount?: number;
   fee?: string;
   processingTime?: string;
   /** Ordered steps of the application procedure. */
@@ -50,6 +52,40 @@ export type GovernmentService = {
   icon: string;
   /** Relative publish/update label used on cards, e.g. "Updated 2 days ago". */
   updatedLabel?: string;
+};
+
+export type NoticeItem = {
+  id: number | string;
+  title: string;
+  url: string;
+  publishedAt: string | null;
+  sourceName?: string;
+  isManual?: boolean;
+  isHidden?: boolean;
+  categoryId?: string;
+  categoryName?: string;
+  categorySlug?: string;
+  createdAt: string;
+};
+
+export type NoticeSourceItem = {
+  id: number;
+  categoryId: string;
+  categoryName?: string;
+  categorySlug?: string;
+  name: string;
+  listUrl: string;
+  scraperType: "html" | "rss" | string;
+  config: any;
+  isActive: boolean;
+  fetchIntervalMinutes: number;
+  lastFetchedAt: string | null;
+  lastStatus: string | null;
+  lastError: string | null;
+  consecutiveFailures: number;
+  noticeCount?: number;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type OfficeType =

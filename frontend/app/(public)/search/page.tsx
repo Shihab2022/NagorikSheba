@@ -9,9 +9,14 @@ export const metadata: Metadata = {
   description: "Search government services, required documents, offices and notices across NagorikSheba.",
 };
 
-export default async function SearchPage(props: PageProps<"/search">) {
-  const sp = await props.searchParams;
+interface SearchPageProps {
+  searchParams?: Promise<{ q?: string }>;
+}
+
+export default async function SearchPage(props: SearchPageProps) {
+  const sp = props.searchParams ? await props.searchParams : {};
   const q = typeof sp?.q === "string" ? sp.q : "";
+
   return (
     <>
       <TranslatedPageHeader

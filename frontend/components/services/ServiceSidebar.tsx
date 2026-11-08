@@ -1,7 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import {
+  ArrowRight,
   BadgeCheck,
+  Calculator,
   Clock,
   ExternalLink,
   Landmark,
@@ -32,6 +35,9 @@ const STRINGS = {
     lastVerified: "সর্বশেষ যাচাই:",
     guidanceOnly:
       "নাগরিক সেবা কেবল নির্দেশনা প্রদান করে। আবেদন জমা দেওয়া হয় সরকারি সরকারি সিস্টেমের মাধ্যমে।",
+    taxCalculatorTitle: "বাংলাদেশ আয়কর ক্যালকুলেটর",
+    taxCalculatorDesc: "আয়কর, বিনিয়োগ রেয়াত ও স্ল্যাব হিসাব করুন",
+    calculateTaxNow: "ক্যালকুলেটরে যান",
   },
   en: {
     ariaLabel: "Service information",
@@ -50,6 +56,9 @@ const STRINGS = {
     lastVerified: "Last Verified:",
     guidanceOnly:
       "NagorikSheba provides guidance only. Applications are submitted through official government systems.",
+    taxCalculatorTitle: "Income Tax Calculator",
+    taxCalculatorDesc: "Calculate income tax, rebates & slabs",
+    calculateTaxNow: "Open Calculator",
   },
 };
 
@@ -65,6 +74,12 @@ export function ServiceSidebar({ service }: { service: GovernmentService }) {
     typeof window !== "undefined"
       ? `${window.location.origin}/services/${service.slug}`
       : `/services/${service.slug}`;
+
+  const isTaxRelated =
+    service.slug === "income-tax-return" ||
+    service.slug === "e-tin" ||
+    service.category === "tax-finance" ||
+    service.slug.includes("tax");
 
   return (
     <aside aria-label={s.ariaLabel} className="lg:sticky lg:top-28">
@@ -166,6 +181,34 @@ export function ServiceSidebar({ service }: { service: GovernmentService }) {
           <p className="text-[11px] leading-4 text-slate-400">
             {s.guidanceOnly}
           </p>
+
+          {/* Income Tax Calculator shortcut */}
+          {isTaxRelated ? (
+            <div className="border-t border-line/80 pt-3">
+              <Link
+                href="/income-tax-calculator"
+                className="group flex items-center justify-between gap-3 rounded-xl border border-brand-200 bg-gradient-to-br from-brand-50 to-emerald-50/60 p-3 transition-all hover:border-brand-400 hover:bg-brand-100/60 hover:shadow-xs"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-600 text-white shadow-xs transition-colors group-hover:bg-brand-700">
+                    <Calculator className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-slate-900 transition-colors group-hover:text-brand-800">
+                      {s.taxCalculatorTitle}
+                    </p>
+                    <p className="truncate text-[11px] text-slate-500">
+                      {s.taxCalculatorDesc}
+                    </p>
+                  </div>
+                </div>
+
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-brand-700 transition-transform group-hover:translate-x-0.5">
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </span>
+              </Link>
+            </div>
+          ) : null}
         </div>
       </div>
     </aside>

@@ -39,7 +39,11 @@ import { TaxKpiCards } from "./components/TaxKpiCards";
 import { FieldGuide, FIELD_GUIDES } from "./components/FieldGuide";
 import { TaxReportPreview } from "./components/TaxReportPreview";
 
-export function IncomeTaxCalculatorView() {
+export function IncomeTaxCalculatorView({
+  hideHeader = false,
+}: {
+  hideHeader?: boolean;
+} = {}) {
   const { lang } = useTranslation();
   const [form, setForm] = useState<TaxFormState>(getDefaultFormState);
   const [activeTab, setActiveTab] = useState<"calc" | "report">("calc");
@@ -71,85 +75,131 @@ export function IncomeTaxCalculatorView() {
       : "0.0";
 
   return (
-    <div className="min-h-screen bg-slate-50/50 pb-20">
-      <div className="print:hidden">
-        <PageHeader
-          breadcrumbs={[
-            { label: lang === "bn" ? "মূল পাতা" : "Home", href: "/" },
-            { label: lang === "bn" ? "সেবাসমূহ" : "Services", href: "/services" },
-            {
-              label:
-                lang === "bn"
-                  ? "বাংলাদেশ আয়কর ক্যালকুলেটর"
-                  : "Income Tax Calculator",
-            },
-          ]}
-          title={
-            <div className="flex flex-wrap items-center gap-3">
-              <span>
-                {lang === "bn"
-                  ? "বাংলাদেশ আয়কর ক্যালকুলেটর"
-                  : "Bangladesh Income Tax Calculator"}
-              </span>
-              <Badge tone="soft-green">
-                করবর্ষ {form.assessmentYear === "2025-26" ? "২০২৫-২৬" : "২০২৬-২৭"}
-              </Badge>
-            </div>
-          }
-          description={
-            lang === "bn"
-              ? "আয়কর আইন ২০২৩ ও অর্থ আইন অনুযায়ী করযোগ্য আয়, স্ল্যাবভিত্তিক কর, অনুমোদিত বিনিয়োগ রেয়াত এবং প্রদেয় নিট করের নির্ভুল হিসাব ও সনদ তৈরি করুন।"
-              : "Compute taxable income, progressive tax slabs, investment rebate, surcharge, and net payable tax under Income Tax Act 2023."
-          }
-          actions={
-            <div className="flex flex-wrap items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleApplyDemo("mid")}
-                className="gap-1.5 text-xs"
-              >
-                <Sparkles className="h-3.5 w-3.5 text-amber-500" />
-                <span>ডেমো ১ (চাকরিজীবী)</span>
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleApplyDemo("high")}
-                className="gap-1.5 text-xs"
-              >
-                <Sparkles className="h-3.5 w-3.5 text-brand-600" />
-                <span>ডেমো ২ (উচ্চ আয় ও সারচার্জ)</span>
-              </Button>
-              <button
-                type="button"
-                onClick={handleReset}
-                title="সমস্ত ইনপুট মুছে নতুন হিসাব শুরু করুন"
-                className={cn(
-                  "group relative inline-flex items-center gap-2 overflow-hidden rounded-xl",
-                  "border-2 border-flag-400 bg-gradient-to-r from-flag-50 via-rose-50 to-flag-100 px-3.5 py-1.5",
-                  "text-xs font-black text-flag-700 shadow-md shadow-flag-500/20",
-                  "transition-all duration-300 ease-out",
-                  "hover:scale-105 hover:border-flag-500 hover:bg-gradient-to-r hover:from-flag-500 hover:to-rose-600 hover:text-white hover:shadow-xl hover:shadow-flag-500/40",
-                  "active:scale-95 cursor-pointer ring-2 ring-flag-300/40 hover:ring-flag-500/60",
-                  "before:absolute before:inset-0 before:-translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent before:transition-transform before:duration-700 hover:before:translate-x-full",
-                )}
-              >
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-flag-400 opacity-75" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-flag-500 group-hover:bg-white transition-colors" />
+    <div className={cn(hideHeader ? "space-y-6" : "min-h-screen bg-slate-50/50 pb-20")}>
+      {!hideHeader && (
+        <div className="print:hidden">
+          <PageHeader
+            breadcrumbs={[
+              { label: lang === "bn" ? "মূল পাতা" : "Home", href: "/" },
+              { label: lang === "bn" ? "সেবাসমূহ" : "Services", href: "/services" },
+              {
+                label:
+                  lang === "bn"
+                    ? "বাংলাদেশ আয়কর ক্যালকুলেটর"
+                    : "Income Tax Calculator",
+              },
+            ]}
+            title={
+              <div className="flex flex-wrap items-center gap-3">
+                <span>
+                  {lang === "bn"
+                    ? "বাংলাদেশ আয়কর ক্যালকুলেটর"
+                    : "Bangladesh Income Tax Calculator"}
                 </span>
+                <Badge tone="soft-green">
+                  করবর্ষ {form.assessmentYear === "2025-26" ? "২০২৫-২৬" : "২০২৬-২৭"}
+                </Badge>
+              </div>
+            }
+            description={
+              lang === "bn"
+                ? "আয়কর আইন ২০২৩ ও অর্থ আইন অনুযায়ী করযোগ্য আয়, স্ল্যাবভিত্তিক কর, অনুমোদিত বিনিয়োগ রেয়াত এবং প্রদেয় নিট করের নির্ভুল হিসাব ও সনদ তৈরি করুন।"
+                : "Compute taxable income, progressive tax slabs, investment rebate, surcharge, and net payable tax under Income Tax Act 2023."
+            }
+            actions={
+              <div className="flex flex-wrap items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleApplyDemo("mid")}
+                  className="gap-1.5 text-xs"
+                >
+                  <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+                  <span>ডেমো ১ (চাকরিজীবী)</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleApplyDemo("high")}
+                  className="gap-1.5 text-xs"
+                >
+                  <Sparkles className="h-3.5 w-3.5 text-brand-600" />
+                  <span>ডেমো ২ (উচ্চ আয় ও সারচার্জ)</span>
+                </Button>
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  title="সমস্ত ইনপুট মুছে নতুন হিসাব শুরু করুন"
+                  className={cn(
+                    "group relative inline-flex items-center gap-2 overflow-hidden rounded-xl",
+                    "border-2 border-flag-400 bg-gradient-to-r from-flag-50 via-rose-50 to-flag-100 px-3.5 py-1.5",
+                    "text-xs font-black text-flag-700 shadow-md shadow-flag-500/20",
+                    "transition-all duration-300 ease-out",
+                    "hover:scale-105 hover:border-flag-500 hover:bg-gradient-to-r hover:from-flag-500 hover:to-rose-600 hover:text-white hover:shadow-xl hover:shadow-flag-500/40",
+                    "active:scale-95 cursor-pointer ring-2 ring-flag-300/40 hover:ring-flag-500/60",
+                    "before:absolute before:inset-0 before:-translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent before:transition-transform before:duration-700 hover:before:translate-x-full",
+                  )}
+                >
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-flag-400 opacity-75" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-flag-500 group-hover:bg-white transition-colors" />
+                  </span>
 
-                <RotateCcw className="h-4 w-4 transition-transform duration-700 ease-in-out group-hover:-rotate-180 text-flag-600 group-hover:text-white" />
+                  <RotateCcw className="h-4 w-4 transition-transform duration-700 ease-in-out group-hover:-rotate-180 text-flag-600 group-hover:text-white" />
 
-                <span className="tracking-tight">হিসাব রিসেট</span>
-              </button>
-            </div>
-          }
-        />
-      </div>
+                  <span className="tracking-tight">হিসাব রিসেট</span>
+                </button>
+              </div>
+            }
+          />
+        </div>
+      )}
 
-      <main className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+      {hideHeader && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-white p-4 shadow-card">
+          <div className="flex items-center gap-2">
+            <Badge tone="soft-green">
+              করবর্ষ {form.assessmentYear === "2025-26" ? "২০২৫-২৬" : "২০২৬-২৭"}
+            </Badge>
+            <span className="text-xs font-semibold text-slate-500">
+              {lang === "bn"
+                ? "আয়কর আইন ২০২৩ অনুযায়ী হিসাব"
+                : "Computed under Income Tax Act 2023"}
+            </span>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handleApplyDemo("mid")}
+              className="gap-1.5 text-xs"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+              <span>{lang === "bn" ? "ডেমো ১ (চাকরিজীবী)" : "Demo 1"}</span>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handleApplyDemo("high")}
+              className="gap-1.5 text-xs"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-brand-600" />
+              <span>{lang === "bn" ? "ডেমো ২ (উচ্চ আয়)" : "Demo 2"}</span>
+            </Button>
+            <button
+              type="button"
+              onClick={handleReset}
+              title="সমস্ত ইনপুট মুছে নতুন হিসাব শুরু করুন"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-flag-200 bg-flag-50 px-3 py-1.5 text-xs font-bold text-flag-700 hover:bg-flag-100 transition-colors"
+            >
+              <RotateCcw className="h-3.5 w-3.5" />
+              <span>{lang === "bn" ? "হিসাব রিসেট" : "Reset"}</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      <main className={cn(hideHeader ? "w-full space-y-6" : "mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8")}>
         <TaxKpiCards result={result} />
 
         <div className="mt-8 flex items-center justify-between border-b border-line pb-4 print:hidden">

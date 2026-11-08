@@ -30,7 +30,7 @@ export function DashboardShell({
           containerClassName
         )}
       >
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start relative">
           {sidebar}
 
           <main className="min-w-0 flex-1 space-y-8">

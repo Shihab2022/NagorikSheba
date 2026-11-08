@@ -2,6 +2,7 @@ import { Server } from "http";
 import app from "./app";
 import config from "./config";
 import { runMigrations } from "./utils/migrate";
+import { setupAICheckpointer } from "./app/modules/AI/ai.graph";
 import { seedDemoAdmin } from "./utils/seedDemoAdmin";
 import { seedServices } from "./seed/services.seed";
 
@@ -12,9 +13,14 @@ async function main() {
     await seedDemoAdmin();
     await seedServices();
   }
-  const server: Server = app.listen(port, () => {
+
+  await setupAICheckpointer();
+
+  const server: Server = app.listen(Number(port) || 5000, "0.0.0.0", () => {
     console.log(`\x1b[32mSuccess! Server running on port ${port}\x1b[0m`);
   });
+
+
   const exitHandler = () => {
     if (server) {
       server.close(() => {

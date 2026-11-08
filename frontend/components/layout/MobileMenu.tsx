@@ -7,6 +7,7 @@ import { FileSearch, LayoutDashboard, LogIn, Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation, type Dict } from "@/lib/i18n";
 import { COMMON } from "@/lib/i18n/common";
+import LanguageSwitcher from "@/features/translate/LanguageSwitcher";
 
 type NavLink = { label: Dict<string>; href: string };
 
@@ -39,7 +40,7 @@ export function MobileMenu({
   links: NavLink[];
 }) {
   const pathname = usePathname();
-  const { lang, setLang, t } = useTranslation();
+  const { t } = useTranslation();
   const c = t(COMMON);
   const s = t(STRINGS);
 
@@ -56,7 +57,7 @@ export function MobileMenu({
     <div
       id="mobile-menu"
       className={cn(
-        "fixed inset-0 z-[60] xl:hidden",
+        "fixed inset-0 z-[60] lg:hidden",
         open ? "pointer-events-auto" : "pointer-events-none",
       )}
       aria-hidden={!open}
@@ -152,37 +153,10 @@ export function MobileMenu({
           <div
             className="flex items-center justify-between gap-2 text-sm font-semibold text-brand-100"
             role="group"
-            aria-label={c.language}
+            aria-label="Language selection"
           >
-            <span>{c.language}:</span>
-            <span className="flex items-center rounded-lg bg-white/10 p-0.5 text-xs font-bold">
-              <button
-                type="button"
-                aria-pressed={lang === "bn"}
-                onClick={() => setLang("bn")}
-                className={cn(
-                  "rounded-md px-2.5 py-1.5 transition-colors",
-                  lang === "bn"
-                    ? "bg-white text-brand-800"
-                    : "text-brand-100 hover:text-white",
-                )}
-              >
-                {c.bengali}
-              </button>
-              <button
-                type="button"
-                aria-pressed={lang === "en"}
-                onClick={() => setLang("en")}
-                className={cn(
-                  "rounded-md px-2.5 py-1.5 transition-colors",
-                  lang === "en"
-                    ? "bg-white text-brand-800"
-                    : "text-brand-100 hover:text-white",
-                )}
-              >
-                EN
-              </button>
-            </span>
+            <span>Language:</span>
+            <LanguageSwitcher variant="navbar" />
           </div>
           <Link
             href="/login"

@@ -123,7 +123,7 @@ export function OfficesExplorer() {
     <div>
       <div className="rounded-2xl border border-line bg-white p-4 shadow-card sm:p-5">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-          <div className="relative">
+          <div className="relative sm:col-span-2 lg:col-span-1">
             <label htmlFor="off-search" className="sr-only">
               {s.searchLabel}
             </label>
