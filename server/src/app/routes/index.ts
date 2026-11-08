@@ -11,12 +11,18 @@ import { AIRoutes } from "../modules/AI/ai.routes";
 import { TrackedServiceRoutes } from "../modules/TrackedService/trackedService.routes";
 import { TrackedStepRoutes } from "../modules/TrackedStep/trackedStep.routes";
 import { UploadRoutes } from "../modules/Upload/upload.routes";
+import { SearchRoutes } from "../modules/Search/search.routes";
+import { NoticeRoutes } from "../modules/Notice/notice.routes";
+import { NoticeAdminRoutes } from "../modules/Notice/notice.admin.routes";
 
 const router = express.Router();
 
 const moduleRoutes = [
   { path: "/auth", route: AuthRoutes },
   { path: "/category", route: CategoryRoutes },
+  { path: "/categories", route: CategoryRoutes },
+  { path: "/notices", route: NoticeRoutes },
+  { path: "/admin", route: NoticeAdminRoutes },
   { path: "/service", route: ServiceRoutes },
   { path: "/service-requirement", route: ServiceRequirementRoutes },
   { path: "/service-step", route: ServiceStepRoutes },
@@ -35,6 +41,10 @@ const moduleRoutes = [
   {
     path: "/upload",
     route: UploadRoutes,
+  },
+  {
+    path: "/search",
+    route: SearchRoutes,
   },
 ];
 

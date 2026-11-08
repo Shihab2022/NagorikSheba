@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 
 import type { GovernmentService } from "@/lib/types";
-import { getCategoryBySlug } from "@/lib/data/categories";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
 import { useTranslation } from "@/lib/i18n";
@@ -52,8 +51,9 @@ export function ServiceCard({
   const s = t(STRINGS);
   const c = t(COMMON);
 
-  const category = getCategoryBySlug(service.category);
+  const categoryLabel = service.categoryName || service.department;
   const servicePath = `/services/${service.slug}`;
+  const docCount = service.documentsCount ?? service.requiredDocuments?.length ?? 0;
 
   return (
     <article className="group relative flex h-full w-full min-w-0 max-w-full flex-col justify-between rounded-2xl border border-line bg-white p-4 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-lift hover:ring-1 hover:ring-brand-200 sm:p-5">
@@ -61,7 +61,7 @@ export function ServiceCard({
         {/* Top bar: Icon & Availability Badge */}
         <div className="flex items-start justify-between gap-2.5 sm:gap-3">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-50 to-brand-100/70 text-brand-700 ring-1 ring-brand-200/50 shadow-xs transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3 sm:h-12 sm:w-12">
-            <Icon name={service.icon} className="h-5 w-5 sm:h-6 sm:w-6" />
+            <Icon name={service.icon || "FileText"} className="h-5 w-5 sm:h-6 sm:w-6" />
           </span>
 
           <div className="flex flex-wrap items-center justify-end gap-1.5">
@@ -82,7 +82,7 @@ export function ServiceCard({
         {/* Category / Department Tag */}
         <div className="mt-3">
           <span className="block truncate text-[11px] font-semibold uppercase tracking-wider text-brand-700/80 sm:text-xs">
-            {category?.name ?? service.department}
+            {categoryLabel}
           </span>
         </div>
 
@@ -109,7 +109,7 @@ export function ServiceCard({
               <span className="truncate text-[11px] font-medium sm:text-xs">
                 {s.documents.replace(
                   "{n}",
-                  String(service.requiredDocuments?.length ?? 0),
+                  String(docCount),
                 )}
               </span>
             </div>

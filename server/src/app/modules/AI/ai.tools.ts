@@ -2,10 +2,11 @@ import { tool } from "@langchain/core/tools";
 import { z } from "zod";
 import { pool } from "../../../utils/pg";
 import { embeddings } from "./ai.embeddings";
-import pgvector from "pgvector";
+// import pgvector from "pgvector";
 import { TavilySearch } from "@langchain/tavily";
 import config from "../../../config";
 import { getServicePagePath } from "./ai.evidence";
+import { toSql } from "../../../utils/vector.util";
 
 export const searchServices = tool(
   async ({ query, limit }) => {
@@ -273,7 +274,8 @@ export const searchKnowledgeBase = tool(
 
       LIMIT $2
       `,
-      [pgvector.toSql(queryVector), limit],
+      [toSql(queryVector), limit],
+      // [pgvector.toSql(queryVector), limit],
     );
 
     const scoredResults = result.rows.map((row) => ({

@@ -9,6 +9,7 @@ export interface AdminSystemStatusProps {
   };
 }
 
+
 export function AdminSystemStatus({ admin }: AdminSystemStatusProps) {
   return (
     <aside className="space-y-6">

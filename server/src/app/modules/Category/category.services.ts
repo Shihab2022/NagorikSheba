@@ -63,14 +63,44 @@ const deleteCategoryFromDB = async (category_id: string) => {
   return result.rows[0];
 };
 
-const getAllCategoriesFromDB = async () => {
+const getSingleCategoryFromDB = async (categoryId: string) => {
+  const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(categoryId);
+  const whereClause = isUUID ? `c.id = $1` : `c.slug = $1`;
+
   const result = await pool.query(
-    `SELECT c.*, COUNT(s.id)::int AS "serviceCount"
+    `SELECT c.*, 
+            COUNT(DISTINCT s.id)::int AS "serviceCount",
+            COUNT(DISTINCT n.id) FILTER (WHERE n.is_hidden = FALSE)::int AS notice_count,
+            COUNT(DISTINCT n.id) FILTER (WHERE n.is_hidden = FALSE)::int AS "noticeCount",
+            COUNT(DISTINCT n.id) FILTER (WHERE n.is_hidden = FALSE AND COALESCE(n.published_at, n.created_at) > now() - interval '7 days')::int AS new_notice_count,
+            COUNT(DISTINCT n.id) FILTER (WHERE n.is_hidden = FALSE AND COALESCE(n.published_at, n.created_at) > now() - interval '7 days')::int AS "newNoticeCount"
      FROM category c
      LEFT JOIN services s ON c.id = s."categoryId" AND s."isDeleted" = FALSE
+     LEFT JOIN notices n ON c.id = n.category_id AND n.is_hidden = FALSE
+     WHERE ${whereClause} AND c."isDeleted" = FALSE
+     GROUP BY c.id`,
+    [categoryId],
+  );
+  if (!result.rows.length) {
+    throw new AppError(httpStatus.NOT_FOUND, "Category not found.");
+  }
+  return result.rows[0];
+};
+
+const getAllCategoriesFromDB = async () => {
+  const result = await pool.query(
+    `SELECT c.*, 
+            COUNT(DISTINCT s.id)::int AS "serviceCount",
+            COUNT(DISTINCT n.id) FILTER (WHERE n.is_hidden = FALSE)::int AS notice_count,
+            COUNT(DISTINCT n.id) FILTER (WHERE n.is_hidden = FALSE)::int AS "noticeCount",
+            COUNT(DISTINCT n.id) FILTER (WHERE n.is_hidden = FALSE AND COALESCE(n.published_at, n.created_at) > now() - interval '7 days')::int AS new_notice_count,
+            COUNT(DISTINCT n.id) FILTER (WHERE n.is_hidden = FALSE AND COALESCE(n.published_at, n.created_at) > now() - interval '7 days')::int AS "newNoticeCount"
+     FROM category c
+     LEFT JOIN services s ON c.id = s."categoryId" AND s."isDeleted" = FALSE
+     LEFT JOIN notices n ON c.id = n.category_id AND n.is_hidden = FALSE
      WHERE c."isDeleted" = FALSE
      GROUP BY c.id
-     ORDER BY c."createdAt" DESC`,
+     ORDER BY c."createdAt" ASC`,
   );
   return result.rows;
 };
@@ -80,4 +110,5 @@ export const CategoryServices = {
   updateCategoryIntoDB,
   deleteCategoryFromDB,
   getAllCategoriesFromDB,
+  getSingleCategoryFromDB,
 };

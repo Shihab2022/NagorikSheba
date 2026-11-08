@@ -1,8 +1,9 @@
 import { createHash } from "node:crypto";
-import pgvector from "pgvector";
+// import pgvector from "pgvector";
 
 import { embeddings } from "./ai.embeddings";
 import { pool } from "../../../utils/pg";
+import { toSql } from "../../../utils/vector.util";
 
 type ChunkType =
   | "overview"
@@ -309,7 +310,7 @@ export async function ingestVerifiedServices() {
     // 2. Check the dimension of every embedding.
     const invalidVectors = vectors
       .map((vector, index) => ({
-        chunkKey: chunks[index].chunkKey,
+        chunkKey: chunks[index]!.chunkKey,
         dimensions: vector.length,
       }))
       .filter((item) => item.dimensions !== 768);
@@ -333,6 +334,14 @@ export async function ingestVerifiedServices() {
       for (let i = 0; i < chunks.length; i++) {
         const chunk = chunks[i];
         const vector = vectors[i];
+
+        if (!chunk) {
+          throw new Error(`Missing chunk at index ${i}`);
+        }
+
+        if (!vector) {
+          throw new Error(`Missing embedding at index ${i}`);
+        }
 
         await client.query(
           `
@@ -360,7 +369,8 @@ export async function ingestVerifiedServices() {
             chunk.chunkKey,
             chunk.chunkType,
             chunk.content,
-            pgvector.toSql(vector),
+            toSql(vector),
+            // pgvector.toSql(vector),
             JSON.stringify(chunk.metadata),
             chunk.contentHash,
           ],
