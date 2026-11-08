@@ -16,7 +16,7 @@ async function main() {
 
   await setupAICheckpointer();
 
-  const server: Server = app.listen(port, () => {
+  const server: Server = app.listen(Number(port) || 5000, "0.0.0.0", () => {
     console.log(`\x1b[32mSuccess! Server running on port ${port}\x1b[0m`);
   });
 

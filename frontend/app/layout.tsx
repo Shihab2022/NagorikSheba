@@ -69,6 +69,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -83,14 +84,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <GoogleTranslateProvider>
           <LanguageProvider>
             <SkipLink />
+            <RedirectAuthenticatedHome />
 
-            <div className="flex-1 flex flex-col">
-              <RedirectAuthenticatedHome />
+            <main id="main-content" className="flex-1">
               {children}
-            </div>
+            </main>
           </LanguageProvider>
         </GoogleTranslateProvider>
       </body>
     </html>
   );
 }
+

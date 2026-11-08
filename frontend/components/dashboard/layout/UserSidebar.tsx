@@ -8,8 +8,10 @@ import {
   Bookmark,
   Bot,
   Building2,
+  Calculator,
   CreditCard,
   FileText,
+  FolderArchive,
   HelpCircle,
   LayoutDashboard,
   LogOut,
@@ -33,9 +35,12 @@ type NavItem = {
   badge?: string;
 };
 
+
 const MAIN_ITEMS: NavItem[] = [
   { href: "/dashboard", label: { bn: "ড্যাশবোর্ড", en: "Dashboard" }, icon: LayoutDashboard },
   { href: "/dashboard/applications", label: { bn: "আমার আবেদন", en: "My Applications" }, icon: PackageSearch },
+  { href: "/dashboard/files", label: { bn: "আমার ফাইল ও গ্যালারি", en: "My Files & Gallery" }, icon: FolderArchive },
+  { href: "/dashboard/tax-calculator", label: { bn: "আয়কর ক্যালকুলেটর", en: "Tax Calculator" }, icon: Calculator },
   { href: "/dashboard/services", label: { bn: "সকল সেবা", en: "All Services" }, icon: Bookmark },
   { href: "/dashboard/documents", label: { bn: "ডকুমেন্ট চেকলিস্ট", en: "Documents" }, icon: FileText },
   { href: "/dashboard/fees", label: { bn: "সরকারি ফি", en: "Govt Fees" }, icon: CreditCard },
@@ -96,7 +101,11 @@ export function UserSidebar({
   const renderNavLinks = (items: NavItem[]) => (
     <ul className="space-y-1.5">
       {items.map((item) => {
-        const active = pathname === item.href;
+        const active =
+          pathname === item.href ||
+          (item.href === "/dashboard/tax-calculator" &&
+            (pathname === "/income-tax-calculator" ||
+              pathname === "/dashboard/income-tax-calculator"));
         return (
           <li key={item.href}>
             <Link

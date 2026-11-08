@@ -17,9 +17,61 @@ import { CustomLoader } from "@/components/ui/CustomLoader";
 import { Select } from "@/components/ui/Input";
 import { Pagination } from "@/components/ui/Pagination";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n";
 import type { GovernmentService, ServiceCategory } from "@/lib/types";
 
 type SortKey = "popular" | "az" | "za";
+
+const STRINGS = {
+  bn: {
+    filters: "ফিল্টার",
+    clearAll: "সব মুছুন",
+    searchLabel: "সেবা অনুসন্ধান করুন",
+    searchPlaceholder: "সেবার নাম বা বিবরণ দিয়ে খুঁজুন…",
+    department: "বিভাগ",
+    allDepartments: "সব বিভাগ",
+    availability: "প্রাপ্যতা",
+    allServices: "সব সেবা",
+    onlineAvailable: "অনলাইনে পাওয়া যায়",
+    officeVisitRequired: "অফিসে যেতে হবে",
+    sortBy: "সাজান",
+    mostPopular: "সর্বাধিক জনপ্রিয়",
+    nameAz: "নাম: A – Z",
+    nameZa: "নাম: Z – A",
+    categoryFilter: "ক্যাটাগরি অনুযায়ী ফিল্টার",
+    allCategories: "সব ক্যাটাগরি",
+    showing: "{shown} টি দেখানো হচ্ছে, মোট {total} টি সেবার মধ্যে",
+    pageInfo: "পৃষ্ঠা {page} / {total}",
+    resetFilters: "ফিল্টার রিসেট",
+    loadingFromServer: "সার্ভার থেকে লোড হচ্ছে…",
+    noServicesTitle: "কোনো সেবা পাওয়া যায়নি",
+    noServicesDesc: "আপনার অনুসন্ধান বা ফিল্টার পরিবর্তন করে আবার চেষ্টা করুন।",
+  },
+  en: {
+    filters: "Filters",
+    clearAll: "Clear all",
+    searchLabel: "Search services",
+    searchPlaceholder: "Search by service name or description…",
+    department: "Department",
+    allDepartments: "All departments",
+    availability: "Availability",
+    allServices: "All services",
+    onlineAvailable: "Online available",
+    officeVisitRequired: "Office visit required",
+    sortBy: "Sort by",
+    mostPopular: "Most popular",
+    nameAz: "Name: A – Z",
+    nameZa: "Name: Z – A",
+    categoryFilter: "Filter by category",
+    allCategories: "All Categories",
+    showing: "Showing {shown} of {total} services",
+    pageInfo: "Page {page} of {total}",
+    resetFilters: "Reset filters",
+    loadingFromServer: "Loading from server…",
+    noServicesTitle: "No services found",
+    noServicesDesc: "Try adjusting your search or filter terms to find what you need.",
+  },
+};
 
 export interface ServicesExplorerProps {
   initialServices?: GovernmentService[];
@@ -42,6 +94,8 @@ export interface ServicesExplorerProps {
  * - Controlled purely via Server Components and URL query params.
  * - Fast loading: ONLY the current page's slice (e.g. 12 items) is transmitted.
  * - Interactive toolbar filters update the URL search params seamlessly.
+ * - 100% responsive across Mobile, iPad/Tablet, Laptop, and Desktop.
+ * - Bilingual support for English and Bengali.
  */
 export function ServicesExplorer({
   initialServices = [],
@@ -58,6 +112,8 @@ export function ServicesExplorer({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
+  const { t } = useTranslation();
+  const s = t(STRINGS);
 
   // Local state for immediate typing responsiveness
   const [searchInput, setSearchInput] = useState(initialQuery);
@@ -156,8 +212,8 @@ export function ServicesExplorer({
   const deptList = useMemo(() => {
     if (departments.length > 0) return departments;
     const depts = new Set<string>();
-    initialServices.forEach((s) => {
-      if (s.department) depts.add(s.department);
+    initialServices.forEach((serviceItem) => {
+      if (serviceItem.department) depts.add(serviceItem.department);
     });
     return Array.from(depts).sort((a, b) => a.localeCompare(b));
   }, [departments, initialServices]);
@@ -207,8 +263,8 @@ export function ServicesExplorer({
     updateFilters({ availability: avail === "all" ? null : avail });
   };
 
-  const handleSortChange = (sort: SortKey) => {
-    updateFilters({ sort: sort === "popular" ? null : sort });
+  const handleSortChange = (sortKey: SortKey) => {
+    updateFilters({ sort: sortKey === "popular" ? null : sortKey });
   };
 
   const handleResetAll = () => {
@@ -244,7 +300,7 @@ export function ServicesExplorer({
   const totalPages = Math.max(1, Math.ceil(pagination.total / pagination.limit));
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full min-w-0">
       {/* Search & Filter Toolbar */}
       <div className="space-y-4 rounded-2xl border border-line bg-white p-4 shadow-sm sm:p-5">
         {/* Row 1: Search Form + Dropdowns */}
@@ -265,7 +321,7 @@ export function ServicesExplorer({
                   handleSearchSubmit();
                 }
               }}
-              placeholder="Search by service name or description…"
+              placeholder={s.searchPlaceholder}
               className="h-10 w-full rounded-xl border border-slate-200 bg-slate-50/70 pl-9.5 pr-8 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20"
             />
             {searchInput ? (
@@ -287,7 +343,7 @@ export function ServicesExplorer({
               onChange={(e) => handleDepartmentChange(e.target.value)}
               className="h-10 text-xs font-semibold rounded-xl border-slate-200 bg-slate-50/70"
             >
-              <option value="all">All departments</option>
+              <option value="all">{s.allDepartments}</option>
               {deptList.map((d) => (
                 <option key={d} value={d}>
                   {d}
@@ -304,9 +360,9 @@ export function ServicesExplorer({
               onChange={(e) => handleAvailabilityChange(e.target.value)}
               className="h-10 text-xs font-semibold rounded-xl border-slate-200 bg-slate-50/70"
             >
-              <option value="all">All services</option>
-              <option value="online">Online available</option>
-              <option value="office">Office visit required</option>
+              <option value="all">{s.allServices}</option>
+              <option value="online">{s.onlineAvailable}</option>
+              <option value="office">{s.officeVisitRequired}</option>
             </Select>
           </div>
 
@@ -318,16 +374,16 @@ export function ServicesExplorer({
               onChange={(e) => handleSortChange(e.target.value as SortKey)}
               className="h-10 text-xs font-semibold rounded-xl border-slate-200 bg-slate-50/70 flex-1"
             >
-              <option value="popular">Most popular</option>
-              <option value="az">Name: A – Z</option>
-              <option value="za">Name: Z – A</option>
+              <option value="popular">{s.mostPopular}</option>
+              <option value="az">{s.nameAz}</option>
+              <option value="za">{s.nameZa}</option>
             </Select>
 
             {hasFilters && (
               <button
                 type="button"
                 onClick={handleResetAll}
-                title="Clear all"
+                title={s.clearAll}
                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-600 transition-colors hover:border-flag-200 hover:bg-flag-50 hover:text-flag-700 cursor-pointer"
               >
                 <RotateCcw className="h-4 w-4" />
@@ -375,7 +431,7 @@ export function ServicesExplorer({
             onMouseLeave={onMouseUpOrLeave}
             className="scrollbar-none flex w-full gap-2 overflow-x-auto pb-1 scroll-smooth select-none cursor-grab active:cursor-grabbing"
             role="group"
-            aria-label="Filter by category"
+            aria-label={s.categoryFilter}
           >
             <button
               type="button"
@@ -388,7 +444,7 @@ export function ServicesExplorer({
                   : "border border-slate-200 bg-white text-slate-600 hover:border-brand-200 hover:bg-slate-50 hover:text-brand-800",
               )}
             >
-              All Categories
+              {s.allCategories}
             </button>
 
             {initialCategories.map((cat) => (
@@ -415,25 +471,29 @@ export function ServicesExplorer({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <p className="text-xs font-bold text-slate-500" role="status" aria-live="polite">
-            Showing {initialServices.length} of {pagination.total} services
+            {s.showing
+              .replace("{shown}", String(initialServices.length))
+              .replace("{total}", String(pagination.total))}
           </p>
 
           {isPending && (
             <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700 animate-pulse">
               <Loader2 className="h-3.5 w-3.5 animate-spin" />
-              Loading from server…
+              {s.loadingFromServer}
             </span>
           )}
         </div>
 
         {totalPages > 1 && (
           <p className="text-xs font-bold text-slate-400">
-            Page {pagination.page} of {totalPages}
+            {s.pageInfo
+              .replace("{page}", String(pagination.page))
+              .replace("{total}", String(totalPages))}
           </p>
         )}
       </div>
 
-      {/* Services Grid (Server Paginated Slice) */}
+      {/* Services Grid (Responsive across all devices) */}
       <div className="relative min-h-[280px]">
         {isPending && (
           <div className="absolute inset-0 z-20 flex items-center justify-center rounded-2xl bg-white/70 backdrop-blur-xs">
@@ -447,8 +507,8 @@ export function ServicesExplorer({
 
         {initialServices.length === 0 ? (
           <EmptyState
-            title="No services found"
-            description="Try adjusting your search or filter terms to find what you need."
+            title={s.noServicesTitle}
+            description={s.noServicesDesc}
             icon={<SearchX className="h-7 w-7 text-slate-300" aria-hidden="true" />}
             action={
               <button
@@ -456,12 +516,17 @@ export function ServicesExplorer({
                 onClick={handleResetAll}
                 className="inline-flex h-9 items-center rounded-xl bg-brand-600 px-4 text-xs font-bold text-white transition-colors hover:bg-brand-700 shadow-sm cursor-pointer"
               >
-                Reset filters
+                {s.resetFilters}
               </button>
             }
           />
         ) : (
-          <div className={cn("grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 transition-opacity duration-200", isPending ? "opacity-30 pointer-events-none" : "opacity-100")}>
+          <div
+            className={cn(
+              "grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 min-[1760px]:grid-cols-4 sm:gap-5 w-full transition-opacity duration-200",
+              isPending ? "opacity-30 pointer-events-none" : "opacity-100",
+            )}
+          >
             {initialServices.map((service) => (
               <ServiceCard key={service.id} service={service} />
             ))}

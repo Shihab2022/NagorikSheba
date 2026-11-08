@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { TranslatedPageHeader } from "@/components/ui/TranslatedPageHeader";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
+import { DemoNote } from "@/components/ui/States";
 import { getAllServices } from "@/service/service";
 import { getAllCategories } from "@/service/category";
 import { mapBackendServiceToFrontend, mapBackendCategoryToFrontend } from "@/lib/service-adapter";
@@ -100,6 +101,9 @@ export default async function ServicesPage(props: ServicesPageProps) {
         ]}
       />
       <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+        <div className="mb-4 sm:mb-6">
+          <DemoNote />
+        </div>
         <ServicesExplorer
           initialServices={services}
           initialCategories={categories}

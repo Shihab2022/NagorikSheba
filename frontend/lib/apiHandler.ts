@@ -75,7 +75,18 @@ export const apiHandler = async <
             }
         }
 
-        const response = await fetch(url, options);
+        let response: Response;
+        try {
+            response = await fetch(url, options);
+        } catch (fetchErr: any) {
+            // IPv6 vs IPv4 fallback: If localhost (::1) failed, retry with 127.0.0.1
+            if (url.includes("localhost")) {
+                const ipv4Url = url.replace("localhost", "127.0.0.1");
+                response = await fetch(ipv4Url, options);
+            } else {
+                throw fetchErr;
+            }
+        }
 
         if (response.status === 401) {
             return {
