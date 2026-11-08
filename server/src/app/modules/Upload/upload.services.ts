@@ -96,8 +96,7 @@ const uploadFiles = async (
     const firstError = failures[0]?.error as Error | undefined;
     throw new ApiError(
       httpStatus.BAD_GATEWAY,
-      `Upload failed for ${failures.length} file(s): ${
-        firstError?.message || "Cloud storage upload failed"
+      `Upload failed for ${failures.length} file(s): ${firstError?.message || "Cloud storage upload failed"
       }`
     );
   }
@@ -285,7 +284,7 @@ const streamFileDownload = (
   filename: string,
   res: Response
 ) => {
-  const safeFilename = filename?.trim() || path.basename(url.split("?")[0]);
+  const safeFilename = filename ? filename.trim() : path.basename(url.split("?")[0] ?? url) || "file";
   const ext = path.extname(safeFilename).toLowerCase();
 
   let contentType = "application/octet-stream";
