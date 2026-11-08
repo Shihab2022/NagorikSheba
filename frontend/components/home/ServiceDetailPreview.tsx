@@ -10,7 +10,7 @@ import {
   Hourglass,
   ShieldCheck,
 } from "lucide-react";
-import { getServiceBySlug } from "@/lib/data/services";
+import type { GovernmentService } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
@@ -79,10 +79,10 @@ const STRINGS = {
 };
 
 /** Teaser showing what every service detail page contains. */
-export function ServiceDetailPreview() {
+export function ServiceDetailPreview({ service }: { service?: GovernmentService | null }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
-  const service = getServiceBySlug("nid-correction");
+  
   if (!service) return null;
   const steps = service.steps?.slice(0, 5) ?? [];
 

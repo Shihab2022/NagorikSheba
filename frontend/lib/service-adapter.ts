@@ -1,31 +1,22 @@
 import type { GovernmentService, ServiceCategory } from "@/lib/types";
 import type { ServiceItem } from "@/types/service";
 import type { CategoryItem } from "@/types/category";
-import { getServiceBySlug } from "@/lib/data/services";
 
 /**
  * Maps a backend ServiceItem (with relational steps, requirements, fees, sources)
- * to the frontend GovernmentService UI shape.
+ * to the frontend GovernmentService UI shape purely driven by API data.
  */
 export function mapBackendServiceToFrontend(item: ServiceItem): GovernmentService {
-  const fallback = getServiceBySlug(item.slug);
+  const steps = (item.steps || [])
+    .sort((a, b) => a.stepNumber - b.stepNumber)
+    .map((s) => s.description || s.title);
 
-  const steps =
-    item.steps && item.steps.length > 0
-      ? item.steps
-          .sort((a, b) => a.stepNumber - b.stepNumber)
-          .map((s) => s.description || s.title)
-      : (fallback?.steps || []);
-
-  const requiredDocuments =
-    item.requirements && item.requirements.length > 0
-      ? item.requirements
-          .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0))
-          .map((r) => r.name)
-      : (fallback?.requiredDocuments || []);
+  const requiredDocuments = (item.requirements || [])
+    .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0))
+    .map((r) => r.name);
 
   const documentsCount =
-    typeof item.requirementCount === "number" && item.requirementCount > 0
+    typeof item.requirementCount === "number" && item.requirementCount >= 0
       ? item.requirementCount
       : requiredDocuments.length;
 
@@ -38,25 +29,24 @@ export function mapBackendServiceToFrontend(item: ServiceItem): GovernmentServic
     } else if (fee.name) {
       feeDisplay = fee.name;
     }
-  } else if (fallback?.fee) {
-    feeDisplay = fallback.fee;
   }
 
   const eligibilityList = item.eligibility
-    ? item.eligibility.split(";").map((e) => e.trim()).filter(Boolean)
-    : (fallback?.eligibility || []);
+    ? item.eligibility
+        .split(";")
+        .map((e) => e.trim())
+        .filter(Boolean)
+    : [];
 
-  const categorySlug = item.category_slug || fallback?.category || "identity-documents";
-  const departmentName = item.category_name || fallback?.department || "Government Department";
+  const categorySlug = item.category_slug || "identity-documents";
+  const departmentName = item.category_name || "Government Department";
 
   const hasPortal = Boolean(
     item.officialUrl ||
-      fallback?.officialUrl ||
       (item.steps && item.steps.some((s) => s.actionType === "VISIT_OFFICIAL_PORTAL")),
   );
   const requiresOffice = Boolean(
-    fallback?.requiresOfficeVisit ??
-      (item.steps && item.steps.some((s) => s.actionType === "VISIT_OFFICE")),
+    item.steps && item.steps.some((s) => s.actionType === "VISIT_OFFICE"),
   );
 
   return {
@@ -64,23 +54,24 @@ export function mapBackendServiceToFrontend(item: ServiceItem): GovernmentServic
     name: item.name,
     slug: item.slug,
     category: categorySlug,
+    categoryName: item.category_name,
     department: departmentName,
-    description: item.shortDescription || item.description || fallback?.description || "",
-    longDescription: item.description || fallback?.longDescription || item.shortDescription || "",
+    description: item.shortDescription || item.description || "",
+    longDescription: item.description || item.shortDescription || "",
     eligibility: eligibilityList,
     requiredDocuments,
     documentsCount,
     fee: feeDisplay,
-    processingTime: item.processingTime || fallback?.processingTime || "Varies",
+    processingTime: item.processingTime || "Varies",
     steps,
     authority: departmentName,
-    officialUrl: item.officialUrl || fallback?.officialUrl || undefined,
-    lastVerifiedAt: item.createdAt ? item.createdAt.slice(0, 10) : fallback?.lastVerifiedAt,
+    officialUrl: item.officialUrl || undefined,
+    lastVerifiedAt: item.createdAt ? item.createdAt.slice(0, 10) : undefined,
     isOnline: hasPortal,
     requiresOfficeVisit: requiresOffice,
-    popularity: fallback?.popularity || 90,
-    icon: fallback?.icon || "FileText",
-    updatedLabel: fallback?.updatedLabel || "Updated recently",
+    popularity: 90,
+    icon: "FileText",
+    updatedLabel: "Updated recently",
   };
 }
 

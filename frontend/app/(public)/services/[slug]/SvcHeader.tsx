@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { Building2, Clock, Coins, ShieldCheck } from "lucide-react";
 import type { GovernmentService } from "@/lib/types";
-import { getCategoryBySlug } from "@/lib/data/categories";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
 import { useTranslation } from "@/lib/i18n";
@@ -37,7 +36,7 @@ export function SvcHeader({
 }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
-  const category = getCategoryBySlug(service.category);
+  const categoryName = service.categoryName || service.department || s.service;
 
   return (
     <header className="relative overflow-hidden border-b border-line bg-canvas">
@@ -70,7 +69,7 @@ export function SvcHeader({
                 href={`/categories/${service.category}`}
                 className="hover:text-brand-700"
               >
-                {category?.name ?? s.service}
+                {categoryName}
               </Link>
             </li>
           </ol>
@@ -85,7 +84,7 @@ export function SvcHeader({
                 <Badge tone={service.isOnline ? "soft-green" : "soft-red"}>
                   {service.isOnline ? s.online : s.officeOnly}
                 </Badge>
-                <Badge tone="outline">{category?.name}</Badge>
+                {categoryName ? <Badge tone="outline">{categoryName}</Badge> : null}
                 <span className="inline-flex items-center gap-1 rounded-lg bg-white px-2 py-0.5 text-[11px] font-semibold text-slate-500 ring-1 ring-line">
                   <ShieldCheck
                     className="h-3 w-3 text-brand-600"

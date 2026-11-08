@@ -6,6 +6,8 @@ import type { GovernmentService } from "@/lib/types";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { CustomLoader } from "@/components/ui/CustomLoader";
+import { Skeleton } from "@/components/ui/States";
 import { useTranslation } from "@/lib/i18n";
 
 const STRINGS = {
@@ -15,6 +17,9 @@ const STRINGS = {
     description:
       "নাগরিকরা যে সেবাগুলো সবচেয়ে বেশি খোঁজেন — ডকুমেন্ট, ফি ও অফিসিয়াল লিংকসহ।",
     viewAllServices: "সব সেবা দেখুন",
+    loadingMessage: "জনপ্রিয় সরকারি সেবা লোড করা হচ্ছে...",
+    loadingSubMessage: "সর্বশেষ যাচাইকৃত সেবা ও নথিপত্রের তালিকা প্রস্তুত করা হচ্ছে",
+    noServices: "বর্তমানে কোনো সরকারি সেবা পাওয়া যায়নি।",
   },
   en: {
     eyebrow: "Popular services",
@@ -22,14 +27,19 @@ const STRINGS = {
     description:
       "The services citizens look up most often — with documents, fees and official links.",
     viewAllServices: "View all services",
+    loadingMessage: "Loading popular services...",
+    loadingSubMessage: "Preparing verified services and requirement details",
+    noServices: "No government services currently found.",
   },
 };
 
 /** "জনপ্রিয় সরকারি সেবা" — receives live backend services. */
 export function PopularServices({
   services = [],
+  loading = false,
 }: {
   services?: GovernmentService[];
+  loading?: boolean;
 }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
@@ -46,13 +56,48 @@ export function PopularServices({
           />
         </Reveal>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, i) => (
-            <Reveal key={service.id} delay={(i % 3) * 70} className="h-full">
-              <ServiceCard service={service} />
-            </Reveal>
-          ))}
-        </div>
+        {loading ? (
+          <div className="mt-8 space-y-8">
+            <CustomLoader
+              size="md"
+              message={s.loadingMessage}
+              subMessage={s.loadingSubMessage}
+            />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col justify-between rounded-2xl border border-line bg-white p-5 shadow-card space-y-4"
+                >
+                  <div className="flex items-start gap-4">
+                    <Skeleton className="h-12 w-12 rounded-xl shrink-0" />
+                    <div className="flex-1 space-y-2">
+                      <Skeleton className="h-5 w-24 rounded-full" />
+                      <Skeleton className="h-5 w-4/5" />
+                      <Skeleton className="h-4 w-full" />
+                    </div>
+                  </div>
+                  <div className="mt-4 border-t border-line pt-4 flex justify-between">
+                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="h-4 w-20" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : services.length === 0 ? (
+          <div className="mt-10 rounded-2xl border border-line bg-white p-12 text-center">
+            <p className="text-sm font-medium text-slate-500">{s.noServices}</p>
+          </div>
+        ) : (
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service, i) => (
+              <Reveal key={service.id} delay={(i % 3) * 70} className="h-full">
+                <ServiceCard service={service} />
+              </Reveal>
+            ))}
+          </div>
+        )}
 
         <Reveal>
           <div className="mt-10 text-center">

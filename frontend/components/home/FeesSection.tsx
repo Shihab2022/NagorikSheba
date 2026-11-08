@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { AlertTriangle, ArrowRight, Coins } from "lucide-react";
-import { getServiceBySlug } from "@/lib/data/services";
+import type { GovernmentService } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
@@ -56,14 +56,29 @@ const STRINGS = {
 };
 
 /** Government fee examples with the mandatory verification disclaimer. */
-export function FeesSection() {
+export function FeesSection({ services = [] }: { services?: GovernmentService[] }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
   const c = t(COMMON);
   const items = FEE_ITEMS.map((item) => ({
     ...item,
-    service: getServiceBySlug(item.slug),
-  })).filter((item) => item.service);
+    service: services.find((s) => s.slug === item.slug),
+  })).filter((item): item is typeof item & { service: GovernmentService } => Boolean(item.service));
+
+  const displayItems =
+    items.length > 0
+      ? items
+      : services
+          .filter((s) => Boolean(s.fee))
+          .slice(0, 4)
+          .map((s) => ({
+            slug: s.slug,
+            label: { bn: s.name, en: s.name },
+            note: { bn: s.department, en: s.department },
+            service: s,
+          }));
+
+  if (displayItems.length === 0) return null;
 
   return (
     <section aria-labelledby="fees-heading" className="bg-white">
@@ -78,7 +93,7 @@ export function FeesSection() {
         </Reveal>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((item, i) => (
+          {displayItems.map((item, i) => (
             <Reveal key={item.slug} delay={i * 70} className="h-full">
               <Link
                 href={`/services/${item.slug}`}

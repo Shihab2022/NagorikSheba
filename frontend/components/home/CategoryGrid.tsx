@@ -6,6 +6,8 @@ import type { ServiceCategory } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { CustomLoader } from "@/components/ui/CustomLoader";
+import { Skeleton } from "@/components/ui/States";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/i18n";
 
@@ -18,6 +20,9 @@ const STRINGS = {
     services: "+ সেবা",
     viewServices: "সেবা দেখুন",
     viewAllCategories: "সব ক্যাটাগরি দেখুন",
+    loadingMessage: "সেবার বিভাগসমূহ লোড করা হচ্ছে...",
+    loadingSubMessage: "সরাসরি ব্যাকেন্ড সার্ভার থেকে ক্যাটাগরি তথ্য সংগ্রহ করা হচ্ছে",
+    noCategories: "বর্তমানে কোনো ক্যাটাগরি পাওয়া যায়নি।",
   },
   en: {
     eyebrow: "Categories",
@@ -27,14 +32,19 @@ const STRINGS = {
     services: "+ services",
     viewServices: "View services",
     viewAllCategories: "View all categories",
+    loadingMessage: "Loading service categories...",
+    loadingSubMessage: "Fetching category information directly from backend server",
+    noCategories: "No categories currently found.",
   },
 };
 
 /** Responsive category grid powered by backend categories. */
 export function CategoryGrid({
   categories = [],
+  loading = false,
 }: {
   categories?: ServiceCategory[];
+  loading?: boolean;
 }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
@@ -51,55 +61,84 @@ export function CategoryGrid({
           />
         </Reveal>
 
-        <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {categories.map((cat, i) => (
-            <Reveal
-              key={cat.id}
-              as="li"
-              delay={(i % 4) * 60}
-              className="flex h-full flex-col"
-            >
-              <Link
-                href={`/categories/${cat.slug}`}
-                className="group flex h-full flex-1 flex-col rounded-2xl border border-line bg-white p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+        {loading ? (
+          <div className="mt-8 space-y-8">
+            <CustomLoader
+              size="md"
+              message={s.loadingMessage}
+              subMessage={s.loadingSubMessage}
+            />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="flex h-44 flex-col justify-between rounded-2xl border border-line bg-white p-5 shadow-card"
+                >
+                  <Skeleton className="h-12 w-12 rounded-xl" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-5 w-3/4 rounded-lg" />
+                    <Skeleton className="h-4 w-full rounded" />
+                  </div>
+                  <Skeleton className="h-4 w-24 rounded pt-2" />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : categories.length === 0 ? (
+          <div className="mt-10 rounded-2xl border border-line bg-canvas p-12 text-center">
+            <p className="text-sm font-medium text-slate-500">{s.noCategories}</p>
+          </div>
+        ) : (
+          <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {categories.map((cat, i) => (
+              <Reveal
+                key={cat.id}
+                as="li"
+                delay={(i % 4) * 60}
+                className="flex h-full flex-col"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <span
-                    className={cn(
-                      "inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:-translate-y-1 group-hover:-rotate-6",
-                      cat.accent === "green"
-                        ? "bg-brand-50 text-brand-700 group-hover:bg-brand-100"
-                        : "bg-flag-50 text-flag-600 group-hover:bg-flag-100",
-                    )}
-                  >
-                    <Icon name={cat.icon || "Folder"} className="h-6 w-6" />
-                  </span>
-                  <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-bold text-slate-500">
-                    {cat.serviceCount ?? 0}
-                    {s.services}
-                  </span>
-                </div>
+                <Link
+                  href={`/categories/${cat.slug}`}
+                  className="group flex h-full flex-1 flex-col rounded-2xl border border-line bg-white p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <span
+                      className={cn(
+                        "inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:-translate-y-1 group-hover:-rotate-6",
+                        cat.accent === "green"
+                          ? "bg-brand-50 text-brand-700 group-hover:bg-brand-100"
+                          : "bg-flag-50 text-flag-600 group-hover:bg-flag-100",
+                      )}
+                    >
+                      <Icon name={cat.icon || "Folder"} className="h-6 w-6" />
+                    </span>
+                    <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-bold text-slate-500">
+                      {cat.serviceCount ?? 0}
+                      {s.services}
+                    </span>
+                  </div>
 
-                <h3 className="mt-4 flex min-h-[2.75rem] items-start text-base font-bold text-slate-900 transition-colors group-hover:text-brand-700">
-                  <span className="line-clamp-2">{cat.name}</span>
-                </h3>
-                <p className="mt-1.5 min-h-[3rem] text-sm leading-6 text-slate-500 line-clamp-2">
-                  {cat.description}
-                </p>
+                  <h3 className="mt-4 flex min-h-[2.75rem] items-start text-base font-bold text-slate-900 transition-colors group-hover:text-brand-700">
+                    <span className="line-clamp-2">{cat.name}</span>
+                  </h3>
+                  <p className="mt-1.5 min-h-[3rem] text-sm leading-6 text-slate-500 line-clamp-2">
+                    {cat.description}
+                  </p>
 
-                <div className="mt-auto border-t border-line/60 pt-4">
-                  <span className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-700">
-                    {s.viewServices}
-                    <ArrowRight
-                      className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </div>
-              </Link>
-            </Reveal>
-          ))}
-        </ul>
+                  <div className="mt-auto border-t border-line/60 pt-4">
+                    <span className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-700">
+                      {s.viewServices}
+                      <ArrowRight
+                        className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
+        )}
 
         <Reveal>
           <div className="mt-10 text-center">

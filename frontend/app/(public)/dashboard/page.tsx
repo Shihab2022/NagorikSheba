@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, ChevronRight, Info } from "lucide-react";
 import { getMe } from "@/service/auth";
-import { SERVICES } from "@/lib/data/services";
+import { getAllServices } from "@/service/service";
+import { mapBackendServiceToFrontend } from "@/lib/service-adapter";
 import { T } from "@/components/ui/T";
 import { DashboardShell } from "@/components/dashboard/layout/DashboardShell";
 import { UserSidebar } from "@/components/dashboard/layout/UserSidebar";
@@ -24,7 +25,10 @@ export default async function DashboardPage() {
   const meRes = await getMe();
   const user = meRes.success ? meRes.data : null;
   const isAdmin = user?.role?.toUpperCase() === "ADMIN";
-  const saved = SERVICES.slice(0, 4);
+  const svcRes = await getAllServices({ limit: 4 }).catch(() => null);
+  const saved = svcRes?.success && Array.isArray(svcRes.data)
+    ? svcRes.data.map(mapBackendServiceToFrontend)
+    : [];
 
   return (
     <DashboardShell

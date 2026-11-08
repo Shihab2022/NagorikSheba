@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight, BadgeAlert, ExternalLink } from "lucide-react";
-import { SERVICES } from "@/lib/data/services";
+import type { GovernmentService } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
 import { useTranslation } from "@/lib/i18n";
 
@@ -14,6 +14,7 @@ const STRINGS = {
     official: "অফিসিয়াল",
     feesMayChange:
       "ফি পরিবর্তিত হতে পারে। পরিশোধের আগে সর্বশেষ ফি সর্বদা সরকারি উৎস থেকে যাচাই করুন।",
+    noFees: "ফি সম্পর্কিত কোনো তথ্য পাওয়া যায়নি।",
   },
   en: {
     processing: "Processing",
@@ -22,17 +23,26 @@ const STRINGS = {
     official: "Official",
     feesMayChange:
       "Fees may change. Always verify the latest fee from the official government source before paying.",
+    noFees: "No fee information found.",
   },
 };
 
-export function DashboardFeesView() {
+export function DashboardFeesView({ services = [] }: { services?: GovernmentService[] }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
+
+  if (services.length === 0) {
+    return (
+      <div className="rounded-2xl border border-line bg-white p-12 text-center text-slate-500">
+        {s.noFees}
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {SERVICES.slice(0, 15).map((svc) => (
+        {services.map((svc) => (
           <article
             key={svc.id}
             className="group rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-brand-200 sm:p-6"

@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { EmptyState, SkeletonCard } from "@/components/ui/States";
+import { CustomLoader } from "@/components/ui/CustomLoader";
 import { Select } from "@/components/ui/Input";
 import { Pagination } from "@/components/ui/Pagination";
 import { cn } from "@/lib/utils";
@@ -351,7 +352,17 @@ export function ServicesExplorer({
       </div>
 
       {/* Services Grid (Server Paginated Slice) */}
-      <div className={cn("transition-opacity duration-200", isPending ? "opacity-60 pointer-events-none" : "opacity-100")}>
+      <div className="relative min-h-[280px]">
+        {isPending && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center rounded-2xl bg-white/70 backdrop-blur-xs">
+            <CustomLoader
+              size="md"
+              message="সেবা তালিকা ফিল্টার হচ্ছে..."
+              subMessage="অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন"
+            />
+          </div>
+        )}
+
         {initialServices.length === 0 ? (
           <EmptyState
             title={c.noServices}
@@ -368,7 +379,7 @@ export function ServicesExplorer({
             }
           />
         ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className={cn("grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 transition-opacity duration-200", isPending ? "opacity-30 pointer-events-none" : "opacity-100")}>
             {initialServices.map((service) => (
               <ServiceCard key={service.id} service={service} />
             ))}

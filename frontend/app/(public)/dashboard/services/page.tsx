@@ -5,8 +5,6 @@ import { getMe } from "@/service/auth";
 import { getAllServices } from "@/service/service";
 import { getAllCategories } from "@/service/category";
 import { mapBackendServiceToFrontend, mapBackendCategoryToFrontend } from "@/lib/service-adapter";
-import { SERVICES } from "@/lib/data/services";
-import { CATEGORIES } from "@/lib/data/categories";
 import type { GovernmentService, ServiceCategory } from "@/lib/types";
 import { DashboardShell } from "@/components/dashboard/layout/DashboardShell";
 import { UserSidebar } from "@/components/dashboard/layout/UserSidebar";
@@ -63,13 +61,11 @@ export default async function DashboardServicesPage(props: ServicesPageProps) {
       getAllCategories(),
     ]);
 
-    if (categoriesRes.success && categoriesRes.data && categoriesRes.data.length > 0) {
+    if (categoriesRes?.success && Array.isArray(categoriesRes.data)) {
       categories = categoriesRes.data.map(mapBackendCategoryToFrontend);
-    } else {
-      categories = CATEGORIES;
     }
 
-    if (servicesRes.success && servicesRes.data && servicesRes.data.length > 0) {
+    if (servicesRes?.success && Array.isArray(servicesRes.data)) {
       services = servicesRes.data.map(mapBackendServiceToFrontend);
       totalCount = servicesRes.meta?.total ?? services.length;
 
@@ -84,43 +80,11 @@ export default async function DashboardServicesPage(props: ServicesPageProps) {
           return matchDept && matchAvail;
         });
       }
-    } else {
-      // Server-side fallback filtering
-      const filtered = SERVICES.filter((s) => {
-        const matchQ =
-          !q ||
-          s.name.toLowerCase().includes(q.toLowerCase()) ||
-          s.description.toLowerCase().includes(q.toLowerCase()) ||
-          s.department.toLowerCase().includes(q.toLowerCase());
-        const matchCat = category === "all" || s.category === category;
-        const matchDept = department === "all" || s.department === department;
-        const matchAvail =
-          availability === "all" ||
-          (availability === "online" && s.isOnline) ||
-          (availability === "office" && s.requiresOfficeVisit);
-        return matchQ && matchCat && matchDept && matchAvail;
-      }).sort((a, b) => {
-        if (sort === "popular") return b.popularity - a.popularity;
-        if (sort === "az") return a.name.localeCompare(b.name);
-        return b.name.localeCompare(a.name);
-      });
-
-      totalCount = filtered.length;
-      services = filtered.slice((page - 1) * limit, page * limit);
     }
   } catch {
-    // Error fallback
-    const filtered = SERVICES.filter((s) => {
-      const matchQ =
-        !q ||
-        s.name.toLowerCase().includes(q.toLowerCase()) ||
-        s.description.toLowerCase().includes(q.toLowerCase());
-      const matchCat = category === "all" || s.category === category;
-      return matchQ && matchCat;
-    });
-    totalCount = filtered.length;
-    services = filtered.slice((page - 1) * limit, page * limit);
-    categories = CATEGORIES;
+    services = [];
+    categories = [];
+    totalCount = 0;
   }
 
   const pagination = {
@@ -156,48 +120,50 @@ export default async function DashboardServicesPage(props: ServicesPageProps) {
         </ol>
       </nav>
 
-      {/* Page Header Banner */}
-      <div className="relative overflow-hidden rounded-3xl border border-brand-800/30 bg-gradient-to-br from-brand-900 via-brand-800 to-slate-900 p-6 sm:p-7 text-white shadow-md">
-        <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-emerald-500/15 blur-2xl pointer-events-none" />
-        <div className="absolute -left-16 -bottom-16 h-48 w-48 rounded-full bg-brand-400/15 blur-2xl pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      {/* Services Explorer Container */}
+      <div className="space-y-6">
+        {/* Header Block */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-line pb-5">
           <div>
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 px-2.5 py-0.5 text-[10px] font-black text-emerald-200 uppercase tracking-wider">
-                <Layers className="h-3 w-3" />
-                <T bn="সার্ভার নিয়ন্ত্রিত ক্যাটালগ" en="Server-Paginated Catalogue" />
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand-700">
+                <Layers className="h-4 w-4" />
               </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 px-2.5 py-0.5 text-[10px] font-black text-emerald-300">
-                <Sparkles className="h-2.5 w-2.5" />
-                {totalCount} <T bn="সেবা উপলব্ধ" en="Services Found" />
-              </span>
+              <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                <T bn="সরকারি সেবাসমূহ" en="Government Services" />
+              </h1>
             </div>
-
-            <h1 className="mt-2 text-xl sm:text-2xl font-black text-white tracking-tight">
-              <T bn="সকল সরকারি সেবা" en="All Government Services" />
-            </h1>
-            <p className="mt-1 text-xs sm:text-sm text-emerald-100/80 font-medium">
+            <p className="mt-1 text-xs sm:text-sm text-slate-500 max-w-xl">
               <T
-                bn="সার্ভার থেকে দ্রুততম সময়ে প্রয়োজনীয় সেবা খুঁজুন ও যাচাই করুন।"
-                en="Fast server-rendered citizen services catalogue with real-time pagination."
+                bn="নাগরিক সেবা প্ল্যাটফর্মের আওতাভুক্ত সকল সরকারি সেবা ব্রাউজ করুন, প্রয়োজনীয় নথিপত্র ও ধাপ জানুন।"
+                en="Browse all official government services, review required documents and track step-by-step procedures."
               />
             </p>
           </div>
-        </div>
-      </div>
 
-      {/* Main Services Explorer with Server-Controlled Pagination */}
-      <ServicesExplorer
-        initialServices={services}
-        initialCategories={categories}
-        pagination={pagination}
-        initialQuery={q}
-        initialCategory={category}
-        initialDepartment={department}
-        initialAvailability={availability}
-        initialSort={sort}
-      />
+          <div className="flex items-center gap-2 text-xs font-bold text-brand-700 bg-brand-50 px-3 py-1.5 rounded-full self-start sm:self-auto">
+            <Sparkles className="h-3.5 w-3.5 text-brand-600" />
+            <span>
+              <T
+                bn={`মোট ${totalCount} টি সেবা`}
+                en={`${totalCount} Total Services`}
+              />
+            </span>
+          </div>
+        </div>
+
+        {/* Embedded Interactive Services Explorer */}
+        <ServicesExplorer
+          initialServices={services}
+          initialCategories={categories}
+          pagination={pagination}
+          initialQuery={q}
+          initialCategory={category}
+          initialDepartment={department}
+          initialAvailability={availability}
+          initialSort={sort}
+        />
+      </div>
     </DashboardShell>
   );
 }

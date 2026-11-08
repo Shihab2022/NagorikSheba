@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 
 import type { GovernmentService } from "@/lib/types";
-import { getCategoryBySlug } from "@/lib/data/categories";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
 import { useTranslation } from "@/lib/i18n";
@@ -48,7 +47,7 @@ export function ServiceCard({
   const s = t(STRINGS);
   const c = t(COMMON);
 
-  const category = getCategoryBySlug(service.category);
+  const categoryLabel = service.categoryName || service.department;
   const servicePath = `/services/${service.slug}`;
 
   const docCount = service.documentsCount ?? service.requiredDocuments?.length ?? 0;
@@ -65,7 +64,7 @@ export function ServiceCard({
 
       <div className="relative z-10 flex items-start gap-4">
         <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700 transition-transform duration-300 group-hover:-translate-y-1 group-hover:-rotate-6">
-          <Icon name={service.icon} className="h-6 w-6" />
+          <Icon name={service.icon || "FileText"} className="h-6 w-6" />
         </span>
 
         <div className="min-w-0 flex-1">
@@ -101,7 +100,7 @@ export function ServiceCard({
 
       <div className="relative z-10 mt-4 border-t border-line pt-3">
         <span className="block truncate text-xs font-semibold uppercase tracking-wide text-slate-400">
-          {category?.name ?? service.department}
+          {categoryLabel}
         </span>
       </div>
 

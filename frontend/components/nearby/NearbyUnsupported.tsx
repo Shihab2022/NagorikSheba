@@ -4,31 +4,35 @@ import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useTranslation } from "@/lib/i18n";
-import { getOfficeServiceKey } from "@/lib/nearby";
-import { SERVICES } from "@/lib/data/services";
 
 const STRINGS = {
   bn: {
     title: "এই সেবার জন্য নিকটবর্তী অফিস পাওয়া যায়নি",
-    body: "“{slug}” সেবার জন্য যাচাইকৃত অফিস নেটওয়ার্ক নেই। নিচে যেসব সেবায় অফিস খোঁজা যায় সেগুলো দেওয়া হলো।",
+    body: "“{slug}” সেবার জন্য সরাসরি অফিস ম্যাপ সাপোর্ট নেই। নিচে যেসব সেবায় অফিস খোঁজা যায় সেগুলো দেওয়া হলো।",
     available: "অফিস খোঁজা যায় এমন সেবা",
     goNearMe: "Near Me ম্যাপ খুলুন",
     back: "সেবায় ফিরুন",
   },
   en: {
     title: "No nearby offices for this service",
-    body: "“{slug}” has no verified office network yet. These services do support office lookup:",
+    body: "“{slug}” has no direct office map support yet. These services do support office lookup:",
     available: "Services with office lookup",
     goNearMe: "Open Near Me map",
     back: "Back to service",
   },
 };
 
+const SUPPORTED_OFFICE_SERVICES = [
+  { slug: "passport-renewal", name: "ই-পাসপোর্ট / পাসপোর্ট নবায়ন" },
+  { slug: "nid-correction", name: "জাতীয় পরিচয়পত্র (NID) সংশোধন" },
+  { slug: "driving-license", name: "ড্রাইভিং লাইসেন্স" },
+  { slug: "land-mutation", name: "ই-নামজারি" },
+];
+
 /** Fallback shown instead of a hard 404 when slug has no office network. */
 export function NearbyUnsupported({ slug }: { slug: string }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
-  const supported = SERVICES.filter((svc) => getOfficeServiceKey(svc.slug));
 
   return (
     <div className="mx-auto max-w-2xl space-y-5 text-center">
@@ -46,10 +50,10 @@ export function NearbyUnsupported({ slug }: { slug: string }) {
           {s.available}
         </p>
         <ul className="mt-3 space-y-2">
-          {supported.map((svc) => (
+          {SUPPORTED_OFFICE_SERVICES.map((svc) => (
             <li key={svc.slug}>
               <Link
-                href={`/services/${svc.slug}/nearby-offices?district=Chapainawabganj`}
+                href={`/services/${svc.slug}/nearby-offices?district=Dhaka`}
                 className="flex items-center justify-between gap-3 rounded-xl border border-line bg-canvas px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-brand-300 hover:text-brand-700"
               >
                 {svc.name}

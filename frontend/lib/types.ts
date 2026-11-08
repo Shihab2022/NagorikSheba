@@ -26,6 +26,7 @@ export type GovernmentService = {
   slug: string;
   /** Category slug this service belongs to. */
   category: string;
+  categoryName?: string;
   /** Owning ministry / department display name. */
   department: string;
   description: string;
