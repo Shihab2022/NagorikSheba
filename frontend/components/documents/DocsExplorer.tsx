@@ -5,34 +5,8 @@ import { ArrowRight, CheckSquare, ListChecks, Search } from "lucide-react";
 import type { GovernmentService } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
-import { useTranslation } from "@/lib/i18n";
-
-const STRINGS = {
-  bn: {
-    findServiceLabel: "একটি সেবা খুঁজুন",
-    findServicePlaceholder: "একটি সেবা খুঁজুন…",
-    servicesLabel: "সেবাসমূহ",
-    checklist: "ডকুমেন্ট চেকলিস্ট",
-    ready: "{done} / {total} প্রস্তুত",
-    progressLabel: "চেকলিস্ট অগ্রগতি",
-    viewGuide: "সম্পূর্ণ সেবা নির্দেশিকা দেখুন",
-    noServices: "কোনো সেবা পাওয়া যায়নি।",
-  },
-  en: {
-    findServiceLabel: "Find a service",
-    findServicePlaceholder: "Find a service...",
-    servicesLabel: "Services",
-    checklist: "Document checklist",
-    ready: "{done} of {total} ready",
-    progressLabel: "Checklist progress",
-    viewGuide: "View complete service guide",
-    noServices: "No services found.",
-  },
-};
 
 export function DocsExplorer({ services = [] }: { services?: GovernmentService[] }) {
-  const { t } = useTranslation();
-  const s = t(STRINGS);
   const [q, setQ] = useState("");
   const [sel, setSel] = useState(services[0]?.id ?? "");
   const [done, setDone] = useState<string[]>([]);
@@ -49,7 +23,7 @@ export function DocsExplorer({ services = [] }: { services?: GovernmentService[]
   if (services.length === 0) {
     return (
       <div className="rounded-2xl border border-line bg-white p-12 text-center text-slate-500">
-        {s.noServices}
+        No services found.
       </div>
     );
   }
@@ -57,7 +31,7 @@ export function DocsExplorer({ services = [] }: { services?: GovernmentService[]
   return (
     <div className="grid gap-6 lg:grid-cols-[340px_1fr]">
       <div className="rounded-2xl border border-line bg-white p-4 shadow-card">
-        <label htmlFor="doc-svc-search" className="sr-only">{s.findServiceLabel}</label>
+        <label htmlFor="doc-svc-search" className="sr-only">Find a service</label>
         <div className="relative">
           <Search className="pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
@@ -65,11 +39,11 @@ export function DocsExplorer({ services = [] }: { services?: GovernmentService[]
             type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder={s.findServicePlaceholder}
+            placeholder="Find a service..."
             className="h-11 w-full rounded-xl border border-line bg-canvas pr-3 pl-10 text-sm focus:border-brand-500 focus:outline-none"
           />
         </div>
-        <ul className="mt-3 max-h-[420px] space-y-1 overflow-y-auto" role="listbox" aria-label={s.servicesLabel}>
+        <ul className="mt-3 max-h-[420px] space-y-1 overflow-y-auto" role="listbox" aria-label="Services">
           {list.map((s2) => (
             <li key={s2.id}>
               <button
@@ -95,15 +69,13 @@ export function DocsExplorer({ services = [] }: { services?: GovernmentService[]
       <div className="rounded-2xl border border-line bg-white p-5 shadow-card sm:p-7">
         {svc ? (
           <>
-            <p className="text-xs font-extrabold tracking-widest text-brand-600 uppercase">{s.checklist}</p>
+            <p className="text-xs font-extrabold tracking-widest text-brand-600 uppercase">Document checklist</p>
             <h2 className="mt-1 text-xl font-extrabold text-slate-900 sm:text-2xl">{svc.name}</h2>
             <div className="mt-4">
               <div className="flex items-center justify-between text-xs font-bold text-slate-500">
                 <span className="inline-flex items-center gap-1.5">
                   <ListChecks className="h-4 w-4" aria-hidden="true" />{" "}
-                  {s.ready
-                    .replace("{done}", String(done.filter((d) => docs.includes(d)).length))
-                    .replace("{total}", String(docs.length))}
+                  {done.filter((d) => docs.includes(d)).length} of {docs.length} ready
                 </span>
                 <span>{pct}%</span>
               </div>
@@ -113,7 +85,7 @@ export function DocsExplorer({ services = [] }: { services?: GovernmentService[]
                 aria-valuenow={pct}
                 aria-valuemin={0}
                 aria-valuemax={100}
-                aria-label={s.progressLabel}
+                aria-label="Checklist progress"
               >
                 <div
                   className="h-full rounded-full bg-brand-600 transition-all duration-500"
@@ -124,7 +96,7 @@ export function DocsExplorer({ services = [] }: { services?: GovernmentService[]
             <ul className="mt-5 space-y-2.5">
               {docs.length === 0 ? (
                 <li className="rounded-xl border border-line bg-canvas px-4 py-3 text-sm text-slate-500">
-                  কোনো নির্দিষ্ট ডকুমেন্ট প্রয়োজন নেই।
+                  No specific documents required.
                 </li>
               ) : (
                 docs.map((d) => {
@@ -161,7 +133,7 @@ export function DocsExplorer({ services = [] }: { services?: GovernmentService[]
               href={`/services/${svc.slug}`}
               className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700 hover:text-brand-800"
             >
-              {s.viewGuide} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              View complete service guide <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </>
         ) : null}

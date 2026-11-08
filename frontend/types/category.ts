@@ -9,6 +9,10 @@ export interface CategoryItem {
   createdAt: string;
   updatedAt: string;
   serviceCount?: number;
+  noticeCount?: number;
+  notice_count?: number;
+  newNoticeCount?: number;
+  new_notice_count?: number;
 }
 
 export interface CategoryResponse<T = any> {

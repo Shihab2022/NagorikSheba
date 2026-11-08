@@ -12,25 +12,6 @@ import {
 import type { GovernmentService } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
-import { useTranslation } from "@/lib/i18n";
-import { COMMON } from "@/lib/i18n/common";
-
-const STRINGS = {
-  bn: {
-    onlineService: "অনলাইন সেবা",
-    officeService: "অফিস সেবা",
-    requiredDocuments: "প্রয়োজনীয় ডকুমেন্ট",
-    estimatedProcess: "আনুমানিক প্রক্রিয়া",
-    documents: "{n} টি ডকুমেন্ট",
-  },
-  en: {
-    onlineService: "Online Service",
-    officeService: "Office Service",
-    requiredDocuments: "Required documents",
-    estimatedProcess: "Estimated process",
-    documents: "{n} documents",
-  },
-};
 
 /**
  * Service card used on home, category, search and services pages.
@@ -43,13 +24,8 @@ export function ServiceCard({
   service: GovernmentService;
   compact?: boolean;
 }) {
-  const { t } = useTranslation();
-  const s = t(STRINGS);
-  const c = t(COMMON);
-
   const categoryLabel = service.categoryName || service.department;
   const servicePath = `/services/${service.slug}`;
-
   const docCount = service.documentsCount ?? service.requiredDocuments?.length ?? 0;
 
   return (
@@ -79,7 +55,7 @@ export function ServiceCard({
                 <MapPin className="h-3 w-3 shrink-0" aria-hidden="true" />
               )}
 
-              {service.isOnline ? s.onlineService : s.officeService}
+              {service.isOnline ? "Online Service" : "Office Service"}
             </Badge>
           </div>
 
@@ -112,13 +88,10 @@ export function ServiceCard({
               aria-hidden="true"
             />
 
-            <dt className="sr-only">{s.requiredDocuments}</dt>
+            <dt className="sr-only">Required documents</dt>
 
             <dd className="min-w-0 truncate font-medium">
-              {s.documents.replace(
-                "{n}",
-                String(docCount),
-              )}
+              {docCount} documents
             </dd>
           </div>
 
@@ -128,7 +101,7 @@ export function ServiceCard({
               aria-hidden="true"
             />
 
-            <dt className="sr-only">{s.estimatedProcess}</dt>
+            <dt className="sr-only">Estimated process</dt>
 
             <dd className="min-w-0 truncate font-medium">
               {service.processingTime ?? "—"}
@@ -142,7 +115,7 @@ export function ServiceCard({
         href={servicePath}
         className="relative z-10 mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700"
       >
-        {c.viewService}
+        View Service
 
         <ArrowRight
           className="h-4 w-4 transition-transform group-hover:translate-x-1"

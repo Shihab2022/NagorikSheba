@@ -8,32 +8,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { CustomLoader } from "@/components/ui/CustomLoader";
 import { Skeleton } from "@/components/ui/States";
-import { useTranslation } from "@/lib/i18n";
 
-const STRINGS = {
-  bn: {
-    eyebrow: "জনপ্রিয় সেবা",
-    title: "জনপ্রিয় সরকারি সেবা",
-    description:
-      "নাগরিকরা যে সেবাগুলো সবচেয়ে বেশি খোঁজেন — ডকুমেন্ট, ফি ও অফিসিয়াল লিংকসহ।",
-    viewAllServices: "সব সেবা দেখুন",
-    loadingMessage: "জনপ্রিয় সরকারি সেবা লোড করা হচ্ছে...",
-    loadingSubMessage: "সর্বশেষ যাচাইকৃত সেবা ও নথিপত্রের তালিকা প্রস্তুত করা হচ্ছে",
-    noServices: "বর্তমানে কোনো সরকারি সেবা পাওয়া যায়নি।",
-  },
-  en: {
-    eyebrow: "Popular services",
-    title: "Popular Government Services",
-    description:
-      "The services citizens look up most often — with documents, fees and official links.",
-    viewAllServices: "View all services",
-    loadingMessage: "Loading popular services...",
-    loadingSubMessage: "Preparing verified services and requirement details",
-    noServices: "No government services currently found.",
-  },
-};
-
-/** "জনপ্রিয় সরকারি সেবা" — receives live backend services. */
+/** Popular government services — receives live backend services. */
 export function PopularServices({
   services = [],
   loading = false,
@@ -41,18 +17,15 @@ export function PopularServices({
   services?: GovernmentService[];
   loading?: boolean;
 }) {
-  const { t } = useTranslation();
-  const s = t(STRINGS);
-
   return (
     <section aria-labelledby="popular-heading" className="border-y border-line bg-canvas">
       <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <Reveal>
           <SectionHeading
             id="popular-heading"
-            eyebrow={s.eyebrow}
-            title={s.title}
-            description={s.description}
+            eyebrow="Popular services"
+            title="Popular Government Services"
+            description="The services citizens look up most often — with documents, fees and official links."
           />
         </Reveal>
 
@@ -60,8 +33,8 @@ export function PopularServices({
           <div className="mt-8 space-y-8">
             <CustomLoader
               size="md"
-              message={s.loadingMessage}
-              subMessage={s.loadingSubMessage}
+              message="Loading popular services..."
+              subMessage="Preparing verified services and requirement details"
             />
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 6 }).map((_, i) => (
@@ -87,7 +60,9 @@ export function PopularServices({
           </div>
         ) : services.length === 0 ? (
           <div className="mt-10 rounded-2xl border border-line bg-white p-12 text-center">
-            <p className="text-sm font-medium text-slate-500">{s.noServices}</p>
+            <p className="text-sm font-medium text-slate-500">
+              No government services currently found.
+            </p>
           </div>
         ) : (
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -105,7 +80,7 @@ export function PopularServices({
               href="/services"
               className="inline-flex h-11 items-center gap-2 rounded-xl bg-brand-600 px-5 text-sm font-bold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-md"
             >
-              {s.viewAllServices}
+              View all services
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
