@@ -1,18 +1,21 @@
 "use client";
 import Link from "next/link";
 import { ExternalLink, Globe, MapPin } from "lucide-react";
-import type { GovernmentService } from "@/lib/types";
+import type { GovernmentService, NoticeItem } from "@/lib/types";
 import { ServiceSidebar } from "@/components/services/ServiceSidebar";
 import { TrackServiceButton } from "@/components/services/TrackServiceButton";
 import { DetailSection } from "@/components/services/ServiceSteps";
+import { ServiceNoticesSection } from "@/components/services/ServiceNoticesSection";
 import { useTranslation } from "@/lib/i18n";
 import { SVC_STR } from "./SvcStrings";
 import { SvcMain } from "./SvcMain";
 
 export function SvcBody({
   service,
+  notices = [],
 }: {
   service: GovernmentService;
+  notices?: NoticeItem[];
 }) {
   const { t } = useTranslation();
   const s = t(SVC_STR);
@@ -22,6 +25,7 @@ export function SvcBody({
     { id: "eligibility", label: s.elig },
     { id: "steps", label: s.steps },
     { id: "fees", label: s.fee },
+    ...(notices.length > 0 ? [{ id: "notices", label: "Official Notices" }] : []),
     { id: "official", label: s.official },
   ];
 
@@ -50,6 +54,18 @@ export function SvcBody({
               <TrackServiceButton slug={service.slug} />
             </div>
             <SvcMain service={service} />
+
+            {/* Category Notices Section */}
+            {notices.length > 0 && (
+              <div className="mt-10">
+                <ServiceNoticesSection
+                  notices={notices}
+                  categorySlug={service.category}
+                  categoryName={service.categoryName}
+                />
+              </div>
+            )}
+
             <div className="mt-10">
               <DetailSection
                 id="official"

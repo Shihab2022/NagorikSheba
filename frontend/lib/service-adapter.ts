@@ -86,6 +86,10 @@ export function mapBackendCategoryToFrontend(cat: CategoryItem & { serviceCount?
     description: cat.description || "",
     icon: cat.icon || "Folder",
     serviceCount: cat.serviceCount ?? 0,
+    noticeCount: cat.noticeCount ?? cat.notice_count ?? 0,
+    notice_count: cat.notice_count ?? cat.noticeCount ?? 0,
+    newNoticeCount: cat.newNoticeCount ?? cat.new_notice_count ?? 0,
+    new_notice_count: cat.new_notice_count ?? cat.newNoticeCount ?? 0,
     samples: [],
     accent: "green",
   };

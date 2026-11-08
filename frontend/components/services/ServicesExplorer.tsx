@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   RotateCcw,
@@ -8,63 +8,18 @@ import {
   SearchX,
   X,
   Loader2,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { ServiceCard } from "@/components/services/ServiceCard";
-import { EmptyState, SkeletonCard } from "@/components/ui/States";
+import { EmptyState } from "@/components/ui/States";
 import { CustomLoader } from "@/components/ui/CustomLoader";
 import { Select } from "@/components/ui/Input";
 import { Pagination } from "@/components/ui/Pagination";
 import { cn } from "@/lib/utils";
-import { useTranslation } from "@/lib/i18n";
-import { COMMON } from "@/lib/i18n/common";
 import type { GovernmentService, ServiceCategory } from "@/lib/types";
 
 type SortKey = "popular" | "az" | "za";
-
-const STRINGS = {
-  bn: {
-    filters: "ফিল্টার",
-    clearAll: "সব মুছুন",
-    searchLabel: "সেবা অনুসন্ধান করুন",
-    searchPlaceholder: "সেবার নাম বা বিবরণ লিখে খুঁজুন…",
-    department: "বিভাগ",
-    allDepartments: "সব বিভাগ",
-    availability: "প্রাপ্যতা",
-    allServices: "সব ধরনের সেবা",
-    onlineAvailable: "অনলাইনে উপলব্ধ",
-    officeVisitRequired: "অফিসে উপস্থিত হতে হবে",
-    sortBy: "সাজান",
-    mostPopular: "সর্বাধিক জনপ্রিয়",
-    nameAz: "নাম: ক – ঁ (A – Z)",
-    nameZa: "নাম: ঁ – ক (Z – A)",
-    categoryFilter: "ক্যাটাগরি অনুযায়ী ফিল্টার",
-    allCategories: "সকল ক্যাটাগরি",
-    showing: "{shown} টি দেখানো হচ্ছে, মোট {total} টি সেবার মধ্যে",
-    resetFilters: "ফিল্টার রিসেট",
-    serverLoading: "লোড হচ্ছে…",
-  },
-  en: {
-    filters: "Filters",
-    clearAll: "Clear all",
-    searchLabel: "Search services",
-    searchPlaceholder: "Search by service name or description…",
-    department: "Department",
-    allDepartments: "All departments",
-    availability: "Availability",
-    allServices: "All services",
-    onlineAvailable: "Online available",
-    officeVisitRequired: "Office visit required",
-    sortBy: "Sort by",
-    mostPopular: "Most popular",
-    nameAz: "Name: A – Z",
-    nameZa: "Name: Z – A",
-    categoryFilter: "Filter by category",
-    allCategories: "All Categories",
-    showing: "Showing {shown} of {total} services",
-    resetFilters: "Reset filters",
-    serverLoading: "Loading from server…",
-  },
-};
 
 export interface ServicesExplorerProps {
   initialServices?: GovernmentService[];
@@ -104,10 +59,6 @@ export function ServicesExplorer({
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
-  const { t } = useTranslation();
-  const s = t(STRINGS);
-  const c = t(COMMON);
-
   // Local state for immediate typing responsiveness
   const [searchInput, setSearchInput] = useState(initialQuery);
 
@@ -116,68 +67,148 @@ export function ServicesExplorer({
   const activeAvail = searchParams.get("availability") || initialAvailability || "all";
   const activeSort = (searchParams.get("sort") as SortKey) || initialSort || "popular";
 
-  const totalPages = Math.ceil(pagination.total / pagination.limit);
+  // Slider navigation & desktop scroll support
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
-  // Department options from list or categories
+  const checkScroll = useCallback(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 4);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+    checkScroll();
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [checkScroll, initialCategories]);
+
+  // Auto-scroll active category into view
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+    const activePill = el.querySelector<HTMLElement>('[aria-pressed="true"]');
+    if (activePill) {
+      activePill.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }, [activeCategory]);
+
+  const scroll = (direction: "left" | "right") => {
+    const el = sliderRef.current;
+    if (!el) return;
+    const distance = 260;
+    el.scrollBy({
+      left: direction === "left" ? -distance : distance,
+      behavior: "smooth",
+    });
+  };
+
+  // Convert mouse wheel vertical scroll into horizontal slider movement on desktop
+  const handleWheel = (e: React.WheelEvent) => {
+    const el = sliderRef.current;
+    if (!el) return;
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && el.scrollWidth > el.clientWidth) {
+      el.scrollLeft += e.deltaY;
+    }
+  };
+
+  // Drag-to-scroll support for desktop mouse
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeftStart = useRef(0);
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    const el = sliderRef.current;
+    if (!el) return;
+    isDragging.current = true;
+    startX.current = e.pageX - el.offsetLeft;
+    scrollLeftStart.current = el.scrollLeft;
+  };
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current) return;
+    const el = sliderRef.current;
+    if (!el) return;
+    e.preventDefault();
+    const x = e.pageX - el.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    el.scrollLeft = scrollLeftStart.current - walk;
+  };
+
+  const onMouseUpOrLeave = () => {
+    isDragging.current = false;
+  };
+
+  // Derive department options
   const deptList = useMemo(() => {
     if (departments.length > 0) return departments;
-    return Array.from(new Set(initialServices.map((x) => x.department))).filter(Boolean).sort();
+    const depts = new Set<string>();
+    initialServices.forEach((s) => {
+      if (s.department) depts.add(s.department);
+    });
+    return Array.from(depts).sort((a, b) => a.localeCompare(b));
   }, [departments, initialServices]);
 
-  // Helper to push URL query updates to server
-  const updateUrl = (updates: Record<string, string | number | undefined | null>) => {
-    const nextParams = new URLSearchParams(searchParams.toString());
+  const updateFilters = (updates: Record<string, string | null>) => {
+    const params = new URLSearchParams(searchParams.toString());
 
     Object.entries(updates).forEach(([key, value]) => {
-      if (
-        value === undefined ||
-        value === null ||
-        value === "" ||
-        value === "all" ||
-        (key === "page" && Number(value) === 1)
-      ) {
-        nextParams.delete(key);
+      if (value === null || value === "" || value === "all") {
+        params.delete(key);
       } else {
-        nextParams.set(key, String(value));
+        params.set(key, value);
       }
     });
 
+    // Reset pagination to page 1 whenever filters or search change
+    if (!("page" in updates)) {
+      params.delete("page");
+    }
+
     startTransition(() => {
-      router.push(`${pathname}?${nextParams.toString()}`, { scroll: false });
+      const queryString = params.toString();
+      const targetUrl = queryString ? `${pathname}?${queryString}` : pathname;
+      router.push(targetUrl, { scroll: false });
     });
   };
 
   const handleSearchSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    updateUrl({ q: searchInput.trim(), page: 1 });
+    updateFilters({ q: searchInput.trim() || null });
   };
 
   const handleClearSearch = () => {
     setSearchInput("");
-    updateUrl({ q: "", page: 1 });
+    updateFilters({ q: null });
   };
 
   const handleCategorySelect = (slug: string) => {
-    updateUrl({ category: slug, page: 1 });
+    updateFilters({ category: slug === "all" ? null : slug });
   };
 
   const handleDepartmentChange = (dept: string) => {
-    updateUrl({ department: dept, page: 1 });
+    updateFilters({ department: dept === "all" ? null : dept });
   };
 
   const handleAvailabilityChange = (avail: string) => {
-    updateUrl({ availability: avail, page: 1 });
+    updateFilters({ availability: avail === "all" ? null : avail });
   };
 
-  const handleSortChange = (newSort: SortKey) => {
-    updateUrl({ sort: newSort, page: 1 });
-  };
-
-  const handlePageChange = (newPage: number) => {
-    updateUrl({ page: newPage });
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 120, behavior: "smooth" });
-    }
+  const handleSortChange = (sort: SortKey) => {
+    updateFilters({ sort: sort === "popular" ? null : sort });
   };
 
   const handleResetAll = () => {
@@ -187,16 +218,35 @@ export function ServicesExplorer({
     });
   };
 
-  const hasFilters =
-    activeCategory !== "all" ||
-    activeDept !== "all" ||
-    activeAvail !== "all" ||
-    Boolean(searchParams.get("q"));
+  const handlePageChange = (newPage: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (newPage <= 1) {
+      params.delete("page");
+    } else {
+      params.set("page", String(newPage));
+    }
+
+    startTransition(() => {
+      const queryString = params.toString();
+      const targetUrl = queryString ? `${pathname}?${queryString}` : pathname;
+      router.push(targetUrl, { scroll: true });
+    });
+  };
+
+  const hasFilters = Boolean(
+    searchParams.get("q") ||
+      (searchParams.get("category") && searchParams.get("category") !== "all") ||
+      (searchParams.get("department") && searchParams.get("department") !== "all") ||
+      (searchParams.get("availability") && searchParams.get("availability") !== "all") ||
+      (searchParams.get("sort") && searchParams.get("sort") !== "popular"),
+  );
+
+  const totalPages = Math.max(1, Math.ceil(pagination.total / pagination.limit));
 
   return (
     <div className="space-y-6">
-      {/* Top Filter Toolbar Card */}
-      <div className="rounded-2xl border border-slate-200/90 bg-white p-4.5 shadow-sm space-y-4">
+      {/* Search & Filter Toolbar */}
+      <div className="space-y-4 rounded-2xl border border-line bg-white p-4 shadow-sm sm:p-5">
         {/* Row 1: Search Form + Dropdowns */}
         <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {/* Search Box */}
@@ -215,14 +265,14 @@ export function ServicesExplorer({
                   handleSearchSubmit();
                 }
               }}
-              placeholder={s.searchPlaceholder}
+              placeholder="Search by service name or description…"
               className="h-10 w-full rounded-xl border border-slate-200 bg-slate-50/70 pl-9.5 pr-8 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20"
             />
             {searchInput ? (
               <button
                 type="button"
                 onClick={handleClearSearch}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-400 hover:text-slate-600"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-400 hover:text-slate-600 cursor-pointer"
               >
                 <X className="h-3.5 w-3.5" />
               </button>
@@ -237,7 +287,7 @@ export function ServicesExplorer({
               onChange={(e) => handleDepartmentChange(e.target.value)}
               className="h-10 text-xs font-semibold rounded-xl border-slate-200 bg-slate-50/70"
             >
-              <option value="all">{s.allDepartments}</option>
+              <option value="all">All departments</option>
               {deptList.map((d) => (
                 <option key={d} value={d}>
                   {d}
@@ -254,9 +304,9 @@ export function ServicesExplorer({
               onChange={(e) => handleAvailabilityChange(e.target.value)}
               className="h-10 text-xs font-semibold rounded-xl border-slate-200 bg-slate-50/70"
             >
-              <option value="all">{s.allServices}</option>
-              <option value="online">{s.onlineAvailable}</option>
-              <option value="office">{s.officeVisitRequired}</option>
+              <option value="all">All services</option>
+              <option value="online">Online available</option>
+              <option value="office">Office visit required</option>
             </Select>
           </div>
 
@@ -268,16 +318,16 @@ export function ServicesExplorer({
               onChange={(e) => handleSortChange(e.target.value as SortKey)}
               className="h-10 text-xs font-semibold rounded-xl border-slate-200 bg-slate-50/70 flex-1"
             >
-              <option value="popular">{s.mostPopular}</option>
-              <option value="az">{s.nameAz}</option>
-              <option value="za">{s.nameZa}</option>
+              <option value="popular">Most popular</option>
+              <option value="az">Name: A – Z</option>
+              <option value="za">Name: Z – A</option>
             </Select>
 
             {hasFilters && (
               <button
                 type="button"
                 onClick={handleResetAll}
-                title={s.clearAll}
+                title="Clear all"
                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-600 transition-colors hover:border-flag-200 hover:bg-flag-50 hover:text-flag-700 cursor-pointer"
               >
                 <RotateCcw className="h-4 w-4" />
@@ -286,12 +336,46 @@ export function ServicesExplorer({
           </div>
         </form>
 
-        {/* Row 2: Category Pills Slider */}
-        <div className="border-t border-slate-100 pt-3">
+        {/* Row 2: Category Pills Slider with Desktop Left/Right Controls & Drag-to-Scroll */}
+        <div className="relative border-t border-slate-100 pt-3">
+          {/* Left Arrow Button */}
+          {canScrollLeft && (
+            <div className="absolute left-0 top-3 bottom-0 z-10 flex items-center pr-3 bg-gradient-to-r from-white via-white/95 to-transparent">
+              <button
+                type="button"
+                onClick={() => scroll("left")}
+                aria-label="Scroll categories left"
+                className="flex h-7 w-7 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition-transform hover:scale-105 hover:border-brand-300 hover:text-brand-700 cursor-pointer"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+
+          {/* Right Arrow Button */}
+          {canScrollRight && (
+            <div className="absolute right-0 top-3 bottom-0 z-10 flex items-center pl-3 bg-gradient-to-l from-white via-white/95 to-transparent">
+              <button
+                type="button"
+                onClick={() => scroll("right")}
+                aria-label="Scroll categories right"
+                className="flex h-7 w-7 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition-transform hover:scale-105 hover:border-brand-300 hover:text-brand-700 cursor-pointer"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+
           <div
-            className="scrollbar-none flex w-full gap-2 overflow-x-auto pb-1 scroll-smooth"
+            ref={sliderRef}
+            onWheel={handleWheel}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUpOrLeave}
+            onMouseLeave={onMouseUpOrLeave}
+            className="scrollbar-none flex w-full gap-2 overflow-x-auto pb-1 scroll-smooth select-none cursor-grab active:cursor-grabbing"
             role="group"
-            aria-label={s.categoryFilter}
+            aria-label="Filter by category"
           >
             <button
               type="button"
@@ -304,7 +388,7 @@ export function ServicesExplorer({
                   : "border border-slate-200 bg-white text-slate-600 hover:border-brand-200 hover:bg-slate-50 hover:text-brand-800",
               )}
             >
-              {s.allCategories}
+              All Categories
             </button>
 
             {initialCategories.map((cat) => (
@@ -331,22 +415,20 @@ export function ServicesExplorer({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <p className="text-xs font-bold text-slate-500" role="status" aria-live="polite">
-            {s.showing
-              .replace("{shown}", String(initialServices.length))
-              .replace("{total}", String(pagination.total))}
+            Showing {initialServices.length} of {pagination.total} services
           </p>
 
           {isPending && (
             <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700 animate-pulse">
               <Loader2 className="h-3.5 w-3.5 animate-spin" />
-              {s.serverLoading}
+              Loading from server…
             </span>
           )}
         </div>
 
         {totalPages > 1 && (
           <p className="text-xs font-bold text-slate-400">
-            পৃষ্ঠা {pagination.page} / {totalPages}
+            Page {pagination.page} of {totalPages}
           </p>
         )}
       </div>
@@ -357,16 +439,16 @@ export function ServicesExplorer({
           <div className="absolute inset-0 z-20 flex items-center justify-center rounded-2xl bg-white/70 backdrop-blur-xs">
             <CustomLoader
               size="md"
-              message="সেবা তালিকা ফিল্টার হচ্ছে..."
-              subMessage="অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন"
+              message="Filtering services..."
+              subMessage="Please wait a moment"
             />
           </div>
         )}
 
         {initialServices.length === 0 ? (
           <EmptyState
-            title={c.noServices}
-            description={c.tryFilters}
+            title="No services found"
+            description="Try adjusting your search or filter terms to find what you need."
             icon={<SearchX className="h-7 w-7 text-slate-300" aria-hidden="true" />}
             action={
               <button
@@ -374,7 +456,7 @@ export function ServicesExplorer({
                 onClick={handleResetAll}
                 className="inline-flex h-9 items-center rounded-xl bg-brand-600 px-4 text-xs font-bold text-white transition-colors hover:bg-brand-700 shadow-sm cursor-pointer"
               >
-                {s.resetFilters}
+                Reset filters
               </button>
             }
           />

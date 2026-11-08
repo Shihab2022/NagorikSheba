@@ -4,37 +4,12 @@ import Link from "next/link";
 import { ArrowRight, BadgeAlert, ExternalLink } from "lucide-react";
 import type { GovernmentService } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
-import { useTranslation } from "@/lib/i18n";
-
-const STRINGS = {
-  bn: {
-    processing: "প্রক্রিয়াকরণ",
-    varies: "বিভিন্ন",
-    details: "বিস্তারিত",
-    official: "অফিসিয়াল",
-    feesMayChange:
-      "ফি পরিবর্তিত হতে পারে। পরিশোধের আগে সর্বশেষ ফি সর্বদা সরকারি উৎস থেকে যাচাই করুন।",
-    noFees: "ফি সম্পর্কিত কোনো তথ্য পাওয়া যায়নি।",
-  },
-  en: {
-    processing: "Processing",
-    varies: "Varies",
-    details: "Details",
-    official: "Official",
-    feesMayChange:
-      "Fees may change. Always verify the latest fee from the official government source before paying.",
-    noFees: "No fee information found.",
-  },
-};
 
 export function DashboardFeesView({ services = [] }: { services?: GovernmentService[] }) {
-  const { t } = useTranslation();
-  const s = t(STRINGS);
-
   if (services.length === 0) {
     return (
       <div className="rounded-2xl border border-line bg-white p-12 text-center text-slate-500">
-        {s.noFees}
+        No fee information found.
       </div>
     );
   }
@@ -55,14 +30,14 @@ export function DashboardFeesView({ services = [] }: { services?: GovernmentServ
               {svc.fee ?? "—"}
             </p>
             <p className="mt-1 text-xs font-medium text-slate-400">
-              {s.processing}: {svc.processingTime ?? s.varies}
+              Processing: {svc.processingTime ?? "Varies"}
             </p>
             <div className="mt-4 flex flex-wrap gap-3 border-t border-slate-100 pt-4">
               <Link
                 href={`/services/${svc.slug}`}
                 className="inline-flex items-center gap-1 text-xs font-bold text-brand-700 hover:text-brand-800"
               >
-                {s.details} <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                Details <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
               </Link>
               {svc.officialUrl ? (
                 <a
@@ -71,7 +46,7 @@ export function DashboardFeesView({ services = [] }: { services?: GovernmentServ
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-brand-700"
                 >
-                  {s.official} <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                  Official <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
                 </a>
               ) : null}
             </div>
@@ -82,7 +57,7 @@ export function DashboardFeesView({ services = [] }: { services?: GovernmentServ
       <div className="flex items-start gap-2.5 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4">
         <BadgeAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" aria-hidden="true" />
         <p className="text-xs leading-5 font-medium text-amber-900">
-          {s.feesMayChange}
+          Fees may change. Always verify the latest fee from the official government source before paying.
         </p>
       </div>
     </div>

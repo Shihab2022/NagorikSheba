@@ -62,7 +62,19 @@ export function AdminModulesGrid({
         bn: `${noticesCount} টি নোটিশ সক্রিয়`,
         en: `${noticesCount} active notices`,
       },
-      href: "/notices",
+      href: "/admin/notices",
+    },
+    {
+      title: { bn: "নোটিশ সোর্স স্ক্র্যাপার", en: "Notice Sources" },
+      description: {
+        bn: "মন্ত্রণালয় ও অধিদপ্তরের স্বয়ংক্রিয় নোটিশ স্ক্র্যাপার।",
+        en: "Automated government notice ingestion & crawler sources.",
+      },
+      countBadge: {
+        bn: "স্বয়ংক্রিয় শিডিউলার",
+        en: "Automated scheduler",
+      },
+      href: "/admin/notice-sources",
     },
   ];
 

@@ -5,51 +5,19 @@ import { ArrowRight, BadgeAlert, ExternalLink } from "lucide-react";
 import type { GovernmentService } from "@/lib/types";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Icon } from "@/components/ui/Icon";
-import { useTranslation } from "@/lib/i18n";
-
-const STRINGS = {
-  bn: {
-    title: "সরকারি ফি সম্পর্কে জানুন",
-    description: "এক নজরে আনুমানিক ফি — আবেদনের আগে বাজেট তৈরি করতে পারেন।",
-    home: "হোম",
-    fees: "ফি",
-    processing: "প্রক্রিয়াকরণ",
-    varies: "বিভিন্ন",
-    details: "বিস্তারিত",
-    official: "অফিসিয়াল",
-    feesMayChange:
-      "ফি পরিবর্তিত হতে পারে। পরিশোধের আগে সর্বশেষ ফি সর্বদা সরকারি উৎস থেকে যাচাই করুন।",
-    noFees: "ফি সম্পর্কিত কোনো তথ্য পাওয়া যায়নি।",
-  },
-  en: {
-    title: "Know About Government Fees",
-    description: "Indicative fees at a glance — so you can budget before you apply.",
-    home: "Home",
-    fees: "Fees",
-    processing: "Processing",
-    varies: "Varies",
-    details: "Details",
-    official: "Official",
-    feesMayChange:
-      "Fees may change. Always verify the latest fee from the official government source before paying.",
-    noFees: "No fee information found.",
-  },
-};
 
 export function FeesView({ services = [] }: { services?: GovernmentService[] }) {
-  const { t } = useTranslation();
-  const s = t(STRINGS);
   return (
     <>
       <PageHeader
-        title={s.title}
-        description={s.description}
-        breadcrumbs={[{ label: s.home, href: "/" }, { label: s.fees }]}
+        title="Know About Government Fees"
+        description="Indicative fees at a glance — so you can budget before you apply."
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Fees" }]}
       />
       <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         {services.length === 0 ? (
           <div className="rounded-2xl border border-line bg-white p-12 text-center text-slate-500">
-            {s.noFees}
+            No fee information found.
           </div>
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -66,14 +34,14 @@ export function FeesView({ services = [] }: { services?: GovernmentService[] }) 
                   {svc.fee ?? "—"}
                 </p>
                 <p className="mt-1 text-xs font-medium text-slate-400">
-                  {s.processing}: {svc.processingTime ?? s.varies}
+                  Processing: {svc.processingTime ?? "Varies"}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2 border-t border-line pt-4">
                   <Link
                     href={`/services/${svc.slug}`}
                     className="inline-flex items-center gap-1 text-sm font-bold text-brand-700 hover:text-brand-800"
                   >
-                    {s.details} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    Details <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                   {svc.officialUrl ? (
                     <a
@@ -82,7 +50,7 @@ export function FeesView({ services = [] }: { services?: GovernmentService[] }) 
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-sm font-bold text-slate-500 hover:text-brand-700"
                     >
-                      {s.official} <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                      Official <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
                     </a>
                   ) : null}
                 </div>
@@ -93,7 +61,7 @@ export function FeesView({ services = [] }: { services?: GovernmentService[] }) 
         <div className="mt-6 flex items-start gap-2.5 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4">
           <BadgeAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" aria-hidden="true" />
           <p className="text-sm leading-6 font-medium text-amber-900">
-            {s.feesMayChange}
+            Fees may change. Always verify the latest fee from the official government source before paying.
           </p>
         </div>
       </div>

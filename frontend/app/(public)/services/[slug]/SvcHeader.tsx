@@ -4,39 +4,13 @@ import { Building2, Clock, Coins, ShieldCheck } from "lucide-react";
 import type { GovernmentService } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
-import { useTranslation } from "@/lib/i18n";
-
-const STRINGS = {
-  bn: {
-    home: "হোম",
-    services: "সেবা",
-    service: "সেবা",
-    fee: "ফি ও সময়",
-    online: "অনলাইন সেবা",
-    officeOnly: "শুধু অফিস",
-    varies: "বিভিন্ন",
-    feeApplies: "ফি প্রযোজ্য",
-  },
-  en: {
-    home: "Home",
-    services: "Services",
-    service: "Service",
-    fee: "Fees & timing",
-    online: "Online Service",
-    officeOnly: "Office Only",
-    varies: "Varies",
-    feeApplies: "Fee applies",
-  },
-};
 
 export function SvcHeader({
   service,
 }: {
   service: GovernmentService;
 }) {
-  const { t } = useTranslation();
-  const s = t(STRINGS);
-  const categoryName = service.categoryName || service.department || s.service;
+  const categoryName = service.categoryName || service.department || "Service";
 
   return (
     <header className="relative overflow-hidden border-b border-line bg-canvas">
@@ -54,13 +28,13 @@ export function SvcHeader({
           <ol className="flex flex-wrap items-center gap-1.5 text-sm text-slate-500">
             <li>
               <Link href="/" className="hover:text-brand-700">
-                {s.home}
+                Home
               </Link>
             </li>
             <li aria-hidden="true">/</li>
             <li>
               <Link href="/services" className="hover:text-brand-700">
-                {s.services}
+                Services
               </Link>
             </li>
             <li aria-hidden="true">/</li>
@@ -82,7 +56,7 @@ export function SvcHeader({
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
                 <Badge tone={service.isOnline ? "soft-green" : "soft-red"}>
-                  {service.isOnline ? s.online : s.officeOnly}
+                  {service.isOnline ? "Online Service" : "Office Only"}
                 </Badge>
                 {categoryName ? <Badge tone="outline">{categoryName}</Badge> : null}
                 <span className="inline-flex items-center gap-1 rounded-lg bg-white px-2 py-0.5 text-[11px] font-semibold text-slate-500 ring-1 ring-line">
@@ -112,14 +86,14 @@ export function SvcHeader({
                     className="h-4 w-4 text-brand-600"
                     aria-hidden="true"
                   />
-                  <dd>{service.processingTime ?? s.varies}</dd>
+                  <dd>{service.processingTime ?? "Varies"}</dd>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Coins
                     className="h-4 w-4 text-brand-600"
                     aria-hidden="true"
                   />
-                  <dd>{service.fee ?? s.feeApplies}</dd>
+                  <dd>{service.fee ?? "Fee applies"}</dd>
                 </div>
               </dl>
             </div>

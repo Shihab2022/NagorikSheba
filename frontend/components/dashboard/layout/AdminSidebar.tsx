@@ -60,6 +60,20 @@ const ADMIN_ITEMS: NavItem[] = [
     icon: Building2,
   },
   {
+    href: "/admin/notice-sources",
+    label: { bn: "নোটিশ সোর্স স্ক্র্যাপার", en: "Notice Sources" },
+    icon: Bell,
+    createHref: "/admin/notice-sources",
+    createLabel: { bn: "নতুন সোর্স", en: "New Source" },
+  },
+  {
+    href: "/admin/notices",
+    label: { bn: "নোটিশ ব্যবস্থাপনা", en: "Manage Notices" },
+    icon: Shield,
+    createHref: "/admin/notices",
+    createLabel: { bn: "নতুন নোটিশ", en: "New Notice" },
+  },
+  {
     href: "/notices",
     label: { bn: "নোটিশ বোর্ড", en: "Notice Board" },
     icon: Bell,

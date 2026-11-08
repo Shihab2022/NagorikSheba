@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getSingleService } from "@/service/service";
+import { getLatestNotices } from "@/service/notices";
 import { mapBackendServiceToFrontend } from "@/lib/service-adapter";
 import type { GovernmentService } from "@/lib/types";
 import { SvcHeader } from "./SvcHeader";
@@ -41,10 +42,16 @@ export default async function ServiceDetailPage(
   const service = await fetchService(slug);
   if (!service) notFound();
 
+  const noticesRes = service.category
+    ? await getLatestNotices({ slug: service.category, limit: 5 }).catch(() => ({ success: false, data: [] }))
+    : { success: false, data: [] };
+
+  const notices = noticesRes.data || [];
+
   return (
     <>
       <SvcHeader service={service} />
-      <SvcBody service={service} />
+      <SvcBody service={service} notices={notices} />
     </>
   );
 }
