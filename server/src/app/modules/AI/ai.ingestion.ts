@@ -1,8 +1,9 @@
 import { createHash } from "node:crypto";
-import pgvector from "pgvector";
+// import pgvector from "pgvector";
 
 import { embeddings } from "./ai.embeddings";
 import { pool } from "../../../utils/pg";
+import { toSql } from "../../../utils/vector.util";
 
 type ChunkType =
   | "overview"
@@ -368,7 +369,8 @@ export async function ingestVerifiedServices() {
             chunk.chunkKey,
             chunk.chunkType,
             chunk.content,
-            pgvector.toSql(vector),
+            toSql(vector),
+            // pgvector.toSql(vector),
             JSON.stringify(chunk.metadata),
             chunk.contentHash,
           ],
