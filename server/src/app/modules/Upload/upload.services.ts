@@ -28,23 +28,29 @@ export interface IUploadResult {
 }
 
 const uploadSingleBuffer = (
-  file: Express.Multer.File
+  file: Express.Multer.File,
+  userId: string
 ): Promise<UploadApiResponse> => {
   return new Promise((resolve, reject) => {
     const rawExt = path.extname(file.originalname).toLowerCase();
-    const isPdf = rawExt === ".pdf" || file.mimetype === "application/pdf";
     const rawBaseName = path.parse(file.originalname).name.replace(/[^a-zA-Z0-9_-]/g, "_");
     const safeBaseName = rawBaseName.slice(0, 50) || "file";
+    const safeUserId = String(userId).trim().replace(/[^a-zA-Z0-9_-]/g, "_");
+    const userFolder = `${CLOUDINARY_UPLOAD_FOLDER}/${safeUserId}`;
+    const userTag = `user_${safeUserId}`;
 
     const uploadStream = cloudinary.uploader.upload_stream(
       {
-        folder: CLOUDINARY_UPLOAD_FOLDER,
+        folder: userFolder,
         resource_type: "auto",
         public_id: `${safeBaseName}_${Date.now()}`,
         use_filename: true,
         unique_filename: true,
+        tags: [CLOUDINARY_UPLOAD_FOLDER, userTag],
         context: {
           originalName: file.originalname,
+          userId: safeUserId,
+          rawUserId: String(userId),
         },
       },
       (error, result) => {
@@ -68,10 +74,15 @@ const uploadSingleBuffer = (
 };
 
 const uploadFiles = async (
-  files: Express.Multer.File[]
+  files: Express.Multer.File[],
+  userId: string
 ): Promise<IUploadResult> => {
+  if (!userId) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, "User authentication required");
+  }
+
   const uploadPromises = files.map((file) =>
-    uploadSingleBuffer(file)
+    uploadSingleBuffer(file, userId)
       .then((result) => ({ success: true as const, file, result }))
       .catch((error) => ({ success: false as const, file, error }))
   );
@@ -126,117 +137,165 @@ const uploadFiles = async (
 };
 
 /**
- * Fetch all files directly stored in Cloudinary under the nagorik-sheba folder.
+ * Fetch all files directly stored in Cloudinary for a specific user.
+ * Guarantees privacy: each citizen user only sees their own uploaded files.
  */
-const getAllUploadedFiles = async (): Promise<IUploadedFile[]> => {
-  // Method 1: Try Cloudinary Search API
+const getAllUploadedFiles = async (
+  userId: string,
+  _role?: string
+): Promise<IUploadedFile[]> => {
+  if (!userId) {
+    return [];
+  }
+
+  const safeUserId = String(userId).trim().replace(/[^a-zA-Z0-9_-]/g, "_");
+  const userFolder = `${CLOUDINARY_UPLOAD_FOLDER}/${safeUserId}`;
+  const userTag = `user_${safeUserId}`;
+
+  const isUserAsset = (res: any): boolean => {
+    if (!res || !res.public_id) return false;
+    const publicId: string = res.public_id;
+    if (
+      publicId.startsWith(`${userFolder}/`) ||
+      publicId.startsWith(`${userFolder}`)
+    ) {
+      return true;
+    }
+    if (Array.isArray(res.tags) && res.tags.includes(userTag)) {
+      return true;
+    }
+    const ctx = res.context?.custom || res.context;
+    if (
+      ctx?.userId === safeUserId ||
+      ctx?.userId === String(userId) ||
+      ctx?.rawUserId === String(userId)
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  // Method 1: Try Cloudinary Search API (indexed search for user folder or tag)
   try {
     const searchRes = await cloudinary.search
-      .expression(`folder:${CLOUDINARY_UPLOAD_FOLDER}*`)
+      .expression(`folder:${userFolder}* OR tags:${userTag}`)
       .sort_by("created_at", "desc")
       .max_results(100)
       .with_field("context")
+      .with_field("tags")
       .execute();
 
-    if (searchRes && Array.isArray(searchRes.resources) && searchRes.resources.length > 0) {
-      return searchRes.resources.map((res: any) => {
-        const format = res.format || (res.resource_type === "raw" ? "pdf" : "jpg");
-        const contextName =
-          res.context?.originalName ||
-          res.context?.custom?.originalName;
+    if (searchRes && Array.isArray(searchRes.resources)) {
+      const userResources = searchRes.resources.filter(isUserAsset);
 
-        let originalName = contextName;
-        if (!originalName) {
-          if (res.filename) {
-            originalName = res.format ? `${res.filename}.${res.format}` : res.filename;
-          } else {
-            const baseId = path.basename(res.public_id);
-            originalName = format ? `${baseId}.${format}` : baseId;
+      if (userResources.length > 0) {
+        return userResources.map((res: any) => {
+          const format = res.format || (res.resource_type === "raw" ? "pdf" : "jpg");
+          const contextName =
+            res.context?.originalName ||
+            res.context?.custom?.originalName;
+
+          let originalName = contextName;
+          if (!originalName) {
+            if (res.filename) {
+              originalName = res.format ? `${res.filename}.${res.format}` : res.filename;
+            } else {
+              const baseId = path.basename(res.public_id);
+              originalName = format ? `${baseId}.${format}` : baseId;
+            }
           }
-        }
 
-        return {
-          id: res.public_id,
-          originalName,
-          secureUrl: res.secure_url,
-          publicId: res.public_id,
-          resourceType: res.resource_type || "image",
-          format,
-          bytes: res.bytes || 0,
-          width: res.width ?? null,
-          height: res.height ?? null,
-          uploadedAt: res.created_at || res.uploaded_at,
-        };
-      });
+          return {
+            id: res.public_id,
+            originalName,
+            secureUrl: res.secure_url,
+            publicId: res.public_id,
+            resourceType: res.resource_type || "image",
+            format,
+            bytes: res.bytes || 0,
+            width: res.width ?? null,
+            height: res.height ?? null,
+            uploadedAt: res.created_at || res.uploaded_at,
+          };
+        });
+      }
     }
   } catch (searchErr) {
-    console.warn("Cloudinary Search API error, falling back to Admin API:", searchErr);
+    console.warn("Cloudinary Search API error or empty, checking Admin API:", searchErr);
   }
 
-  // Method 2: Fallback to Cloudinary Admin Resources API (fetches image & raw separately)
+  // Method 2: Fallback to Cloudinary Admin Resources API with prefix (strongly consistent)
   const files: IUploadedFile[] = [];
+  const seenIds = new Set<string>();
 
   const [imagesRes, rawRes] = await Promise.allSettled([
     cloudinary.api.resources({
       type: "upload",
-      prefix: CLOUDINARY_UPLOAD_FOLDER,
+      prefix: userFolder,
       resource_type: "image",
       max_results: 100,
       context: true,
+      tags: true,
     }),
     cloudinary.api.resources({
       type: "upload",
-      prefix: CLOUDINARY_UPLOAD_FOLDER,
+      prefix: userFolder,
       resource_type: "raw",
       max_results: 100,
       context: true,
+      tags: true,
     }),
   ]);
 
-  if (imagesRes.status === "fulfilled" && imagesRes.value?.resources) {
-    imagesRes.value.resources.forEach((res: any) => {
-      const format = res.format || "jpg";
-      const originalName =
-        res.context?.custom?.originalName ||
-        res.context?.originalName ||
-        (res.filename ? `${res.filename}.${format}` : `${path.basename(res.public_id)}.${format}`);
+  const addResource = (res: any, defaultType: string, defaultExt: string) => {
+    if (!res || !res.public_id || seenIds.has(res.public_id)) return;
+    if (!isUserAsset(res)) return;
 
-      files.push({
-        id: res.public_id,
-        originalName,
-        secureUrl: res.secure_url,
-        publicId: res.public_id,
-        resourceType: "image",
-        format,
-        bytes: res.bytes || 0,
-        width: res.width ?? null,
-        height: res.height ?? null,
-        uploadedAt: res.created_at,
-      });
+    seenIds.add(res.public_id);
+    const format = res.format || defaultExt;
+    const originalName =
+      res.context?.custom?.originalName ||
+      res.context?.originalName ||
+      (res.filename ? `${res.filename}.${format}` : `${path.basename(res.public_id)}.${format}`);
+
+    files.push({
+      id: res.public_id,
+      originalName,
+      secureUrl: res.secure_url,
+      publicId: res.public_id,
+      resourceType: res.resource_type || defaultType,
+      format,
+      bytes: res.bytes || 0,
+      width: res.width ?? null,
+      height: res.height ?? null,
+      uploadedAt: res.created_at || new Date().toISOString(),
     });
+  };
+
+  if (imagesRes.status === "fulfilled" && imagesRes.value?.resources) {
+    imagesRes.value.resources.forEach((res: any) => addResource(res, "image", "jpg"));
   }
 
   if (rawRes.status === "fulfilled" && rawRes.value?.resources) {
-    rawRes.value.resources.forEach((res: any) => {
-      const format = res.format || "pdf";
-      const originalName =
-        res.context?.custom?.originalName ||
-        res.context?.originalName ||
-        (res.filename ? `${res.filename}.${format}` : `${path.basename(res.public_id)}.${format}`);
+    rawRes.value.resources.forEach((res: any) => addResource(res, "raw", "pdf"));
+  }
 
-      files.push({
-        id: res.public_id,
-        originalName,
-        secureUrl: res.secure_url,
-        publicId: res.public_id,
-        resourceType: "raw",
-        format,
-        bytes: res.bytes || 0,
-        width: res.width ?? null,
-        height: res.height ?? null,
-        uploadedAt: res.created_at,
+  // Also query by tag if prefix was empty
+  if (files.length === 0) {
+    try {
+      const tagRes = await cloudinary.api.resources_by_tag(userTag, {
+        max_results: 100,
+        context: true,
+        tags: true,
       });
-    });
+      if (tagRes?.resources && Array.isArray(tagRes.resources)) {
+        tagRes.resources.forEach((res: any) =>
+          addResource(res, res.resource_type || "image", res.format || "jpg")
+        );
+      }
+    } catch {
+      // Ignore if tag indexing not present
+    }
   }
 
   // Sort newest first
@@ -251,11 +310,55 @@ const getAllUploadedFiles = async (): Promise<IUploadedFile[]> => {
 
 /**
  * Delete a specific file from Cloudinary by its publicId.
+ * Verifies ownership if the requester is not an ADMIN.
  */
 const deleteUploadedFile = async (
   publicId: string,
-  resourceType: string = "image"
+  resourceType: string = "image",
+  userId?: string,
+  role?: string
 ) => {
+  if (!publicId) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "File publicId is required");
+  }
+
+  // Security check: verify user owns the file unless ADMIN
+  if (role !== "ADMIN" && userId) {
+    const safeUserId = String(userId).trim().replace(/[^a-zA-Z0-9_-]/g, "_");
+    const userFolder = `${CLOUDINARY_UPLOAD_FOLDER}/${safeUserId}`;
+    const userTag = `user_${safeUserId}`;
+
+    const hasFolderPrefix =
+      publicId.startsWith(`${userFolder}/`) ||
+      publicId.startsWith(`${userFolder}`);
+
+    if (!hasFolderPrefix) {
+      try {
+        const resource = await cloudinary.api.resource(publicId, {
+          resource_type: resourceType as any,
+          context: true,
+          tags: true,
+        });
+
+        const isOwner =
+          (Array.isArray(resource?.tags) && resource.tags.includes(userTag)) ||
+          resource?.context?.userId === safeUserId ||
+          resource?.context?.custom?.userId === safeUserId ||
+          resource?.context?.rawUserId === String(userId);
+
+        if (!isOwner) {
+          throw new ApiError(
+            httpStatus.FORBIDDEN,
+            "আপনি এই ফাইলটি মুছে ফেলার অনুমতিপ্রাপ্ত নন (You do not have permission to delete this file)"
+          );
+        }
+      } catch (err: any) {
+        if (err instanceof ApiError) throw err;
+        // If resource fetching failed with 404, continue to destroy
+      }
+    }
+  }
+
   try {
     const result = await cloudinary.uploader.destroy(publicId, {
       resource_type: resourceType as any,
