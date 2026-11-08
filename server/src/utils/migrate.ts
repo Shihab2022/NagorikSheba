@@ -1,7 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import config from '../config';
-import { runner } from 'node-pg-migrate';
+import type { runner as RunnerType } from 'node-pg-migrate'; // type-only, erased at compile time
+
+// Stops TypeScript from turning import() into require() when compiling to CommonJS
+const dynamicImport = new Function('specifier', 'return import(specifier)') as (
+    specifier: string,
+) => Promise<{ runner: typeof RunnerType }>;
 
 export async function runMigrations() {
     if (!config.database_url) {
@@ -22,6 +27,9 @@ export async function runMigrations() {
     const migrationsPath = fs.existsSync(compiledMigrationsPath)
         ? compiledMigrationsPath
         : sourceMigrationsPath;
+
+    // Load the ESM-only package lazily, at the moment migrations actually run
+    const { runner } = await dynamicImport('node-pg-migrate');
 
     await runner({
         databaseUrl: migrationUrl,
