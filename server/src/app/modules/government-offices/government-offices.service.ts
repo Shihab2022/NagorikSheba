@@ -7,6 +7,12 @@ import {
   type PassportAreaSearchInput,
 } from "./office-location-provider";
 import { getValhallaDrivingDistanceKm } from "./valhalla-routing.provider";
+import { dispatchOfficeSearch } from "./provider-dispatch";
+import { getServiceDefinitionByServiceKey } from "./service-definitions";
+import { type NormalizedOffice } from "./office-provider.types";
+// Register the Election Commission OSM provider with the shared provider
+// registry so NID requests can be dispatched to it.
+import "./election-commission-osm.provider";
 
 /**
  * Government offices — nearby lookup module.
@@ -173,6 +179,141 @@ const mapOfficeRow = (row: Record<string, unknown>): NearbyOfficeRow => ({
 });
 
 /**
+ * Map a NormalizedOffice (EC OSM provider) into the existing nearby-office
+ * response shape. Coordinates and distance remain nullable where applicable.
+ */
+const mapNidOfficesToResponse = (offices: NormalizedOffice[]) =>
+  offices.map((o) => ({
+    id: o.id,
+    name: o.name,
+    officeType: o.officeType,
+    address: o.address ?? null,
+    district: o.matchedArea?.district ?? null,
+    upazila: o.matchedArea?.upazila ?? null,
+    latitude: o.latitude,
+    longitude: o.longitude,
+    phone: o.phone ?? null,
+    officialUrl: o.officialUrl ?? null,
+    lastVerifiedAt: null,
+    source: o.source,
+    family: o.family,
+    matchedArea: o.matchedArea,
+    distanceKm: o.distanceKm,
+  }));
+
+const paginate = <T>(items: T[], page: number, limit: number) => {
+  const start = (page - 1) * limit;
+  return items.slice(start, start + limit);
+};
+
+/**
+ * NID GPS discovery: dispatches to the configured Election Commission OSM
+ * provider through the shared provider dispatcher.
+ */
+const findNearbyNidOffices = async (params: {
+  service: OfficeServiceKey;
+  lat: number;
+  lng: number;
+  radiusKm: number;
+  page: number;
+  limit: number;
+}) => {
+  const serviceDefinition = getServiceDefinitionByServiceKey(params.service);
+  if (!serviceDefinition) {
+    throw new AppError(
+      httpStatus.NOT_IMPLEMENTED,
+      "NID service is not configured.",
+    );
+  }
+
+  const outcome = await dispatchOfficeSearch({
+    serviceDefinition,
+    mode: "gps",
+    params: { lat: params.lat, lng: params.lng, radiusKm: params.radiusKm },
+  });
+
+  const offices = mapNidOfficesToResponse(outcome.offices);
+  const total = offices.length;
+
+  if (outcome.outcome === "complete-failure") {
+    throw new AppError(
+      503,
+      "Office discovery failed — all configured providers were unavailable.",
+    );
+  }
+  if (outcome.outcome === "missing-config") {
+    throw new AppError(
+      httpStatus.NOT_IMPLEMENTED,
+      "NID office discovery is not configured.",
+    );
+  }
+
+  return {
+    service: params.service,
+    origin: { lat: params.lat, lng: params.lng },
+    radiusKm: params.radiusKm,
+    offices: paginate(offices, params.page, params.limit),
+    meta: { page: params.page, limit: params.limit, total },
+  };
+};
+
+/**
+ * NID area discovery: dispatches to the configured Election Commission OSM
+ * provider through the shared provider dispatcher.
+ */
+const findOfficesByAreaNid = async (params: {
+  service: OfficeServiceKey;
+  district: string;
+  districtBn?: string;
+  upazila?: string;
+  upazilaBn?: string;
+  page: number;
+  limit: number;
+}) => {
+  const serviceDefinition = getServiceDefinitionByServiceKey(params.service);
+  if (!serviceDefinition) {
+    throw new AppError(
+      httpStatus.NOT_IMPLEMENTED,
+      "NID service is not configured.",
+    );
+  }
+
+  const outcome = await dispatchOfficeSearch({
+    serviceDefinition,
+    mode: "area",
+    params: {
+      district: params.district,
+      districtBn: params.districtBn,
+      upazila: params.upazila,
+      upazilaBn: params.upazilaBn,
+    },
+  });
+
+  const offices = mapNidOfficesToResponse(outcome.offices);
+  const total = offices.length;
+
+  if (outcome.outcome === "complete-failure") {
+    throw new AppError(
+      503,
+      "Office discovery failed — all configured providers were unavailable.",
+    );
+  }
+  if (outcome.outcome === "missing-config") {
+    throw new AppError(
+      httpStatus.NOT_IMPLEMENTED,
+      "NID office discovery is not configured.",
+    );
+  }
+
+  return {
+    service: params.service,
+    area: { district: params.district, upazila: params.upazila },
+    offices: paginate(offices, params.page, params.limit),
+    meta: { page: params.page, limit: params.limit, total },
+  };
+};
+
+/**
  * Offices supporting `service` within `radiusKm` of the given coordinates,
  * nearest first. A bounding-box pre-filter (indexed) narrows the candidate
  * set before the exact Haversine distance is computed in SQL.
@@ -285,6 +426,19 @@ const findNearbyOffices = async (params: {
       offices,
       meta: { page, limit, total: offices.length },
     };
+  }
+
+  // NID office discovery goes through the shared provider dispatcher
+  // (Election Commission OSM provider) instead of the PostgreSQL path.
+  if (service === "NID") {
+    return findNearbyNidOffices({
+      service,
+      lat,
+      lng,
+      radiusKm,
+      page,
+      limit,
+    });
   }
 
   // existing DB path for other services
@@ -437,6 +591,20 @@ const findOfficesByArea = async (params: {
         total: candidates.length,
       },
     };
+  }
+
+  // NID area discovery goes through the shared provider dispatcher
+  // (Election Commission OSM provider) instead of the PostgreSQL path.
+  if (service === "NID") {
+    return findOfficesByAreaNid({
+      service,
+      district: district as string,
+      districtBn: sanitizedDistrictBn,
+      upazila: upazila as string | undefined,
+      upazilaBn: sanitizedUpazilaBn,
+      page,
+      limit,
+    });
   }
 
   const filters = `o."isDeleted" = FALSE AND o."isActive" = TRUE
