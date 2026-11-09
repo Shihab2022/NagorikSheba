@@ -36,23 +36,27 @@ const STRINGS = {
 };
 
 /**
- * Service card used on home, category, search and services pages.
+ * Service card used on home, category, search, services and dashboard pages.
  * Fully responsive for Mobile Phone, iPad/Tablet, Laptop and Desktop.
  * `compact` drops meta rows for dense grids.
+ * `basePath` controls destination route (e.g. "/services" or "/dashboard/services").
  */
 export function ServiceCard({
   service,
   compact = false,
+  basePath = "/services",
 }: {
   service: GovernmentService;
   compact?: boolean;
+  basePath?: string;
 }) {
   const { t } = useTranslation();
   const s = t(STRINGS);
   const c = t(COMMON);
 
   const categoryLabel = service.categoryName || service.department;
-  const servicePath = `/services/${service.slug}`;
+  const cleanBase = (basePath || "/services").replace(/\/+$/, "");
+  const servicePath = `${cleanBase}/${service.slug}`;
   const docCount = service.documentsCount ?? service.requiredDocuments?.length ?? 0;
 
   return (

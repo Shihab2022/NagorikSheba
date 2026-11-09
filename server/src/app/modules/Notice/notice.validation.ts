@@ -21,7 +21,7 @@ export const NoticeSourceValidation = {
         .passthrough()
         .default({}),
       isActive: z.boolean().default(true),
-      fetchIntervalMinutes: z.number().int().min(10).default(180),
+      fetchIntervalMinutes: z.number().int().min(10).default(360),
     }),
   }),
 
