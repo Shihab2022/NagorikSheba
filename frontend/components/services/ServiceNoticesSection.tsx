@@ -9,12 +9,14 @@ interface ServiceNoticesSectionProps {
   notices: NoticeItem[];
   categorySlug: string;
   categoryName?: string;
+  baseNoticesPath?: string;
 }
 
 export function ServiceNoticesSection({
   notices,
   categorySlug,
   categoryName,
+  baseNoticesPath = "/notices",
 }: ServiceNoticesSectionProps) {
   if (!notices || notices.length === 0) {
     return null;
@@ -103,7 +105,7 @@ export function ServiceNoticesSection({
 
         <div className="pt-2 text-right">
           <Link
-            href={`/notices/${categorySlug}`}
+            href={`${baseNoticesPath.replace(/\/+$/, "")}/${categorySlug}`}
             className="inline-flex items-center gap-1 text-xs font-bold text-brand-700 hover:underline"
           >
             View all {categoryName || ""} notices

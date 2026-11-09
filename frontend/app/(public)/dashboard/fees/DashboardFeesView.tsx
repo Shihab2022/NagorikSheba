@@ -34,7 +34,7 @@ export function DashboardFeesView({ services = [] }: { services?: GovernmentServ
             </p>
             <div className="mt-4 flex flex-wrap gap-3 border-t border-slate-100 pt-4">
               <Link
-                href={`/services/${svc.slug}`}
+                href={`/dashboard/services/${svc.slug}`}
                 className="inline-flex items-center gap-1 text-xs font-bold text-brand-700 hover:text-brand-800"
               >
                 Details <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />

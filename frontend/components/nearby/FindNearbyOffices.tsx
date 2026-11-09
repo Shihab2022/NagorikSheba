@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Loader2, MapPin, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { AreaPickerModal } from "@/components/nearby/AreaPickerModal";
@@ -59,7 +59,9 @@ const STRINGS = {
  * the URL (refresh-safe). On any failure it falls back to manual area
  * selection — the feature is never blocked.
  */
-export function FindNearbyOffices({ slug }: { slug: string }) {
+export function FindNearbyOffices({ slug, basePath }: { slug: string; basePath?: string }) {
+  const pathname = usePathname();
+  const targetBase = (basePath || (pathname?.startsWith("/dashboard") ? "/dashboard/services" : "/services")).replace(/\/+$/, "");
   const { t } = useTranslation();
   const s = t(STRINGS);
   const router = useRouter();
@@ -84,7 +86,7 @@ export function FindNearbyOffices({ slug }: { slug: string }) {
         lat: lat.toFixed(5),
         lng: lng.toFixed(5),
       });
-      router.push(`/services/${slug}/nearby-offices?${params.toString()}`);
+      router.push(`${targetBase}/${slug}/nearby-offices?${params.toString()}`);
     } catch (err) {
       const reason =
         err instanceof GeolocationError ? err.reason : "unknown";
@@ -98,7 +100,7 @@ export function FindNearbyOffices({ slug }: { slug: string }) {
       setPickerOpen(false);
       const params = new URLSearchParams({ district: area.district });
       if (area.upazila) params.set("upazila", area.upazila);
-      router.push(`/services/${slug}/nearby-offices?${params.toString()}`);
+      router.push(`${targetBase}/${slug}/nearby-offices?${params.toString()}`);
     },
     [router, slug],
   );

@@ -87,6 +87,7 @@ export interface ServicesExplorerProps {
   initialAvailability?: string;
   initialSort?: SortKey;
   departments?: string[];
+  basePath?: string;
 }
 
 /**
@@ -107,9 +108,11 @@ export function ServicesExplorer({
   initialAvailability = "all",
   initialSort = "popular",
   departments = [],
+  basePath,
 }: ServicesExplorerProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const resolvedBasePath = basePath || (pathname.startsWith("/dashboard") ? "/dashboard/services" : "/services");
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const { t } = useTranslation();
@@ -528,7 +531,7 @@ export function ServicesExplorer({
             )}
           >
             {initialServices.map((service) => (
-              <ServiceCard key={service.id} service={service} />
+              <ServiceCard key={service.id} service={service} basePath={resolvedBasePath} />
             ))}
           </div>
         )}

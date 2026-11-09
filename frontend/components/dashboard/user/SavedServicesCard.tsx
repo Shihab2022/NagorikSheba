@@ -42,7 +42,7 @@ export function SavedServicesCard({ services }: SavedServicesCardProps) {
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         {services.map((s) => (
-          <ServiceCard key={s.id} service={s} />
+          <ServiceCard key={s.id} service={s} basePath="/dashboard/services" />
         ))}
       </div>
     </section>
