@@ -6,8 +6,13 @@ import ApiError from "../../errors/AppError";
 import { UploadService } from "./upload.services";
 
 const uploadFiles = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  if (!user?.id) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, "You are not authorized!");
+  }
+
   const files = req.files as Express.Multer.File[];
-  const result = await UploadService.uploadFiles(files);
+  const result = await UploadService.uploadFiles(files, user.id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -17,8 +22,13 @@ const uploadFiles = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getAllUploadedFiles = catchAsync(async (_req: Request, res: Response) => {
-  const files = await UploadService.getAllUploadedFiles();
+const getAllUploadedFiles = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  if (!user?.id) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, "You are not authorized!");
+  }
+
+  const files = await UploadService.getAllUploadedFiles(user.id, user.role);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -29,6 +39,11 @@ const getAllUploadedFiles = catchAsync(async (_req: Request, res: Response) => {
 });
 
 const deleteUploadedFile = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  if (!user?.id) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, "You are not authorized!");
+  }
+
   const publicId =
     req.params.publicId ||
     (req.query.publicId as string) ||
@@ -44,7 +59,9 @@ const deleteUploadedFile = catchAsync(async (req: Request, res: Response) => {
 
   const result = await UploadService.deleteUploadedFile(
     publicId,
-    resourceType
+    resourceType,
+    user.id,
+    user.role
   );
 
   sendResponse(res, {

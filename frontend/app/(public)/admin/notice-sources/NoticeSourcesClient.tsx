@@ -44,7 +44,7 @@ export function NoticeSourcesClient({ initialSources, categories }: Props) {
   const [categoryId, setCategoryId] = useState(categories[0]?.id || "");
   const [listUrl, setListUrl] = useState("");
   const [scraperType, setScraperType] = useState<"html" | "rss">("html");
-  const [fetchIntervalMinutes, setFetchIntervalMinutes] = useState(180);
+  const [fetchIntervalMinutes, setFetchIntervalMinutes] = useState(360);
   const [isActive, setIsActive] = useState(true);
 
   // HTML Config fields
@@ -75,7 +75,7 @@ export function NoticeSourcesClient({ initialSources, categories }: Props) {
     setCategoryId(categories[0]?.id || "");
     setListUrl("");
     setScraperType("html");
-    setFetchIntervalMinutes(180);
+    setFetchIntervalMinutes(360);
     setIsActive(true);
     setItemSelector("table tbody tr");
     setTitleSelector("td:nth-child(2) a");
@@ -95,7 +95,7 @@ export function NoticeSourcesClient({ initialSources, categories }: Props) {
     setCategoryId(s.categoryId);
     setListUrl(s.listUrl);
     setScraperType((s.scraperType as "html" | "rss") || "html");
-    setFetchIntervalMinutes(s.fetchIntervalMinutes || 180);
+    setFetchIntervalMinutes(s.fetchIntervalMinutes || 360);
     setIsActive(s.isActive);
 
     const cfg = s.config || {};

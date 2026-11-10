@@ -103,6 +103,7 @@ export function UserSidebar({
       {items.map((item) => {
         const active =
           pathname === item.href ||
+          (item.href !== "/dashboard" && pathname.startsWith(item.href + "/")) ||
           (item.href === "/dashboard/tax-calculator" &&
             (pathname === "/income-tax-calculator" ||
               pathname === "/dashboard/income-tax-calculator"));

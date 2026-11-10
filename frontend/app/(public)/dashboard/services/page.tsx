@@ -162,6 +162,7 @@ export default async function DashboardServicesPage(props: ServicesPageProps) {
           initialDepartment={department}
           initialAvailability={availability}
           initialSort={sort}
+          basePath="/dashboard/services"
         />
       </div>
     </DashboardShell>

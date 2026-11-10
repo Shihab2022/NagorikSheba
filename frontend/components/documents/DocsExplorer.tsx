@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowRight, CheckSquare, ListChecks, Search } from "lucide-react";
 import type { GovernmentService } from "@/lib/types";
 import { Icon } from "@/components/ui/Icon";
@@ -10,6 +11,8 @@ export function DocsExplorer({ services = [] }: { services?: GovernmentService[]
   const [q, setQ] = useState("");
   const [sel, setSel] = useState(services[0]?.id ?? "");
   const [done, setDone] = useState<string[]>([]);
+  const pathname = usePathname();
+  const serviceBasePath = pathname?.startsWith("/dashboard") ? "/dashboard/services" : "/services";
 
   const list = useMemo(() => {
     const term = q.trim().toLowerCase();
@@ -130,7 +133,7 @@ export function DocsExplorer({ services = [] }: { services?: GovernmentService[]
               )}
             </ul>
             <Link
-              href={`/services/${svc.slug}`}
+              href={`${serviceBasePath}/${svc.slug}`}
               className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-brand-700 hover:text-brand-800"
             >
               View complete service guide <ArrowRight className="h-4 w-4" aria-hidden="true" />

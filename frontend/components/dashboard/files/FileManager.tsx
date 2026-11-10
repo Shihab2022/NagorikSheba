@@ -125,7 +125,7 @@ export function FileManager({ user }: FileManagerProps) {
 
   useEffect(() => {
     loadCloudFiles();
-  }, [loadCloudFiles]);
+  }, [loadCloudFiles, user?.id]);
 
   // When new files are uploaded via backend
   const handleUploadSuccess = (newUploaded: IUploadedFile[]) => {
