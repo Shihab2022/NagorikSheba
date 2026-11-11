@@ -304,7 +304,12 @@ export function NoticesAdminClient({
                       {notice.publishedAt ? (
                         <span className="flex items-center gap-1">
                           <Calendar className="h-3 w-3 text-slate-400" />
-                          {new Date(notice.publishedAt).toLocaleDateString()}
+                          {new Date(notice.publishedAt).toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                            timeZone: "Asia/Dhaka",
+                          })}
                         </span>
                       ) : (
                         "—"
