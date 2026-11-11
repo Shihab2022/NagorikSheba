@@ -28,7 +28,12 @@ export function ServiceNoticesSection({
       const d = new Date(dateStr);
       return isNaN(d.getTime())
         ? null
-        : d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+        : d.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+            timeZone: "Asia/Dhaka",
+          });
     } catch {
       return null;
     }

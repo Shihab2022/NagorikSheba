@@ -104,15 +104,19 @@ function getHostname(urlStr: string): string {
   }
 }
 
-function formatDate(dateStr: string | null): string {
-  if (!dateStr) return "Recent";
+function formatDate(dateStr: string | null | undefined): string | null {
+  if (!dateStr) return null;
   try {
     const d = new Date(dateStr);
-    return isNaN(d.getTime())
-      ? "Recent"
-      : d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+    if (isNaN(d.getTime())) return null;
+    return d.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      timeZone: "Asia/Dhaka",
+    });
   } catch {
-    return "Recent";
+    return null;
   }
 }
 
@@ -289,7 +293,7 @@ export function CategoryNoticesExplorer({
                             {hostname}
                           </span>
 
-                          {notice.publishedAt && (
+                          {notice.publishedAt && formatDate(notice.publishedAt) && (
                             <span className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-500">
                               <Calendar className="h-3 w-3 text-slate-400" />
                               {formatDate(notice.publishedAt)}
@@ -316,7 +320,7 @@ export function CategoryNoticesExplorer({
                               <span className="font-bold text-slate-700">{s.source}</span>
                               <span>{notice.sourceName || "Government Portal"} ({hostname})</span>
                             </div>
-                            {notice.publishedAt && (
+                            {notice.publishedAt && formatDate(notice.publishedAt) && (
                               <div className="flex items-center gap-2">
                                 <span className="font-bold text-slate-700">{s.publishedOn}</span>
                                 <span>{formatDate(notice.publishedAt)}</span>

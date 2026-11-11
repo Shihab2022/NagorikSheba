@@ -78,6 +78,11 @@ export function parseHtmlNotices(
       }
     }
 
+    // Fallback: If configured date selector was empty or absent, check if title contains an explicit date
+    if (!publishedAt && title) {
+      publishedAt = parseDateSafely(title);
+    }
+
     items.push({
       title,
       url: absoluteUrl,
