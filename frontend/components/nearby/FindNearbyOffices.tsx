@@ -26,6 +26,8 @@ const STRINGS = {
       "লোকেশন পেতে বেশি সময় লেগেছে। আবার চেষ্টা করুন বা এলাকা দিয়ে খুঁজুন।",
     errUnsupported:
       "এই ব্রাউজারে লোকেশন ব্যবহার করা যায় না। অনুগ্রহ করে এলাকা দিয়ে খুঁজুন।",
+    errOutsideBangladesh:
+      "আপনার অবস্থান বাংলাদেশের বাইরে শনাক্ত হয়েছে। নাগরিক সেবা শুধুমাত্র বাংলাদেশের অভ্যন্তরীণ অফিসের তথ্য প্রদান করে। এলাকা দিয়ে খুঁজুন।",
     errUnknown: "লোকেশন পাওয়া যায়নি। আবার চেষ্টা করুন বা এলাকা দিয়ে খুঁজুন।",
     needLocationBody:
       "নিকটবর্তী সরকারি অফিস দেখার জন্য আপনার বর্তমান লোকেশন বা নির্বাচিত এলাকা প্রয়োজন। নিচের বোতামে ক্লিক করুন।",
@@ -35,7 +37,7 @@ const STRINGS = {
   en: {
     cta: "Find Nearby Offices",
     locating: "Getting your location…",
-    why: "Your current location is used only to show the nearest government offices. Your precise location is never stored.",
+    why: "Your current location is used only to show the nearest government offices in Bangladesh. Your precise location is never stored.",
     manualLink: "Search by area instead",
     errDenied:
       "Location permission was denied. You can still find offices by selecting your district/upazila.",
@@ -45,9 +47,11 @@ const STRINGS = {
       "Getting your location took too long. Try again, or search by area.",
     errUnsupported:
       "This browser does not support location access. Please search by area.",
+    errOutsideBangladesh:
+      "Your location was detected outside Bangladesh. NagorikSheba only provides location services within Bangladesh. Please search by area instead.",
     errUnknown: "Could not get your location. Try again or search by area.",
     needLocationBody:
-      "To show nearby government offices we need your current location or a selected area. Click the button below.",
+      "To show nearby government offices we need your current location or a selected area in Bangladesh. Click the button below.",
     invalidCoordinates:
       "The latitude or longitude in this URL is incomplete or invalid. Use decimal coordinates such as 23.8103 and 90.4125, or get your location again.",
   },
@@ -68,7 +72,7 @@ export function FindNearbyOffices({ slug, basePath }: { slug: string; basePath?:
 
   const [locating, setLocating] = useState(false);
   const [errorKey, setErrorKey] = useState<
-    "permission-denied" | "position-unavailable" | "timeout" | "unsupported" | "unknown" | null
+    "permission-denied" | "position-unavailable" | "timeout" | "unsupported" | "outside-bangladesh" | "unknown" | null
   >(null);
   const [pickerOpen, setPickerOpen] = useState(false);
 
@@ -116,9 +120,11 @@ export function FindNearbyOffices({ slug, basePath }: { slug: string; basePath?:
           ? s.errTimeout
           : errorKey === "unsupported"
             ? s.errUnsupported
-            : errorKey === "unknown"
-              ? s.errUnknown
-              : null;
+            : errorKey === "outside-bangladesh"
+              ? s.errOutsideBangladesh
+              : errorKey === "unknown"
+                ? s.errUnknown
+                : null;
 
   return (
     <div className="rounded-2xl border border-brand-100 bg-brand-50/60 p-4">

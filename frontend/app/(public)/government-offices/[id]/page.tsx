@@ -7,8 +7,12 @@ export function generateStaticParams() {
   return OFFICES.map((o) => ({ id: o.id }));
 }
 
+type OfficeDetailPageProps = {
+  params: Promise<{ id: string }>;
+};
+
 export async function generateMetadata(
-  props: PageProps<"/government-offices/[id]">,
+  props: OfficeDetailPageProps,
 ): Promise<Metadata> {
   const { id } = await props.params;
   const office = getOfficeById(id);
@@ -16,7 +20,7 @@ export async function generateMetadata(
   return { title: office.name, description: `${office.typeLabel} — ${office.address}` };
 }
 
-export default async function OfficeDetailPage(props: PageProps<"/government-offices/[id]">) {
+export default async function OfficeDetailPage(props: OfficeDetailPageProps) {
   const { id } = await props.params;
   const office = getOfficeById(id);
   if (!office) notFound();

@@ -18,13 +18,14 @@ export interface NearbyOfficesResponse {
 }
 
 /**
- * Fetch offices supporting `service` near the given GPS coordinates,
+ * Fetch offices supporting `service` near the given GPS coordinates or location name,
  * sorted by approximate straight-line distance (nearest first).
  */
 export const getNearbyOffices = async (params: {
   service: OfficeServiceKey;
-  lat: number;
-  lng: number;
+  lat?: number;
+  lng?: number;
+  location?: string;
   radiusKm?: number;
   page?: number;
   limit?: number;
@@ -37,8 +38,43 @@ export const getNearbyOffices = async (params: {
       service: params.service,
       lat: params.lat,
       lng: params.lng,
+      location: params.location,
       radiusKm: params.radiusKm,
       page: params.page,
+      limit: params.limit,
+    },
+  });
+
+  return {
+    success: res.success,
+    message: res.message,
+    status: res.status,
+    data: res.data?.data,
+    meta: res.data?.meta ?? null,
+  };
+};
+
+/**
+ * AI-powered nearest location lookup using LangChain and LLM AI in Bangladesh.
+ */
+export const getAiNearestOffices = async (params: {
+  service?: OfficeServiceKey;
+  location?: string;
+  lat?: number;
+  lng?: number;
+  radiusKm?: number;
+  limit?: number;
+}): Promise<NearbyOfficesResponse> => {
+  const res = await apiHandler({
+    baseURL,
+    path: "government-offices/ai-nearest",
+    method: apiMethods.POST as keyof typeof apiMethods,
+    params: {
+      service: params.service,
+      location: params.location,
+      lat: params.lat,
+      lng: params.lng,
+      radiusKm: params.radiusKm,
       limit: params.limit,
     },
   });

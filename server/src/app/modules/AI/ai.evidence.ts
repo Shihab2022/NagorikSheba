@@ -280,6 +280,22 @@ function collectOfficialWebSources(
   }
 }
 
+function collectOfficeSources(
+  payload: unknown,
+  sources: AISourceLink[],
+): void {
+  const record = asAIRecord(payload);
+  if (!record) return;
+
+  for (const office of getAIRecords(record.offices)) {
+    const name = getAIString(office, "name");
+    const officialUrl = getAIString(office, "officialUrl");
+    if (name && officialUrl && isValidExternalUrl(officialUrl)) {
+      addSource(sources, `${name} – Official portal`, officialUrl, "external");
+    }
+  }
+}
+
 export function collectSources(
   toolResults: ToolEvidence[],
   isBangla: boolean,
@@ -289,6 +305,8 @@ export function collectSources(
   for (const result of toolResults) {
     if (result.toolName === "search_official_web") {
       collectOfficialWebSources(result.payload, sources);
+    } else if (result.toolName === "find_nearest_office") {
+      collectOfficeSources(result.payload, sources);
     } else {
       collectDatabaseSources(result.payload, sources, isBangla);
     }
@@ -307,7 +325,8 @@ type RequestedField =
   | "steps"
   | "fees"
   | "processingTime"
-  | "sources";
+  | "sources"
+  | "location";
 
 function requestedFields(question: string): RequestedField[] {
   const fields = new Set<RequestedField>();
@@ -326,6 +345,13 @@ function requestedFields(question: string): RequestedField[] {
   }
   if (/official|website|portal|contact|helpline|ওয়েবসাইট|পোর্টাল|যোগাযোগ|হেল্পলাইন/.test(text)) {
     fields.add("sources");
+  }
+  if (
+    /office|nearest|nearby|location|where|address|hospital|brta|অফিস|কাছাকাছি|নিকটতম|কোথায়|কোথায়|ঠিকানা|লোকেশন|হাসপাতাল/.test(
+      text,
+    )
+  ) {
+    fields.add("location");
   }
 
   return [...fields];
@@ -356,6 +382,13 @@ function hasRequestedField(
     return getAIRecords(service.requirements).length > 0;
   }
   if (field === "steps") return getAIRecords(service.steps).length > 0;
+  if (field === "location") {
+    return (
+      getAIRecords(payload.offices).length > 0 ||
+      getAIRecords(service.offices).length > 0 ||
+      Boolean(payload.found && payload.success)
+    );
+  }
 
   return false;
 }
@@ -514,6 +547,15 @@ export function assessEvidence(
 
     if (result.toolName === "search_knowledge_base" && hasRelevantKnowledgeResult(payload, question)) {
       return { sufficient: true, reason: "available" };
+    }
+
+    if (result.toolName === "find_nearest_office") {
+      if (
+        payload.success !== false &&
+        (payload.found === true || getAIRecords(payload.offices).length > 0)
+      ) {
+        return { sufficient: true, reason: "available" };
+      }
     }
   }
 

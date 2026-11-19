@@ -66,6 +66,10 @@ const STARTERS: Dict<string>[] = [
     bn: "ড্রাইভিং লাইসেন্সের ফি কত?",
     en: "How much is the driving licence fee?",
   },
+  {
+    bn: "মিরপুরে নিকটস্থ পাসপোর্ট বা বিআরটিএ অফিস কোথায়?",
+    en: "Where is the nearest passport or BRTA office in Mirpur?",
+  },
 ];
 
 const STRINGS = {

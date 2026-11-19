@@ -21,11 +21,25 @@ const SERVICE_KEY_BY_SLUG: Record<string, OfficeServiceKey> = {
   "birth-registration": "BIRTH_REGISTRATION",
   "birth-certificate-copy": "BIRTH_REGISTRATION",
   "driving-license": "DRIVING_LICENCE",
+  "government-hospital-services": "HOSPITAL",
+  "land-mutation": "LAND",
+  "e-mutation": "LAND",
 };
 
 export function getOfficeServiceKey(slug: string): OfficeServiceKey | null {
   return SERVICE_KEY_BY_SLUG[slug] ?? null;
 }
+
+/**
+ * Geographical boundary coordinates for Bangladesh.
+ * NagorikSheba strictly restricts location operations to Bangladesh.
+ */
+export const BANGLADESH_BOUNDS = {
+  minLat: 20.5,
+  maxLat: 26.7,
+  minLng: 88.0,
+  maxLng: 92.7,
+} as const;
 
 /** Default and selectable search radii (km) for the nearby lookup. */
 export const RADIUS_OPTIONS_KM = [10, 25, 50, 100] as const;
@@ -43,6 +57,40 @@ export function isValidCoordinate(lat: unknown, lng: unknown): boolean {
     lng >= -180 &&
     lng <= 180
   );
+}
+
+/** Strictly checks that coordinates fall within Bangladesh territory. */
+export function isWithinBangladesh(lat: unknown, lng: unknown): boolean {
+  if (!isValidCoordinate(lat, lng)) return false;
+  const latitude = lat as number;
+  const longitude = lng as number;
+
+  if (
+    latitude < BANGLADESH_BOUNDS.minLat ||
+    latitude > BANGLADESH_BOUNDS.maxLat ||
+    longitude < BANGLADESH_BOUNDS.minLng ||
+    longitude > BANGLADESH_BOUNDS.maxLng
+  ) {
+    return false;
+  }
+
+  // Refined regional borders to reject bordering areas outside Bangladesh:
+  // South-West border: At latitude <= 23.3° N, western border is at ~88.85° E.
+  if (latitude <= 23.3 && longitude < 88.85) {
+    return false;
+  }
+
+  // Mid-West border: At 23.3° < latitude <= 24.0°, western border is at ~88.55° E.
+  if (latitude > 23.3 && latitude <= 24.0 && longitude < 88.55) {
+    return false;
+  }
+
+  // North-East border: North of 25.3° N, Bangladesh territory ends west of 92.5° E.
+  if (latitude > 25.3 && longitude > 92.5) {
+    return false;
+  }
+
+  return true;
 }
 
 export function parseCoordinateQuery(
@@ -68,6 +116,7 @@ export type GeolocationFailure =
   | "position-unavailable"
   | "timeout"
   | "unsupported"
+  | "outside-bangladesh"
   | "unknown";
 
 export class GeolocationError extends Error {
@@ -82,6 +131,7 @@ export class GeolocationError extends Error {
 /**
  * Request the user's current position once. Only call this after an
  * explicit user gesture (button click) — never on page load.
+ * Strictly verifies that the location is inside Bangladesh.
  */
 export function requestBrowserPosition(
   timeoutMs = 12_000,
@@ -99,15 +149,22 @@ export function requestBrowserPosition(
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        if (isValidCoordinate(latitude, longitude)) {
-          resolve({ lat: latitude, lng: longitude });
-        } else {
+        if (!isValidCoordinate(latitude, longitude)) {
           reject(
             new GeolocationError(
               "position-unavailable",
               "The device returned an invalid location.",
             ),
           );
+        } else if (!isWithinBangladesh(latitude, longitude)) {
+          reject(
+            new GeolocationError(
+              "outside-bangladesh",
+              "Your location was detected outside Bangladesh. NagorikSheba only provides services for locations within Bangladesh.",
+            ),
+          );
+        } else {
+          resolve({ lat: latitude, lng: longitude });
         }
       },
       (error) => {
@@ -223,6 +280,8 @@ export const OFFICE_TYPE_LABELS: Record<string, { bn: string; en: string }> = {
   MUNICIPALITY: { bn: "পৌরসভা", en: "Municipality" },
   CITY_CORPORATION: { bn: "সিটি কর্পোরেশন", en: "City Corporation" },
   BRTA_OFFICE: { bn: "বিআরটিএ অফিস", en: "BRTA Office" },
+  GOVERNMENT_HOSPITAL: { bn: "সরকারি হাসপাতাল", en: "Government Hospital" },
+  LAND_OFFICE: { bn: "ভূমি অফিস (নামজারি)", en: "AC Land Office" },
 };
 
 /** Bilingual display labels for office service keys. */
@@ -234,4 +293,7 @@ export const OFFICE_SERVICE_LABELS: Record<
   PASSPORT: { bn: "পাসপোর্ট", en: "Passport" },
   BIRTH_REGISTRATION: { bn: "জন্ম নিবন্ধন", en: "Birth Registration" },
   DRIVING_LICENCE: { bn: "ড্রাইভিং লাইসেন্স", en: "Driving Licence" },
+  HOSPITAL: { bn: "সরকারি হাসপাতাল", en: "Government Hospital" },
+  LAND: { bn: "ভূমি সেবা (নামজারি)", en: "Land Office" },
+  ALL: { bn: "সকল সরকারি অফিস", en: "All Government Offices" },
 };

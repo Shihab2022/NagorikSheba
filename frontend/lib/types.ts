@@ -169,7 +169,10 @@ export type OfficeServiceKey =
   | "NID"
   | "PASSPORT"
   | "BIRTH_REGISTRATION"
-  | "DRIVING_LICENCE";
+  | "DRIVING_LICENCE"
+  | "HOSPITAL"
+  | "LAND"
+  | "ALL";
 
 /** A government office returned by the nearby/by-area API, with the
  *  approximate straight-line distance from the user (km) when available. */

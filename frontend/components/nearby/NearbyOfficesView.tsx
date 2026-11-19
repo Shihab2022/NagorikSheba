@@ -46,6 +46,8 @@ const STRINGS = {
     errorTitle: "অফিসের তথ্য আনা যায়নি",
     errorHint: "সার্ভারে সমস্যা হতে পারে। একটু পরে আবার চেষ্টা করুন।",
     locErrDenied: "লোকেশনের অনুমতি দেওয়া হয়নি — আগের ফলাফল দেখানো হচ্ছে।",
+    locErrOutsideBangladesh:
+      "আপনার অবস্থান বাংলাদেশের বাইরে শনাক্ত হয়েছে। নাগরিক সেবা শুধুমাত্র বাংলাদেশের অভ্যন্তরীণ অফিস দেখাতে পারে।",
     locErrOther: "লোকেশন আপডেট করা যায়নি — আগের ফলাফল দেখানো হচ্ছে।",
     straightLineDisclaimer:
       "দূরত্ব আনুমানিক সরলরেখা। প্রকৃত রাস্তার দূরত্ব ও সময় Google Maps-এ দেখুন।",
@@ -67,6 +69,8 @@ const STRINGS = {
     errorTitle: "Could not load office data",
     errorHint: "There may be a server problem. Please try again shortly.",
     locErrDenied: "Location permission was denied — showing previous results.",
+    locErrOutsideBangladesh:
+      "Your location was detected outside Bangladesh. NagorikSheba only shows government offices within Bangladesh.",
     locErrOther: "Could not update location — showing previous results.",
     straightLineDisclaimer:
       "Distances are approximate straight-line values. See actual road distance and travel time on Google Maps.",
@@ -174,7 +178,9 @@ export function NearbyOfficesView({
       setLocError(
         err instanceof GeolocationError && err.reason === "permission-denied"
           ? s.locErrDenied
-          : s.locErrOther,
+          : err instanceof GeolocationError && err.reason === "outside-bangladesh"
+            ? s.locErrOutsideBangladesh
+            : s.locErrOther,
       );
     } finally {
       setLocating(false);

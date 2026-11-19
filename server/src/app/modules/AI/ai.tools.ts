@@ -7,6 +7,8 @@ import { TavilySearch } from "@langchain/tavily";
 import config from "../../../config";
 import { getServicePagePath } from "./ai.evidence";
 import { toSql } from "../../../utils/vector.util";
+import { GovernmentOfficesServices } from "../government-offices/government-offices.service";
+import { isWithinBangladesh } from "../government-offices/distance";
 
 export const searchServices = tool(
   async ({ query, limit }) => {
@@ -449,9 +451,127 @@ export const searchOfficialWeb = tool(
   },
 );
 
+export const findNearestOffices = tool(
+  async ({ service, location, lat, lng, radiusKm, limit }) => {
+    try {
+      const officeService = service ? service.trim() : "ALL";
+
+      // 1. If explicit lat/lng provided, strictly validate Bangladesh boundary
+      if (typeof lat === "number" && typeof lng === "number") {
+        if (!isWithinBangladesh(lat, lng)) {
+          return JSON.stringify({
+            success: false,
+            inBangladesh: false,
+            message:
+              "The provided coordinates are outside Bangladesh. NagorikSheba only provides location services within Bangladesh.",
+          });
+        }
+      }
+
+      // 2. Query nearest offices
+      const result = await GovernmentOfficesServices.findNearbyOffices({
+        service: officeService,
+        location: location?.trim(),
+        lat,
+        lng,
+        radiusKm: radiusKm ?? 50,
+        limit: limit ?? 5,
+      });
+
+      if (!result.offices || result.offices.length === 0) {
+        return JSON.stringify({
+          success: true,
+          inBangladesh: true,
+          found: false,
+          total: 0,
+          origin: result.origin,
+          locationName: result.locationName,
+          offices: [],
+          message: `No ${officeService} offices were found within ${result.radiusKm} km in Bangladesh.`,
+        });
+      }
+
+      return JSON.stringify({
+        success: true,
+        inBangladesh: true,
+        found: true,
+        total: result.offices.length,
+        country: "Bangladesh",
+        origin: result.origin,
+        locationName: result.locationName,
+        radiusKm: result.radiusKm,
+        offices: result.offices.map((office) => ({
+          name: office.name,
+          officeType: office.officeType,
+          address: office.address,
+          district: office.district,
+          upazila: office.upazila,
+          distanceKm: office.distanceKm,
+          phone: office.phone,
+          officialUrl: office.officialUrl,
+          lastVerifiedAt: office.lastVerifiedAt,
+          directionsUrl: `https://www.google.com/maps/dir/?api=1&origin=${result.origin.lat.toFixed(5)},${result.origin.lng.toFixed(5)}&destination=${office.latitude.toFixed(5)},${office.longitude.toFixed(5)}&travelmode=driving`,
+        })),
+      });
+    } catch (error) {
+      const errMsg = error instanceof Error ? error.message : String(error);
+      return JSON.stringify({
+        success: false,
+        error: errMsg,
+        message: errMsg,
+      });
+    }
+  },
+  {
+    name: "find_nearest_office",
+    description:
+      "Find the nearest verified government offices in Bangladesh (such as Passport Offices, NID/Election Commission Offices, BRTA/Driving Licence Offices, Birth Registration Authorities/City Corporations, Government Hospitals, or Land Offices). ONLY locations within Bangladesh are supported. Accepts either coordinates (lat/lng in Bangladesh) or a place name/address in Bangladesh (e.g. 'Mirpur, Dhaka', 'Uttara', 'Agrabad, Chattogram', 'Sylhet Sadar'). Use this whenever the citizen asks for the nearest, closest, or local government office, office locations, addresses, or directions in Bangladesh.",
+    schema: z.object({
+      service: z
+        .string()
+        .trim()
+        .optional()
+        .default("ALL")
+        .describe(
+          "The government office type needed: 'PASSPORT', 'NID', 'DRIVING_LICENCE' (BRTA), 'BIRTH_REGISTRATION', 'HOSPITAL', 'LAND', or 'ALL' (or service slug).",
+        ),
+      location: z
+        .string()
+        .trim()
+        .optional()
+        .describe(
+          "The user's area, city, upazila, district, or landmark within Bangladesh (e.g. 'Mirpur, Dhaka', 'Uttara', 'Agrabad, Chattogram', 'Sylhet Sadar').",
+        ),
+      lat: z
+        .number()
+        .optional()
+        .describe("User's latitude (must be within Bangladesh: 20.5 to 26.7)."),
+      lng: z
+        .number()
+        .optional()
+        .describe("User's longitude (must be within Bangladesh: 88.0 to 92.7)."),
+      radiusKm: z
+        .number()
+        .int()
+        .min(1)
+        .max(300)
+        .default(50)
+        .describe("Search radius in kilometers. Defaults to 50 km."),
+      limit: z
+        .number()
+        .int()
+        .min(1)
+        .max(10)
+        .default(5)
+        .describe("Maximum number of offices to return (default 5)."),
+    }),
+  },
+);
+
 export const aiTools = [
   searchServices,
   getServiceDetails,
   searchKnowledgeBase,
   searchOfficialWeb,
+  findNearestOffices,
 ];
