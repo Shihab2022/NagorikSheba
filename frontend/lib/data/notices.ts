@@ -155,30 +155,47 @@ export function getNoticeById(id: string): GovernmentNotice | undefined {
 }
 
 /** Relative-time-free formatted date, e.g. "8 Oct 2026" — localized for bn/en. */
-export function formatNoticeDate(iso: string, lang: Lang = "en"): string {
-  const d = new Date(`${iso}T00:00:00`);
-  return d.toLocaleDateString(lang === "bn" ? "bn-BD" : "en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+export function formatNoticeDate(iso: string | null | undefined, lang: Lang = "en"): string {
+  if (!iso) return "";
+  try {
+    const d = new Date(iso.includes("T") ? iso : `${iso}T00:00:00`);
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleDateString(lang === "bn" ? "bn-BD" : "en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      timeZone: "Asia/Dhaka",
+    });
+  } catch {
+    return "";
+  }
 }
 
-/** "Published X ago" helper based on a fixed reference date for demo data. */
-export function publishedLabel(iso: string, lang: Lang = "en"): string {
-  const now = new Date("2026-10-08T00:00:00");
-  const then = new Date(`${iso}T00:00:00`);
-  const hours = Math.round((now.getTime() - then.getTime()) / 3_600_000);
-  if (lang === "bn") {
-    if (hours < 24) return `${Math.max(hours, 1)} ঘণ্টা আগে প্রকাশিত`;
-    const daysBn = Math.round(hours / 24);
-    if (daysBn < 7) return `${daysBn} দিন আগে প্রকাশিত`;
-    return `${formatNoticeDate(iso, lang)} প্রকাশিত`;
+/** "Published X ago" helper localized for bn/en. */
+export function publishedLabel(iso: string | null | undefined, lang: Lang = "en"): string {
+  if (!iso) return "";
+  try {
+    const then = new Date(iso.includes("T") ? iso : `${iso}T00:00:00`);
+    if (isNaN(then.getTime())) return "";
+    const now = new Date();
+    const diffMs = now.getTime() - then.getTime();
+    if (diffMs < 0) {
+      return formatNoticeDate(iso, lang);
+    }
+    const hours = Math.round(diffMs / 3_600_000);
+    if (lang === "bn") {
+      if (hours < 24) return `${Math.max(hours, 1)} ঘণ্টা আগে প্রকাশিত`;
+      const daysBn = Math.round(hours / 24);
+      if (daysBn < 7) return `${daysBn} দিন আগে প্রকাশিত`;
+      return `${formatNoticeDate(iso, lang)} প্রকাশিত`;
+    }
+    if (hours < 24) return `Published ${Math.max(hours, 1)} hours ago`;
+    const days = Math.round(hours / 24);
+    if (days < 7) return `Published ${days} day${days === 1 ? "" : "s"} ago`;
+    return `Published ${formatNoticeDate(iso, lang)}`;
+  } catch {
+    return "";
   }
-  if (hours < 24) return `Published ${Math.max(hours, 1)} hours ago`;
-  const days = Math.round(hours / 24);
-  if (days < 7) return `Published ${days} day${days === 1 ? "" : "s"} ago`;
-  return `Published ${formatNoticeDate(iso, lang)}`;
 }
 
 /**

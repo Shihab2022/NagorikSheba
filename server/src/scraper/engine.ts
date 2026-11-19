@@ -203,7 +203,10 @@ export async function scrapeSource(
       const insertSql = `
         INSERT INTO notices (source_id, category_id, title, url, published_at, content_hash, is_manual, is_hidden)
         VALUES ${valueTuples.join(", ")}
-        ON CONFLICT (content_hash) DO NOTHING
+        ON CONFLICT (content_hash) DO UPDATE SET
+          title = EXCLUDED.title,
+          published_at = EXCLUDED.published_at
+        WHERE notices.is_manual = FALSE
       `;
 
       const insertRes = await pool.query(insertSql, queryParams);

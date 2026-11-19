@@ -42,11 +42,17 @@ export function NoticeCard({ notice }: { notice: GovernmentNotice }) {
       </p>
       <div className="mt-4 flex items-center justify-between border-t border-line pt-4">
         <span className="text-xs font-medium text-slate-400">
-          {publishedLabel(notice.publishedAt, lang)} ·{" "}
-          {s.minRead.replace("{n}", String(notice.readMinutes))} ·{" "}
-          <time dateTime={notice.publishedAt}>
-            {formatNoticeDate(notice.publishedAt, lang)}
-          </time>
+          {notice.publishedAt && formatNoticeDate(notice.publishedAt, lang) ? (
+            <>
+              {publishedLabel(notice.publishedAt, lang)} ·{" "}
+              {s.minRead.replace("{n}", String(notice.readMinutes))} ·{" "}
+              <time dateTime={notice.publishedAt}>
+                {formatNoticeDate(notice.publishedAt, lang)}
+              </time>
+            </>
+          ) : (
+            <span>{s.minRead.replace("{n}", String(notice.readMinutes))}</span>
+          )}
         </span>
         <Link
           href={`/notices/${notice.id}`}
